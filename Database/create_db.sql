@@ -15,8 +15,8 @@ GO
 
 CREATE TABLE [admin] (
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	[role] VARCHAR(20),
-	[name] VARCHAR(50),
+	[role] NVARCHAR(20),
+	[name] NVARCHAR(50),
 	avatar VARCHAR(100),
 	email VARCHAR(45),
 	[password] VARCHAR(45),
@@ -24,9 +24,9 @@ CREATE TABLE [admin] (
 
 CREATE TABLE showroom (
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	[name] VARCHAR(50),
-	[address] VARCHAR(100),
-	city VARCHAR(30),
+	[name] NVARCHAR(50),
+	[address] NVARCHAR(100),
+	city NVARCHAR(30),
 	phone VARCHAR(10)
 )
 
@@ -34,27 +34,29 @@ CREATE TABLE staff (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	[role] VARCHAR(20),
 	showroom_id INT FOREIGN KEY REFERENCES showroom(id),
-	[name] VARCHAR(50),
+	[name] NVARCHAR(50),
 	avatar VARCHAR(100),
 	email VARCHAR(45),
 	phone VARCHAR(10),
 	gender VARCHAR(20),
 	[password] VARCHAR(45),
-	[address] VARCHAR(100),
-	dob Date
+	[address] NVARCHAR(100),
+	dob DATE,
+	join_at DATE
 )
 
 CREATE TABLE client (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	[role] VARCHAR(20),
-	[name] VARCHAR(50),
+	[name] NVARCHAR(50),
 	avatar VARCHAR(100),
 	phone VARCHAR(10),
 	email VARCHAR(45),
 	[password] VARCHAR(45),
-	[address] VARCHAR(100),
+	[address] NVARCHAR(100),
 	gender VARCHAR(20),
 	dob DATE,
+	join_at DATE,
 	tax varchar(50)
 )
 
@@ -62,6 +64,7 @@ CREATE TABLE car_description (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	color VARCHAR(20),
 	fuel_type VARCHAR(50),
+	no_of_seat SMALLINT,
 	HP SMALLINT,
 	wheel_size SMALLINT,
 	bought_year SMALLINT,
@@ -70,7 +73,7 @@ CREATE TABLE car_description (
 	height SMALLINT,
 	km_spend VARCHAR(50),
 	manufactured_year SMALLINT,
-	others VARCHAR(100)
+	others NVARCHAR(100)
 )
 
 CREATE TABLE car (
@@ -86,7 +89,7 @@ CREATE TABLE car (
 CREATE TABLE car_image (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	car_id INT FOREIGN KEY REFERENCES car(id),
-	link VARCHAR(100)
+	link VARCHAR(300)
 )
 
 CREATE TABLE post (
@@ -94,7 +97,8 @@ CREATE TABLE post (
 	car_id INT FOREIGN KEY REFERENCES car(id) UNIQUE,
 	client_id INT FOREIGN KEY REFERENCES client(id),
 	[description] VARCHAR(2000),
-	created_at DATE
+	created_at DATE,
+	[status] VARCHAR(20)
 )
 
 CREATE TABLE invoice (
@@ -112,7 +116,8 @@ CREATE TABLE off_meeting (
 	staff_id INT FOREIGN KEY REFERENCES staff(id),
 	client_id INT FOREIGN KEY REFERENCES client(id),
 	meeting_date DATE,
-	meeting_type VARCHAR(30),
+	created_at DATE,
+	[descrtiption] NVARCHAR(2000),
 	[status] VARCHAR(20)
 )
 
@@ -120,6 +125,6 @@ CREATE TABLE feedback (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	client_id INT FOREIGN KEY REFERENCES client(id),
 	created_at DATE,
-	[description] VARCHAR(2000)
+	[description] NVARCHAR(2000)
 )
 
