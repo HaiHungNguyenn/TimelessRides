@@ -111,6 +111,17 @@ public class DemoTest {
     }
 
     @Test
+    public void testadmin(){
+        Admin admin = new Admin();
+        admin.setEmail("hai@gmail.com");
+        admin.setAvatar("dsfjdsf");
+        admin.setRole("admin");
+        admin.setPassword("123");
+        admin.setName("hai");
+        adminRepository.save(admin);
+    }
+
+    @Test
     public void testAddClient(){
         for (int i = 0; i < 100; i++) {
             Client client = new Client();

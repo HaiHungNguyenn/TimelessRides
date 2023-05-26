@@ -19,7 +19,7 @@ public class LogInController {
     private Service service;
 
     @GetMapping("/login-form")
-    ModelAndView access(@RequestParam String email, @RequestParam String password){
+    ModelAndView access(@RequestParam("email") String email, @RequestParam("password") String password){
        ModelAndView modelAndView = new ModelAndView();
         StaffDto staffDto = service.getStaffService().login(email, password);
         ClientDto clientDto = service.getClientService().login(email, password);
@@ -28,16 +28,16 @@ public class LogInController {
             modelAndView.setViewName("views/staff/profile");
         }
 
-        if(clientDto != null){
-            modelAndView.setViewName("/");
+        else if(clientDto != null){
+            modelAndView.setViewName("views/user/index");
         }
 
-        if(adminDto != null){
+        else if(adminDto != null){
             modelAndView.setViewName("views/admin/index");
         }
 
         else {
-            modelAndView.setViewName("signin");
+            modelAndView.setViewName("views/user/login");
         }
         return modelAndView;
 
