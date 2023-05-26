@@ -1,11 +1,18 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.service.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
+    @Autowired
+    private Service service;
+
+
     @GetMapping ("/")
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
@@ -54,4 +61,5 @@ public class UserController {
         modelAndView.setViewName("views/user/login");
         return modelAndView;
     }
+
 }
