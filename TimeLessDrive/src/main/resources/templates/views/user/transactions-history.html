@@ -144,6 +144,132 @@
     <section style="width:100%;height:80vh" >
 
         <!-- code here -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+
+            }
+
+            h1 {
+                text-align: center;
+                margin-bottom: 30px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+            }
+
+            th, td {
+                padding: 15px;
+                text-align: center;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                color: #333;
+                text-transform: uppercase;
+            }
+
+            td {
+                border-bottom: 1px solid #e6e6e6;
+                font-weight: 500;
+            }
+
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            tbody tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+
+            tbody tr:hover {
+                background-color: #f2f2f2;
+            }
+
+            .amount {
+                color: #00c853;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .bold {
+                font-weight: bold;
+            }
+
+            .capitalize {
+                text-transform: capitalize;
+            }
+
+            .button {
+                cursor: pointer;
+                padding: 6px 10px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+            }
+
+            .button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+        <body>
+
+        <table id="transactionTable">
+            <thead>
+            <tr>
+                <th class="center">Transaction ID</th>
+                <th class="center">Customer Name</th>
+                <th class="center">Car Model</th>
+                <th class="center">Purchase Date</th>
+                <th class="center">Amount</th>
+                <th class="center">Payment Method</th>
+                <th class="center">Salesperson</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>001</td>
+                <td class="capitalize">John Smith</td>
+                <td class="capitalize">Honda Civic</td>
+                <td class="center">May 15, 2023</td>
+                <td class="amount center bold">$25,000</td>
+                <td class="center">Credit Card</td>
+                <td class="capitalize">Jane Doe</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td>002</td>
+                <td class="capitalize">Jim</td>
+                <td class="capitalize">toyota</td>
+                <td class="center">May 17, 2023</td>
+                <td class="amount center bold">$39,000</td>
+                <td class="center">Credit Card</td>
+                <td class="capitalize">Victor</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td>003</td>
+                <td class="capitalize">Tony</td>
+                <td class="capitalize">Honda Civic</td>
+                <td class="center">May 30, 2023</td>
+                <td class="amount center bold">$25,000</td>
+                <td class="center">Credit Card</td>
+                <td class="capitalize">Jane Doe</td>
+            </tr>
+            </tbody>
+        </table>
+        </body>
 
     </section>
 
