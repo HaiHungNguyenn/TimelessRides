@@ -30,4 +30,6 @@ public class Post {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
+    private String status;
+
 }

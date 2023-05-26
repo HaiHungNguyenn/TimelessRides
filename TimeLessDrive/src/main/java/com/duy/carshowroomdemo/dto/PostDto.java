@@ -20,4 +20,5 @@ public class PostDto implements Serializable {
     ClientDto client;
     String description;
     LocalDate createdAt;
+    String status;
 }

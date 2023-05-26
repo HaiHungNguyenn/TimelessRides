@@ -212,6 +212,7 @@ public class DemoTest {
             post.setCar(x);
             post.setClient(clientList.get(Util.getRandInt(clientList.size())));
             post.setDescription("Write some description for the post");
+            post.setStatus("Pending");
             post.setCreatedAt(LocalDate.now());
 
             Post save = postRepository.save(post);
