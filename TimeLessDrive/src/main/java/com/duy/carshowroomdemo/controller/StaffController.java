@@ -32,7 +32,7 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/profile")
+    @RequestMapping("/staff/profile")
     public ModelAndView loginWithEmail(@RequestParam("email") String email,
                                        @RequestParam("password") String password,
                                        HttpSession session){
@@ -110,5 +110,13 @@ public class StaffController {
         return showMeetingRequestList();
     }
 
+    @RequestMapping("/admin/mailbox")
+    public ModelAndView showAdminPage(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("views/admin/mail-box");
+
+        return modelAndView;
+    }
 
 }
