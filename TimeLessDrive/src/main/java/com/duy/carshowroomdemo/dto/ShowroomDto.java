@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class ShowroomDto implements Serializable {
-    int id;
+    String id;
     String name;
     String address;
     String city;

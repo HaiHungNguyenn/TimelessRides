@@ -1,13 +1,13 @@
 package com.duy.carshowroomdemo;
 
-import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.OffMeetingDto;
+import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
-import com.duy.carshowroomdemo.service.ClientService;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
-import net.bytebuddy.asm.Advice;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -15,14 +15,12 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 @DataJpaTest
@@ -56,21 +54,9 @@ public class DemoTest {
     public final String CAR_IMAGE_URL = "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80";
 
     @Test
-    public void testAddShowroom(){
-        for (int i = 1; i < 5; i++) {
-            Showroom showroom = new Showroom();
-            showroom.setName("Showroom " + i);
-            showroom.setAddress("123 sample address");
-            showroom.setCity("Thai Nguyen");
-            showroom.setPhone(Util.getRandPhone());
-            Showroom save = showroomRepository.save(showroom);
-
-            Assertions.assertThat(save).isNotNull();
-        }
-    }
-    @Test
     public void testAddData(){
-        testAddadmin();
+        testAddAdmin();
+        testAddShowroom();
         testAddStaff();
         testAddClient();
         testAddCarDescription();
@@ -83,36 +69,53 @@ public class DemoTest {
     }
 
     @Test
+    public void testAddShowroom(){
+        for (int i = 1; i < 5; i++) {
+            Showroom showroom = new Showroom();
+            showroom.setName("Showroom " + i);
+            showroom.setAddress("123 sample address");
+            showroom.setCity("Thai Nguyen");
+            showroom.setPhone(Util.getRandPhone());
+            Showroom save = showroomRepository.save(showroom);
+
+            Assertions.assertThat(save).isNotNull();
+        }
+    }
+
+    @Test
     public void testAddStaff(){
-        List<Showroom> showroomList = new ArrayList<>();
-        showroomRepository.findAll().forEach(showroomList::add);
-        Staff staff = new Staff();
         for (int i = 0; i < 100; i++) {
+            List<Showroom> showroomList = new ArrayList<>();
+            showroomRepository.findAll().forEach(showroomList::add);
+            Staff staff = new Staff();
             staff.setRole("staff");
             staff.setName(Util.getRandName());
             staff.setAvatar(AVATAR_URL);
-            staff.setEmail(Util.getRandEmail());
+            staff.setEmail(Util.getRandEmail(staff.getName()));
             staff.setPhone(Util.getRandPhone());
             staff.setGender(Util.getRandGender());
-            staff.setPassword("password123");
+            staff.setPassword(Util.encodePassword("password123"));
             staff.setAddress("123 sample address");
-            staff.setDob(LocalDate.now());
+            staff.setDob(Util.getRandBirthDay());
             staff.setJoinDate(LocalDate.now());
             staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
 
             Staff save = staffRepository.save(staff);
             Assertions.assertThat(save).isNotNull();
         }
-
+        Staff staff = new Staff();
+        List<Showroom> showroomList = new ArrayList<>();
+        showroomRepository.findAll().forEach(showroomList::add);
         staff.setRole("staff");
         staff.setName(Util.getRandName());
         staff.setAvatar(AVATAR_URL);
         staff.setEmail("duy@gmail.com");
         staff.setPhone(Util.getRandPhone());
         staff.setGender("male");
-        staff.setPassword("123");
+        staff.setPassword(Util.encodePassword("123"));
         staff.setAddress("123 sample address");
-        staff.setDob(LocalDate.now());
+        staff.setDob(Util.getRandBirthDay());
+        staff.setJoinDate(LocalDate.now());
         staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
 
         Staff save = staffRepository.save(staff);
@@ -122,29 +125,30 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddadmin(){
+    public void testAddAdmin(){
         Admin admin = new Admin();
         admin.setEmail("hai@gmail.com");
-        admin.setAvatar("dsfjdsf");
+        admin.setAvatar(AVATAR_URL);
         admin.setRole("admin");
-        admin.setPassword("123");
+        admin.setPassword(Util.encodePassword("123"));
         admin.setName("hai");
         adminRepository.save(admin);
     }
 
     @Test
     public void testAddClient(){
-        Client client = new Client();
         for (int i = 0; i < 100; i++) {
+            Client client = new Client();
             client.setRole("client");
             client.setName(Util.getRandName());
             client.setAvatar(AVATAR_URL);
             client.setPhone(Util.getRandPhone());
-            client.setEmail(Util.getRandEmail());
-            client.setPassword("password123");
+            client.setEmail(Util.getRandEmail(client.getName()));
+            client.setPassword(Util.encodePassword("password123"));
             client.setAddress("123 sample address");
             client.setGender(Util.getRandGender());
-            client.setDob(LocalDate.now());
+            client.setDob(Util.getRandBirthDay());
+            client.setJoinDate(LocalDate.now());
             client.setTax("I dont know this field");
 
             Client save = clientRepository.save(client);
@@ -155,8 +159,8 @@ public class DemoTest {
 
     @Test
     public void testAddCarDescription(){
-        CarDescription carDescription = new CarDescription();
         for (int i = 0; i < 100; i++) {
+            CarDescription carDescription = new CarDescription();
             carDescription.setColor(Util.getRandColor());
             carDescription.setFuelType(Util.getRandFuelType());
             carDescription.setNoOfSeat((short) Util.getRandInt(4,8));
@@ -198,10 +202,10 @@ public class DemoTest {
 
     @Test
     public void testAddCarImage(){
-        List<Car> carList = new ArrayList<>();
-        carRepository.findAll().forEach(carList::add);
-        CarImage carImage = new CarImage();
         for (int i = 0; i < 300; i++) {
+            List<Car> carList = new ArrayList<>();
+            carRepository.findAll().forEach(carList::add);
+            CarImage carImage = new CarImage();
             carImage.setCar(carList.get(Util.getRandInt(carList.size())));
             carImage.setLink(CAR_IMAGE_URL);
 
@@ -259,12 +263,12 @@ public class DemoTest {
 
     @Test
     public void testAddOffMeeting(){
-        List<Staff> staffList = new ArrayList<>();
-        staffRepository.findAll().forEach(staffList::add);
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAll().forEach(clientList::add);
-        OffMeeting offMeeting = new OffMeeting();
         for (int i = 0; i < 100; i++) {
+            List<Staff> staffList = new ArrayList<>();
+            staffRepository.findAll().forEach(staffList::add);
+            List<Client> clientList = new ArrayList<>();
+            clientRepository.findAll().forEach(clientList::add);
+            OffMeeting offMeeting = new OffMeeting();
             offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
             offMeeting.setMeetingDate(LocalDate.now());
@@ -280,10 +284,10 @@ public class DemoTest {
 
     @Test
     public void testAddFeedback(){
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAll().forEach(clientList::add);
-        Feedback feedback = new Feedback();
         for (int i = 0; i < 100; i++) {
+            List<Client> clientList = new ArrayList<>();
+            clientRepository.findAll().forEach(clientList::add);
+            Feedback feedback = new Feedback();
             feedback.setClient(clientList.get(Util.getRandInt(clientList.size())));
             feedback.setCreatedAt(LocalDate.now());
             feedback.setDescription("This is a feedback from client");
@@ -326,7 +330,7 @@ public class DemoTest {
 
     @Test
     public void testLoadCar(){
-        Car car = carRepository.findById(1).get();
+        Car car = carRepository.findById("1").get();
         Assertions.assertThat(car).isNotNull();
     }
 
@@ -366,7 +370,7 @@ public class DemoTest {
     @Test
     public void testMappers(){
         MapperManager mapperManager = new MapperManager();
-        Client client = clientRepository.findById(55).get();
+        Client client = clientRepository.findById("55").get();
         ClientDto dto = mapperManager.getClientMapper().toDto(client);
         Client entity = mapperManager.getClientMapper().toEntity(dto);
 
@@ -381,6 +385,14 @@ public class DemoTest {
 
     }
 
+    @Test
+    public void testLogin(){
+
+        StaffDto login = new Service().getStaffService().login("duy@gmail.com", "123");
+
+        Assertions.assertThat(login).isNotNull();
+
+    }
 
 
 }

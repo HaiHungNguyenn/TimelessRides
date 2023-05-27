@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StaffDto implements Serializable {
-    int id;
+    String id;
     String role;
     String name;
     String avatar;

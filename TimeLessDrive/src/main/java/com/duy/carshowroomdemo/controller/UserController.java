@@ -1,7 +1,9 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.service.Service;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @Autowired
     private Service service;
+    @Autowired
+    private HttpSession session;
 
 
     @GetMapping ("/")

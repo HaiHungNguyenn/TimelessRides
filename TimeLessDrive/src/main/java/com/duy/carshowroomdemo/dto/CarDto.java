@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CarDto implements Serializable {
-    int id;
+    String id;
     String name;
     String brand;
     Long price;
