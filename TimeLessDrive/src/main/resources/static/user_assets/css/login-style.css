@@ -1,0 +1,102 @@
+*{
+    --main-background-color: red;
+    --main-border-color: red;
+    font-family: "Lato", sans-serif;
+}
+
+.form-outline label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+    user-select: none;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+.form-outline{
+    margin: auto;
+    transition: 0.25s ease;
+    position: relative;
+}
+
+.form-outline input:not(:placeholder-shown) + label,
+.form-outline input:focus + label{
+    top: 0;
+    background-color: white;
+    display: inline-block;
+
+}
+.form-outline input:focus + label{
+    opacity: 1;
+    color: var(--main-background-color);
+}
+
+.form-control:focus {
+    border-color: var(--main-border-color);
+    box-shadow:none;
+}
+
+.form-check-input:checked{
+    background-color: var(--main-background-color);
+    border-color: var(--main-border-color);
+}
+
+.form-link{
+    opacity: 0.8;
+    text-decoration: none;
+    color: var(--main-background-color);
+}
+
+.form-link:hover{
+    color: var(--main-background-color);
+    opacity: 1;
+}
+
+.nav-pills .nav-link{
+    color: black;
+    border: 1px black inset;
+    border-bottom: none;
+    border-radius: 2px;
+    opacity: 0.8;
+
+}
+
+.nav-link:hover{
+    opacity: 1;
+
+}
+
+.nav-link.active{
+    border:none;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: var(--main-background-color);
+}
+
+.submit{
+    display: block;
+    width: 100%;
+    max-width: 121px;
+    background-color: var(--main-background-color);
+    border: var(--main-border-color);
+    opacity: 0.8;
+    padding: 14px;
+    margin: auto;
+}
+
+.submit:hover{
+    background-color: var(--main-background-color);
+    border: var(--main-border-color);
+    opacity: 1;
+}
+
+.google{
+    justify-content: center;
+}
+
+.header__menu a{
+    text-decoration: none;
+}
