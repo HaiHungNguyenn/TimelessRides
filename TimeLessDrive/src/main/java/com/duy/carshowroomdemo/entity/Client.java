@@ -13,9 +13,9 @@ import java.util.List;
 @Table(name = "client")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private String id;
 
     @Column(name = "role", length = 20)
     private String role;
@@ -32,7 +32,7 @@ public class Client {
     @Column(name = "email", length = 45)
     private String email;
 
-    @Column(name = "password", length = 45)
+    @Column(name = "password", length = 100)
     private String password;
 
     @Column(name = "address", length = 100)

@@ -1,12 +1,13 @@
 package com.duy.carshowroomdemo.repository;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.OffMeeting;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface OffMeetingRepository extends CrudRepository<OffMeeting, Integer> {
+public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> {
     List<OffMeeting> findOffMeetingsByClient(Client client);
 }

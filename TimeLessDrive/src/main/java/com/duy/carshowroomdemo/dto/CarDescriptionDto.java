@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class CarDescriptionDto implements Serializable {
-    int id;
+    String id;
     String color;
     Short noOfSeat;
     String fuelType;

@@ -2,12 +2,10 @@ package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.entity.Client;
-import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.OffMeetingRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +15,7 @@ import java.util.List;
 public class OffMeetingService {
     @Autowired
     private OffMeetingRepository offMeetingRepository;
+
     private MapperManager mapperManager = new MapperManager();
 
 
@@ -37,6 +36,16 @@ public class OffMeetingService {
         offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto)).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
         });
+        return offMeetingDtoList;
+    }
+
+    public List<OffMeetingDto> getOffMeetingsPerPage(int offset, int size){
+        List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
+
+        offMeetingRepository.findAll(PageRequest.of(offset, size)).forEach((x) -> {
+            offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
+        });
+
         return offMeetingDtoList;
     }
 }
