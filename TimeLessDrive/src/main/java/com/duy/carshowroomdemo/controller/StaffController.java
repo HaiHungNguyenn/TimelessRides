@@ -22,8 +22,6 @@ public class StaffController {
 
     @Autowired
     private Service service;
-    @Autowired
-    private HttpSession session;
 
     @RequestMapping("/staff/")
     public ModelAndView showLoginPage(){
@@ -42,9 +40,6 @@ public class StaffController {
 
         StaffDto staff = service.getStaffService().login(email, password);
         if(staff != null){
-            System.out.println("the staff is not null");
-        }
-        if(staff != null){
             session.setAttribute("staff", staff);
             modelAndView.setViewName("views/staff/profile");
 //            modelAndView.addObject("staff", staff);
@@ -55,67 +50,38 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/staff/home")
+    @RequestMapping("/home")
     public ModelAndView showHomePage(){
         ModelAndView modelAndView = new ModelAndView();
 
-        if(session.getAttribute("user") == null){
-            modelAndView.setViewName("views/staff/my-index");
-        }else{
-            modelAndView.setViewName("views/staff/profile");
-        }
+        modelAndView.setViewName("views/staff/profile");
+        modelAndView.addObject("staff", new Staff());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests")
+    @RequestMapping("/meeting-requests")
     public ModelAndView showMeetingRequestList(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(1, 10);
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getAllMeetingRequests();
         modelAndView.addObject("allOffMeetings", allOffMeetings);
-        modelAndView.addObject("currentPage", 1);
         modelAndView.setViewName("views/staff/meeting-req");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/{offSet}")
-    public ModelAndView showMeetingRequestsPerPage(@PathVariable int offSet){
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offSet, 10);
-        modelAndView.addObject("allOffMeetings", allOffMeetings);
-        modelAndView.addObject("currentPage", offSet);
-        modelAndView.setViewName("views/staff/meeting-req");
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/staff/post-requests")
+    @RequestMapping("/post-requests")
     public ModelAndView showPostRequestList(){
         ModelAndView modelAndView = new ModelAndView();
-        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(1, 10);
-        modelAndView.addObject("currentPage", 1);
+        List<PostDto> allPostRequests = service.getPostService().getAllPostRequest();
         modelAndView.addObject("allPostRequests", allPostRequests);
         modelAndView.setViewName("views/staff/post-req");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/post-requests/{offSet}")
-    public ModelAndView showPostRequestsPerPage(@PathVariable int offSet){
-        ModelAndView modelAndView = new ModelAndView();
-
-        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(offSet, 10);
-        modelAndView.addObject("allPostRequests", allPostRequests);
-        modelAndView.addObject("currentPage", offSet);
-        modelAndView.setViewName("views/staff/post-req");
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/staff/create-invoice")
+    @RequestMapping("/create-invoice")
     public ModelAndView createInvoice(){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -124,11 +90,11 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/staff/user-details/{id}")
+    @RequestMapping("/user-details/{id}")
     public ModelAndView viewUserDetails(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
 
-        ClientDto clientDto = service.getClientService().findById(id);
+        ClientDto clientDto = service.getClientService().findById(Integer.parseInt(id));
         List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto);
         List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto);
         modelAndView.addObject("client", clientDto);

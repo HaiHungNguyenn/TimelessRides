@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class PostDto implements Serializable {
-    String id;
+    int id;
     CarDto car;
     ClientDto client;
     String description;

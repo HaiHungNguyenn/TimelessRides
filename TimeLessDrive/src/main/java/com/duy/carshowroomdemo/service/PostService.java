@@ -5,7 +5,6 @@ import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,16 +29,6 @@ public class PostService {
         postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto)).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
-        return postDtoList;
-    }
-
-    public List<PostDto> getPostsPerPage(int offSet, int size){
-        List<PostDto> postDtoList = new ArrayList<>();
-
-        postRepository.findAll(PageRequest.of(offSet, size)).forEach((x) -> {
-            postDtoList.add(mapperManager.getPostMapper().toDto(x));
-        });
-
         return postDtoList;
     }
 }

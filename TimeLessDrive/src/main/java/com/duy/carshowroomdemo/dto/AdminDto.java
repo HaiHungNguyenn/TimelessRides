@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class AdminDto implements Serializable {
-    String id;
+    int id;
     String role;
     String name;
     String avatar;

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class InvoiceDto implements Serializable {
-    String id;
+    int id;
     CarDto car;
     Long total;
     LocalDate createdAt;

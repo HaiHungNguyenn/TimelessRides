@@ -70,10 +70,10 @@
           <div class="dropdown"><button class="btn text-900 ps-0 pe-5 text-nowrap dropdown-toggle dropdown-caret-none" data-category-btn="data-category-btn" data-bs-toggle="dropdown"><span class="fas fa-bars me-2"></span></button>
           </div>
           <ul class="navbar-nav justify-content-end align-items-center">
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/staff/home">Home</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/staff/meeting-requests">Meeting Requests</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/staff/post-requests">Post Requests</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/staff/create-invoice">Create Invoice</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/home">Home</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/meeting-requests">Meeting Requests</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/post-requests">Post Requests</a></li>
+            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/create-invoice">Create Invoice</a></li>
               <div class="dropdown-menu dropdown-menu-end category-list" aria-labelledby="navbarDropdown" data-category-list="data-category-list"></div>
             </li>
           </ul>
@@ -102,9 +102,9 @@
                 <tbody class="list" id="profile-wishlist-table-body">
                   <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${allOffMeetings}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">
-                      <div class="text-center" th:with="count=((${currentPage} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
+                      <div class="text-center" th:text="${iStat.count}"/>
                     </td>
-                    <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
+                    <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getMeetingDate()}"/>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateAt()}"/>
                     <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>

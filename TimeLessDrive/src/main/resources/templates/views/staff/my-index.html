@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
 </head>
 <body>
   <div class="text-center">
-    <form action="/staff/profile" method="post">
+    <form action="/staff/profile" method="get">
       <input type="text" name="email"><br>
       <input type="password" name="password"><br>
-      <input type="submit" value="Login"><br>
-        <button><a th:href="@{/oauth2/authorization/google}">Continue with google</a></button>
+      <input type="submit" value="Login">
     </form>
   </div>
 </body>

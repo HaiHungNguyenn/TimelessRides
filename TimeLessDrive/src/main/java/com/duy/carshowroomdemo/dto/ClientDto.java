@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class ClientDto implements Serializable {
-    String id;
+    int id;
     String role;
     String name;
     String avatar;

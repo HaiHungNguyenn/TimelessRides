@@ -1,14 +1,9 @@
 package com.duy.carshowroomdemo.util;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.time.LocalDate;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
     static Random random = new Random();
-    static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
     public static String getRandPhone(){
         String phone = "09";
 
@@ -20,9 +15,15 @@ public class Util {
         return phone;
     }
 
-    public static String getRandEmail(String name) {
-        String[] s = name.split(" ");
-        return s[2] + s[0].charAt(0) + s[1].charAt(0) + "@gmail.com";
+    public static String getRandEmail() {
+        String email = "";
+
+        for (int i = 0; i < 10; i++) {
+            int a = random.nextInt(26) + 97;
+            email += (char) a;
+        }
+
+        return email + "@gmail.com";
     }
 
     public static String getRandGender(){
@@ -66,21 +67,5 @@ public class Util {
 
     public static int getRandInt(int lowerBound, int upperBound) {
         return getRandInt(lowerBound) + (upperBound - lowerBound);
-    }
-
-    public static LocalDate getRandBirthDay(){
-        LocalDate date1 = LocalDate.of(1980, 1, 1);
-        LocalDate date2 = LocalDate.of(2000, 1, 1);
-
-        long randomEpochDay = ThreadLocalRandom.current().longs(date1.toEpochDay(), date2.toEpochDay()).findAny().getAsLong();
-        return LocalDate.ofEpochDay(randomEpochDay);
-    }
-
-    public static String encodePassword(String rawPW){
-        return passwordEncoder.encode(rawPW);
-    }
-
-    public static boolean checkPassword(String rawPW, String encodedPW){
-        return passwordEncoder.matches(rawPW, encodedPW);
     }
 }

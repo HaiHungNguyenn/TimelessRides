@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OffMeetingDto implements Serializable {
-    String id;
+    int id;
     ClientDto client;
     StaffDto staff;
     LocalDate meetingDate;

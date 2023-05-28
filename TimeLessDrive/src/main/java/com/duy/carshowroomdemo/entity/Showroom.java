@@ -12,9 +12,9 @@ import java.util.List;
 @Table(name = "showroom")
 public class Showroom {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Integer id;
 
     @Column(name = "name", length = 50)
     private String name;

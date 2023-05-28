@@ -5,7 +5,6 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +17,6 @@ import java.util.List;
 public class LogInController {
     @Autowired
     private Service service;
-    @Autowired
-    private HttpSession session;
 
     @GetMapping("/login-form")
     ModelAndView access(@RequestParam("email") String email, @RequestParam("password") String password){
@@ -29,17 +26,14 @@ public class LogInController {
         AdminDto adminDto = service.getAdminService().login(email,password);
         if(staffDto != null){
             modelAndView.setViewName("views/staff/profile");
-            session.setAttribute("staff", staffDto);
         }
 
         else if(clientDto != null){
             modelAndView.setViewName("views/user/index");
-            session.setAttribute("user", clientDto);
         }
 
         else if(adminDto != null){
             modelAndView.setViewName("views/admin/index");
-            session.setAttribute("user", adminDto);
         }
 
         else {

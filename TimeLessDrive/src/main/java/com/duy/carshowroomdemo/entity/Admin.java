@@ -10,9 +10,9 @@ import lombok.Setter;
 @Table(name = "admin")
 public class Admin {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Integer id;
 
     @Column(name = "role", length = 20)
     private String role;
@@ -26,7 +26,7 @@ public class Admin {
     @Column(name = "email", length = 45)
     private String email;
 
-    @Column(name = "password", length = 100)
+    @Column(name = "password", length = 45)
     private String password;
 
 }

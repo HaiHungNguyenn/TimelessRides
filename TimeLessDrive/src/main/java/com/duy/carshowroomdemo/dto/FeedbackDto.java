@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class FeedbackDto implements Serializable {
-    String id;
+    int id;
     LocalDate createdAt;
     String description;
 }
