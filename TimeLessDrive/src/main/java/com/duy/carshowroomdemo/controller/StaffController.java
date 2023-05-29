@@ -71,8 +71,8 @@ public class StaffController {
     public ModelAndView showMeetingRequestList(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(0, 10);
-        modelAndView.addObject("allOffMeetings", allOffMeetings);
+        List<OffMeetingDto> offMeetingList = service.getOffMeetingService().getOffMeetingsPerPage(0, 10);
+        modelAndView.addObject("offMeetingList", offMeetingList);
         modelAndView.addObject("currentPage", 1);
         modelAndView.setViewName("views/staff/meeting-req");
 
@@ -84,21 +84,20 @@ public class StaffController {
         ModelAndView modelAndView = new ModelAndView();
 
         List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offset-1, 10);
-        modelAndView.addObject("allOffMeetings", allOffMeetings);
+        modelAndView.addObject("offMeetingList", allOffMeetings);
         modelAndView.addObject("currentPage", offset);
         modelAndView.setViewName("views/staff/meeting-req");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests{direction}{property}")
-    public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable("property") String property,
-                                                         @PathVariable("direction") String direction){
+    @RequestMapping("/staff/meeting-requests/sorted")
+    public ModelAndView showMeetingRequestsSortedPerPage(@RequestParam("property") String property,
+                                                         @RequestParam("direction") String direction){
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("property: " + property + "direction: " + direction);
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property, direction);
-        modelAndView.addObject("allOffMeetings", allOffMeetings);
+        List<OffMeetingDto> offMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property, direction);
+        modelAndView.addObject("offMeetingList", offMeetings);
         modelAndView.addObject("currentPage", 1);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);

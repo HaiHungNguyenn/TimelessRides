@@ -52,7 +52,7 @@ public class OffMeetingService {
     }
 
     public List<OffMeetingDto> getOffMeetingsSortedPerPage(int offset, int size, String property, String direction){
-        Sort.Direction sortDirection = (direction == "asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Sort.Direction sortDirection = (direction.equals("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
         offMeetingRepository.findAll(PageRequest.of(offset,size, Sort.by(sortDirection, property))).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
