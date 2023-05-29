@@ -19,6 +19,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 @DataJpaTest
@@ -388,9 +389,11 @@ public class DemoTest {
     public void testLogin(){
 //        offMeetingRepository.findAll(Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
 //        offMeetingRepository.findAll(PageRequest.of(1, 10), Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
-        System.out.println("==========================================================");
-        Util.writeRandomParagraph(10000);
+//        System.out.println("==========================================================");
+//        Util.writeRandomParagraph(10000);
 
+
+        System.out.println(UUID.randomUUID());
 //        PageImpl page = new PageImpl<>(offMeetingRepository.findAll(), PageRequest.of(0, 10), offMeetingRepository.count());
 ////        System.out.println(page.getTotalElements());
 ////        System.out.println(page.getTotalPages());

@@ -73,7 +73,7 @@
 
       <section class="pt-5 pb-9">
         <div class="container-small cart">
-          <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${allOffMeetings.size()} + ')'"></span></h2>
+          <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${offMeetingList.size()} + ')'"></span></h2>
           <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
@@ -81,15 +81,19 @@
                   <tr>
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;"><a class="link-dark no-underline" th:text="'Meeting Date'" th:href="@{/staff/meeting-requests/sorted-by-meetingDate}"/></th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;"><a class="link-dark no-underline" th:text="'Created At'" th:href="@{/staff/meeting-requests/sorted-by-createdAt}"/></th>
+                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:text="'Meeting Date'" th:href="@{/staff/meeting-requests/sorted(direction='asc', property='meetingDate')}"/>
+                    </th>
+                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:text="'Created At'" th:href="@{/staff/meeting-requests/sorted-by-createdAt}"/>
+                    </th>
                     <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
                     <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
                   </tr>
                 </thead>
                 <tbody class="list" id="profile-wishlist-table-body">
-                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${allOffMeetings}">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${offMeetingList}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">
                       <div class="text-center" th:with="count=((${currentPage} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>

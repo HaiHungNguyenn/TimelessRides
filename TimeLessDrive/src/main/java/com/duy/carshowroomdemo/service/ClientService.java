@@ -1,6 +1,9 @@
 package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
+
+import com.duy.carshowroomdemo.dto.StaffDto;
+
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
@@ -21,12 +24,18 @@ public class ClientService {
         return mapperManager.getClientMapper().toDto(repository.findById(id).orElse(null));
     }
 
+
+
     public ClientDto login(String email, String pass){
+
+
+
         Optional<Client> client = repository.findByEmail(email);
         if(client.isEmpty()){
             return null;
         }else {
             String encodedPW = client.get().getPassword();
+
             return Util.isValidPW(pass, encodedPW) ? mapperManager.getClientMapper().toDto(client.get())  : null;
         }
     }
@@ -37,5 +46,8 @@ public class ClientService {
 
     public boolean isExist(String email) {
         return repository.existsByEmail(email);
+
+
+
     }
 }
