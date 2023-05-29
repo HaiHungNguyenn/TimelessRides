@@ -91,24 +91,27 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/sorted-by-{property}")
-    public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable String property){
+    @RequestMapping("/staff/meeting-requests{direction}{property}")
+    public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable("property") String property,
+                                                         @PathVariable("direction") String direction){
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println("property: " + property + "direction: " + direction);
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property);
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property, direction);
         modelAndView.addObject("allOffMeetings", allOffMeetings);
         modelAndView.addObject("currentPage", 1);
         modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
         modelAndView.setViewName("views/staff/meeting-req");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/sorted-by-{property}/{offset}")
-    public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property, @PathVariable int offset){
+    @RequestMapping("/staff/meeting-requests/sorted-{direction}-by-{property}/{offset}")
+    public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property, @PathVariable int offset, @PathVariable String direction){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset-1, 10, property);
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset-1, 10, property, direction);
         modelAndView.addObject("allOffMeetings", allOffMeetings);
         modelAndView.addObject("currentPage", offset);
         modelAndView.addObject("property", property);

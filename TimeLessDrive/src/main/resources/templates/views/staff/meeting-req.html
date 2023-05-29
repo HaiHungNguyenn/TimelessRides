@@ -81,8 +81,12 @@
                   <tr>
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;"><a class="link-dark no-underline" th:text="'Meeting Date'" th:href="@{/staff/meeting-requests/sorted-by-meetingDate}"/></th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;"><a class="link-dark no-underline" th:text="'Created At'" th:href="@{/staff/meeting-requests/sorted-by-createdAt}"/></th>
+                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:text="'Meeting Date'" th:href="@{/staff/meeting-requests(direction='asc', property='meetingDate')}"/>
+                    </th>
+                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:text="'Created At'" th:href="@{/staff/meeting-requests/sorted-by-createdAt}"/>
+                    </th>
                     <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
                     <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>

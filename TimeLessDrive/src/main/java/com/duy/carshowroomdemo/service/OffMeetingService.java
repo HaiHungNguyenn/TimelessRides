@@ -51,9 +51,10 @@ public class OffMeetingService {
         return offMeetingDtoList;
     }
 
-    public List<OffMeetingDto> getOffMeetingsSortedPerPage(int offset, int size, String property){
+    public List<OffMeetingDto> getOffMeetingsSortedPerPage(int offset, int size, String property, String direction){
+        Sort.Direction sortDirection = (direction == "asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
-        offMeetingRepository.findAll(PageRequest.of(offset,size, Sort.by(property))).forEach(x -> {
+        offMeetingRepository.findAll(PageRequest.of(offset,size, Sort.by(sortDirection, property))).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
         });
         return offMeetingDtoList;

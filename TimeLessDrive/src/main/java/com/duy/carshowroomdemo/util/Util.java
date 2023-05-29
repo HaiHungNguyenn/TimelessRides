@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
@@ -134,5 +135,6 @@ public class Util {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 }
