@@ -19,3 +19,19 @@ function switchLogin(){
     register.className = "tab-pane fade";
     login.className = "tab-pane fade show active";
 }
+
+var check = function() {
+    if(document.getElementById('registerPassword').value == "" &&
+        document.getElementById('registerRepeatPassword').value == ""){
+        document.getElementById('message').innerHTML = '';
+    }
+    if (document.getElementById('registerPassword').value ==
+        document.getElementById('registerRepeatPassword').value) {
+        document.getElementById('message').style.color = 'green';
+        document.getElementById('message').innerHTML = 'Matched';
+    }
+    else {
+        document.getElementById('message').style.color = 'red';
+        document.getElementById('message').innerHTML = 'Not Matched';
+    }
+}

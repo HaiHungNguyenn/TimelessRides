@@ -27,124 +27,12 @@
 		  integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 	<link rel="stylesheet" href="../../user_assets/css/login-style.css">
 </head>
-
-<!-- Page Preloder -->
-<div id="preloder">
-	<div class="loader"></div>
-</div>
-
-<!-- Offcanvas Menu Begin -->
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-	<div class="offcanvas__widget">
-		<a href="#"><i class="fa fa-cart-plus"></i></a>
-		<a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-		<a href="#" class="primary-btn">Add Car</a>
-	</div>
-	<div class="offcanvas__logo">
-		<a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
-	</div>
-	<div id="mobile-menu-wrap"></div>
-	<ul class="offcanvas__widget__add">
-		<li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-		<li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
-	</ul>
-	<div class="offcanvas__phone__num">
-		<i class="fa fa-phone"></i>
-		<span>(+12) 345 678 910</span>
-	</div>
-	<div class="offcanvas__social">
-		<a href="#"><i class="fa fa-facebook"></i></a>
-		<a href="#"><i class="fa fa-twitter"></i></a>
-		<a href="#"><i class="fa fa-google"></i></a>
-		<a href="#"><i class="fa fa-instagram"></i></a>
-	</div>
-</div>
-<!-- Offcanvas Menu End -->
-
-<!-- Header Section Begin -->
-<header class="header">
-	<div class="header__top">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-7">
-					<ul class="header__top__widget">
-						<li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-						<li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
-					</ul>
-				</div>
-				<div class="col-lg-5">
-					<div class="header__top__right">
-						<div class="header__top__phone">
-							<i class="fa fa-phone"></i>
-							<span>(+12) 345 678 910</span>
-						</div>
-						<div class="header__top__social">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-google"></i></a>
-							<a href="#"><i class="fa fa-instagram"></i></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-2">
-				<div class="header__logo">
-					<a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
-				</div>
-			</div>
-			<div class="col-lg-10">
-				<div class="header__nav">
-					<nav class="header__menu">
-						<ul>
-							<li><a href="/">Home</a></li>
-							<li><a href="/car">Car Inventory</a></li>
-							<li><a href="/account">Account</a></li>
-							<li><a href="#">History</a>
-								<ul class="dropdown">
-									<li><a href="/transactions_history">Transactions History</a></li>
-									<li><a href="/meeting_history">Meeting History</a></li>
-								</ul>
-							</li>
-							<li><a href="/post_car">Post Car</a></li>
-							<li class="active"><a href="/customer_service">Customer Service</a></li>
-							<li><a href="/signin">Login</a></li>
-
-						</ul>
-					</nav>
-
-				</div>
-			</div>
-		</div>
-		<div class="canvas__open">
-			<span class="fa fa-bars"></span>
-		</div>
-	</div>
-</header>
-<!-- Header Section End -->
-
-<!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="breadcrumb__text">
-					<h2>Account Info</h2>
-					<div class="breadcrumb__links">
-						<a href="./index.html"><i class="fa fa-home"></i> Home</a>
-						<span>Account Info</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="container" style="width: 60%; margin-top: 30px;">
+<body>
+<form class="back-form">
+	<span class="button-before"></span>
+	<input class="back-button" type="button" value="Back" onclick="history.back()">
+</form>
+<div class="container login-form">
 	<!-- Pills navs -->
 	<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
 		<li class="nav-item" role="presentation">
@@ -165,7 +53,7 @@
 				<div class="text-center mb-3">
 					<p>Sign in with:</p>
 					<div class="google row">
-						<div class="col-md-3">
+						<div class="col-md-12">
 							<a class="btn btn-outline-dark" href="/users/googleauth" role="button"
 							   style="text-transform:none">
 								<img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
@@ -220,7 +108,7 @@
 				<div class="text-center mb-3">
 					<p>Sign up with:</p>
 					<div class="google row">
-						<div class="col-md-3">
+						<div class="col-md-12">
 							<a class=" btn btn-outline-dark" href="/users/googleauth" role="button" style="text-transform:none">
 								<img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
 								Sign up with Google
@@ -251,15 +139,16 @@
 
 				<!-- Password input -->
 				<div class="form-outline mb-4">
-					<input type="password" id="registerPassword" class="form-control" placeholder=" " />
+					<input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();" class="form-control" placeholder=" " />
 					<label class="form-label" for="registerPassword">Password</label>
 				</div>
 
 				<!-- Repeat Password input -->
 				<div class="form-outline mb-4">
-					<input type="password" id="registerRepeatPassword" class="form-control" placeholder=" " />
+					<input type="password" id="registerRepeatPassword" onkeyup='check();' onkeydown="check();" class="form-control" placeholder=" " />
 					<label class="form-label" for="registerRepeatPassword">Repeat password</label>
 				</div>
+				<div id="message" style="pointer-events: none; user-select: none"></div>
 
 				<!-- Checkbox -->
 				<div class="form-check d-flex justify-content-center mb-4">
@@ -276,100 +165,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- Footer Section Begin -->
-<footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
-	<div class="container">
-		<div class="footer__contact">
-			<div class="row">
-				<div class="col-lg-6 col-md-6">
-					<div class="footer__contact__title">
-						<h2>Contact Us Now!</h2>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6">
-					<div class="footer__contact__option">
-						<div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-						<div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-4 col-md-4">
-				<div class="footer__about">
-					<div class="footer__logo">
-						<a href="#"><img src="../../user_assets/img/footer-logo.png" alt=""></a>
-					</div>
-					<p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-						on (+1) 96 123 8888</p>
-					<div class="footer__social">
-						<a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-						<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-						<a href="#" class="google"><i class="fa fa-google"></i></a>
-						<a href="#" class="skype"><i class="fa fa-skype"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-2 offset-lg-1 col-md-3">
-				<div class="footer__widget">
-					<h5>Infomation</h5>
-					<ul>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-3">
-				<div class="footer__widget">
-					<h5>Infomation</h5>
-					<ul>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6">
-				<div class="footer__brand">
-					<h5>Top Brand</h5>
-					<ul>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-					</ul>
-					<ul>
-						<li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-						<li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-		<div class="footer__copyright__text">
-			<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
-		</div>
-		<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-	</div>
-</footer>
-<!-- Footer Section End -->
-
-<!-- Search Begin -->
-<div class="search-model">
-	<div class="h-100 d-flex align-items-center justify-content-center">
-		<div class="search-close-switch">+</div>
-		<form class="search-model-form">
-			<input type="text" id="search-input" placeholder="Search here.....">
-		</form>
-	</div>
-</div>
-<!-- Search End -->
 
 <!-- Js Plugins -->
 <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
