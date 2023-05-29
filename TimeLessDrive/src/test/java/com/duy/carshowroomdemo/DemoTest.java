@@ -411,6 +411,24 @@ public class DemoTest {
 //        System.out.println("==========================================================");
 //        offMeetingRepository.findAll(PageRequest.of(, 10, Sort.by("meetingDate"))).forEach(x -> System.out.println(x.getMeetingDate()));
     }
+    @Test
+    public void testADd(){
+        Client client = new Client();
+        client.setRole("client");
+        client.setName(Util.getRandName());
+        client.setAvatar(AVATAR_URL);
+        client.setPhone(Util.getRandPhone());
+        client.setPassword(Util.encodePassword("password123"));
+        client.setAddress("123 sample address");
+        client.setGender(Util.getRandGender());
+        client.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
+        client.setEmail("hai123@gmail.com");
+        client.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
+        client.setTax("I dont know this field");
 
+        Client save = clientRepository.save(client);
+
+        Assertions.assertThat(save).isNotNull();
+    }
 
 }

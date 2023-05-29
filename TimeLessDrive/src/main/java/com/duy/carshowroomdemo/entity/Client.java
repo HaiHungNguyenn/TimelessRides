@@ -18,7 +18,7 @@ public class Client {
     private String id;
 
     @Column(name = "role", length = 20)
-    private String role;
+    private String role = "client";
 
     @Column(name = "name", length = 50)
     private String name;
