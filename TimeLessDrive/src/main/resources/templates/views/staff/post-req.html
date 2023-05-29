@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" dir="ltr">
+<html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
   
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -42,6 +42,12 @@
     <link href="../../../staff_assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
 
+    <style>
+        .no-underline:hover{
+            text-decoration: none;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -51,7 +57,7 @@
                 <div class="navbar-logo">
                     <a class="navbar-brand me-1 me-sm-3" href="../index.html">
                         <div class="d-flex align-items-center">
-                            <div class="d-flex align-items-center"><img src="../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
+                            <div class="d-flex align-items-center"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
                                 <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
                             </div>
                         </div>
@@ -68,7 +74,6 @@
                         <li class="nav-item active" data-nav-item="data-nav-item"><a class="nav-link fs-md-1" href="/staff/post-requests">Post Requests</a></li>
                         <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/create-invoice">Create Invoice</a></li>
                         <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/log-out">Log Out</a></li>
-                        </li>
                     </ul>
                 </div>
             </nav>
@@ -78,7 +83,7 @@
 
       <section class="pt-5 pb-9">
         <div class="container-small cart">
-          <h2 class="mb-5">Post Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${allPostRequests.size()} + ')'" /></h2>
+          <h2 class="mb-5">Post Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${postRequestList.size()} + ')'" /></h2>
           <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
@@ -88,20 +93,21 @@
                     <th class="sort white-space-nowrap align-middle text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
                     <th class="sort align-middle" scope="col" style="width:15%;">Car Name</th>
                     <th class="sort align-middle" scope="col" style="width:30%;">Description</th>
-                    <th class="sort align-middle text-end" scope="col" data-sort="price" style="width:5%;">Create At</th>
+                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                          <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/post-requests/sorted-by-createdAt-' + ${direction}" th:text="'Created At'"/>
+                      </th>
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:25%;"> </th>
                   </tr>
                 </thead>
                 <tbody class="list" id="profile-wishlist-table-body">
-                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="postRequest, iStat: ${allPostRequests}">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="postRequest, iStat: ${postRequestList}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">
-                      <div class="text-center" th:with="count=((${currentPage} - 1) * 10 + ${iStat.count} )" th:text="${count}"/>
+                      <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>
                     <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${postRequest.getClient().getId()}" th:text="${postRequest.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${postRequest.getCar().getName()}"/>
                     <td class="color align-middle flex-wrap fs--1 text-900" th:text="${postRequest.getDescription()}"/>
                     <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold" th:text="${postRequest.getCreatedAt()}"/>
-<!--                    <td class="price align-middle text-900 fs&#45;&#45;1 fw-semi-bold text-end" th:text="${offMeeting.getStatus()}"/>-->
                     <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
                       <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
                       <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
@@ -111,18 +117,23 @@
               </table>
             </div>
               <nav aria-label="Page navigation example" class="pt-3">
-                  <ul class="pagination">
+                  <ul class="pagination" th:with="url=(${property == null} ? '/staff/post-requests/page=' : '/staff/post-requests/sorted-by-' + ${property} + '-' + ${direction} + '/page=')">
                       <li class="page-item">
-                          <a class="page-link" th:classappend="${currentPage} == 1 ? 'disabled' : ''" th:href="'/staff/post-requests/' + ${currentPage - 1}" aria-label="Previous">
+                          <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + ${offset - 1}" aria-label="Previous">
                               <span aria-hidden="true">&laquo;</span>
                               <span class="sr-only">Previous</span>
                           </a>
                       </li>
-                      <li class="page-item"><a class="page-link active" th:text="${currentPage}" href="#"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${currentPage+1}" th:href="'/staff/post-requests/' + ${currentPage + 1}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${currentPage+2}" th:href="'/staff/post-requests/' + ${currentPage + 2}"/></li>
+                      <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+1}" th:href="${url} + ${offset + 1}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+2}" th:href="${url} + ${offset + 2}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+3}" th:href="${url} + ${offset + 3}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+4}" th:href="${url} + ${offset + 4}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+5}" th:href="${url} + ${offset + 5}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+6}" th:href="${url} + ${offset + 6}"/></li>
+                      <li class="page-item"><a class="page-link" th:text="${offset+7}" th:href="${url} + ${offset + 7}"/></li>
                       <li class="page-item">
-                          <a class="page-link" th:href="'/staff/post-requests/' + ${currentPage + 1}" aria-label="Next">
+                          <a class="page-link" th:href="${url} + ${offset + 1}" aria-label="Next">
                               <span class="sr-only">Next</span>
                               <span aria-hidden="true">&raquo;</span>
                           </a>

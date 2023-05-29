@@ -62,9 +62,9 @@ public class UserController {
     }
     @GetMapping ("/sign-in")
     public ModelAndView signIn(OAuth2AuthenticationToken token){
-        if(token != null){
-            System.out.println(token.getPrincipal().getAttribute("email").toString());
-        }
+//        if(token != null){
+//            System.out.println(token.getPrincipal().getAttribute("email").toString());
+//        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/login");

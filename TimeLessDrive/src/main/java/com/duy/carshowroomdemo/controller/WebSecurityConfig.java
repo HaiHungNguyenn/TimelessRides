@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
                     httpSecurityOAuth2LoginConfigurer.loginPage("/sign-in");
                     httpSecurityOAuth2LoginConfigurer.defaultSuccessUrl("/google-handler", true);
-                    httpSecurityOAuth2LoginConfigurer.userInfoEndpoint();
+//                    httpSecurityOAuth2LoginConfigurer.userInfoEndpoint();
                 })
                 .build();
     }

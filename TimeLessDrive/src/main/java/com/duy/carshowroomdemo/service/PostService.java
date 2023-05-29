@@ -6,6 +6,7 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,6 +38,18 @@ public class PostService {
         List<PostDto> postDtoList = new ArrayList<>();
 
         postRepository.findAll(PageRequest.of(offSet, size)).forEach((x) -> {
+            postDtoList.add(mapperManager.getPostMapper().toDto(x));
+        });
+
+        return postDtoList;
+    }
+
+    public List<PostDto> getPostSortedPerPage(int offset, int size, String property, String direction) {
+        List<PostDto> postDtoList = new ArrayList<>();
+
+        Sort.Direction sortDirection = (direction.equalsIgnoreCase("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        postRepository.findAll(PageRequest.of(offset, size, Sort.by(sortDirection, property))).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
 
