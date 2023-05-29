@@ -16,4 +16,7 @@ public class AdminService {
         return mapperManager.getAdminMapper().toDto(repository.findByEmailAndPassword(email,pass).orElse(null));
     }
 
+    public boolean isExist(String email) {
+        return repository.existsByEmail(email);
+    }
 }

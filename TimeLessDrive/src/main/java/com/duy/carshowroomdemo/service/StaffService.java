@@ -35,4 +35,7 @@ public class StaffService {
         }
     }
 
+    public boolean isExist(String email) {
+        return repository.existsByEmail(email);
+    }
 }

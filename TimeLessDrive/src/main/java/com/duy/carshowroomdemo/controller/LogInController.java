@@ -57,9 +57,9 @@ public class LogInController {
             ModelAndView modelAndView = new ModelAndView();
 
 
-            if(service.getClientService().isExist(email)){
+            if(service.getClientService().isExist(email) ||service.getStaffService().isExist(email)||service.getAdminService().isExist(email)){
 
-                modelAndView.addObject("loginMess","Your account is already regitered");
+                modelAndView.addObject("loginMess","This email is already registered");
                 modelAndView.setViewName("views/user/login");
 
             }else {
