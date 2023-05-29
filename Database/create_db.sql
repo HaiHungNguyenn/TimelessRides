@@ -42,7 +42,7 @@ CREATE TABLE staff (
 	[password] VARCHAR(100),
 	[address] NVARCHAR(100),
 	dob DATE,
-	join_at DATE
+	joined_at DATE
 )
 
 CREATE TABLE client (
@@ -73,7 +73,7 @@ CREATE TABLE car_description (
 	height SMALLINT,
 	km_spend VARCHAR(50),
 	manufactured_year SMALLINT,
-	others NVARCHAR(100)
+	others NVARCHAR(2000)
 )
 
 CREATE TABLE car (
@@ -117,7 +117,7 @@ CREATE TABLE off_meeting (
 	client_id VARCHAR(100) FOREIGN KEY REFERENCES client(id),
 	meeting_date DATE,
 	created_at DATE,
-	[descrtiption] NVARCHAR(2000),
+	[description] NVARCHAR(2000),
 	[status] VARCHAR(20)
 )
 

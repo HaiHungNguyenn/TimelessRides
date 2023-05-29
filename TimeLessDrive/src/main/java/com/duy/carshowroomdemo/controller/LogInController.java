@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +22,7 @@ public class LogInController {
     @Autowired
     private HttpSession session;
 
-    @GetMapping("/login-form")
+    @RequestMapping("/login-form")
     ModelAndView access(@RequestParam("email") String email, @RequestParam("password") String password){
        ModelAndView modelAndView = new ModelAndView();
         StaffDto staffDto = service.getStaffService().login(email, password);

@@ -19,7 +19,7 @@ public class OffMeetingDto implements Serializable {
     ClientDto client;
     StaffDto staff;
     LocalDate meetingDate;
-    LocalDate createAt;
+    LocalDate createdAt;
     String description;
     String status;
 

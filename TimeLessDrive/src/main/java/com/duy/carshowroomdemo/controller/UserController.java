@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,11 +60,28 @@ public class UserController {
         modelAndView.setViewName("views/user/customer-service");
         return modelAndView;
     }
-    @GetMapping ("/signin")
-    public ModelAndView signIn(){
+    @GetMapping ("/sign-in")
+    public ModelAndView signIn(OAuth2AuthenticationToken token){
+        if(token != null){
+            System.out.println(token.getPrincipal().getAttribute("email").toString());
+        }
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/login");
         return modelAndView;
+    }
+
+    @RequestMapping("/google-handler")
+    public ModelAndView googleHandler(OAuth2AuthenticationToken token){
+
+
+            System.out.println(token.getPrincipal().getAttribute("email").toString());
+            token.getPrincipal().getAttributes().forEach((key, value) -> {
+                System.out.println(key + ": " + value);
+            });
+
+
+        return home();
     }
 
 }

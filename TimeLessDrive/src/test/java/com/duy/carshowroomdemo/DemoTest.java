@@ -6,7 +6,6 @@ import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
-import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 @DataJpaTest
@@ -91,13 +89,13 @@ public class DemoTest {
             staff.setRole("staff");
             staff.setName(Util.getRandName());
             staff.setAvatar(AVATAR_URL);
-            staff.setEmail(Util.getRandEmail(staff.getName()));
             staff.setPhone(Util.getRandPhone());
             staff.setGender(Util.getRandGender());
             staff.setPassword(Util.encodePassword("password123"));
             staff.setAddress("123 sample address");
-            staff.setDob(Util.getRandBirthDay());
-            staff.setJoinDate(LocalDate.now());
+            staff.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
+            staff.setEmail(Util.getRandEmail(staff.getName() , staff.getDob()));
+            staff.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
 
             Staff save = staffRepository.save(staff);
@@ -143,12 +141,12 @@ public class DemoTest {
             client.setName(Util.getRandName());
             client.setAvatar(AVATAR_URL);
             client.setPhone(Util.getRandPhone());
-            client.setEmail(Util.getRandEmail(client.getName()));
             client.setPassword(Util.encodePassword("password123"));
             client.setAddress("123 sample address");
             client.setGender(Util.getRandGender());
-            client.setDob(Util.getRandBirthDay());
-            client.setJoinDate(LocalDate.now());
+            client.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
+            client.setEmail(Util.getRandEmail(client.getName(), client.getDob()));
+            client.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             client.setTax("I dont know this field");
 
             Client save = clientRepository.save(client);
@@ -172,7 +170,7 @@ public class DemoTest {
             carDescription.setHeight((short) (Util.getRandInt(10) + 175));
             carDescription.setKmSpend("i dont know this field");
             carDescription.setManufacturedYear((short) (carDescription.getBoughtYear() - Util.getRandInt(5)));
-            carDescription.setOthers("Some extra information can be provided here");
+            carDescription.setOthers(Util.getRandText(30));
             CarDescription save = carDescriptionRepository.save(carDescription);
 
             Assertions.assertThat(save).isNotNull();
@@ -222,13 +220,14 @@ public class DemoTest {
         List<Client> clientList = new ArrayList<>();
         clientRepository.findAll().forEach(clientList::add);
 
+
         carList.forEach(x -> {
             Post post = new Post();
             post.setCar(x);
             post.setClient(clientList.get(Util.getRandInt(clientList.size())));
-            post.setDescription("Write some description for the post");
+            post.setDescription(Util.getRandText(30));
             post.setStatus("Pending");
-            post.setCreatedAt(LocalDate.now());
+            post.setCreatedAt(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
 
             Post save = postRepository.save(post);
 
@@ -252,7 +251,7 @@ public class DemoTest {
             invoice.setClient(clientList.get(Util.getRandInt(clientList.size())));
             invoice.setCar(x);
             invoice.setTotal(Util.getRandPrice());
-            invoice.setCreatedAt(LocalDate.now());
+            invoice.setCreatedAt(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             invoice.setStatus("Paid");
 
             Invoice save = invoiceRepository.save(invoice);
@@ -271,9 +270,9 @@ public class DemoTest {
             OffMeeting offMeeting = new OffMeeting();
             offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
-            offMeeting.setMeetingDate(LocalDate.now());
-            offMeeting.setCreateAt(LocalDate.now());
-            offMeeting.setDescription("Some kinds of meeting here");
+            offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
+            offMeeting.setCreatedAt(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
+            offMeeting.setDescription(Util.getRandText(30));
             offMeeting.setStatus("Not yet");
 
             OffMeeting save = offMeetingRepository.save(offMeeting);
@@ -289,8 +288,8 @@ public class DemoTest {
             clientRepository.findAll().forEach(clientList::add);
             Feedback feedback = new Feedback();
             feedback.setClient(clientList.get(Util.getRandInt(clientList.size())));
-            feedback.setCreatedAt(LocalDate.now());
-            feedback.setDescription("This is a feedback from client");
+            feedback.setCreatedAt(Util.getRandDate(LocalDate.of(2022,1,1), LocalDate.now()));
+            feedback.setDescription(Util.getRandText(30));
 
             Feedback save = feedbackRepository.save(feedback);
 
@@ -387,11 +386,30 @@ public class DemoTest {
 
     @Test
     public void testLogin(){
+//        offMeetingRepository.findAll(Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
+//        offMeetingRepository.findAll(PageRequest.of(1, 10), Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
+        System.out.println("==========================================================");
+        Util.writeRandomParagraph(10000);
 
-        StaffDto login = new Service().getStaffService().login("duy@gmail.com", "123");
+//        PageImpl page = new PageImpl<>(offMeetingRepository.findAll(), PageRequest.of(0, 10), offMeetingRepository.count());
+////        System.out.println(page.getTotalElements());
+////        System.out.println(page.getTotalPages());
+//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
+//        page = new PageImpl(page.getContent(), page.nextPageable(), page.getTotalElements());
+//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
 
-        Assertions.assertThat(login).isNotNull();
 
+
+//        System.out.println("==========================================================");
+//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
+
+
+
+
+//        offMeetingRepository.findAll(PageRequest.of(0, 10)).forEach(x -> System.out.println(x.getMeetingDate()));
+//        offMeetingRepository.findAll(PageRequest.of(0, 10, Sort.Direction.ASC, "meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
+//        System.out.println("==========================================================");
+//        offMeetingRepository.findAll(PageRequest.of(, 10, Sort.by("meetingDate"))).forEach(x -> System.out.println(x.getMeetingDate()));
     }
 
 

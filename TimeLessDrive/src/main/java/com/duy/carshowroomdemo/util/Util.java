@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,9 +21,10 @@ public class Util {
         return phone;
     }
 
-    public static String getRandEmail(String name) {
+    public static String getRandEmail(String name, LocalDate dob) {
         String[] s = name.split(" ");
-        return s[2] + s[0].charAt(0) + s[1].charAt(0) + "@gmail.com";
+        String[] d = dob.toString().split("-");
+        return s[2] + s[0].charAt(0) + s[1].charAt(0) + d[2] + d[1] + "@gmail.com";
     }
 
     public static String getRandGender(){
@@ -65,7 +67,7 @@ public class Util {
     }
 
     public static int getRandInt(int lowerBound, int upperBound) {
-        return getRandInt(lowerBound) + (upperBound - lowerBound);
+        return getRandInt(upperBound - lowerBound) + lowerBound;
     }
 
     public static LocalDate getRandBirthDay(){
@@ -76,11 +78,61 @@ public class Util {
         return LocalDate.ofEpochDay(randomEpochDay);
     }
 
+    public static LocalDate getRandDate(LocalDate date1, LocalDate date2){
+        long randomEpochDay = ThreadLocalRandom.current().longs(date1.toEpochDay(), date2.toEpochDay()).findAny().getAsLong();
+        return LocalDate.ofEpochDay(randomEpochDay);
+    }
+
     public static String encodePassword(String rawPW){
         return passwordEncoder.encode(rawPW);
     }
 
-    public static boolean checkPassword(String rawPW, String encodedPW){
+    public static boolean isValidPW(String rawPW, String encodedPW){
         return passwordEncoder.matches(rawPW, encodedPW);
+    }
+
+    public static String getRandText(int wordCount){
+        String text = "";
+        while (wordCount > 0) {
+            int noOfWords = getRandInt(10,15);
+            wordCount -= noOfWords;
+            for (int i = 0; i < noOfWords; i++) {
+                int noOfChar = getRandInt(1,8);
+                for (int j = 0; j < noOfChar; j++) {
+                    text += (char) (getRandInt(1,26) + 97);
+                }
+                if(i != (noOfWords - 1)){
+                    text += " ";
+                }
+            }
+            text += ". ";
+        }
+        return text;
+    }
+
+    public static void writeRandomParagraph(int wordCount){
+        String text = "";
+        while (wordCount > 0) {
+            int noOfWords = getRandInt(10,15);
+            wordCount -= noOfWords;
+            for (int i = 0; i < noOfWords; i++) {
+                int noOfChar = getRandInt(1,8);
+                for (int j = 0; j < noOfChar; j++) {
+                    text += (char) (getRandInt(1,26) + 97);
+                }
+                if(i != (noOfWords - 1)){
+                    text += " ";
+                }
+            }
+            text += ". ";
+        }
+        try {
+            final String path = "D:\\text.txt";
+            FileWriter fileWriter = new FileWriter(path);
+            fileWriter.write(text);
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

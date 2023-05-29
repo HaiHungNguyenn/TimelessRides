@@ -25,12 +25,13 @@ public class StaffService {
     }
 
     public StaffDto login(String email, String pass){
+//        return mapperManager.getStaffMapper().toDto(repository.findAll().get(0));
         Optional<Staff> staff = repository.findByEmail(email);
-        if(staff == null){
+        if(staff.isEmpty()){
             return null;
         }else {
             String encodedPW = staff.get().getPassword();
-            return Util.checkPassword(pass, encodedPW) ? mapperManager.getStaffMapper().toDto(staff.get()) : null;
+            return Util.isValidPW(pass, encodedPW) ? mapperManager.getStaffMapper().toDto(staff.get()) : null;
         }
     }
 

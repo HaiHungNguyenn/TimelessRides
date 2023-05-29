@@ -166,7 +166,7 @@
                                         <td class="dealName align-middle white-space-nowrap py-2 ps-0"><a class="fw-semi-bold text-primary" th:text="${meeting.getStaff().getName()}"/></td>
                                         <td class="probability align-middle flex-wrap" th:text="${meeting.getDescription()}"/>
                                         <td class="amount align-middle white-space-nowrap text-start fw-bold text-700 py-2 text-end pe-6" th:text="${meeting.getMeetingDate()}"/>
-                                        <td class="date align-middle text-700 text-center py-2" th:text="${meeting.getCreateAt()}"/>
+                                        <td class="date align-middle text-700 text-center py-2" th:text="${meeting.getCreatedAt()}"/>
                                         <td class="type align-middle fw-semi-bold py-2 text-end"><span class="badge badge-phoenix fs--2 badge-phoenix-info" th:text="${meeting.getStatus()}"/></td>
 <!--                                        <td class="stage align-middle white-space-nowrap text-900 py-2"><span class="badge badge-phoenix fs&#45;&#45;2 badge-phoenix-success" th:text="${meeting.getStatus()}"/></td>-->
                                     </tr>

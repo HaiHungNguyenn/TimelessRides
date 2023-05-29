@@ -5,7 +5,6 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
-import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +58,7 @@ public class StaffController {
     public ModelAndView showHomePage(){
         ModelAndView modelAndView = new ModelAndView();
 
-        if(session.getAttribute("user") == null){
+        if(session.getAttribute("staff") == null){
             modelAndView.setViewName("views/staff/my-index");
         }else{
             modelAndView.setViewName("views/staff/profile");
@@ -72,7 +71,7 @@ public class StaffController {
     public ModelAndView showMeetingRequestList(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(1, 10);
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(0, 10);
         modelAndView.addObject("allOffMeetings", allOffMeetings);
         modelAndView.addObject("currentPage", 1);
         modelAndView.setViewName("views/staff/meeting-req");
@@ -80,13 +79,39 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/{offSet}")
-    public ModelAndView showMeetingRequestsPerPage(@PathVariable int offSet){
+    @RequestMapping("/staff/meeting-requests/{offset}")
+    public ModelAndView showMeetingRequestsPerPage(@PathVariable int offset){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offSet, 10);
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offset-1, 10);
         modelAndView.addObject("allOffMeetings", allOffMeetings);
-        modelAndView.addObject("currentPage", offSet);
+        modelAndView.addObject("currentPage", offset);
+        modelAndView.setViewName("views/staff/meeting-req");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/staff/meeting-requests/sorted-by-{property}")
+    public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable String property){
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property);
+        modelAndView.addObject("allOffMeetings", allOffMeetings);
+        modelAndView.addObject("currentPage", 1);
+        modelAndView.addObject("property", property);
+        modelAndView.setViewName("views/staff/meeting-req");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/staff/meeting-requests/sorted-by-{property}/{offset}")
+    public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property, @PathVariable int offset){
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset-1, 10, property);
+        modelAndView.addObject("allOffMeetings", allOffMeetings);
+        modelAndView.addObject("currentPage", offset);
+        modelAndView.addObject("property", property);
         modelAndView.setViewName("views/staff/meeting-req");
 
         return modelAndView;

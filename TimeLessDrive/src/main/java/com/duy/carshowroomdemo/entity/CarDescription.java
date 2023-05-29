@@ -47,7 +47,7 @@ public class CarDescription {
     @Column(name = "manufactured_year")
     private Short manufacturedYear;
 
-    @Column(name = "others", length = 100)
+    @Column(name = "others", length = 2000)
     private String others;
 
     @OneToOne(mappedBy = "carDescription")

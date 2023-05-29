@@ -27,8 +27,8 @@ public class OffMeeting {
     @Column(name = "meeting_date")
     private LocalDate meetingDate;
 
-    @Column(name = "create_at")
-    private LocalDate createAt;
+    @Column(name = "created_at")
+    private LocalDate createdAt;
 
     @Column(name = "description", length = 2000)
     private String description;

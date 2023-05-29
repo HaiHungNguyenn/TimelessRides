@@ -48,7 +48,7 @@ public class Staff {
     @Column(name = "dob")
     private LocalDate dob;
 
-    @Column(name = "join_at")
+    @Column(name = "joined_at")
     private LocalDate joinDate;
 
     @OneToMany(mappedBy = "staff")
