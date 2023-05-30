@@ -6,7 +6,11 @@ import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.service.AdminService;
 import com.duy.carshowroomdemo.util.Util;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -15,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -445,5 +451,29 @@ public class DemoTest {
             System.out.println(x);
         }
     }
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Test
+    public void testViewClientByMonth(){
 
-}
+
+        TypedQuery<Client> query = entityManager.createQuery("SELECT x FROM Client x WHERE DATEPART(MONTH, joinDate) BETWEEN :startDate AND :endDate",Client.class);
+        query.setParameter("startDate", 6);
+        query.setParameter("endDate", 7);
+        int count = 0;
+        for (Client x : query.getResultList()) {
+            count ++;
+            System.out.println(x);
+        }
+        System.out.println(count);
+    }
+    @Test
+    public void test() {
+
+
+//        System.out.println(adminRepository.findByJoinDateBetween(LocalDate.parse("2020-12-01"),LocalDate.parse("2022-12-30")));
+
+        System.out.println(clientRepository.findByJoinDateBetween(LocalDate.parse("2022-12-01"),LocalDate.parse("2022-12-30")));
+
+    }
+    }
