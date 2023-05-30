@@ -17,9 +17,7 @@ public class CarService {
     private CarRepository repository;
 
     public List<Car> loadCars(){
-        List<Car> list = new ArrayList<>();
-        repository.findAll().forEach(list::add);
-        return list;
+        return new ArrayList<>(repository.findAll());
     }
 
     public void paging(){

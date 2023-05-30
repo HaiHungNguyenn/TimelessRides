@@ -46,8 +46,5 @@ public class ClientService {
 
     public boolean isExist(String email) {
         return repository.existsByEmail(email);
-
-
-
     }
 }

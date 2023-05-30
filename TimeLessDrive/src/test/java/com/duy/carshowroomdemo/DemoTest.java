@@ -7,6 +7,7 @@ import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
 import com.duy.carshowroomdemo.util.Util;
+import net.bytebuddy.asm.Advice;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -15,11 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 
 @DataJpaTest
@@ -84,8 +85,7 @@ public class DemoTest {
     @Test
     public void testAddStaff(){
         for (int i = 0; i < 100; i++) {
-            List<Showroom> showroomList = new ArrayList<>();
-            showroomRepository.findAll().forEach(showroomList::add);
+            List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
             Staff staff = new Staff();
             staff.setRole("staff");
             staff.setName(Util.getRandName());
@@ -103,8 +103,7 @@ public class DemoTest {
             Assertions.assertThat(save).isNotNull();
         }
         Staff staff = new Staff();
-        List<Showroom> showroomList = new ArrayList<>();
-        showroomRepository.findAll().forEach(showroomList::add);
+        List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
         staff.setRole("staff");
         staff.setName(Util.getRandName());
         staff.setAvatar(AVATAR_URL);
@@ -180,10 +179,8 @@ public class DemoTest {
 
     @Test
     public void testAddCar(){
-        List<CarDescription> carDescriptionList = new ArrayList<>();
-        carDescriptionRepository.findAll().forEach(carDescriptionList::add);
-        List<Showroom> showroomList = new ArrayList<>();
-        showroomRepository.findAll().forEach(showroomList::add);
+        List<CarDescription> carDescriptionList = new ArrayList<>(carDescriptionRepository.findAll());
+        List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
         carDescriptionList.forEach((x) -> {
             Car car = new Car();
             car.setCarDescription(x);
@@ -202,8 +199,7 @@ public class DemoTest {
     @Test
     public void testAddCarImage(){
         for (int i = 0; i < 300; i++) {
-            List<Car> carList = new ArrayList<>();
-            carRepository.findAll().forEach(carList::add);
+            List<Car> carList = new ArrayList<>(carRepository.findAll());
             CarImage carImage = new CarImage();
             carImage.setCar(carList.get(Util.getRandInt(carList.size())));
             carImage.setLink(CAR_IMAGE_URL);
@@ -216,10 +212,8 @@ public class DemoTest {
 
     @Test
     public void testAddPost(){
-        List<Car> carList = new ArrayList<>();
-        carRepository.findAll().forEach(carList::add);
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAll().forEach(clientList::add);
+        List<Car> carList = new ArrayList<>(carRepository.findAll());
+        List<Client> clientList = new ArrayList<>(clientRepository.findAll());
 
 
         carList.forEach(x -> {
@@ -239,12 +233,9 @@ public class DemoTest {
     @Test
     public void testAddInvoice(){
 
-        List<Staff> staffList = new ArrayList<>();
-        staffRepository.findAll().forEach(staffList::add);
-        List<Client> clientList = new ArrayList<>();
-        clientRepository.findAll().forEach(clientList::add);
-        List<Car> carList = new ArrayList<>();
-        carRepository.findAll().forEach(carList::add);
+        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+        List<Client> clientList = new ArrayList<>(clientRepository.findAll());
+        List<Car> carList = new ArrayList<>(carRepository.findAll());
         Invoice invoice = new Invoice();
 
         carList.forEach(x -> {
@@ -264,10 +255,8 @@ public class DemoTest {
     @Test
     public void testAddOffMeeting(){
         for (int i = 0; i < 100; i++) {
-            List<Staff> staffList = new ArrayList<>();
-            staffRepository.findAll().forEach(staffList::add);
-            List<Client> clientList = new ArrayList<>();
-            clientRepository.findAll().forEach(clientList::add);
+            List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+            List<Client> clientList = new ArrayList<>(clientRepository.findAll());
             OffMeeting offMeeting = new OffMeeting();
             offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
@@ -432,6 +421,17 @@ public class DemoTest {
         Client save = clientRepository.save(client);
 
         Assertions.assertThat(save).isNotNull();
+    }
+
+    @Test
+    public void abc(){
+
+//        List<Client> byJoinDateMatches = clientRepository.findByJoinDateMatches();
+
+//        Assertions.assertThat(byJoinDateMatches).isNotEmpty();
+        List<Client> byJoinDateBetween = clientRepository.findByJoinDateBetween(LocalDate.of(2020, 1, 7), LocalDate.of(2020, 1, 20));
+        byJoinDateBetween.forEach(System.out::println);
+
     }
 
 }
