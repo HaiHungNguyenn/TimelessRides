@@ -10,9 +10,11 @@
     <title>Transaction History</title>
 
     <!-- Google Font -->
+
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
@@ -147,129 +149,177 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f9f9f9;
                 margin: 0;
-
+                padding: 20px;
+                background-color: #f5f5f5;
             }
 
             h1 {
+                color: #333;
                 text-align: center;
-                margin-bottom: 30px;
+                margin-bottom: 20px;
             }
 
             table {
                 width: 100%;
                 border-collapse: collapse;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
                 background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
             th, td {
-                padding: 15px;
-                text-align: center;
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ccc;
             }
 
             th {
                 background-color: #f2f2f2;
+                font-weight: bold;
                 color: #333;
-                text-transform: uppercase;
             }
 
-            td {
-                border-bottom: 1px solid #e6e6e6;
-                font-weight: 500;
-            }
-
-            tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-            tbody tr:nth-child(even) {
+            tr:hover {
                 background-color: #f9f9f9;
             }
 
-            tbody tr:hover {
-                background-color: #f2f2f2;
+            .status-completed {
+                color: green;
             }
 
-            .amount {
-                color: #00c853;
-            }
-
-            .center {
-                text-align: center;
-            }
-
-            .bold {
-                font-weight: bold;
-            }
-
-            .capitalize {
-                text-transform: capitalize;
-            }
-
-            .button {
-                cursor: pointer;
-                padding: 6px 10px;
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-            }
-
-            .button:hover {
-                background-color: #0056b3;
+            .status-pending {
+                color: orange;
             }
         </style>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-completed {
+            color: green;
+        }
+
+        .status-pending {
+            color: orange;
+        }
+    </style>
         <body>
 
+        <div>
+            <label for="datePicker">Select a Date:</label>
+            <input type="text" id="datePicker" readonly>
+            <button onclick="showTransactions()">Show Transactions</button>
+        </div>
         <table id="transactionTable">
             <thead>
             <tr>
-                <th class="center">Transaction ID</th>
-                <th class="center">Customer Name</th>
-                <th class="center">Car Model</th>
-                <th class="center">Purchase Date</th>
-                <th class="center">Amount</th>
-                <th class="center">Payment Method</th>
-                <th class="center">Salesperson</th>
+                <th>Transaction ID</th>
+                <th>Customer Name</th>
+                <th>Car Make</th>
+                <th>Car Model</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Date</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>001</td>
-                <td class="capitalize">John Smith</td>
-                <td class="capitalize">Honda Civic</td>
-                <td class="center">May 15, 2023</td>
-                <td class="amount center bold">$25,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Jane Doe</td>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>Toyota</td>
+                <td>Camry</td>
+                <td>$25,000</td>
+                <td class="status-completed">Completed</td>
+                <td>2023-05-15</td>
             </tr>
-            </tbody>
-            <tbody>
             <tr>
-                <td>002</td>
-                <td class="capitalize">Jim</td>
-                <td class="capitalize">toyota</td>
-                <td class="center">May 17, 2023</td>
-                <td class="amount center bold">$39,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Victor</td>
+                <td>2</td>
+                <td>Jane Smith</td>
+                <td>Honda</td>
+                <td>Civic</td>
+                <td>$20,000</td>
+                <td class="status-pending">Processing</td>
+                <td>2023-05-17</td>
             </tr>
-            </tbody>
-            <tbody>
             <tr>
-                <td>003</td>
-                <td class="capitalize">Tony</td>
-                <td class="capitalize">Honda Civic</td>
-                <td class="center">May 30, 2023</td>
-                <td class="amount center bold">$25,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Jane Doe</td>
+                <td>3</td>
+                <td>Michael Johnson</td>
+                <td>Ford</td>
+                <td>Mustang</td>
+                <td>$35,000</td>
+                <td class="status-completed">Completed</td>
+                <td>2023-05-22</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Sarah Thompson</td>
+                <td>Chevrolet</td>
+                <td>Corvette</td>
+                <td>$50,000</td>
+                <td class="status-pending">Processing</td>
+                <td>2023-05-25</td>
             </tr>
             </tbody>
         </table>
-        </body>
+
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            const transactionTable = document.getElementById('transactionTable');
+            const datePicker = flatpickr('#datePicker', {
+                dateFormat: 'Y-m-d',
+            });
+
+            function showTransactions() {
+                const selectedDate = datePicker.selectedDates[0].toISOString().split('T')[0];
+                const rows = transactionTable.getElementsByTagName('tr');
+
+                for (let i = 1; i < rows.length; i++) {
+                    const dateCell = rows[i].getElementsByTagName('td')[6];
+                    const date = dateCell.textContent;
+
+                    if (date === selectedDate) {
+                        rows[i].style.display = 'table-row';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+        </script>
 
     </section>
 

@@ -321,13 +321,13 @@
 
     /* button colors */
     .submit-button {
-      background-color: #18BD5B;
-      border-color: #18BD5B;
+      background-color: #db2d2e;
+      border-color: #db2d2e;
     }
 
     .submit-button:hover {
-      background-color: #16AA52;
-      border-color: #16AA52;
+      background-color: #db2d2e;
+      border-color: #db2d2e;
     }
 
     .form-pagebreak-next {
