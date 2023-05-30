@@ -433,5 +433,17 @@ public class DemoTest {
 
         Assertions.assertThat(save).isNotNull();
     }
+    MapperManager mapperManager = new MapperManager();
+    @Test
+    public void testViewClient(){
+        List<Client> client = clientRepository.findAll();
+        List<ClientDto> clientList = new ArrayList<>();
+        for (Client x: client) {
+            clientList.add(mapperManager.getClientMapper().toDto(x));
+        }
+        for (ClientDto x :clientList) {
+            System.out.println(x);
+        }
+    }
 
 }

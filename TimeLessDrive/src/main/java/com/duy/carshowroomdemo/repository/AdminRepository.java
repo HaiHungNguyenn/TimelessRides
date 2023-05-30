@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.repository;
 
+import com.duy.carshowroomdemo.dto.AdminDto;
 import com.duy.carshowroomdemo.entity.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
@@ -14,4 +15,6 @@ public interface AdminRepository extends JpaRepository<Admin, String> {
     Optional<Admin> findByEmailAndPassword(String email, String password);
 
     boolean existsByEmail(String email);
+
+    Optional<Admin> findByEmail(String email);
 }
