@@ -12,6 +12,9 @@ import com.duy.carshowroomdemo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,5 +49,18 @@ public class ClientService {
 
     public boolean isExist(String email) {
         return repository.existsByEmail(email);
+    }
+
+    public List<ClientDto> getClientList() {
+        List <ClientDto> clienList = new ArrayList<>();
+        repository.findAll().forEach(x->{clienList.add(mapperManager.getClientMapper().toDto(x));});
+        return clienList;
+    }
+    public List<ClientDto> listByJoinDate(String startDate, String endDate){
+        List<ClientDto> list = new ArrayList<>();
+        // lay list tu repo, sau do parse sang dto
+        repository.findByJoinDateBetween(LocalDate.parse(startDate),LocalDate.parse(endDate)).forEach(x->{list.add(mapperManager.getClientMapper().toDto(x));});
+        return list;
+
     }
 }

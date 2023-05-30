@@ -6,8 +6,15 @@ import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.service.AdminService;
 import com.duy.carshowroomdemo.util.Util;
+<<<<<<< HEAD
 import net.bytebuddy.asm.Advice;
+=======
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+>>>>>>> 262fcefd63500afaecd98648a04fd94a0f374153
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -17,7 +24,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+<<<<<<< HEAD
 import java.text.DateFormat;
+=======
+>>>>>>> 262fcefd63500afaecd98648a04fd94a0f374153
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
@@ -422,7 +432,24 @@ public class DemoTest {
 
         Assertions.assertThat(save).isNotNull();
     }
+    MapperManager mapperManager = new MapperManager();
+    @Test
+    public void testViewClient(){
+        List<Client> client = clientRepository.findAll();
+        List<ClientDto> clientList = new ArrayList<>();
+        for (Client x: client) {
+            clientList.add(mapperManager.getClientMapper().toDto(x));
+        }
+        for (ClientDto x :clientList) {
+            System.out.println(x);
+        }
+    }
+    @PersistenceContext
+    private EntityManager entityManager;
+    @Test
+    public void testViewClientByMonth(){
 
+<<<<<<< HEAD
     @Test
     public void abc(){
 
@@ -435,3 +462,26 @@ public class DemoTest {
     }
 
 }
+=======
+
+        TypedQuery<Client> query = entityManager.createQuery("SELECT x FROM Client x WHERE DATEPART(MONTH, joinDate) BETWEEN :startDate AND :endDate",Client.class);
+        query.setParameter("startDate", 6);
+        query.setParameter("endDate", 7);
+        int count = 0;
+        for (Client x : query.getResultList()) {
+            count ++;
+            System.out.println(x);
+        }
+        System.out.println(count);
+    }
+    @Test
+    public void test() {
+
+
+//        System.out.println(adminRepository.findByJoinDateBetween(LocalDate.parse("2020-12-01"),LocalDate.parse("2022-12-30")));
+
+        System.out.println(clientRepository.findByJoinDateBetween(LocalDate.parse("2022-12-01"),LocalDate.parse("2022-12-30")));
+
+    }
+    }
+>>>>>>> 262fcefd63500afaecd98648a04fd94a0f374153
