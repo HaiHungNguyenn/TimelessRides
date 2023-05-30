@@ -146,6 +146,7 @@
     <section style="width:100%;height:80vh" >
 
         <!-- code here -->
+
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -185,71 +186,257 @@
             }
 
             .status-completed {
-                color: green;
+                color: #11bb11;
             }
 
             .status-pending {
-                color: orange;
+                color: red;
             }
+            #transactionTable a{
+                color: red;
+            }
+            #transactionTable a:active{
+                color: red;
+            }
+            #transactionTable a:hover{
+                color: red;
+            }
+            a:visited{
+                color: #ffffff;
+            }
+
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+            }
+
+            .profile-modal.active {
+                display: block;
+            }
+
+            .profile-modal h2 {
+                margin-top: 0;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+            }
+
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+                max-width: 400px;
+                width: 100%;
+                text-align: center;
+            }
+
+            .profile-modal.active {
+                display: block;
+            }
+
+            .profile-modal h2 {
+                margin-top: 0;
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #666;
+                line-height: 1.4;
+            }
+
+            .profile-modal button {
+                padding: 10px 20px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .profile-modal button:hover {
+                background-color: #45a049;
+            }
+
+            .profile-modal button:active {
+                background-color: #3e8e41;
+            }
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+                max-width: 250px;
+                width: 100%;
+                text-align: -webkit-left;
+                border-radius: 8px;
+            }
+
+
+
+            .profile-modal h2 {
+                margin-top: 0;
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #666;
+                line-height: 1.4;
+            }
+
+            .profile-modal button {
+                padding: 12px 24px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .profile-modal button:hover {
+                background-color: #45a049;
+            }
+
+            .profile-modal button:active {
+                background-color: #3e8e41;
+            }
+
+            .profile-modal:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 10px;
+                border-style: solid;
+                border-color: transparent transparent #fff transparent;
+            }
+
+            .profile-modal:after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 10px;
+                border-style: solid;
+                border-color: #fff transparent transparent transparent;
+            }
+
+
+            .date-picker-container label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            .date-picker-container input {
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            .date-picker-container button {
+                padding: 8px 16px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .date-picker-container button:hover {
+                background-color: #45a049;
+            }
+
+            .date-picker-container button:active {
+                background-color: #3e8e41;
+            }
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+            }
+
+            .profile-modal.active {
+                display: block;
+            }
+
+            .profile-modal h2 {
+                margin-top: 0;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+
+            .profile-modal button {
+                padding: 8px 16px;
+                background-color: #ce0b25;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .profile-modal button:hover {
+                background-color: #8f0b1d;
+            }
+
+            .profile-modal button:active {
+                background-color: #8f0b1d;
+            }
+
         </style>
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: #333;
-        }
-
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .status-completed {
-            color: green;
-        }
-
-        .status-pending {
-            color: orange;
-        }
-    </style>
         <body>
 
-        <div>
+        <div style="margin: 20px;">
             <label for="datePicker">Select a Date:</label>
             <input type="text" id="datePicker" readonly>
-            <button onclick="showTransactions()">Show Transactions</button>
+            <button onclick="showTransactions()">Show </button>
         </div>
         <table id="transactionTable">
             <thead>
             <tr>
                 <th>Transaction ID</th>
-                <th>Customer Name</th>
+                <th>Seller</th>
                 <th>Car Make</th>
                 <th>Car Model</th>
                 <th>Price</th>
@@ -260,7 +447,7 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td>John Doe</td>
+                <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>
                 <td>Toyota</td>
                 <td>Camry</td>
                 <td>$25,000</td>
@@ -269,16 +456,16 @@
             </tr>
             <tr>
                 <td>2</td>
-                <td>Jane Smith</td>
+                <td><a href="#" onclick="openProfileModal('Jane Smith')">Jane Smith</a></td>
                 <td>Honda</td>
                 <td>Civic</td>
                 <td>$20,000</td>
-                <td class="status-pending">Processing</td>
+                <td class="status-pending">Pending</td>
                 <td>2023-05-17</td>
             </tr>
             <tr>
                 <td>3</td>
-                <td>Michael Johnson</td>
+                <td><a href="#" onclick="openProfileModal('Michael Johnson')">Michael Johnson</a></td>
                 <td>Ford</td>
                 <td>Mustang</td>
                 <td>$35,000</td>
@@ -287,15 +474,25 @@
             </tr>
             <tr>
                 <td>4</td>
-                <td>Sarah Thompson</td>
+                <td><a href="#" onclick="openProfileModal('Sarah Thompson')">Sarah Thompson</a></td>
                 <td>Chevrolet</td>
                 <td>Corvette</td>
                 <td>$50,000</td>
-                <td class="status-pending">Processing</td>
+                <td class="status-pending">Pending</td>
                 <td>2023-05-25</td>
             </tr>
             </tbody>
         </table>
+
+
+
+        <div id="profileModal" class="profile-modal">
+            <h2>Seller Profile</h2>
+            <p id="profileName"></p>
+            <p id="profileEmail"></p>
+            <p id="profilePhone"></p>
+            <button onclick="closeProfileModal()">Close</button>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script>
@@ -303,6 +500,9 @@
             const datePicker = flatpickr('#datePicker', {
                 dateFormat: 'Y-m-d',
             });
+            const profileModal = document.getElementById('profileModal');
+            const profileName = document.getElementById('profileName');
+            const manufacturerTable = document.getElementById('manufacturerTable');
 
             function showTransactions() {
                 const selectedDate = datePicker.selectedDates[0].toISOString().split('T')[0];
@@ -319,7 +519,19 @@
                     }
                 }
             }
+
+            function openProfileModal(name, email, phone) {
+                profileName.textContent = name;
+                profileEmail.textContent = 'Email: ' + email;
+                profilePhone.textContent = 'Phone: ' + phone;
+                profileModal.classList.add('active');
+            }
+
+            function closeProfileModal() {
+                profileModal.classList.remove('active');
+            }
         </script>
+        </body>
 
     </section>
 
