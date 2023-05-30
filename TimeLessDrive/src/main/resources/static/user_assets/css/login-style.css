@@ -1,0 +1,161 @@
+*{
+    --main-background-color: red;
+    --main-border-color: red;
+    font-family: "Lato", sans-serif;
+}
+
+.login-form{
+    width: 50%;
+    margin-top: 30px;
+    border: 1px solid;
+    border-radius: 17px;
+    padding: 0;
+    box-shadow: 0px 5px 15px 2px;
+}
+
+.form-outline label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+    user-select: none;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: 0.25s ease;
+}
+
+.form-outline{
+    margin: auto;
+    transition: 0.25s ease;
+    position: relative;
+}
+
+.form-outline input:not(:placeholder-shown) + label,
+.form-outline input:focus + label{
+    top: 0;
+    background-color: white;
+    display: inline-block;
+
+}
+.form-outline input:focus + label{
+    opacity: 1;
+    color: var(--main-background-color);
+}
+
+.form-control:focus {
+    border-color: var(--main-border-color);
+    box-shadow:none;
+}
+
+.form-check-input:checked{
+    background-color: var(--main-background-color);
+    border-color: var(--main-border-color);
+}
+
+.form-link{
+    opacity: 0.8;
+    text-decoration: none;
+    color: var(--main-background-color);
+}
+
+.form-link:hover{
+    color: var(--main-background-color);
+    opacity: 1;
+}
+
+.nav-pills .nav-link{
+    color: black;
+    border-radius: 0px;
+    border-bottom: none;
+    opacity: 0.8;
+}
+
+#tab-login{
+    border-top-left-radius: 17px;
+}
+
+#tab-register{
+    border-top-right-radius: 17px;
+}
+
+.nav-link:hover{
+    opacity: 1;
+}
+
+.nav-link.active{
+    border:none;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link{
+    background-color: var(--main-background-color);
+}
+
+.submit{
+    display: block;
+    width: 100%;
+    max-width: 121px;
+    background-color: var(--main-background-color);
+    border: var(--main-border-color);
+    opacity: 0.8;
+    padding: 14px;
+    margin: auto;
+}
+
+.submit:hover{
+    background-color: var(--main-background-color);
+    border: var(--main-border-color);
+    opacity: 1;
+}
+
+.google{
+    justify-content: center;
+}
+
+.header__menu a{
+    text-decoration: none;
+}
+
+.tab-content{
+    width: 70%;
+    margin: auto;
+}
+
+.back-button{
+    padding: 10px 33px 10px 33px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    border-left: none;
+    border-radius: 5px;
+    transition: 0.5s ease;
+}
+
+.back-form{
+    margin: 23px;
+}
+
+.button-before{
+    content: "";
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    border: 1px solid black;
+    transform: rotate(45deg);
+    position: relative;
+    top: 9px;
+    left: 22px;
+    z-index: -1;
+    transition: 0.5s ease;
+}
+
+.back-button:hover{
+    background: var(--main-background-color);
+    border: 1px solid red;
+    color: white;
+}
+
+span:has(~ .back-button:hover){
+    background: var(--main-background-color);
+    border: 1px solid red;
+    color: white;
+}

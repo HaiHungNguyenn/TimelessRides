@@ -624,3 +624,12 @@
       width: 100%;
 
     }
+
+    .form-all{
+        margin: 30px auto;
+        max-width: 90%;
+    }
+
+    @media screen and (min-width: 1500px) {
+
+    }
