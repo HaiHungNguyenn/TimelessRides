@@ -59,9 +59,9 @@ public class AdminFeatureTest {
     // edit client info
     @Test
     public void testEditClientPW(){
-        String oldPasword = "password123";
-        String newPassword ="12345";
-        String id = "008355ea-2e36-41f1-b5eb-eae7e274659d";
+        String oldPasword = "12345";
+        String newPassword ="password123";
+        String id = "98a78e14-2191-4bf1-b07c-69309ad36661";
         String msg ="";
         Client client = clientRepository.findById(id).get();
         System.out.println(client);
@@ -81,7 +81,13 @@ public class AdminFeatureTest {
         System.out.println(msg);
 
     }
+    @Test
+    public void testExistPW(){
+        String oldPasword = "password123";
 
+        String id = "98a78e14-2191-4bf1-b07c-69309ad36661";
+        System.out.println(Util.isValidPW(oldPasword,clientRepository.findById(id).get().getPassword()));
+    }
 
 
 
