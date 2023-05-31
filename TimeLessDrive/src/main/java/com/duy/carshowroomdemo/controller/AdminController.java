@@ -42,6 +42,9 @@ public class AdminController {
     public boolean changeClientPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
         return service.getClientService().changePassword(id,oldPass,newPass);
     }
-
+    @RequestMapping("/bbb")
+    public boolean changeStaffPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
+        return service.getStaffService().changePassword(id,oldPass,newPass);
+    }
 
 }
