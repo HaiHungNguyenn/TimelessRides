@@ -37,4 +37,10 @@ public class Invoice {
     @Column(name = "status", length = 20)
     private String status;
 
+    @Column(name = "tax", length = 100)
+    private String tax;
+
+    @Column(name = "others")
+    private String otherInformation;
+
 }

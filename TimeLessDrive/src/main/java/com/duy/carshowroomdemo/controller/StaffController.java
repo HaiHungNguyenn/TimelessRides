@@ -1,10 +1,7 @@
 package com.duy.carshowroomdemo.controller;
 
 //import com.duy.carshowroomdemo.services.Service;
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.PostDto;
-import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -244,7 +241,7 @@ public class StaffController {
     }
 
     @RequestMapping("/staff/create-invoice")
-    public ModelAndView createInvoice(){
+    public ModelAndView showCreateInvoicePage(){
         ModelAndView modelAndView = new ModelAndView();
 
         if(!isAuthenticated()){
@@ -269,16 +266,127 @@ public class StaffController {
         }
 
         ClientDto clientDto = service.getClientService().findById(id);
-        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto);
-        List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto);
+        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, 0, 3);
+        List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, 0, 3);
         modelAndView.addObject("client", clientDto);
         modelAndView.addObject("offMeetingList", offMeetingsByClient);
         modelAndView.addObject("postList", postsByClient);
+        modelAndView.addObject("mOffset", 1);
+        modelAndView.addObject("pOffset", 1);
         modelAndView.addObject("callBackUrl", stack.peek());
         modelAndView.setViewName("views/staff/client-details");
 
         return modelAndView;
     }
+
+    @RequestMapping("/staff/user-details/{id}/meeting-requests-page={mOffset}")
+    public ModelAndView viewUserDetailsPagedByMeetingRequest(@PathVariable String id,
+                                                             @PathVariable int mOffset){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+
+        ClientDto clientDto = service.getClientService().findById(id);
+        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, mOffset-1, 3);
+        List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, 0, 3);
+        modelAndView.addObject("client", clientDto);
+        modelAndView.addObject("offMeetingList", offMeetingsByClient);
+        modelAndView.addObject("postList", postsByClient);
+        modelAndView.addObject("mOffset", mOffset);
+        modelAndView.addObject("pOffset", 1);
+        modelAndView.addObject("callBackUrl", stack.peek());
+        modelAndView.setViewName("views/staff/client-details");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/staff/user-details/{id}/post-requests-page={pOffset}")
+    public ModelAndView viewUserDetailsPagedByPostRequest(@PathVariable String id,
+                                                          @PathVariable int pOffset){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+
+        ClientDto clientDto = service.getClientService().findById(id);
+        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, 0, 3);
+        List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, pOffset-1, 3);
+        modelAndView.addObject("client", clientDto);
+        modelAndView.addObject("offMeetingList", offMeetingsByClient);
+        modelAndView.addObject("postList", postsByClient);
+        modelAndView.addObject("mOffset", 1);
+        modelAndView.addObject("pOffset", pOffset);
+        modelAndView.addObject("callBackUrl", stack.peek());
+        modelAndView.setViewName("views/staff/client-details");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/staff/create-invoice/create")
+    public ModelAndView createInvoice(@RequestParam("fullName") String fullName,
+                                      @RequestParam("email") String email,
+                                      @RequestParam("phone") String phone,
+                                      @RequestParam("carName") String carName,
+                                      @RequestParam("brand") String brand,
+                                      @RequestParam("boughtYear") int boughtYear,
+                                      @RequestParam("licensePlate") String licensePlate,
+                                      @RequestParam("additionalInfo") String additionalInfo){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("views/staff/create-invoice");
+
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+
+        ClientDto client = service.getClientService().getClientByEmailAndNameAndPhone(email, fullName, phone);
+
+        if(client == null){
+            modelAndView.addObject("errorMsg", "Client not found");
+            modelAndView.addObject("fullName", fullName);
+            modelAndView.addObject("email", email);
+            modelAndView.addObject("phone", phone);
+            modelAndView.addObject("carName", carName);
+            modelAndView.addObject("brand", brand);
+            modelAndView.addObject("boughtYear", boughtYear);
+            modelAndView.addObject("licensePlate", licensePlate);
+            modelAndView.addObject("additionalInfo", additionalInfo);
+            return modelAndView;
+        }
+
+        CarDto car = service.getCarService().findCarByNameAndBrandAndBoughtYearAndLicensePlate(carName, brand, boughtYear, licensePlate);
+
+        if(car == null){
+            modelAndView.addObject("errorMsg", "Car not found");
+            modelAndView.addObject("fullName", fullName);
+            modelAndView.addObject("email", email);
+            modelAndView.addObject("phone", phone);
+            modelAndView.addObject("carName", carName);
+            modelAndView.addObject("brand", brand);
+            modelAndView.addObject("boughtYear", boughtYear);
+            modelAndView.addObject("licensePlate", licensePlate);
+            modelAndView.addObject("additionalInfo", additionalInfo);
+            return modelAndView;
+        }
+
+        boolean isSavedInvoice = service.getInvoiceService().createNewInvoice(client, (StaffDto) session.getAttribute("staff"), car, additionalInfo);
+        if(isSavedInvoice){
+            modelAndView.addObject("successMsg", "Invoice created successfully");
+        }else {
+            modelAndView.addObject("errorMsg", "An error occurred");
+        }
+
+        stack.push(request.getRequestURI());
+
+        return modelAndView;
+    }
+
 
     @RequestMapping("/staff/log-out")
     public ModelAndView logout(){

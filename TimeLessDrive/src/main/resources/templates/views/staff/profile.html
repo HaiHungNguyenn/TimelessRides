@@ -16,9 +16,7 @@
     <!--    Favicons-->
     <!-- ===============================================-->
     <link rel="apple-touch-icon" sizes="180x180" href="../../../staff_assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../../staff_assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../../staff_assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../staff_assets/img/favicons/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../staff_assets/img/icons/car_logo.ico">
     <link rel="manifest" href="../../../staff_assets/img/favicons/manifest.json">
     <meta name="msapplication-TileImage" content="../../../staff_assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
@@ -48,7 +46,7 @@
           <div class="navbar-logo">
             <a class="navbar-brand me-1 me-sm-3" href="/staff/home">
               <div class="d-flex align-items-center">
-                <div class="d-flex align-items-center"><img src="../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
+                <div class="d-flex align-items-center"><img src="../../staff_assets/img/icons/logo.png" alt="phoenix" width="80" />
                   <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
                 </div>
               </div>
@@ -92,7 +90,7 @@
                       <div class="col-12 col-sm-auto"><input class="d-none" id="avatarFile" type="file" /><label class="cursor-pointer avatar avatar-5xl" for="avatarFile"><img class="rounded-circle" th:src="${session.staff.getAvatar()}" alt="" /></label></div>
                       <div class="col-12 col-sm-auto flex-1">
                         <h3 th:text="${session.staff.getName()}"></h3>
-                        <p class="text-800">Joined 3 months ago</p>
+                        <p class="text-800" th:text="'Joined ' + ${session.staff.getWorkingTime()} + ' months ago'"/>
                       </div>
                     </div>
                   </div>
@@ -138,26 +136,26 @@
         <div class="container-small">
           <div class="row justify-content-between gy-4">
             <div class="col-12 col-lg-4">
-              <div class="d-flex align-items-center mb-3"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
-                <p class="logo-text ms-2">phoenix</p>
+              <div class="d-flex align-items-center mb-3"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="80" />
+                <p class="logo-text ms-2">Timeless Ride</p>
               </div>
-              <p class="text-700 mb-1 fw-semi-bold lh-sm fs--1">Phoenix is an admin dashboard template with fascinating features and amazing layout. The template is responsive to all major browsers and is compatible with all available devices and screen sizes.</p>
-            </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">About Phoenix</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Careers</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Affiliate Program</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Privacy Policy</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Terms & Conditions</a></div>
-            </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">Stay Connected</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Blogs</a><a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-facebook-square text-primary me-2 fs-0"></span><span class="text-800">Facebook</span></a><a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Twitter</span></a></div>
+              <p class="text-700 mb-1 fw-semi-bold lh-sm fs--1">Timeless Ride is a dynamic and user-friendly car trading website that caters to automotive enthusiasts and individuals seeking a seamless buying and selling experience. Our platform provides a virtual marketplace where users can browse, list, and connect with potential buyers or sellers of pre-owned vehicles.</p>
             </div>
             <div class="col-6 col-md-auto">
               <h5 class="fw-bolder mb-3">Customer Service</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Help Desk</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Support, 24/7</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Community of Phoenix</a></div>
+              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Help </a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Support, 24/7</a></div>
             </div>
             <div class="col-6 col-md-auto">
               <h5 class="fw-bolder mb-3">Payment Method</h5>
               <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Cash on Delivery</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Online Payment</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">PayPal</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Installment</a></div>
+            </div>
+            <div class="col-6 col-md-auto">
+              <h5 class="fw-bolder mb-3">Social Contacts</h5>
+              <div class="d-flex flex-column">
+                <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-facebook-square text-primary me-2 fs-0"></span><span class="text-800">Facebook</span></a>
+                <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Instagram</span></a>
+                <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Zalo</span></a>
+              </div>
             </div>
           </div>
         </div>

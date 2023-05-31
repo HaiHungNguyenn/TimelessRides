@@ -12,6 +12,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> {
-    List<OffMeeting> findOffMeetingsByClient(Client client);
+    List<OffMeeting> findOffMeetingsByClient(Client client, Pageable pageable);
 //    List<OffMeeting> findAll(Pageable pageable, Sort sort);
 }

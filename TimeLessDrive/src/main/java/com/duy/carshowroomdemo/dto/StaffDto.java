@@ -8,6 +8,7 @@ import lombok.Value;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * DTO for {@link Staff}
@@ -26,4 +27,7 @@ public class StaffDto implements Serializable {
     String address;
     LocalDate dob;
     LocalDate joinDate;
+    public int getWorkingTime(){
+        return Period.between(this.getJoinDate(), LocalDate.now()).getMonths();
+    }
 }

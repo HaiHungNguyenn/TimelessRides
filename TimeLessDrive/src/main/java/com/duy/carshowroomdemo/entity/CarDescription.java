@@ -17,6 +17,9 @@ public class CarDescription {
     @Column(name = "color", length = 20)
     private String color;
 
+    @Column(name = "license_plate", length = 20)
+    private String licensePlate;
+
     @Column(name = "no_of_seat")
     private Short noOfSeat;
 

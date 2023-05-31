@@ -47,9 +47,6 @@ public class Client {
     @Column(name = "join_at")
     private LocalDate joinDate;
 
-    @Column(name = "tax", length = 50)
-    private String tax;
-
     @OneToMany(mappedBy = "client")
     private List<Post> postList;
 

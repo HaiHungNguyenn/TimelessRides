@@ -24,7 +24,6 @@ public class AccountDto implements UserDetails, OAuth2User {
     String gender;
     LocalDate dob;
     LocalDate joinDate;
-    String tax;
 
     private OAuth2User oAuth2User;
 
@@ -51,7 +50,6 @@ public class AccountDto implements UserDetails, OAuth2User {
         this.gender = clientDto.getGender();
         this.dob = clientDto.getDob();
         this.joinDate = clientDto.getJoinDate();
-        this.tax = clientDto.getTax();
     }
 
     public AccountDto(StaffDto staffDto){

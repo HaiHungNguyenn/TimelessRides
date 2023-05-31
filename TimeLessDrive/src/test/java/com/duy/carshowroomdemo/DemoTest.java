@@ -1,17 +1,14 @@
 package com.duy.carshowroomdemo;
 
+import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
-import com.duy.carshowroomdemo.service.AdminService;
+import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
-import net.bytebuddy.asm.Advice;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -19,10 +16,11 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -151,7 +149,6 @@ public class DemoTest {
             client.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
             client.setEmail(Util.getRandEmail(client.getName(), client.getDob()));
             client.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
-            client.setTax("I dont know this field");
 
             Client save = clientRepository.save(client);
 
@@ -164,6 +161,7 @@ public class DemoTest {
         for (int i = 0; i < 100; i++) {
             CarDescription carDescription = new CarDescription();
             carDescription.setColor(Util.getRandColor());
+            carDescription.setLicensePlate(Util.getRandLicensePlate());
             carDescription.setFuelType(Util.getRandFuelType());
             carDescription.setNoOfSeat((short) Util.getRandInt(4,8));
             carDescription.setHp((short) (Util.getRandInt(1800) + 200));
@@ -240,15 +238,17 @@ public class DemoTest {
         List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
         List<Car> carList = new ArrayList<>(carRepository.findAll());
-        Invoice invoice = new Invoice();
 
         carList.forEach(x -> {
+            Invoice invoice = new Invoice();
             invoice.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             invoice.setClient(clientList.get(Util.getRandInt(clientList.size())));
             invoice.setCar(x);
             invoice.setTotal(Util.getRandPrice());
             invoice.setCreatedAt(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             invoice.setStatus("Paid");
+            invoice.setTax(Util.getRandText(10));
+            invoice.setOtherInformation(Util.getRandText(50));
 
             Invoice save = invoiceRepository.save(invoice);
 
@@ -278,8 +278,7 @@ public class DemoTest {
     @Test
     public void testAddFeedback(){
         for (int i = 0; i < 100; i++) {
-            List<Client> clientList = new ArrayList<>();
-            clientRepository.findAll().forEach(clientList::add);
+            List<Client> clientList = new ArrayList<>(clientRepository.findAll());
             Feedback feedback = new Feedback();
             feedback.setClient(clientList.get(Util.getRandInt(clientList.size())));
             feedback.setCreatedAt(Util.getRandDate(LocalDate.of(2022,1,1), LocalDate.now()));
@@ -334,7 +333,7 @@ public class DemoTest {
             Scanner scanner = new Scanner(System.in);
             list.set(i, scanner.nextInt());
         }
-        list.forEach(x-> System.out.println(x));
+        list.forEach(System.out::println);
     }
 
     @Test
@@ -369,7 +368,7 @@ public class DemoTest {
 
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
 
-        offMeetingRepository.findOffMeetingsByClient(entity).forEach(x -> {
+        offMeetingRepository.findOffMeetingsByClient(entity, PageRequest.of(0,10)).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
         });
 
@@ -420,13 +419,13 @@ public class DemoTest {
         client.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
         client.setEmail("hai123@gmail.com");
         client.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
-        client.setTax("I dont know this field");
 
         Client save = clientRepository.save(client);
 
         Assertions.assertThat(save).isNotNull();
     }
     MapperManager mapperManager = new MapperManager();
+
     @Test
     public void testViewClient() {
         List<Client> client = clientRepository.findAll();
@@ -438,4 +437,94 @@ public class DemoTest {
             System.out.println(x);
         }
     }
+
+    @Test
+    public void testAddMoreClientRequest(){
+        Optional<Client> byEmail = clientRepository.findByEmail("QuanDH2603@gmail.com");
+//        if(byEmail.isPresent()){
+//            for (int i = 0; i < 10; i++) {
+//
+//                List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+//                OffMeeting offMeeting = new OffMeeting();
+//                offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
+//                offMeeting.setClient(byEmail.get());
+//                offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
+//                offMeeting.setCreatedAt(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
+//                offMeeting.setDescription(Util.getRandText(30));
+//                offMeeting.setStatus("Not yet");
+//
+//                OffMeeting save = offMeetingRepository.save(offMeeting);
+//            }
+//        }
+        List<Post> all = postRepository.findAll();
+        if(byEmail.isPresent()){
+            for (int i = 0; i < 10; i++) {
+
+                all.get(i).setClient(byEmail.get());
+
+            }
+        }
+    }
+
+    private final ModelMapper modelMapper = new ModelMapper();
+
+    @Test
+    public void testPaging(){
+//        Page<OffMeeting> page1 = offMeetingRepository.findAll(PageRequest.of(0, 10));
+//        Page<OffMeeting> page2 = offMeetingRepository.findAll(page1.nextPageable());
+//
+//        Pageable page = PageRequest.of(0,10);
+//
+//
+//        page1.map((element) -> modelMapper.map(element, OffMeetingDto.class)).forEach(x -> System.out.println(x.getClient().getName()));
+
+//        System.out.println("abc de fg hijk".replaceAll(" ", ""));
+        System.out.println(Util.getRandLicensePlate());
+
+    }
+
+    @Test
+    public void testAddNewInvoice(){
+
+        Service service = new Service();
+
+        String email = "KhoiNH3105@gmail.com";
+        String fullName = "Nguyen Huynh Khoi";
+        String phone = "0921217961";
+        String carName = "TRAVERSE";
+        String brand = "Ferrari";
+        int boughtYear = 1996;
+        String licensePlate = "82B24537";
+        String additionalInfo = "sdfjklsdfjklsdfj";
+
+        StaffDto staff = modelMapper.map(staffRepository.findByEmail("duy@gmail.com").get(), StaffDto.class);
+
+
+
+        ClientDto client = modelMapper.map(clientRepository.findByEmailAndNameAndPhone(email, fullName, phone), ClientDto.class);
+
+        Optional<Car> carOptional = carRepository.findCarByNameAndBrand(carName, brand);
+        if(carOptional.isEmpty()){
+            System.out.println("null");
+        }
+
+        if(carOptional.get().getCarDescription().getBoughtYear() != boughtYear || carOptional.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
+            System.out.println("null");
+        }
+
+        Invoice invoice = new Invoice();
+        invoice.setCar(modelMapper.map(carOptional.get(), Car.class));
+        invoice.setClient(modelMapper.map(client, Client.class));
+        invoice.setStaff(modelMapper.map(staff, Staff.class));
+        invoice.setTotal(carOptional.get().getPrice());
+        invoice.setTax(Util.getRandText(10));
+        invoice.setStatus("Paid");
+        invoice.setCreatedAt(LocalDate.now());
+        invoice.setOtherInformation(additionalInfo);
+
+        Invoice save = invoiceRepository.save(invoice);
+
+        Assertions.assertThat(save).isNotNull();
+    }
+
 }

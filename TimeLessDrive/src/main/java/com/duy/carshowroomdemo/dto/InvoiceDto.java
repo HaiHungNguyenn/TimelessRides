@@ -19,4 +19,6 @@ public class InvoiceDto implements Serializable {
     Long total;
     LocalDate createdAt;
     String status;
+    String tax;
+    String otherInformation;
 }

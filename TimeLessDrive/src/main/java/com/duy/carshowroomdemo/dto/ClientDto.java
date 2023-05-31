@@ -26,5 +26,4 @@ public class ClientDto implements Serializable {
     String gender;
     LocalDate dob;
     LocalDate joinDate;
-    String tax;
 }

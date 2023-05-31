@@ -137,4 +137,14 @@ public class Util {
         }
 
     }
+
+    public static String getRandLicensePlate() {
+        StringBuilder text = new StringBuilder();
+        text.append(getRandInt(11, 99));
+        text.append((char) (getRandInt(1, 7) + 65));
+        for (int i = 0; i < 5; i++) {
+            text.append(getRandInt(9));
+        }
+        return text.toString();
+    }
 }

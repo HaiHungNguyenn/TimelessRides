@@ -15,7 +15,7 @@ GO
 
 CREATE TABLE [admin] (
 	id						VARCHAR(100) PRIMARY KEY,
-	[role]					NVARCHAR(20),
+	[role]					VARCHAR(20),
 	[name]					NVARCHAR(50),
 	avatar					VARCHAR(100),
 	email					VARCHAR(45),
@@ -56,13 +56,13 @@ CREATE TABLE client (
 	[address]				NVARCHAR(100),
 	gender					VARCHAR(20),
 	dob						DATE,
-	join_at					DATE,
-	tax						varchar(50)
+	join_at					DATE
 )
 
 CREATE TABLE car_description (
 	id						VARCHAR(100) PRIMARY KEY,
 	color					VARCHAR(20),
+	license_plate			VARCHAR(20),
 	fuel_type				VARCHAR(50),
 	no_of_seat				SMALLINT,
 	HP						SMALLINT,
@@ -108,7 +108,9 @@ CREATE TABLE invoice (
 	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id) UNIQUE,
 	total					BIGINT,
 	created_at				DATE,
-	[status]				VARCHAR(20)
+	tax						VARCHAR(100),
+	[status]				VARCHAR(20),
+	others					NVARCHAR(2000)
 )
 
 CREATE TABLE off_meeting (

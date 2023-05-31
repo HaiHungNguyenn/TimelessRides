@@ -19,7 +19,7 @@ public class Service {
     @Autowired
     private CarImageService carImageService;
     @Autowired
-    private ClientService clientService;
+    private ClientService clientService = new ClientService();
     @Autowired
     private FeedbackService feedbackService;
     @Autowired

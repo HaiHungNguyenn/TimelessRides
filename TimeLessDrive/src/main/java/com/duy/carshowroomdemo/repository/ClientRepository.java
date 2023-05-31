@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.repository;
 
+import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
@@ -20,4 +21,5 @@ public interface ClientRepository extends JpaRepository<Client, String> {
     List<Client> findByJoinDateBetween(LocalDate startDate, LocalDate endDate);
 
 
+    Client findByEmailAndNameAndPhone(String email, String name, String phone);
 }

@@ -9,6 +9,7 @@ import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.ClientRepository;
 import com.duy.carshowroomdemo.util.Util;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,9 @@ import java.util.Optional;
 public class ClientService {
     @Autowired
     private ClientRepository repository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = new MapperManager();
+
+    private final ModelMapper modelMapper = new ModelMapper();
 
     public ClientDto findById(String id) {
         return mapperManager.getClientMapper().toDto(repository.findById(id).orElse(null));
@@ -61,6 +64,13 @@ public class ClientService {
         // lay list tu repo, sau do parse sang dto
         repository.findByJoinDateBetween(LocalDate.parse(startDate),LocalDate.parse(endDate)).forEach(x->{list.add(mapperManager.getClientMapper().toDto(x));});
         return list;
+    }
 
+    public ClientDto getClientByEmailAndNameAndPhone(String email, String name, String phone){
+        Client client = repository.findByEmailAndNameAndPhone(email, name, phone);
+        if(client == null){
+            return null;
+        }
+        return modelMapper.map(client, ClientDto.class);
     }
 }

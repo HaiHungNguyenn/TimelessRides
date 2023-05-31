@@ -26,9 +26,9 @@ public class PostService {
         return postRequestList;
     }
 
-    public List<PostDto> getPostsByClient(ClientDto clientDto){
+    public List<PostDto> getPostsByClient(ClientDto clientDto, int offset, int size){
         List<PostDto> postDtoList = new ArrayList<>();
-        postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto)).forEach(x -> {
+        postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto), PageRequest.of(offset, size)).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
         return postDtoList;

@@ -33,9 +33,9 @@ public class OffMeetingService {
         return offMeetingList;
     }
 
-    public List<OffMeetingDto> getOffMeetingsByClient(ClientDto clientDto){
+    public List<OffMeetingDto> getOffMeetingsByClient(ClientDto clientDto, int offset, int size){
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
-        offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto)).forEach(x -> {
+        offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(offset, size)).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
         });
         return offMeetingDtoList;

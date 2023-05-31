@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class CarDescriptionDto implements Serializable {
     String id;
     String color;
+
     Short noOfSeat;
     String fuelType;
     Short hp;
