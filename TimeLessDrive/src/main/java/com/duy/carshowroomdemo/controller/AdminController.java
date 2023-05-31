@@ -30,5 +30,21 @@ public class AdminController {
     public List<ClientDto> clientListByJoinDate(@RequestParam(name="startDate") String startDate , @RequestParam(name="endDate") String endDate){
         return service.getClientService().listByJoinDate(startDate,endDate);
     }
+    @RequestMapping("/abb")
+    public ClientDto findClientByID(@RequestParam("id") String id){
+        return service.getClientService().findById(id);
+    }
+//    @RequestMapping("/zzz")
+//    public Boolean deleteClientById(@RequestParam("id") String id){
+//        return service.getClientService().deletebyId(id);
+//    }
+    @RequestMapping("/aaa")
+    public boolean changeClientPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
+        return service.getClientService().changePassword(id,oldPass,newPass);
+    }
+    @RequestMapping("/bbb")
+    public boolean changeStaffPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
+        return service.getStaffService().changePassword(id,oldPass,newPass);
+    }
 
 }

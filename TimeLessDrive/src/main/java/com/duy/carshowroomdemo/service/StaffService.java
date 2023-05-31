@@ -1,6 +1,7 @@
 package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.StaffRepository;
@@ -37,5 +38,19 @@ public class StaffService {
 
     public boolean isExist(String email) {
         return repository.existsByEmail(email);
+    }
+
+    public boolean changePassword(String id, String oldPass, String newPass) {
+        Staff staff = repository.findById(id).get();
+        try {
+            if(Util.isValidPW(oldPass,staff.getPassword())){
+                staff.setPassword(newPass);
+                repository.save(staff);
+                return true;
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return false;
     }
 }

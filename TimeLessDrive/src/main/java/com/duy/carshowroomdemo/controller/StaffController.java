@@ -408,5 +408,10 @@ public class StaffController {
 
         return modelAndView;
     }
+    // change password
+    @RequestMapping("/bb")
+    public boolean changeStaffPassword1(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
+        return service.getStaffService().changePassword(id,oldPass,newPass);
+    }
 
 }

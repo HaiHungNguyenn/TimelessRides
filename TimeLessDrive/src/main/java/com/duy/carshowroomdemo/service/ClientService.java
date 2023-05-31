@@ -73,4 +73,23 @@ public class ClientService {
         }
         return modelMapper.map(client, ClientDto.class);
     }
+
+    public boolean changePassword(String id,String oldPass, String newPass) {
+        Client client = repository.findById(id).get();
+        try {
+            if(Util.isValidPW(oldPass,client.getPassword())){
+                client.setPassword(newPass);
+                repository.save(client);
+                return true;
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+//    public Boolean deletebyId(String id) {
+//        return repository.deleteById(id);
+//    }
 }

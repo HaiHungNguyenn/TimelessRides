@@ -38,12 +38,12 @@ public class LogInController {
 
         else if(clientDto != null){
             modelAndView.setViewName("views/user/index");
-            session.setAttribute("user", clientDto);
+            session.setAttribute("client", clientDto);
         }
 
         else if(adminDto != null){
             modelAndView.setViewName("views/admin/index");
-            session.setAttribute("user", adminDto);
+            session.setAttribute("admin", adminDto);
         }
 
         else {
@@ -72,6 +72,7 @@ public class LogInController {
             }
             return modelAndView;
     }
+
 
 
 }
