@@ -10,9 +10,11 @@
     <title>Transaction History</title>
 
     <!-- Google Font -->
+
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
@@ -144,131 +146,391 @@
     <section style="width:100%;height:80vh" >
 
         <!-- code here -->
+
         <style>
             body {
                 font-family: Arial, sans-serif;
-                background-color: #f9f9f9;
                 margin: 0;
-
+                padding: 20px;
+                background-color: #f5f5f5;
             }
 
             h1 {
+                color: #333;
                 text-align: center;
-                margin-bottom: 30px;
+                margin-bottom: 20px;
             }
 
             table {
                 width: 100%;
                 border-collapse: collapse;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
                 background-color: #fff;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
             th, td {
-                padding: 15px;
-                text-align: center;
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ccc;
             }
 
             th {
                 background-color: #f2f2f2;
+                font-weight: bold;
                 color: #333;
-                text-transform: uppercase;
             }
 
-            td {
-                border-bottom: 1px solid #e6e6e6;
-                font-weight: 500;
-            }
-
-            tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-            tbody tr:nth-child(even) {
+            tr:hover {
                 background-color: #f9f9f9;
             }
 
-            tbody tr:hover {
-                background-color: #f2f2f2;
+            .status-completed {
+                color: #11bb11;
             }
 
-            .amount {
-                color: #00c853;
+            .status-pending {
+                color: red;
+            }
+            #transactionTable a{
+                color: red;
+            }
+            #transactionTable a:active{
+                color: red;
+            }
+            #transactionTable a:hover{
+                color: red;
+            }
+            a:visited{
+                color: #ffffff;
             }
 
-            .center {
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+            }
+
+            .profile-modal.active {
+                display: block;
+            }
+
+            .profile-modal h2 {
+                margin-top: 0;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+            }
+
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+                max-width: 400px;
+                width: 100%;
                 text-align: center;
             }
 
-            .bold {
-                font-weight: bold;
+            .profile-modal.active {
+                display: block;
             }
 
-            .capitalize {
-                text-transform: capitalize;
+            .profile-modal h2 {
+                margin-top: 0;
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
             }
 
-            .button {
-                cursor: pointer;
-                padding: 6px 10px;
-                background-color: #007bff;
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #666;
+                line-height: 1.4;
+            }
+
+            .profile-modal button {
+                padding: 10px 20px;
+                background-color: #4caf50;
                 color: #fff;
                 border: none;
                 border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
             }
 
-            .button:hover {
-                background-color: #0056b3;
+            .profile-modal button:hover {
+                background-color: #45a049;
             }
+
+            .profile-modal button:active {
+                background-color: #3e8e41;
+            }
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+                max-width: 250px;
+                width: 100%;
+                text-align: -webkit-left;
+                border-radius: 8px;
+            }
+
+
+
+            .profile-modal h2 {
+                margin-top: 0;
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #666;
+                line-height: 1.4;
+            }
+
+            .profile-modal button {
+                padding: 12px 24px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .profile-modal button:hover {
+                background-color: #45a049;
+            }
+
+            .profile-modal button:active {
+                background-color: #3e8e41;
+            }
+
+            .profile-modal:before {
+                content: "";
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 10px;
+                border-style: solid;
+                border-color: transparent transparent #fff transparent;
+            }
+
+            .profile-modal:after {
+                content: "";
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 10px;
+                border-style: solid;
+                border-color: #fff transparent transparent transparent;
+            }
+
+
+            .date-picker-container label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            .date-picker-container input {
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+
+            .date-picker-container button {
+                padding: 8px 16px;
+                background-color: #4caf50;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .date-picker-container button:hover {
+                background-color: #45a049;
+            }
+
+            .date-picker-container button:active {
+                background-color: #3e8e41;
+            }
+            .profile-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                display: none;
+            }
+
+            .profile-modal.active {
+                display: block;
+            }
+
+            .profile-modal h2 {
+                margin-top: 0;
+            }
+
+            .profile-modal p {
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+
+            .profile-modal button {
+                padding: 8px 16px;
+                background-color: #ce0b25;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .profile-modal button:hover {
+                background-color: #8f0b1d;
+            }
+
+            .profile-modal button:active {
+                background-color: #8f0b1d;
+            }
+
         </style>
         <body>
 
+        <div style="margin: 20px;">
+            <label for="datePicker">Select a Date:</label>
+            <input type="text" id="datePicker" readonly>
+            <button onclick="showTransactions()">Show </button>
+        </div>
         <table id="transactionTable">
             <thead>
             <tr>
-                <th class="center">Transaction ID</th>
-                <th class="center">Customer Name</th>
-                <th class="center">Car Model</th>
-                <th class="center">Purchase Date</th>
-                <th class="center">Amount</th>
-                <th class="center">Payment Method</th>
-                <th class="center">Salesperson</th>
+                <th>Transaction ID</th>
+                <th>Seller</th>
+                <th>Car Make</th>
+                <th>Car Model</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Date</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td>001</td>
-                <td class="capitalize">John Smith</td>
-                <td class="capitalize">Honda Civic</td>
-                <td class="center">May 15, 2023</td>
-                <td class="amount center bold">$25,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Jane Doe</td>
+                <td>1</td>
+                <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>
+                <td>Toyota</td>
+                <td>Camry</td>
+                <td>$25,000</td>
+                <td class="status-completed">Completed</td>
+                <td>2023-05-15</td>
             </tr>
-            </tbody>
-            <tbody>
             <tr>
-                <td>002</td>
-                <td class="capitalize">Jim</td>
-                <td class="capitalize">toyota</td>
-                <td class="center">May 17, 2023</td>
-                <td class="amount center bold">$39,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Victor</td>
+                <td>2</td>
+                <td><a href="#" onclick="openProfileModal('Jane Smith')">Jane Smith</a></td>
+                <td>Honda</td>
+                <td>Civic</td>
+                <td>$20,000</td>
+                <td class="status-pending">Pending</td>
+                <td>2023-05-17</td>
             </tr>
-            </tbody>
-            <tbody>
             <tr>
-                <td>003</td>
-                <td class="capitalize">Tony</td>
-                <td class="capitalize">Honda Civic</td>
-                <td class="center">May 30, 2023</td>
-                <td class="amount center bold">$25,000</td>
-                <td class="center">Credit Card</td>
-                <td class="capitalize">Jane Doe</td>
+                <td>3</td>
+                <td><a href="#" onclick="openProfileModal('Michael Johnson')">Michael Johnson</a></td>
+                <td>Ford</td>
+                <td>Mustang</td>
+                <td>$35,000</td>
+                <td class="status-completed">Completed</td>
+                <td>2023-05-22</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><a href="#" onclick="openProfileModal('Sarah Thompson')">Sarah Thompson</a></td>
+                <td>Chevrolet</td>
+                <td>Corvette</td>
+                <td>$50,000</td>
+                <td class="status-pending">Pending</td>
+                <td>2023-05-25</td>
             </tr>
             </tbody>
         </table>
+
+
+
+        <div id="profileModal" class="profile-modal">
+            <h2>Seller Profile</h2>
+            <p id="profileName"></p>
+            <p id="profileEmail"></p>
+            <p id="profilePhone"></p>
+            <button onclick="closeProfileModal()">Close</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            const transactionTable = document.getElementById('transactionTable');
+            const datePicker = flatpickr('#datePicker', {
+                dateFormat: 'Y-m-d',
+            });
+            const profileModal = document.getElementById('profileModal');
+            const profileName = document.getElementById('profileName');
+            const manufacturerTable = document.getElementById('manufacturerTable');
+
+            function showTransactions() {
+                const selectedDate = datePicker.selectedDates[0].toISOString().split('T')[0];
+                const rows = transactionTable.getElementsByTagName('tr');
+
+                for (let i = 1; i < rows.length; i++) {
+                    const dateCell = rows[i].getElementsByTagName('td')[6];
+                    const date = dateCell.textContent;
+
+                    if (date === selectedDate) {
+                        rows[i].style.display = 'table-row';
+                    } else {
+                        rows[i].style.display = 'none';
+                    }
+                }
+            }
+
+            function openProfileModal(name, email, phone) {
+                profileName.textContent = name;
+                profileEmail.textContent = 'Email: ' + email;
+                profilePhone.textContent = 'Phone: ' + phone;
+                profileModal.classList.add('active');
+            }
+
+            function closeProfileModal() {
+                profileModal.classList.remove('active');
+            }
+        </script>
         </body>
 
     </section>
