@@ -15,9 +15,15 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, String> {
     Optional<Client> findByEmailAndPassword(String email, String pass);
 
+    @Override
+    Optional<Client> findById(String s);
+
     Optional<Client> findByEmail(String email);
     boolean existsByEmail(String email);
     List<Client> findByJoinDateBetween(LocalDate startDate, LocalDate endDate);
+
+
+
 
 
 }
