@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+
+  
+<!-- Mirrored from prium.github.io/phoenix/v1.12.0/apps/crm/lead-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2023 14:35:59 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Client Details</title>
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../staff_assets/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../staff_assets/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../staff_assets/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../staff_assets/img/favicons/favicon.ico">
+    <link rel="manifest" href="../../staff_assets/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="../../staff_assets/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="../../vendors/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="../../vendors/simplebar/simplebar.min.js"></script>
+    <script src="../../staff_assets/js/config.js"></script>
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="../../vendors/dropzone/dropzone.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="../../vendors/simplebar/simplebar.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link href="../../staff_assets/css/theme-rtl.min.css" type="text/css" rel="stylesheet" id="style-rtl">
+    <link href="../../staff_assets/css/theme.min.css" type="text/css" rel="stylesheet" id="style-default">
+    <link href="../../staff_assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
+    <link href="../../staff_assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
+  </head>
+
+  <body>
+        <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="navbar-logo">
+            <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+            <a class="navbar-brand me-1 me-sm-3" href="../admin/index.html">
+              <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center"><img src="../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
+                  <p class="logo-text ms-2 d-none d-sm-block">TimeLess Ride</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        </nav>
+      <div class="content">
+          <form action="/back">
+              <button type="submit" class="btn btn-secondary mb-4">
+                  <span>Back</span>
+              </button>
+          </form>
+        <div class="pb-9">
+          <div class="row">
+            <div class="col-12">
+              <div class="row align-items-center justify-content-between g-3 mb-3">
+                <div class="col-12 col-md-auto">
+                  <h2 class="mb-0">Client Details</h2>
+                </div>
+                <div class="col-12 col-md-auto">
+                  <div class="d-flex">
+                    <div class="flex-1 d-md-none">
+                        <button class="btn px-3 btn-phoenix-secondary text-700 me-2" data-phoenix-toggle="offcanvas" data-phoenix-target="#productFilterColumn">
+                            <span class="fa-solid fa-bars"></span>
+                        </button>
+                    </div>
+                      <a th:href="'mailto:' + ${client.getEmail()}"}>
+                          <button class="btn btn-primary me-2" >
+                              <span>Send an email</span>
+                          </button>
+                      </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row g-0 g-md-4 g-xl-6">
+            <div class="col-md-5 col-lg-5 col-xl-4">
+              <div class="sticky-leads-sidebar">
+                <div class="lead-details-offcanvas bg-soft scrollbar phoenix-offcanvas phoenix-offcanvas-fixed" id="productFilterColumn">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row align-items-center g-3 text-center text-xxl-start">
+                        <div class="col-12 col-xxl-auto">
+                          <div class="avatar avatar-5xl"><img class="rounded-circle" th:src="${client.getAvatar()}" alt="" /></div>
+                        </div>
+                        <div class="col-12 col-sm-auto flex-1">
+                          <h3 class="fw-bolder mb-2" th:text="${client.getName()}"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-5">
+                        <h3>About client</h3>
+                      </div>
+                      <div class="mb-4">
+                        <div class="d-flex align-items-center mb-1"><span class="me-2 uil uil-envelope-alt">  </span>
+                          <h5 class="text-1000 mb-0">Email</h5>
+                        </div><a th:href="'mailto:' + ${client.getEmail()}" th:text="${client.getEmail()}"/>
+                      </div>
+                      <div class="mb-4">
+                        <div class="d-flex align-items-center mb-1"><span class="me-2 uil uil-phone"> </span>
+                          <h5 class="text-1000 mb-0">Phone</h5>
+                        </div><a th:href="'tel:' + ${client.getPhone()}" th:text="${client.getPhone()}"/>
+                      </div>
+                      <div class="mb-4">
+                        <div class="d-flex align-items-center mb-1"><span class="me-2 uil uil-clock"></span>
+                          <h5 class="text-1000 mb-0">Last contacted</h5>
+                        </div>
+                        <p class="mb-0 text-800"/>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="d-flex align-items-center mb-5">
+                        <h3>Address</h3>
+                      </div>
+                      <div class="mb-4">
+                        <p class="mb-0 text-800" th:text="${client.getAddress()}" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="phoenix-offcanvas-backdrop d-lg-none top-0" data-phoenix-backdrop="data-phoenix-backdrop"></div>
+              </div>
+            </div>
+            <div class="col-md-7 col-lg-7 col-xl-8">
+              <div class="lead-details-container">
+                <div class="scrollspy-example bg-body-tertiary rounded-2" data-bs-spy="scroll" data-bs-offset="0" data-bs-target="#navbar-deals-detail" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
+                    <div class="mb-8">
+                        <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals1">
+                            <h2 class="mb-0">Requests</h2>
+                        </div>
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable1" data-list='{"valueNames":["dealName","amount","stage","probability","date","type"],"page":5,"pagination":true}'>
+                            <div class="table-responsive scrollbar mx-n1 px-1">
+                                <table class="table fs--1 mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="sort white-space-nowrap align-middle pe-3 ps-0 text-uppercase" scope="col" data-sort="dealName" style="width:15%; min-width:150px">Staff Name</th>
+                                        <th class="sort align-middle text-start text-uppercase" scope="col" data-sort="probability" style="width:20%; min-width:100px">Description</th>
+                                        <th class="sort align-middle pe-6 text-uppercase text-end" scope="col" data-sort="amount" style="width:15%; min-width:100px">Meeting Date</th>
+                                        <th class="sort align-middle ps-0 text-end text-uppercase" scope="col" data-sort="date" style="width:15%; min-width:120px">Created At</th>
+                                        <th class="sort align-middle text-end text-uppercase" scope="col" data-sort="type" style="width:15%; min-width:140px">Status</th>
+<!--                                        <th class="sort align-middle text-start text-uppercase" scope="col" data-sort="stage" style="width:20%; min-width:200px">Status</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                    <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="meeting: ${offMeetingList}">
+                                        <td class="dealName align-middle white-space-nowrap py-2 ps-0"><a class="fw-semi-bold text-primary" th:text="${meeting.getStaff().getName()}"/></td>
+                                        <td class="probability align-middle flex-wrap" th:text="${meeting.getDescription()}"/>
+                                        <td class="amount align-middle white-space-nowrap text-start fw-bold text-700 py-2 text-end pe-6" th:text="${meeting.getMeetingDate()}"/>
+                                        <td class="date align-middle text-700 text-center py-2" th:text="${meeting.getCreateAt()}"/>
+                                        <td class="type align-middle fw-semi-bold py-2 text-end"><span class="badge badge-phoenix fs--2 badge-phoenix-info" th:text="${meeting.getStatus()}"/></td>
+<!--                                        <td class="stage align-middle white-space-nowrap text-900 py-2"><span class="badge badge-phoenix fs&#45;&#45;2 badge-phoenix-success" th:text="${meeting.getStatus()}"/></td>-->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
+                                <div class="col-auto d-flex">
+                                    <p class="mb-0 d-none d-sm-block me-3 fw-semi-bold text-900" data-list-info="data-list-info"></p><a class="fw-semi-bold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semi-bold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                                </div>
+                                <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                                    <ul class="mb-0 pagination"></ul><button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals">
+                            <h2 class="mb-0">Posts</h2>
+                        </div>
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable" data-list='{"valueNames":["dealName","amount","stage","probability","date","type"],"page":5,"pagination":true}'>
+                            <div class="table-responsive scrollbar mx-n1 px-1">
+                                <table class="table fs--1 mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th class="sort white-space-nowrap align-middle pe-3 ps-0 text-uppercase" scope="col" data-sort="dealName" style="width:15%; min-width:150px">Car Name</th>
+                                        <th class="sort align-middle text-start text-uppercase" scope="col" data-sort="probability" style="width:20%; min-width:100px">Description</th>
+                                        <th class="sort align-middle ps-0 text-end text-uppercase" scope="col" data-sort="date" style="width:3%; min-width:80px">Created At</th>
+                                        <th class="sort align-middle text-end text-uppercase" scope="col" data-sort="type" style="width:15%; min-width:140px">Status</th>
+                                        <!--                                        <th class="sort align-middle text-start text-uppercase" scope="col" data-sort="stage" style="width:20%; min-width:200px">Status</th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody class="list">
+                                    <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="post: ${postList}">
+                                        <td class="dealName align-middle white-space-nowrap py-2 ps-0"><a class="fw-semi-bold text-primary" th:text="${post.getCar().getName()}"/></td>
+                                        <td class="probability align-middle flex-wrap" th:text="${post.getDescription()}"/>
+                                        <td class="date align-middle text-700 text-center py-2" th:text="${post.getCreatedAt()}"/>
+                                        <td class="type align-middle fw-semi-bold py-2 text-end"><span class="badge badge-phoenix fs--2 badge-phoenix-info" th:text="${post.getClient().getName()}"/></td>
+                                        <!--                                        <td class="stage align-middle white-space-nowrap text-900 py-2"><span class="badge badge-phoenix fs&#45;&#45;2 badge-phoenix-success" th:text="${meeting.getStatus()}"/></td>-->
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
+                                <div class="col-auto d-flex">
+                                    <p class="mb-0 d-none d-sm-block me-3 fw-semi-bold text-900" data-list-info="data-list-info"></p><a class="fw-semi-bold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semi-bold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
+                                </div>
+                                <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
+                                    <ul class="mb-0 pagination"></ul><button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+  </body>
+
+
+<!-- Mirrored from prium.github.io/phoenix/v1.12.0/apps/crm/lead-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2023 14:36:00 GMT -->
+</html>
