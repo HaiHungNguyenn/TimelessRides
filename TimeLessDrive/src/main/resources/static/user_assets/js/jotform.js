@@ -14993,7 +14993,7 @@ var JotForm = {
                                 unvalidFields: unvalidFields
                             }
                             try {
-                                fetch(JotForm.url + '/server/doubleValidation/' + form.id, {
+                                fetch(JotForm.server + '?action=doubleValidation&formID=' + form.id, {
                                     method: 'POST',
                                     body: JSON.stringify(errorBody)
                                 });

@@ -21,10 +21,35 @@
     <link rel="stylesheet" href="../../user_assets/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/splide-sea-green.min.css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
+
+    <title>Car Booking Form for Photography Session</title>
+    <link href="https://cdn01.jotfor.ms/static/formCss.css?3.3.42293" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/nova.css?3.3.42293" />
+
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn03.jotfor.ms/themes/CSS/566a91c2977cdfcd478b4567.css?v=3.3.42293" />
+    <link type="text/css" rel="stylesheet"
+          href="https://cdn01.jotfor.ms/css/styles/payment/payment_feature.css?3.3.42293" />
+
+
+    <script src="https://cdn02.jotfor.ms/static/prototype.forms.js?3.3.42293" type="text/javascript"></script>
+    <script src="https://cdn03.jotfor.ms/static/jotform.forms.js?3.3.42293" type="text/javascript"></script>
+    <script src="https://cdn01.jotfor.ms/js/vendor/jquery-1.8.0.min.js?v=3.3.42293" type="text/javascript"></script>
+    <script defer src="https://cdn02.jotfor.ms/js/vendor/maskedinput.min.js?v=3.3.42293"
+            type="text/javascript"></script>
+    <script defer src="https://cdn03.jotfor.ms/js/vendor/jquery.maskedinput.min.js?v=3.3.42293"
+            type="text/javascript"></script>
+    <script src="https://cdn01.jotfor.ms/js/payments/validategateways.js?v=3.3.42293" type="text/javascript"></script>
+    <script src="https://cdn01.jotfor.ms/s/umd/b7f9bb16e8b/for-appointment-field.js?v=3.3.42293"
+            type="text/javascript"></script>
+    <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
+    <script src="../../user_assets/js/booking-meeting.js"></script>
 </head>
 
 <body>
+<div class="all-page">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -39,7 +64,7 @@
             <a href="#" class="primary-btn">Add Car</a>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
+            <a href="./index.html"><img src="/img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget__add">
@@ -91,7 +116,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+                        <a href="/"><img src="/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -149,21 +174,47 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="car__details__pic">
-                        <div class="car__details__pic__large">
-                            <img class="car-big-img" src="../../user_assets/img/cars/details/cd-1.jpg" alt="">
+                        <div id="main-slider" class="splide col-sm-12">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    <li class="splide__slide">
+                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-1.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-2.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-3.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-4.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-5.jpg">
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="car-thumbs">
-                            <div class="car-thumbs-track car__thumb__slider owl-carousel">
-                                <div class="ct" data-imgbigurl="img/cars/details/cd-2.jpg"><img
-                                        src="../../user_assets/img/cars/details/sm-1.jpg" alt=""></div>
-                                <div class="ct" data-imgbigurl="img/cars/details/cd-3.jpg"><img
-                                        src="../../user_assets/img/cars/details/sm-2.jpg" alt=""></div>
-                                <div class="ct" data-imgbigurl="img/cars/details/cd-4.jpg"><img
-                                        src="../../user_assets/img/cars/details/sm-3.jpg" alt=""></div>
-                                <div class="ct" data-imgbigurl="img/cars/details/cd-5.jpg"><img
-                                        src="../../user_assets/img/cars/details/sm-4.jpg" alt=""></div>
-                                <div class="ct" data-imgbigurl="img/cars/details/cd-6.jpg"><img
-                                        src="../../user_assets/img/cars/details/sm-5.jpg" alt=""></div>
+
+                        <div id="thumbnail-slider" class="splide">
+                            <div class="splide__track">
+                                <ul class="splide__list">
+                                    <li class="splide__slide">
+                                        <img src="../../user_assets/img/cars/details/sm-1.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img src="../../user_assets/img/cars/details/sm-2.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img src="../../user_assets/img/cars/details/sm-3.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img src="../../user_assets/img/cars/details/sm-4.jpg">
+                                    </li>
+                                    <li class="splide__slide">
+                                        <img src="../../user_assets/img/cars/details/sm-5.jpg">
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -177,7 +228,8 @@
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Technical</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Features & Options</a>
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Features &
+                                    Options</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Vehicle Location</a>
@@ -191,15 +243,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -208,15 +264,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -279,15 +339,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information2</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -296,15 +360,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -367,15 +435,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information3</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -384,15 +456,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -455,15 +531,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information4</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -472,15 +552,19 @@
                                             <div class="car__details__tab__info__item">
                                                 <h5>General Information</h5>
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
+                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat
+                                                        non
                                                         consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
+                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur
+                                                        atero
                                                         lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
+                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero,
+                                                        eleifend
                                                         sit amet felis ido.</li>
                                                     <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
                                                         Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
+                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien,
+                                                        vestibulum
                                                         eget aliquet et.</li>
                                                 </ul>
                                             </div>
@@ -556,18 +640,22 @@
                                 <li>Price <span>$117,000</span></li>
                             </ul>
                             <a href="#" class="primary-btn"><i class="fa fa-credit-card"></i> Express Purchase</a>
-                            <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build Payment</a>
+                            <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build
+                                Payment</a>
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-money"></i> Value Trade</a>
+                            <button id="show-booking" class="primary-btn sidebar-btn" style="width: 100%;"><i class="fa fa-calendar" ></i>
+                                Book Meeting</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </section>
     <!-- Car Details Section End -->
 
     <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
+    <footer class="footer set-bg" data-setbg="/img/footer-bg.jpg">
         <div class="container">
             <div class="footer__contact">
                 <div class="row">
@@ -579,7 +667,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__option">
                             <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -588,9 +677,10 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="../../user_assets/img/footer-logo.png" alt=""></a>
+                            <a href="#"><img src="/img/footer-logo.png" alt=""></a>
                         </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
+                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or
+                            call us
                             on (+1) 96 123 8888</p>
                         <div class="footer__social">
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -642,7 +732,12 @@
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
-                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                <p>Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                    is
+                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                                   target="_blank">Colorlib</a>
+                </p>
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -658,18 +753,103 @@
             </form>
         </div>
     </div>
-    <!-- Search End -->
+</div>
+<!-- Search End -->
+<!-- Start pop up form -->
+<div class="pop-up">
+    <form class="jotform-form" action="https://submit.jotform.com/submit/231493697523465" method="post"
+          name="form_231493697523465" id="231493697523465" accept-charset="utf-8" autocomplete="on"><input
+            type="hidden" name="formID" value="231493697523465" /><input type="hidden" id="JWTContainer"
+                                                                         value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
+        <div role="main" class="form-all">
+            <ul class="form-section page-section">
+                <li id="cid_23" class="form-input-wide" data-type="control_head">
+                    <div class="form-header-group  header-default">
+                        <div class="header-text httal htvam">
+                            <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION
+                            </h2>
+                            <div class="esc-button">&times;</div>
+                        </div>
+                    </div>
+                </li>
+                <li class="form-line" data-type="control_appointment" id="id_24"><label
+                        class="form-label form-label-top" id="label_24" for="input_24"> Select an Appointment
+                    Date
+                </label>
+                    <div id="cid_24" class="form-input-wide">
+                        <div id="input_24" class="appointmentFieldWrapper jfQuestion-fields"><input
+                                class="appointmentFieldInput" name="q24_selectAn[implementation]" value="new"
+                                id="input_24implementation" /><input class="appointmentFieldInput "
+                                                                     name="q24_selectAn[date]" id="input_24_date" data-timeformat="" /><input
+                                class="appointmentFieldInput" name="q24_selectAn[duration]" value="60"
+                                id="input_24_duration" /><input class="appointmentFieldInput"
+                                                                name="q24_selectAn[timezone]" value="Asia/Bangkok (GMT+07:00)"
+                                                                id="input_24_timezone" />
+                            <div class="appointmentField"></div>
+                        </div>
+                    </div>
+                </li>
+                <li class="form-line jf-required" data-type="control_phone" id="id_32"><label
+                        class="form-label form-label-left form-label-auto" id="label_32" for="input_32_full">
+                    Phone
+                    Number<span class="form-required">*</span> </label>
+                    <div id="cid_32" class="form-input jf-required"> <span class="form-sub-label-container"
+                                                                           style="vertical-align:top"><input type="tel" id="input_32_full"
+                                                                                                             name="q32_phoneNumber32[full]" data-type="mask-number"
+                                                                                                             class="mask-phone-number form-textbox validate[required, Fill Mask]"
+                                                                                                             data-defaultvalue="" autoComplete="section-input_32 tel-national" data-masked="true"
+                                                                                                             value="" data-component="phone" aria-labelledby="label_32" required="" /></span>
+                    </div>
+                </li>
+                <li class="form-line" data-type="control_textarea" id="id_31"><label
+                        class="form-label form-label-left form-label-auto" id="label_31" for="input_31"> Other
+                    requirements </label>
+                    <div id="cid_31" class="form-input"> <textarea id="input_31" class="form-textarea"
+                                                                   name="q31_otherRequirements" cols="40" rows="6" data-component="textarea"
+                                                                   aria-labelledby="label_31"></textarea> </div>
+                </li>
+                <li class="form-line" data-type="control_button" id="id_2">
+                    <div id="cid_2" class="form-input-wide">
+                        <div data-align="center"
+                             class="form-buttons-wrapper form-buttons-center   jsTest-button-wrapperField">
+                            <button id="input_2" type="submit"
+                                    class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
+                                    data-component="button" data-content="">Submit</button>
+                        </div>
+                    </div>
+                </li>
+                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+            </ul>
+        </div>
+        <script>
+            JotForm.showJotFormPowered = "new_footer";
+        </script>
+        <script>
+            JotForm.poweredByText = "Powered by Jotform";
+        </script><input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc"
+                        value="231493697523465" />
+        <script type="text/javascript">
+            var all_spc = document.querySelectorAll("form[id='231493697523465'] .si" + "mple" + "_spc");
+            for (var i = 0; i < all_spc.length; i++) {
+                all_spc[i].value = "231493697523465-231493697523465";
+            }
+        </script>
 
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
+    </form>
+</div>
+<!-- End pop up form -->
+<!-- Js Plugins -->
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/splide.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+<script src="../../user_assets/js/booking-show.js"></script>
 </body>
 
 </html>
+<script type="text/javascript">JotForm.ownerView = true;</script>

@@ -3695,3 +3695,40 @@ ol {
 		width: 100%;
 	}
 }
+
+#main-slider {
+	padding-left: 0;
+	padding-top: 0;
+	padding-right: 0;
+}
+
+#thumbnail-slider {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.splide__pagination__page.is-active {
+	background-color: red;
+}
+
+.splide__pagination__page:hover {
+	background-color: red;
+}
+
+.splide__arrow svg {
+	fill: rgb(214, 79, 79);
+}
+
+.splide__arrow svg:hover {
+	fill: red;
+}
+
+#main-slider *:not(.splide__pagination, .splide__pagination *) {
+	width: 100%;
+	margin: auto;
+}
+
+.splide--nav>.splide__track>.splide__list>.splide__slide.is-active {
+	border: 3px solid red;
+	opacity: 1;
+}

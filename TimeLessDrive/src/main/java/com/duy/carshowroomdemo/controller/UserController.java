@@ -62,4 +62,10 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping ("/car_detail")
+    public ModelAndView carDetail(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("views/user/car-details");
+        return modelAndView;
+    }
 }
