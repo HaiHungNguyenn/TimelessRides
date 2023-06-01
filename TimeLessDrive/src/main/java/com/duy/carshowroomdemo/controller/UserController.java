@@ -73,10 +73,7 @@ public class UserController {
     @GetMapping ("/car-detail")
     public ModelAndView carDetail(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
+
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;
     }
