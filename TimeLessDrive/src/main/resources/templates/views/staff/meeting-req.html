@@ -10,9 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Request List</title>
     <link rel="apple-touch-icon" sizes="180x180" href="../../../staff_assets/img/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../../staff_assets/img/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../../staff_assets/img/favicons/favicon-16x16.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../staff_assets/img/favicons/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../../staff_assets/img/icons/car_logo.ico">
     <link rel="manifest" href="../../../staff_assets/img/favicons/manifest.json">
     <meta name="msapplication-TileImage" content="../../../staff_assets/img/favicons/mstile-150x150.png">
     <meta name="theme-color" content="#ffffff">
@@ -31,136 +29,138 @@
     <link href="../../../staff_assets/css/theme.min.css" type="text/css" rel="stylesheet" id="style-default">
     <link href="../../../staff_assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
     <link href="../../../staff_assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
-    <script>
-      var phoenixIsRTL = window.config.config.phoenixIsRTL;
-      if (phoenixIsRTL) {
-        var linkDefault = document.getElementById('style-default');
-        var userLinkDefault = document.getElementById('user-style-default');
-        linkDefault.setAttribute('disabled', true);
-        userLinkDefault.setAttribute('disabled', true);
-        document.querySelector('html').setAttribute('dir', 'rtl');
-      } else {
-        var linkRTL = document.getElementById('style-rtl');
-        var userLinkRTL = document.getElementById('user-style-rtl');
-        linkRTL.setAttribute('disabled', true);
-        userLinkRTL.setAttribute('disabled', true);
-      }
-    </script>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
   </head>
+
+    <style>
+        .no-underline:hover{
+            text-decoration: none;
+        }
+    </style>
 
   <body>
     <main class="main" id="top">
-      <section class="py-0">
-        <div class="container-small">
-          <div class="ecommerce-topbar">
-            <nav class="navbar navbar-expand-lg navbar-light px-0">
-              <div class="row gx-0 gy-2 w-100 flex-between-center">
-                <div class="col-auto"><a class="text-decoration-none" href="../../../index.html">
-                    <div class="d-flex align-items-center"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
-                      <p class="logo-text ms-2">TimeLess Ride</p>
-                    </div>
-                  </a></div>
+        <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+            <div class="collapse navbar-collapse justify-content-between">
+                <div class="navbar-logo">
+                    <a class="navbar-brand me-1 me-sm-3" href="/staff/home">
+                        <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="80" />
+                                <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <nav class="ecommerce-navbar navbar-expand navbar-light bg-white justify-content-between">
+                <div class="container-small d-flex flex-between-center" data-navbar="data-navbar">
+                    <ul class="navbar-nav justify-content-end align-items-center">
+                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/home">Home</a></li>
+                        <li class="nav-item active" data-nav-item="data-nav-item"><a class="nav-link fs-md-1" href="/staff/meeting-requests">Meeting Requests</a></li>
+                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/post-requests">Post Requests</a></li>
+                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/create-invoice">Create Invoice</a></li>
+                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/log-out">Log Out</a></li>
+                    </ul>
                 </div>
             </nav>
-          </div>
-        </div>
-      </section>
-      <nav class="ecommerce-navbar navbar-expand navbar-light bg-white justify-content-between">
-        <div class="container-small d-flex flex-between-center" data-navbar="data-navbar">
-          <div class="dropdown"><button class="btn text-900 ps-0 pe-5 text-nowrap dropdown-toggle dropdown-caret-none" data-category-btn="data-category-btn" data-bs-toggle="dropdown"><span class="fas fa-bars me-2"></span></button>
-          </div>
-          <ul class="navbar-nav justify-content-end align-items-center">
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/home">Home</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link ps-0" href="/meeting-requests">Meeting Requests</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/post-requests">Post Requests</a></li>
-            <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link" href="/create-invoice">Create Invoice</a></li>
-              <div class="dropdown-menu dropdown-menu-end category-list" aria-labelledby="navbarDropdown" data-category-list="data-category-list"></div>
-            </li>
-          </ul>
-        </div>
-      </nav>
+        </nav>
+        <div class="content">
 
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
       <section class="pt-5 pb-9">
         <div class="container-small cart">
-          <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${allOffMeetings.size()} + ')'"></span></h2>
+          <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${offMeetingList.size()} + ')'"></span></h2>
           <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
                 <thead>
                   <tr>
-                    <th class="sort white-space-nowrap align-middle fs--2" scope="col" style="width:7%;"></th>
-                    <th class="sort white-space-nowrap align-middle" scope="col" style="width:20%; min-width:200px;" data-sort="products">User Name</th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">Meeting Date</th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">Created At</th>
-                    <th class="sort align-middle" scope="col" style="width:25%;">Description</th>
-                    <th class="sort align-middle text-end" scope="col" data-sort="price" style="width:10%;">Status</th>
+                    <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
+                    <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
+                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
+                    </th>
+                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                        <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createdAt-' + ${direction}" th:text="'Created At'"/>
+                    </th>
+                    <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
+                    <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
                   </tr>
                 </thead>
                 <tbody class="list" id="profile-wishlist-table-body">
-                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${allOffMeetings}">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${offMeetingList}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">
-                      <div class="text-center" th:text="${iStat.count}"/>
+                      <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>
-                    <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
+                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getMeetingDate()}"/>
-                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateAt()}"/>
-                    <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
-                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-end" th:text="${offMeeting.getStatus()}"/>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreatedAt()}"/>
+                    <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
+                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-center" th:text="${offMeeting.getStatus()}"/>
                     <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                      <button class="btn btn-danger hover-text-600 fs--2">Decline</button>
+                      <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
                       <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
-              <div class="col-auto d-flex">
-                <p class="mb-0 d-none d-sm-block me-3 fw-semi-bold text-900" data-list-info="data-list-info"></p><a class="fw-semi-bold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semi-bold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
-              </div>
-              <div class="col-auto d-flex"><button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-                <ul class="mb-0 pagination"></ul><button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
-              </div>
-            </div>
+                <nav aria-label="Page navigation example" class="pt-3">
+                    <ul class="pagination" th:with="url=(${property == null} ? '/staff/meeting-requests/page=' : '/staff/meeting-requests/sorted-by-' + ${property} + '-' + ${direction} + '/page=')">
+                        <li class="page-item">
+                            <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + ${offset - 1}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+1}" th:href="${url} + ${offset + 1}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+2}" th:href="${url} + ${offset + 2}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+3}" th:href="${url} + ${offset + 3}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+4}" th:href="${url} + ${offset + 4}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+5}" th:href="${url} + ${offset + 5}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+6}" th:href="${url} + ${offset + 6}"/></li>
+                        <li class="page-item"><a class="page-link" th:text="${offset+7}" th:href="${url} + ${offset + 7}"/></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="${url} + ${offset + 1}" aria-label="Next">
+                                <span class="sr-only">Next</span>
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
           </div>
-        </div><!-- end of .container-->
-      </section><!-- <section> close ============================-->
-      <!-- ============================================-->
-      <!-- <section> begin ============================-->
-      <section class="bg-100 dark__bg-1100 py-9">
-        <div class="container-small">
-          <div class="row justify-content-between gy-4">
-            <div class="col-12 col-lg-4">
-              <div class="d-flex align-items-center mb-3"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="27" />
-                <p class="logo-text ms-2">phoenix</p>
-              </div>
-              <p class="text-700 mb-1 fw-semi-bold lh-sm fs--1">Phoenix is an admin dashboard template with fascinating features and amazing layout. The template is responsive to all major browsers and is compatible with all available devices and screen sizes.</p>
+        </div>
+      </section>
+        </div>
+        <section class="bg-100 dark__bg-1100 py-9">
+            <div class="container-small">
+                <div class="row justify-content-between gy-4">
+                    <div class="col-12 col-lg-4">
+                        <div class="d-flex align-items-center mb-3"><img src="../../../staff_assets/img/icons/logo.png" alt="phoenix" width="80" />
+                            <p class="logo-text ms-2">Timeless Ride</p>
+                        </div>
+                        <p class="text-700 mb-1 fw-semi-bold lh-sm fs--1">Timeless Ride is a dynamic and user-friendly car trading website that caters to automotive enthusiasts and individuals seeking a seamless buying and selling experience. Our platform provides a virtual marketplace where users can browse, list, and connect with potential buyers or sellers of pre-owned vehicles.</p>
+                    </div>
+                    <div class="col-6 col-md-auto">
+                        <h5 class="fw-bolder mb-3">Customer Service</h5>
+                        <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Help </a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Support, 24/7</a></div>
+                    </div>
+                    <div class="col-6 col-md-auto">
+                        <h5 class="fw-bolder mb-3">Payment Method</h5>
+                        <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Cash on Delivery</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Online Payment</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">PayPal</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Installment</a></div>
+                    </div>
+                    <div class="col-6 col-md-auto">
+                        <h5 class="fw-bolder mb-3">Social Contacts</h5>
+                        <div class="d-flex flex-column">
+                            <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-facebook-square text-primary me-2 fs-0"></span><span class="text-800">Facebook</span></a>
+                            <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Instagram</span></a>
+                            <a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Zalo</span></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">About Phoenix</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Careers</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Affiliate Program</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Privacy Policy</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Terms & Conditions</a></div>
-            </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">Stay Connected</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Blogs</a><a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-facebook-square text-primary me-2 fs-0"></span><span class="text-800">Facebook</span></a><a class="mb-1 fw-semi-bold fs--1 d-flex" href="#!"><span class="fab fa-twitter-square text-info me-2 fs-0"></span><span class="text-800">Twitter</span></a></div>
-            </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">Customer Service</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Help Desk</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Support, 24/7</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Community of Phoenix</a></div>
-            </div>
-            <div class="col-6 col-md-auto">
-              <h5 class="fw-bolder mb-3">Payment Method</h5>
-              <div class="d-flex flex-column"><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Cash on Delivery</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Online Payment</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">PayPal</a><a class="text-700 fw-semi-bold fs--1 mb-1" href="#!">Installment</a></div>
-            </div>
-          </div>
-        </div><!-- end of .container-->
-      </section><!-- <section> close ============================-->
-      <!-- ============================================-->
-    </main><!-- ===============================================-->
-    <!--    End of Main Content-->
-
+        </section>
+    </main>
   </body>
 </html>
