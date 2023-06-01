@@ -400,14 +400,7 @@ public class StaffController {
 
 
 
-    @RequestMapping("/admin/mailbox")
-    public ModelAndView showAdminPage(){
-        ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.setViewName("views/admin/mail-box");
-
-        return modelAndView;
-    }
     // change password
     @RequestMapping("/bb")
     public boolean changeStaffPassword1(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
