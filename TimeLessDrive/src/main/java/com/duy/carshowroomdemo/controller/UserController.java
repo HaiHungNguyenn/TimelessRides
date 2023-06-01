@@ -70,6 +70,16 @@ public class UserController {
         modelAndView.setViewName("views/user/meeting-history");
         return modelAndView;
     }
+    @GetMapping ("/car-detail")
+    public ModelAndView carDetail(){
+        ModelAndView modelAndView = new ModelAndView();
+        if(!isAuthenticated()) {
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+        modelAndView.setViewName("views/user/car-details");
+        return modelAndView;
+    }
     @GetMapping ("/post_car")
     public ModelAndView postCar(){
         ModelAndView modelAndView = new ModelAndView();
@@ -86,11 +96,11 @@ public class UserController {
         modelAndView.setViewName("views/user/customer-service");
         return modelAndView;
     }
-    @GetMapping ("/sign-in")
+    @GetMapping ("/signin")
     public ModelAndView signIn(OAuth2AuthenticationToken token){
-//        if(token != null){
-//            System.out.println(token.getPrincipal().getAttribute("email").toString());
-//        }
+        if(token != null){
+            System.out.println(token.getPrincipal().getAttribute("email").toString());
+        }
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/login");
