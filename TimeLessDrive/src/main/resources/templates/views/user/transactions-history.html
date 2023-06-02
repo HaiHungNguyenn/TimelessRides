@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="../../user_assets/css/flatpickr.min.css">
     <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
@@ -28,409 +28,404 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__widget">
-            <a href="#"><i class="fa fa-cart-plus"></i></a>
-            <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            <a href="#" class="primary-btn">Add Car</a>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <ul class="offcanvas__widget__add">
-            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
-        </ul>
-        <div class="offcanvas__phone__num">
-            <i class="fa fa-phone"></i>
-            <span>(+12) 345 678 910</span>
-        </div>
-        <div class="offcanvas__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-google"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__widget">
+        <a href="#"><i class="fa fa-cart-plus"></i></a>
+        <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
+        <a href="#" class="primary-btn">Add Car</a>
+    </div>
+    <div class="offcanvas__logo">
+        <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <ul class="offcanvas__widget__add">
+        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
+        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+    </ul>
+    <div class="offcanvas__phone__num">
+        <i class="fa fa-phone"></i>
+        <span>(+12) 345 678 910</span>
+    </div>
+    <div class="offcanvas__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-google"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <ul class="header__top__widget">
+                        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
+                        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <div class="header__top__right">
+                        <div class="header__top__phone">
+                            <i class="fa fa-phone"></i>
+                            <span>(+12) 345 678 910</span>
+                        </div>
+                        <div class="header__top__social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-google"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Offcanvas Menu End -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                    <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="header__nav">
+                    <nav class="header__menu">
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/car">Car Inventory</a></li>
+                            <li><a href="/account">Account</a></li>
+                            <li class="active"><a href="#">History</a>
+                                <ul class="dropdown">
+                                    <li><a href="/transactions_history">Transactions History</a></li>
+                                    <li><a href="/meeting_history">Meeting History</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/post_car">Post Car</a></li>
+                            <li><a href="/customer_service">Customer Service</a></li>
+                            <li><a href="/login">Login</a></li>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <ul class="header__top__widget">
-                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
                         </ul>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="header__top__right">
-                            <div class="header__top__phone">
-                                <i class="fa fa-phone"></i>
-                                <span>(+12) 345 678 910</span>
-                            </div>
-                            <div class="header__top__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                    </nav>
+
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="header__logo">
-                        <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="header__nav">
-                        <nav class="header__menu">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/car">Car Inventory</a></li>
-                                <li><a href="/account">Account</a></li>
-                                <li class="active"><a href="#">History</a>
-                                    <ul class="dropdown">
-                                        <li><a href="/transactions_history">Transactions History</a></li>
-                                        <li><a href="/meeting_history">Meeting History</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="/post_car">Post Car</a></li>
-                                <li><a href="/customer_service">Customer Service</a></li>
-                                <li th:if="${session.client != null}">
-                                    <a href="/log-out">Log out</a>
-                                </li>
-                                <li th:if="${session.client == null}">
-                                    <a href="/signin">Login</a>
-                                </li>
-
-                            </ul>
-                        </nav>
-
-                    </div>
-                </div>
-            </div>
-            <div class="canvas__open">
-                <span class="fa fa-bars"></span>
-            </div>
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
         </div>
-    </header>
-    <!-- Header Section End -->
+    </div>
+</header>
+<!-- Header Section End -->
 
-    <!-- Breadcrumb End -->
-    <div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Account Info</h2>
-                        <div class="breadcrumb__links">
-                            <a href="/index"><i class="fa fa-home"></i> Home</a>
-                            <span>Account Info</span>
-                        </div>
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Account Info</h2>
+                    <div class="breadcrumb__links">
+                        <a href="/index"><i class="fa fa-home"></i> Home</a>
+                        <span>Account Info</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <section style="width:100%;height:80vh" >
+</div>
+<section style="width:100%;height:80vh">
 
-        <!-- code here -->
+    <!-- code here -->
 
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f5f5f5;
-            }
+    <style>
+        .body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
 
-            h1 {
-                color: #333;
-                text-align: center;
-                margin-bottom: 20px;
-            }
+        .body h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-                background-color: #fff;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
+        .body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border-bottom: 1px solid #ccc;
-            }
+        .body th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
 
-            th {
-                background-color: #f2f2f2;
-                font-weight: bold;
-                color: #333;
-            }
+        .body th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
 
-            tr:hover {
-                background-color: #f9f9f9;
-            }
+        .body tr:hover {
+            background-color: #f9f9f9;
+        }
 
-            .status-completed {
-                color: #11bb11;
-            }
+        .body .status-completed {
+            color: #11bb11;
+        }
 
-            .status-pending {
-                color: red;
-            }
-            #transactionTable a{
-                color: red;
-            }
-            #transactionTable a:active{
-                color: red;
-            }
-            #transactionTable a:hover{
-                color: red;
-            }
-            a:visited{
-                color: #ffffff;
-            }
+        .body .status-pending {
+            color: red;
+        }
+        .body #transactionTable a{
+            color: red;
+        }
+        .body #transactionTable a:active{
+            color: red;
+        }
+        .body #transactionTable a:hover{
+            color: red;
+        }
+        .body a:visited{
+            color: #ffffff;
+        }
 
-            .profile-modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-                display: none;
-            }
+        .body .profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
 
-            .profile-modal.active {
-                display: block;
-            }
+        .body .profile-modal.active {
+            display: block;
+        }
 
-            .profile-modal h2 {
-                margin-top: 0;
-            }
+        .body .profile-modal h2 {
+            margin-top: 0;
+        }
 
-            .profile-modal p {
-                margin-bottom: 10px;
-            }
+        .body .profile-modal p {
+            margin-bottom: 10px;
+        }
 
-            .profile-modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-                display: none;
-                max-width: 400px;
-                width: 100%;
-                text-align: center;
-            }
+        .body .profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
 
-            .profile-modal.active {
-                display: block;
-            }
+        .body .profile-modal.active {
+            display: block;
+        }
 
-            .profile-modal h2 {
-                margin-top: 0;
-                color: #333;
-                font-size: 24px;
-                margin-bottom: 10px;
-                text-transform: uppercase;
-            }
+        .body .profile-modal h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
 
-            .profile-modal p {
-                margin-bottom: 10px;
-                font-size: 16px;
-                color: #666;
-                line-height: 1.4;
-            }
+        .body .profile-modal p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.4;
+        }
 
-            .profile-modal button {
-                padding: 10px 20px;
-                background-color: #4caf50;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
+        .body .profile-modal button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-            .profile-modal button:hover {
-                background-color: #45a049;
-            }
+        .body .profile-modal button:hover {
+            background-color: #45a049;
+        }
 
-            .profile-modal button:active {
-                background-color: #3e8e41;
-            }
-            .profile-modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-                display: none;
-                max-width: 250px;
-                width: 100%;
-                text-align: -webkit-left;
-                border-radius: 8px;
-            }
-
-
-
-            .profile-modal h2 {
-                margin-top: 0;
-                color: #333;
-                font-size: 24px;
-                margin-bottom: 20px;
-                text-transform: uppercase;
-            }
-
-            .profile-modal p {
-                margin-bottom: 10px;
-                font-size: 16px;
-                color: #666;
-                line-height: 1.4;
-            }
-
-            .profile-modal button {
-                padding: 12px 24px;
-                background-color: #4caf50;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .profile-modal button:hover {
-                background-color: #45a049;
-            }
-
-            .profile-modal button:active {
-                background-color: #3e8e41;
-            }
-
-            .profile-modal:before {
-                content: "";
-                position: absolute;
-                top: -10px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-width: 10px;
-                border-style: solid;
-                border-color: transparent transparent #fff transparent;
-            }
-
-            .profile-modal:after {
-                content: "";
-                position: absolute;
-                bottom: -10px;
-                left: 50%;
-                transform: translateX(-50%);
-                border-width: 10px;
-                border-style: solid;
-                border-color: #fff transparent transparent transparent;
-            }
+        .body .profile-modal button:active {
+            background-color: #3e8e41;
+        }
+        .body .profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            max-width: 250px;
+            width: 100%;
+            text-align: -webkit-left;
+            border-radius: 8px;
+        }
 
 
-            .date-picker-container label {
-                font-weight: bold;
-                margin-right: 10px;
-            }
 
-            .date-picker-container input {
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                font-size: 14px;
-            }
+        .body .profile-modal h2 {
+            margin-top: 0;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
 
-            .date-picker-container button {
-                padding: 8px 16px;
-                background-color: #4caf50;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                font-size: 14px;
-                cursor: pointer;
-            }
+        .body .profile-modal p {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #666;
+            line-height: 1.4;
+        }
 
-            .date-picker-container button:hover {
-                background-color: #45a049;
-            }
+        .body .profile-modal button {
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-            .date-picker-container button:active {
-                background-color: #3e8e41;
-            }
-            .profile-modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-                display: none;
-            }
+        .body .profile-modal button:hover {
+            background-color: #45a049;
+        }
 
-            .profile-modal.active {
-                display: block;
-            }
+        .body .profile-modal button:active {
+            background-color: #3e8e41;
+        }
 
-            .profile-modal h2 {
-                margin-top: 0;
-            }
+        .body .profile-modal:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+        }
 
-            .profile-modal p {
-                margin-bottom: 10px;
-                font-size: 14px;
-            }
+        .body .profile-modal:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
 
-            .profile-modal button {
-                padding: 8px 16px;
-                background-color: #ce0b25;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                font-size: 14px;
-                cursor: pointer;
-            }
 
-            .profile-modal button:hover {
-                background-color: #8f0b1d;
-            }
+        .body .date-picker-container label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
 
-            .profile-modal button:active {
-                background-color: #8f0b1d;
-            }
+        .body .date-picker-container input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-        </style>
-        <body>
+        .body .date-picker-container button {
+            padding: 8px 16px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .body .date-picker-container button:hover {
+            background-color: #45a049;
+        }
+
+        .body .date-picker-container button:active {
+            background-color: #3e8e41;
+        }
+        .body .profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+        }
+
+        .body .profile-modal.active {
+            display: block;
+        }
+
+        .body .profile-modal h2 {
+            margin-top: 0;
+        }
+
+        .body .profile-modal p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .body .profile-modal button {
+            padding: 8px 16px;
+            background-color: #ce0b25;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .body .profile-modal button:hover {
+            background-color: #8f0b1d;
+        }
+
+        .body .profile-modal button:active {
+            background-color: #8f0b1d;
+        }
+
+    </style>
+    <div class="body">
 
         <div style="margin: 20px;">
             <label for="datePicker">Select a Date:</label>
@@ -498,152 +493,154 @@
             <p id="profilePhone"></p>
             <button onclick="closeProfileModal()">Close</button>
         </div>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-        <script>
-            const transactionTable = document.getElementById('transactionTable');
-            const datePicker = flatpickr('#datePicker', {
-                dateFormat: 'Y-m-d',
-            });
-            const profileModal = document.getElementById('profileModal');
-            const profileName = document.getElementById('profileName');
-            const manufacturerTable = document.getElementById('manufacturerTable');
+    <script src="../../user_assets/js/flatpickr.js"></script>
+    <script>
+        const transactionTable = document.getElementById('transactionTable');
+        const datePicker = flatpickr('#datePicker', {
+            dateFormat: 'Y-m-d',
+        });
+        const profileModal = document.getElementById('profileModal');
+        const profileName = document.getElementById('profileName');
+        const manufacturerTable = document.getElementById('manufacturerTable');
 
-            function showTransactions() {
-                const selectedDate = datePicker.selectedDates[0].toISOString().split('T')[0];
-                const rows = transactionTable.getElementsByTagName('tr');
+        function showTransactions() {
+            const selectedDate = datePicker.selectedDates[0].toISOString().split('T')[0];
+            const rows = transactionTable.getElementsByTagName('tr');
 
-                for (let i = 1; i < rows.length; i++) {
-                    const dateCell = rows[i].getElementsByTagName('td')[6];
-                    const date = dateCell.textContent;
+            for (let i = 1; i < rows.length; i++) {
+                const dateCell = rows[i].getElementsByTagName('td')[6];
+                const date = dateCell.textContent;
 
-                    if (date === selectedDate) {
-                        rows[i].style.display = 'table-row';
-                    } else {
-                        rows[i].style.display = 'none';
-                    }
+                if (date === selectedDate) {
+                    rows[i].style.display = 'table-row';
+                } else {
+                    rows[i].style.display = 'none';
                 }
             }
+        }
 
-            function openProfileModal(name, email, phone) {
-                profileName.textContent = name;
-                profileEmail.textContent = 'Email: ' + email;
-                profilePhone.textContent = 'Phone: ' + phone;
-                profileModal.classList.add('active');
-            }
+        function openProfileModal(name, email, phone) {
+            profileName.textContent = name;
+            profileEmail.textContent = 'Email: ' + email;
+            profilePhone.textContent = 'Phone: ' + phone;
+            profileModal.classList.add('active');
+        }
 
-            function closeProfileModal() {
-                profileModal.classList.remove('active');
-            }
-        </script>
-        </body>
+        function closeProfileModal() {
+            profileModal.classList.remove('active');
+        }
+    </script>
+</section>
 
-    </section>
-
-    <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
-        <div class="container">
-            <div class="footer__contact">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer__contact__title">
-                            <h2>Contact Us Now!</h2>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer__contact__option">
-                            <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Footer Section Begin -->
+<footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
+    <div class="container">
+        <div class="footer__contact">
             <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <div class="footer__about">
-                        <div class="footer__logo">
-                            <a href="#"><img src="../../user_assets/img/footer-logo.png" alt=""></a>
-                        </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                            on (+1) 96 123 8888</p>
-                        <div class="footer__social">
-                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="google"><i class="fa fa-google"></i></a>
-                            <a href="#" class="skype"><i class="fa fa-skype"></i></a>
-                        </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__title">
+                        <h2>Contact Us Now!</h2>
                     </div>
                 </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3">
-                    <div class="footer__widget">
-                        <h5>Infomation</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <div class="footer__widget">
-                        <h5>Infomation</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer__brand">
-                        <h5>Top Brand</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
-                        </ul>
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__option">
+                        <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
+                        <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
                     </div>
                 </div>
             </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <div class="footer__copyright__text">
-                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="#"><img src="../../user_assets/img/footer-logo.png" alt=""></a>
+                    </div>
+                    <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
+                        on (+1) 96 123 8888</p>
+                    <div class="footer__social">
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="google"><i class="fa fa-google"></i></a>
+                        <a href="#" class="skype"><i class="fa fa-skype"></i></a>
+                    </div>
+                </div>
             </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <div class="col-lg-2 offset-lg-1 col-md-3">
+                <div class="footer__widget">
+                    <h5>Infomation</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <div class="footer__widget">
+                    <h5>Infomation</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer__brand">
+                    <h5>Top Brand</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </footer>
-    <!-- Footer Section End -->
-
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="footer__copyright__text">
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
         </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     </div>
-    <!-- Search End -->
+</footer>
+<!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+<script>
+    document.getElementsByClassName("flatpickr-monthDropdown-months")[0].style.display = 'inline-block' ;
+</script>
 </body>
 
 </html>
