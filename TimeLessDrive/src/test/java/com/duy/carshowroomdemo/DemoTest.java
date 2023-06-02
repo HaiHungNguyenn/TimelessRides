@@ -9,6 +9,8 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
@@ -54,6 +56,7 @@ public class DemoTest {
 
     public final String AVATAR_URL = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
     public final String CAR_IMAGE_URL = "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80";
+    private final Lorem lorem = new LoremIpsum();
 
     @Test
     public void testAddData(){
@@ -86,8 +89,8 @@ public class DemoTest {
 
     @Test
     public void testAddStaff(){
+        List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
         for (int i = 0; i < 100; i++) {
-            List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
             Staff staff = new Staff();
             staff.setRole("staff");
             staff.setName(Util.getRandName());
@@ -95,17 +98,17 @@ public class DemoTest {
             staff.setPhone(Util.getRandPhone());
             staff.setGender(Util.getRandGender());
             staff.setPassword(Util.encodePassword("password123"));
-            staff.setAddress("123 sample address");
+            staff.setAddress(Util.getRandAddress());
             staff.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
-            staff.setEmail(Util.getRandEmail(staff.getName() , staff.getDob()));
+            staff.setEmail(Util.getRandEmail());
             staff.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
 
             Staff save = staffRepository.save(staff);
             Assertions.assertThat(save).isNotNull();
         }
+
         Staff staff = new Staff();
-        List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
         staff.setRole("staff");
         staff.setName(Util.getRandName());
         staff.setAvatar(AVATAR_URL);
@@ -144,10 +147,10 @@ public class DemoTest {
             client.setAvatar(AVATAR_URL);
             client.setPhone(Util.getRandPhone());
             client.setPassword(Util.encodePassword("password123"));
-            client.setAddress("123 sample address");
+            client.setAddress(Util.getRandAddress());
             client.setGender(Util.getRandGender());
             client.setDob(Util.getRandDate(LocalDate.of(1980,1,1), LocalDate.of(2000,12,31)));
-            client.setEmail(Util.getRandEmail(client.getName(), client.getDob()));
+            client.setEmail(Util.getRandEmail());
             client.setJoinDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
 
             Client save = clientRepository.save(client);
@@ -170,7 +173,7 @@ public class DemoTest {
             carDescription.setWidth((short) (Util.getRandInt(50) + 150));
             carDescription.setLength((short) (Util.getRandInt(50) + 400));
             carDescription.setHeight((short) (Util.getRandInt(10) + 175));
-            carDescription.setKmSpend("i dont know this field");
+            carDescription.setKmSpend(String.valueOf(Util.getRandInt(100,2000)));
             carDescription.setManufacturedYear((short) (carDescription.getBoughtYear() - Util.getRandInt(5)));
             carDescription.setOthers(Util.getRandText(30));
             CarDescription save = carDescriptionRepository.save(carDescription);
@@ -247,7 +250,7 @@ public class DemoTest {
             invoice.setTotal(Util.getRandPrice());
             invoice.setCreatedAt(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             invoice.setStatus("Paid");
-            invoice.setTax(Util.getRandText(10));
+            invoice.setTax(Util.getRandText(5));
             invoice.setOtherInformation(Util.getRandText(50));
 
             Invoice save = invoiceRepository.save(invoice);
@@ -258,9 +261,9 @@ public class DemoTest {
 
     @Test
     public void testAddOffMeeting(){
+        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+        List<Client> clientList = new ArrayList<>(clientRepository.findAll());
         for (int i = 0; i < 100; i++) {
-            List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
-            List<Client> clientList = new ArrayList<>(clientRepository.findAll());
             OffMeeting offMeeting = new OffMeeting();
             offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
@@ -525,6 +528,14 @@ public class DemoTest {
         Invoice save = invoiceRepository.save(invoice);
 
         Assertions.assertThat(save).isNotNull();
+    }
+
+    @Test
+    public void testLorem(){
+//        String address = lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
+//        System.out.println(address);
+//        System.out.println(new LoremIpsum().getWords(30));
+        System.out.println("detracto per oratio verterem id fabulas ius verear equidem lacinia conubia pretium numquam causae po".length());
     }
 
 }

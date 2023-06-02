@@ -59,4 +59,17 @@ public class OffMeetingService {
         });
         return offMeetingDtoList;
     }
+
+    public long getTotalOffMeetings() {
+        return offMeetingRepository.count();
+    }
+
+    public long getLastOffset(int size) {
+        return offMeetingRepository.findAll(PageRequest.of(0,size)).getTotalPages();
+    }
+
+    public long getLastOffset(ClientDto clientDto, int size) {
+        int totalElements =  offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).size();
+        return (long) Math.ceil((double) totalElements / size);
+    }
 }

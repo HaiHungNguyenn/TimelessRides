@@ -3,7 +3,6 @@ package com.duy.carshowroomdemo.controller;
 //import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.service.Service;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,18 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Stack;
 
 @Controller
+@RequestMapping("/staff")
 public class StaffController {
 
     @Autowired
     private Service service;
     @Autowired
     private HttpSession session;
-    @Autowired
-    private HttpServletRequest request;
-    private final Stack<String> stack = new Stack<>();
 
     public boolean isAuthenticated(){
         return (session.getAttribute("staff") != null);
@@ -60,7 +56,7 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/staff/home")
+    @RequestMapping("/home")
     public ModelAndView showHomePage(){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -71,12 +67,10 @@ public class StaffController {
 
         modelAndView.setViewName("views/staff/profile");
 
-        stack.push(request.getRequestURI());
-
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests")
+    @RequestMapping("/meeting-requests")
     public ModelAndView showMeetingRequestList(){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -86,16 +80,18 @@ public class StaffController {
         }
 
         List<OffMeetingDto> offMeetingList = service.getOffMeetingService().getOffMeetingsPerPage(0, 10);
+        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        long lastOffset = service.getOffMeetingService().getLastOffset(10);
         modelAndView.addObject("offMeetingList", offMeetingList);
         modelAndView.addObject("offset", 1);
+        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/page={offset}")
+    @RequestMapping("/meeting-requests/page={offset}")
     public ModelAndView showMeetingRequestsPerPage(@PathVariable int offset){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -105,16 +101,18 @@ public class StaffController {
         }
 
         List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offset-1, 10);
+        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        long lastOffset = service.getOffMeetingService().getLastOffset(10);
         modelAndView.addObject("offMeetingList", allOffMeetings);
         modelAndView.addObject("offset", offset);
+        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/sorted-by-{property}-{direction}")
+    @RequestMapping("/meeting-requests/sorted-by-{property}-{direction}")
     public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property,
                                                           @PathVariable String direction){
         ModelAndView modelAndView = new ModelAndView();
@@ -125,18 +123,20 @@ public class StaffController {
         }
 
         List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property, direction);
+        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        long lastOffset = service.getOffMeetingService().getLastOffset(10);
         modelAndView.addObject("offMeetingList", allOffMeetings);
         modelAndView.addObject("offset", 1);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);
+        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/meeting-requests/sorted-by-{property}-{direction}/page={offset}")
+    @RequestMapping("/meeting-requests/sorted-by-{property}-{direction}/page={offset}")
     public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable String property,
                                                          @PathVariable String direction,
                                                          @PathVariable int offset){
@@ -148,18 +148,20 @@ public class StaffController {
         }
 
         List<OffMeetingDto> offMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset-1, 10, property, direction);
+        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        long lastOffset = service.getOffMeetingService().getLastOffset(10);
         modelAndView.addObject("offMeetingList", offMeetings);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);
+        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/post-requests")
+    @RequestMapping("/post-requests")
     public ModelAndView showPostRequestList(){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -169,16 +171,18 @@ public class StaffController {
         }
 
         List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(1, 10);
+        long totalPostRequests = service.getPostService().getTotalPostRequests();
+        long lastOffset = service.getPostService().getLastOffset(10);
         modelAndView.addObject("offset", 1);
         modelAndView.addObject("postRequestList", allPostRequests);
+        modelAndView.addObject("totalPostRequests", totalPostRequests);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/post-requests/page={offset}")
+    @RequestMapping("/post-requests/page={offset}")
     public ModelAndView showPostRequestsPerPage(@PathVariable int offset){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -187,17 +191,19 @@ public class StaffController {
             return modelAndView;
         }
 
-        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(offset, 10);
+        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(offset-1, 10);
+        long totalPostRequests = service.getPostService().getTotalPostRequests();
+        long lastOffset = service.getPostService().getLastOffset(10);
         modelAndView.addObject("postRequestList", allPostRequests);
         modelAndView.addObject("offset", offset);
+        modelAndView.addObject("totalPostRequests", totalPostRequests);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/post-requests/sorted-by-{property}-{direction}")
+    @RequestMapping("/post-requests/sorted-by-{property}-{direction}")
     public ModelAndView showPostRequestSortedPerPage(@PathVariable String direction,
                                                      @PathVariable String property){
         ModelAndView modelAndView = new ModelAndView();
@@ -208,17 +214,19 @@ public class StaffController {
         }
 
         List<PostDto> allPostRequests = service.getPostService().getPostSortedPerPage(0, 10, property, direction);
+        long totalPostRequests = service.getPostService().getTotalPostRequests();
+        long lastOffset = service.getPostService().getLastOffset(10);
         modelAndView.addObject("postRequestList", allPostRequests);
         modelAndView.addObject("offset", 1);
         modelAndView.addObject("direction", direction);
+        modelAndView.addObject("totalPostRequests", totalPostRequests);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
-
-        stack.push(request.getRequestURI());
         
         return modelAndView;
     }
 
-    @RequestMapping("/staff/post-requests/sorted-by-{property}-{direction}/page={offset}")
+    @RequestMapping("/post-requests/sorted-by-{property}-{direction}/page={offset}")
     public ModelAndView showPostRequestSortedPerPage1(@PathVariable String direction,
                                                      @PathVariable String property,
                                                       @PathVariable int offset){
@@ -230,17 +238,19 @@ public class StaffController {
         }
 
         List<PostDto> allPostRequests = service.getPostService().getPostSortedPerPage(offset-1, 10, property, direction);
+        long totalPostRequests = service.getPostService().getTotalPostRequests();
+        long lastOffset = service.getPostService().getLastOffset(10);
         modelAndView.addObject("postRequestList", allPostRequests);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("direction", direction);
+        modelAndView.addObject("totalPostRequests", totalPostRequests);
+        modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
-
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/create-invoice")
+    @RequestMapping("/create-invoice")
     public ModelAndView showCreateInvoicePage(){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -251,12 +261,11 @@ public class StaffController {
 
         modelAndView.setViewName("views/staff/create-invoice");
 
-        stack.push(request.getRequestURI());
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/user-details/{id}")
+    @RequestMapping("/user-details/{id}")
     public ModelAndView viewUserDetails(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
 
@@ -268,18 +277,21 @@ public class StaffController {
         ClientDto clientDto = service.getClientService().findById(id);
         List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, 0, 3);
         List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, 0, 3);
+        long lastMOffset = service.getOffMeetingService().getLastOffset(clientDto, 3);
+        long lastPOffset = service.getPostService().getLastOffset(clientDto, 3);
         modelAndView.addObject("client", clientDto);
         modelAndView.addObject("offMeetingList", offMeetingsByClient);
         modelAndView.addObject("postList", postsByClient);
         modelAndView.addObject("mOffset", 1);
         modelAndView.addObject("pOffset", 1);
-        modelAndView.addObject("callBackUrl", stack.peek());
+        modelAndView.addObject("lastMOffset", lastMOffset);
+        modelAndView.addObject("lastPOffset", lastPOffset);
         modelAndView.setViewName("views/staff/client-details");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/user-details/{id}/meeting-requests-page={mOffset}")
+    @RequestMapping("/user-details/{id}/meeting-requests-page={mOffset}")
     public ModelAndView viewUserDetailsPagedByMeetingRequest(@PathVariable String id,
                                                              @PathVariable int mOffset){
         ModelAndView modelAndView = new ModelAndView();
@@ -292,18 +304,21 @@ public class StaffController {
         ClientDto clientDto = service.getClientService().findById(id);
         List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, mOffset-1, 3);
         List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, 0, 3);
+        long lastMOffset = service.getOffMeetingService().getLastOffset(clientDto, 3);
+        long lastPOffset = service.getPostService().getLastOffset(clientDto, 3);
         modelAndView.addObject("client", clientDto);
         modelAndView.addObject("offMeetingList", offMeetingsByClient);
         modelAndView.addObject("postList", postsByClient);
         modelAndView.addObject("mOffset", mOffset);
         modelAndView.addObject("pOffset", 1);
-        modelAndView.addObject("callBackUrl", stack.peek());
+        modelAndView.addObject("lastMOffset", lastMOffset);
+        modelAndView.addObject("lastPOffset", lastPOffset);
         modelAndView.setViewName("views/staff/client-details");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/user-details/{id}/post-requests-page={pOffset}")
+    @RequestMapping("/user-details/{id}/post-requests-page={pOffset}")
     public ModelAndView viewUserDetailsPagedByPostRequest(@PathVariable String id,
                                                           @PathVariable int pOffset){
         ModelAndView modelAndView = new ModelAndView();
@@ -316,18 +331,21 @@ public class StaffController {
         ClientDto clientDto = service.getClientService().findById(id);
         List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, 0, 3);
         List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, pOffset-1, 3);
+        long lastMOffset = service.getOffMeetingService().getLastOffset(clientDto, 3);
+        long lastPOffset = service.getPostService().getLastOffset(clientDto, 3);
         modelAndView.addObject("client", clientDto);
         modelAndView.addObject("offMeetingList", offMeetingsByClient);
         modelAndView.addObject("postList", postsByClient);
         modelAndView.addObject("mOffset", 1);
         modelAndView.addObject("pOffset", pOffset);
-        modelAndView.addObject("callBackUrl", stack.peek());
+        modelAndView.addObject("lastMOffset", lastMOffset);
+        modelAndView.addObject("lastPOffset", lastPOffset);
         modelAndView.setViewName("views/staff/client-details");
 
         return modelAndView;
     }
 
-    @RequestMapping("/staff/create-invoice/create")
+    @RequestMapping("/create-invoice/create")
     public ModelAndView createInvoice(@RequestParam("fullName") String fullName,
                                       @RequestParam("email") String email,
                                       @RequestParam("phone") String phone,
@@ -382,13 +400,11 @@ public class StaffController {
             modelAndView.addObject("errorMsg", "An error occurred");
         }
 
-        stack.push(request.getRequestURI());
-
         return modelAndView;
     }
 
 
-    @RequestMapping("/staff/log-out")
+    @RequestMapping("/log-out")
     public ModelAndView logout(){
         ModelAndView modelAndView = new ModelAndView();
 

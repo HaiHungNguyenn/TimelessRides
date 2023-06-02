@@ -79,7 +79,7 @@
 
       <section class="pt-5 pb-9">
         <div class="container-small cart">
-          <h2 class="mb-5">Post Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${postRequestList.size()} + ')'" /></h2>
+          <h2 class="mb-5">Post Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalPostRequests} + ' requests)'" /></h2>
           <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
@@ -115,21 +115,30 @@
               <nav aria-label="Page navigation example" class="pt-3">
                   <ul class="pagination" th:with="url=(${property == null} ? '/staff/post-requests/page=' : '/staff/post-requests/sorted-by-' + ${property} + '-' + ${direction} + '/page=')">
                       <li class="page-item">
-                          <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + ${offset - 1}" aria-label="Previous">
+                          <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + '1'" aria-label="Previous">
                               <span aria-hidden="true">&laquo;</span>
                               <span class="sr-only">Previous</span>
                           </a>
                       </li>
-                      <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+1}" th:href="${url} + ${offset + 1}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+2}" th:href="${url} + ${offset + 2}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+3}" th:href="${url} + ${offset + 3}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+4}" th:href="${url} + ${offset + 4}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+5}" th:href="${url} + ${offset + 5}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+6}" th:href="${url} + ${offset + 6}"/></li>
-                      <li class="page-item"><a class="page-link" th:text="${offset+7}" th:href="${url} + ${offset + 7}"/></li>
                       <li class="page-item">
-                          <a class="page-link" th:href="${url} + ${offset + 1}" aria-label="Next">
+                          <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + ${offset - 1}" aria-label="Previous">
+                              <span aria-hidden="true">&lsaquo;</span>
+                              <span class="sr-only">Previous</span>
+                          </a>
+                      </li>
+                      <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
+                      <li class="page-item" th:if="${lastOffset >= offset + 1}"><a class="page-link" th:text="${offset+1}" th:href="${url} + ${offset + 1}"/></li>
+                      <li class="page-item" th:if="${lastOffset >= offset + 2}"><a class="page-link" th:text="${offset+2}" th:href="${url} + ${offset + 2}"/></li>
+                      <li class="page-item" th:if="${lastOffset >= offset + 3}"><a class="page-link" th:text="${offset+3}" th:href="${url} + ${offset + 3}"/></li>
+                      <li class="page-item" th:if="${lastOffset >= offset + 4}"><a class="page-link" th:text="${offset+4}" th:href="${url} + ${offset + 4}"/></li>
+                      <li class="page-item">
+                          <a class="page-link" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="${url} + ${offset + 1}" aria-label="Next">
+                              <span class="sr-only">Next</span>
+                              <span aria-hidden="true">&rsaquo;</span>
+                          </a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="${url} + ${lastOffset}" aria-label="Next">
                               <span class="sr-only">Next</span>
                               <span aria-hidden="true">&raquo;</span>
                           </a>

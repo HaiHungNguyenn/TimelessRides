@@ -1,5 +1,7 @@
 package com.duy.carshowroomdemo.util;
 
+import com.thedeanda.lorem.Lorem;
+import com.thedeanda.lorem.LoremIpsum;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.*;
@@ -11,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Util {
     static Random random = new Random();
     static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
+    static Lorem lorem = new LoremIpsum();
     public static String getRandPhone(){
         String phone = "09";
 
@@ -22,10 +25,11 @@ public class Util {
         return phone;
     }
 
-    public static String getRandEmail(String name, LocalDate dob) {
-        String[] s = name.split(" ");
-        String[] d = dob.toString().split("-");
-        return s[2] + s[0].charAt(0) + s[1].charAt(0) + d[2] + d[1] + "@gmail.com";
+    public static String getRandEmail() {
+//        String[] s = name.split(" ");
+//        String[] d = dob.toString().split("-");
+//        return s[2] + s[0].charAt(0) + s[1].charAt(0) + d[2] + d[1] + "@gmail.com";
+        return lorem.getEmail();
     }
 
     public static String getRandGender(){
@@ -37,10 +41,11 @@ public class Util {
     }
 
     public static String getRandName() {
-        String[] lastNames = {"Nguyen", "Cao", "Doan", "Dang", "Le", "Tran", "Pham", "Duong", "Dinh", "Ha"};
-        String[] middleNames = {"Quoc", "Huynh", "Hoang", "Thanh", "Binh", "Huu", "Hong", "Thi", "Ngoc", "Minh"};
-        String[] firstNames = {"Thai", "Kiet", "Khoi", "Huan", "Long", "Nhat", "Dat", "Tri", "Quan", "Khang"};
-        return lastNames[getRandInt(lastNames.length)] + " " + middleNames[getRandInt(middleNames.length)] + " " + firstNames[getRandInt(firstNames.length)];
+//        String[] lastNames = {"Nguyen", "Cao", "Doan", "Dang", "Le", "Tran", "Pham", "Duong", "Dinh", "Ha"};
+//        String[] middleNames = {"Quoc", "Huynh", "Hoang", "Thanh", "Binh", "Huu", "Hong", "Thi", "Ngoc", "Minh"};
+//        String[] firstNames = {"Thai", "Kiet", "Khoi", "Huan", "Long", "Nhat", "Dat", "Tri", "Quan", "Khang"};
+//        return lastNames[getRandInt(lastNames.length)] + " " + middleNames[getRandInt(middleNames.length)] + " " + firstNames[getRandInt(firstNames.length)];
+        return lorem.getName();
     }
 
     public static String getRandColor() {
@@ -93,44 +98,45 @@ public class Util {
     }
 
     public static String getRandText(int wordCount){
-        String text = "";
-        while (wordCount > 0) {
-            int noOfWords = getRandInt(10,15);
-            wordCount -= noOfWords;
-            for (int i = 0; i < noOfWords; i++) {
-                int noOfChar = getRandInt(1,8);
-                for (int j = 0; j < noOfChar; j++) {
-                    text += (char) (getRandInt(1,26) + 97);
-                }
-                if(i != (noOfWords - 1)){
-                    text += " ";
-                }
-            }
-            text += ". ";
-        }
-        return text;
+//        StringBuilder text = new StringBuilder();
+//        while (wordCount > 0) {
+//            int noOfWords = getRandInt(10,15);
+//            wordCount -= noOfWords;
+//            for (int i = 0; i < noOfWords; i++) {
+//                int noOfChar = getRandInt(1,8);
+//                for (int j = 0; j < noOfChar; j++) {
+//                    text.append((char) (getRandInt(1, 26) + 97));
+//                }
+//                if(i != (noOfWords - 1)){
+//                    text.append(" ");
+//                }
+//            }
+//            text.append(". ");
+//        }
+//        return text.toString();
+        return lorem.getWords(wordCount);
     }
 
     public static void writeRandomParagraph(int wordCount){
-        String text = "";
+        StringBuilder text = new StringBuilder();
         while (wordCount > 0) {
             int noOfWords = getRandInt(10,15);
             wordCount -= noOfWords;
             for (int i = 0; i < noOfWords; i++) {
                 int noOfChar = getRandInt(1,8);
                 for (int j = 0; j < noOfChar; j++) {
-                    text += (char) (getRandInt(1,26) + 97);
+                    text.append((char) (getRandInt(1, 26) + 97));
                 }
                 if(i != (noOfWords - 1)){
-                    text += " ";
+                    text.append(" ");
                 }
             }
-            text += ". ";
+            text.append(". ");
         }
         try {
             final String path = "D:\\text.txt";
             FileWriter fileWriter = new FileWriter(path);
-            fileWriter.write(text);
+            fileWriter.write(text.toString());
             fileWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -146,5 +152,9 @@ public class Util {
             text.append(getRandInt(9));
         }
         return text.toString();
+    }
+
+    public static String getRandAddress() {
+        return getRandInt(1,500) + " " + lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
     }
 }

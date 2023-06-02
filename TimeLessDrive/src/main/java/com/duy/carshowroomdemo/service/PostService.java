@@ -55,4 +55,17 @@ public class PostService {
 
         return postDtoList;
     }
+
+    public long getTotalPostRequests() {
+        return postRepository.findAll().size();
+    }
+
+    public long getLastOffset(int size) {
+        return postRepository.findAll(PageRequest.of(0,10)).getTotalPages();
+    }
+
+    public long getLastOffset(ClientDto clientDto, int size) {
+        int totalElements =  postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).size();
+        return (long) Math.ceil((double) totalElements / size);
+    }
 }
