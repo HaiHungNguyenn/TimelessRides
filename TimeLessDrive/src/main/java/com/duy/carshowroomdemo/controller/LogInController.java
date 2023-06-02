@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,8 +53,8 @@ public class LogInController {
         return modelAndView;
 
     }
-    @RequestMapping("/regis-form")
-    public ModelAndView register(@RequestParam("email") String email, @RequestParam("password") String password){
+    @RequestMapping(value = "/register-form", method = RequestMethod.POST)
+    public ModelAndView register(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam("name") String name){
             ModelAndView modelAndView = new ModelAndView();
 
 
@@ -64,6 +65,7 @@ public class LogInController {
 
             }else {
                 Client client = new Client();
+                client.setName(name);
                 client.setEmail(email);
                 client.setPassword(Util.encodePassword(password));
                 client.setJoinDate(LocalDate.now());

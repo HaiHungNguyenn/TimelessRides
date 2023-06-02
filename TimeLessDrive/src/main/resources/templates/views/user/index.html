@@ -100,16 +100,23 @@
                             <ul>
                                 <li class="active"><a href="/">Home</a></li>
                                 <li><a href="/car">Car Inventory</a></li>
-                                <li><a href="/account">Account</a></li>
+                                <li ><a href="/account">Account</a></li>
                                 <li><a href="#">History</a>
                                     <ul class="dropdown">
-                                        <li><a href="/transactions_history">Transactions History</a></li>
-                                        <li><a href="/meeting_history">Meeting History</a></li>
+                                        <li ><a href="/transactions_history">Transactions History</a></li>
+                                        <li ><a href="/meeting_history">Meeting History</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="/post_car">Post Car</a></li>
+                                <li ><a href="/post_car">Post Car</a></li>
                                 <li><a href="/customer_service">Customer Service</a></li>
-                                <li><a href="/signin">Login</a></li>
+
+                                <li th:if="${session.client != null}">
+                                    <a href="/log-out">Log out</a>
+                                </li>
+                                <li th:if="${session.client == null}">
+                                    <a href="/signin">Login</a>
+                                </li>
+
 
                             </ul>
                         </nav>

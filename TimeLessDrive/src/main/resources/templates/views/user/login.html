@@ -104,7 +104,7 @@
 			</form>
 		</div>
 		<div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-			<form>
+			<form action="/register-form" method="post">
 				<div class="text-center mb-3">
 					<p>Sign up with:</p>
 					<div class="google row">
@@ -121,25 +121,21 @@
 
 				<!-- Name input -->
 				<div class="form-outline mb-4">
-					<input type="text" id="registerName" class="form-control" placeholder=" " />
+					<input type="text" id="registerName" class="form-control" placeholder=" " name="name" />
 					<label class="form-label" for="registerName">Name</label>
 				</div>
 
-				<!-- Username input -->
-				<div class="form-outline mb-4">
-					<input type="text" id="registerUsername" class="form-control" placeholder=" " />
-					<label class="form-label" for="registerUsername">Username</label>
-				</div>
+
 
 				<!-- Email input -->
 				<div class="form-outline mb-4">
-					<input type="email" id="registerEmail" class="form-control" placeholder=" " />
+					<input type="email" id="registerEmail" class="form-control" placeholder=" " name="email"/>
 					<label class="form-label" for="registerEmail">Email</label>
 				</div>
 
 				<!-- Password input -->
 				<div class="form-outline mb-4">
-					<input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();" class="form-control" placeholder=" " />
+					<input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();" class="form-control" placeholder=" " name="password" />
 					<label class="form-label" for="registerPassword">Password</label>
 				</div>
 
