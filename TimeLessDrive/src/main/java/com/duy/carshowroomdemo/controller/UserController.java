@@ -116,6 +116,12 @@ public class UserController {
 
         return home();
     }
-    //    change password
+    @RequestMapping("/log-out")
+    public ModelAndView logout(){
+        ModelAndView modelAndView = new ModelAndView();
+        session.removeAttribute("client");
+        modelAndView.setViewName("views/user/index");
+        return modelAndView;
+    }
 
 }
