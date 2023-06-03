@@ -17,7 +17,7 @@ public class Staff {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 50)
     private String role;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,13 +30,13 @@ public class Staff {
     @Column(name = "avatar", length = 100)
     private String avatar;
 
-    @Column(name = "email", length = 45)
+    @Column(name = "email", length = 50)
     private String email;
 
     @Column(name = "phone", length = 10)
     private String phone;
 
-    @Column(name = "gender", length = 20)
+    @Column(name = "gender", length = 50)
     private String gender;
 
     @Column(name = "password", length = 100)

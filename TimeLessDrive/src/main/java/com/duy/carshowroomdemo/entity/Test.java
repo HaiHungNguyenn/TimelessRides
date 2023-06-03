@@ -7,15 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "car_image")
-public class CarImage {
+@Table(name = "test")
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, length = 100)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Car car;
+    @Column(name = "image_name", length = 2000)
+    private String imageName;
 
     @Lob
     @Column(name = "content", length = Integer.MAX_VALUE)

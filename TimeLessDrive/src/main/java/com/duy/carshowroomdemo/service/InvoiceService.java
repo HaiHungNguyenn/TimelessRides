@@ -29,7 +29,7 @@ public class InvoiceService {
         invoice.setTotal(car.getPrice());
         invoice.setTax(Util.getRandText(10));
         invoice.setStatus("Paid");
-        invoice.setCreatedAt(LocalDate.now());
+        invoice.setCreateDate(LocalDate.now());
         invoice.setOtherInformation(additionalInfo);
 
         return (invoiceRepository.save(invoice) != null);

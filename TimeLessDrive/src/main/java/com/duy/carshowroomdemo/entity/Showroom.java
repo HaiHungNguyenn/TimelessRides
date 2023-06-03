@@ -22,7 +22,7 @@ public class Showroom {
     @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "city", length = 30)
+    @Column(name = "city", length = 50)
     private String city;
 
     @Column(name = "phone", length = 10)

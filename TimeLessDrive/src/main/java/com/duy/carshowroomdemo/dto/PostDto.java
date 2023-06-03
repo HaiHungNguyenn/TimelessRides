@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * DTO for {@link Post}
@@ -19,6 +20,7 @@ public class PostDto implements Serializable {
     CarDto car;
     ClientDto client;
     String description;
-    LocalDate createdAt;
+    LocalDate postDate;
+    LocalTime postTime;
     String status;
 }

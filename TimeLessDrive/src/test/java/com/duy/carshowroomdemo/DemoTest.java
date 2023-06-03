@@ -1,6 +1,5 @@
 package com.duy.carshowroomdemo;
 
-import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
@@ -9,6 +8,8 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 import org.assertj.core.api.Assertions;
@@ -18,13 +19,15 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @DataJpaTest
@@ -161,25 +164,25 @@ public class DemoTest {
 
     @Test
     public void testAddCarDescription(){
-        for (int i = 0; i < 100; i++) {
-            CarDescription carDescription = new CarDescription();
-            carDescription.setColor(Util.getRandColor());
-            carDescription.setLicensePlate(Util.getRandLicensePlate());
-            carDescription.setFuelType(Util.getRandFuelType());
-            carDescription.setNoOfSeat((short) Util.getRandInt(4,8));
-            carDescription.setHp((short) (Util.getRandInt(1800) + 200));
-            carDescription.setWheelSize((short) (Util.getRandInt(35) + 35));
-            carDescription.setBoughtYear((short) (Util.getRandInt(30) + 1990));
-            carDescription.setWidth((short) (Util.getRandInt(50) + 150));
-            carDescription.setLength((short) (Util.getRandInt(50) + 400));
-            carDescription.setHeight((short) (Util.getRandInt(10) + 175));
-            carDescription.setKmSpend(String.valueOf(Util.getRandInt(100,2000)));
-            carDescription.setManufacturedYear((short) (carDescription.getBoughtYear() - Util.getRandInt(5)));
-            carDescription.setOthers(Util.getRandText(30));
-            CarDescription save = carDescriptionRepository.save(carDescription);
-
-            Assertions.assertThat(save).isNotNull();
-        }
+//        for (int i = 0; i < 100; i++) {
+//            CarDescription carDescription = new CarDescription();
+//            carDescription.setColor(Util.getRandColor());
+//            carDescription.setLicensePlate(Util.getRandLicensePlate());
+//            carDescription.setFuelType(Util.getRandFuelType());
+//            carDescription.setNoOfSeat((short) Util.getRandInt(4,8));
+//            carDescription.setHp((short) (Util.getRandInt(1800) + 200));
+//            carDescription.setWheelSize((short) (Util.getRandInt(35) + 35));
+//            carDescription.setBoughtYear((short) (Util.getRandInt(30) + 1990));
+//            carDescription.setWidth((short) (Util.getRandInt(50) + 150));
+//            carDescription.setLength((short) (Util.getRandInt(50) + 400));
+//            carDescription.setHeight((short) (Util.getRandInt(10) + 175));
+//            carDescription.setKmSpend(String.valueOf(Util.getRandInt(100,2000)));
+//            carDescription.setManufacturedYear((short) (carDescription.getBoughtYear() - Util.getRandInt(5)));
+//            carDescription.setOthers(Util.getRandText(30));
+//            CarDescription save = carDescriptionRepository.save(carDescription);
+//
+//            Assertions.assertThat(save).isNotNull();
+//        }
     }
 
     @Test
@@ -207,7 +210,7 @@ public class DemoTest {
             List<Car> carList = new ArrayList<>(carRepository.findAll());
             CarImage carImage = new CarImage();
             carImage.setCar(carList.get(Util.getRandInt(carList.size())));
-            carImage.setLink(CAR_IMAGE_URL);
+//            carImage.setLink(CAR_IMAGE_URL);
 
             CarImage save = carImageRepository.save(carImage);
 
@@ -227,7 +230,7 @@ public class DemoTest {
             post.setClient(clientList.get(Util.getRandInt(clientList.size())));
             post.setDescription(Util.getRandText(30));
             post.setStatus("Pending");
-            post.setCreatedAt(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
+            post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
 
             Post save = postRepository.save(post);
 
@@ -248,7 +251,7 @@ public class DemoTest {
             invoice.setClient(clientList.get(Util.getRandInt(clientList.size())));
             invoice.setCar(x);
             invoice.setTotal(Util.getRandPrice());
-            invoice.setCreatedAt(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
+            invoice.setCreateDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
             invoice.setStatus("Paid");
             invoice.setTax(Util.getRandText(5));
             invoice.setOtherInformation(Util.getRandText(50));
@@ -268,7 +271,7 @@ public class DemoTest {
             offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
             offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
-            offMeeting.setCreatedAt(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
+            offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
             offMeeting.setDescription(Util.getRandText(30));
             offMeeting.setStatus("Not yet");
 
@@ -305,7 +308,7 @@ public class DemoTest {
         Iterable<Car> all = carRepository.findAll();
         all.forEach(carList::add);
         Car car = carList.get(0);
-        System.out.println(car.getCarDescription().getColor());
+//        System.out.println(car.getCarDescription().getColor());
         carRepository.delete(car);
         Iterable<Car> all1 = carRepository.findAll();
 
@@ -511,9 +514,9 @@ public class DemoTest {
             System.out.println("null");
         }
 
-        if(carOptional.get().getCarDescription().getBoughtYear() != boughtYear || carOptional.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
-            System.out.println("null");
-        }
+//        if(carOptional.get().getCarDescription().getBoughtYear() != boughtYear || carOptional.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
+//            System.out.println("null");
+//        }
 
         Invoice invoice = new Invoice();
         invoice.setCar(modelMapper.map(carOptional.get(), Car.class));
@@ -522,7 +525,7 @@ public class DemoTest {
         invoice.setTotal(carOptional.get().getPrice());
         invoice.setTax(Util.getRandText(10));
         invoice.setStatus("Paid");
-        invoice.setCreatedAt(LocalDate.now());
+        invoice.setCreateDate(LocalDate.now());
         invoice.setOtherInformation(additionalInfo);
 
         Invoice save = invoiceRepository.save(invoice);
@@ -531,11 +534,72 @@ public class DemoTest {
     }
 
     @Test
-    public void testLorem(){
+    public void testLorem() throws IOException {
 //        String address = lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
 //        System.out.println(address);
 //        System.out.println(new LoremIpsum().getWords(30));
-        System.out.println("detracto per oratio verterem id fabulas ius verear equidem lacinia conubia pretium numquam causae po".length());
+//        byte[] content = imageRepo.findAll().get(0).getContent();
+//
+//        System.out.println(content.length);
+
+        URL url = new URL("https://api.api-ninjas.com/v1/cars?model=camry");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestProperty("accept", "application/json");
+        InputStream responseStream = connection.getInputStream();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = mapper.readTree(responseStream);
+        System.out.println(root.path("fact").asText());
     }
+
+    @Test
+    public void testStoreImage() throws IOException {
+        Car car = carRepository.findByName("Car for testing");
+        CarImage carImage = new CarImage();
+        try(FileInputStream fileInputStream = new FileInputStream("D:\\Image_Gallery\\BMW X5 xDrive 290 kW\\carvago1.jpg")){
+            carImage.setContent(fileInputStream.readAllBytes());
+        }
+        carImage.setCar(car);
+        car.getCarImageList().add(carImage);
+        carRepository.save(car);
+//        Car carForTesting = carRepository.findByName("Car for testing");
+//        System.out.println(carForTesting.getCarImageList().size());
+
+//        FileImageInputStream fileImageInputStream = new FileImageInputStream(new File(""));
+
+    }
+
+    @Test
+    public void testWorkWithDirectories(){
+        String rootPath = "D:\\Image_Gallery";
+        File file = new File(rootPath);
+        String[] directories = file.list();
+        List<CarDescription> descriptionList = carDescriptionRepository.findAll();
+        assert directories != null;
+        AtomicInteger count = new AtomicInteger();
+        Arrays.stream(directories).forEach((directory) ->{
+            String subDirectory = rootPath + "\\" + directory;
+            File file1 = new File(subDirectory);
+            String[] images = file1.list();
+            assert images != null;
+            Car car = new Car();
+            car.setName(directory);
+            car.setCarDescription(descriptionList.get(count.getAndIncrement()));
+            List<CarImage> carImageList = new ArrayList<>();
+            Arrays.stream(images).forEach((image -> {
+                try(FileInputStream fileInputStream = new FileInputStream(subDirectory + "\\" + image)) {
+                    CarImage carImage = new CarImage();
+                    carImage.setCar(car);
+                    carImage.setContent(fileInputStream.readAllBytes());
+                    carImageList.add(carImage);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
+            car.setCarImageList(carImageList);
+            carRepository.save(car);
+        });
+    }
+
+
 
 }

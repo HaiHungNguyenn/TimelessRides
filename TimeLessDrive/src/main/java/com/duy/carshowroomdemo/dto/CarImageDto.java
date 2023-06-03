@@ -12,5 +12,6 @@ import java.io.Serializable;
 @Data
 public class CarImageDto implements Serializable {
     String id;
-    String link;
+    byte[] content;
+
 }

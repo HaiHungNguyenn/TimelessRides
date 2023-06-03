@@ -17,7 +17,7 @@ public class Client {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 50)
     private String role = "client";
 
     @Column(name = "name", length = 50)
@@ -29,7 +29,7 @@ public class Client {
     @Column(name = "phone", length = 10)
     private String phone;
 
-    @Column(name = "email", length = 45)
+    @Column(name = "email", length = 50)
     private String email;
 
     @Column(name = "password", length = 100)
@@ -38,7 +38,7 @@ public class Client {
     @Column(name = "address", length = 100)
     private String address;
 
-    @Column(name = "gender", length = 20)
+    @Column(name = "gender", length = 50)
     private String gender;
 
     @Column(name = "dob")

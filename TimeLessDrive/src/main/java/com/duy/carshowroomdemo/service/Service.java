@@ -30,4 +30,6 @@ public class Service {
     private PostService postService;
     @Autowired
     private ShowroomService showroomService;
+    @Autowired
+    private ImageService imageService;
 }

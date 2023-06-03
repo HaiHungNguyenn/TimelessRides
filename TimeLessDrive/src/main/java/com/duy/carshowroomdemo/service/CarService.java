@@ -29,17 +29,25 @@ public class CarService {
 
     }
 
-    public CarDto findCarByNameAndBrandAndBoughtYearAndLicensePlate(String carName, String brand, int boughtYear, String licensePlate) {
+//    public CarDto findCarByNameAndBrandAndBoughtYearAndLicensePlate(String carName, String brand, int boughtYear, String licensePlate) {
+//
+//        Optional<Car> car = repository.findCarByNameAndBrand(carName, brand);
+//        if(car.isEmpty()){
+//            return null;
+//        }
+//
+//        if(car.get().getCarDescription().getBoughtYear() != boughtYear || !car.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
+//            return null;
+//        }
+//
+//        return modelMapper.map(car.get(), CarDto.class);
+//    }
 
-        Optional<Car> car = repository.findCarByNameAndBrand(carName, brand);
-        if(car.isEmpty()){
-            return null;
-        }
+    public Car findCarByName(String carName) {
+        return repository.findByName(carName);
+    }
 
-        if(car.get().getCarDescription().getBoughtYear() != boughtYear || !car.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
-            return null;
-        }
-
-        return modelMapper.map(car.get(), CarDto.class);
+    public void save(Car car) {
+        repository.save(car);
     }
 }
