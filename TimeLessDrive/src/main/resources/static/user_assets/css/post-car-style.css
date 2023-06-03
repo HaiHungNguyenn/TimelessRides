@@ -1,0 +1,64 @@
+#myForm .header{
+    border-bottom: 1px solid #ECEDF3;
+}
+
+#myForm .main-header > *{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#myForm h4{
+    font-weight: 400;
+}
+
+#myForm input{
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+#myForm input:hover,:focus{
+    border-color: red;
+}
+
+#myForm input:hover,:focus + label{
+    color: red;
+}
+
+#myForm textarea{
+    width: 100%;
+}
+
+.image img{
+    width: 100%;
+}
+
+.image span{
+    display: none;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+#myForm .container{
+    margin-top: 20px;
+    padding: 0 40px;
+}
+
+#myForm .main-container{
+    border: 1px solid black;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px 5px black;
+}
+
+#myForm .row{
+    margin: 10px 0;
+}
+
+#myForm input[type=submit]{
+    background-color: red;
+    color: white;
+    width: 40%;
+    margin: auto;
+    border-radius: 20px;
+}

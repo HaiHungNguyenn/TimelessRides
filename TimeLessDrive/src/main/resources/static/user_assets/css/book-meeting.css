@@ -1068,3 +1068,7 @@ screen and (max-device-width: 415px) and (orientation: landscape) {
   filter: blur(8px);
   -webkit-filter: blur(8px);
 }
+
+.appointmentFieldRow.forSelectedDate{
+    background-color: red;
+}

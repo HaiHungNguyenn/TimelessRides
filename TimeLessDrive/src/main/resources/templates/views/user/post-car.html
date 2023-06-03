@@ -23,39 +23,18 @@
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
 
-    <link rel="alternate" type="application/json+oembed"
-        href="https://www.jotform.com/oembed/?format=json&amp;url=https%3A%2F%2Fform.jotform.com%2F231444402555450"
-        title="oEmbed Form">
-    <link rel="alternate" type="text/xml+oembed"
-        href="https://www.jotform.com/oembed/?format=xml&amp;url=https%3A%2F%2Fform.jotform.com%2F231444402555450"
-        title="oEmbed Form">
-        <link rel="canonical" href="https://form.jotform.com/231444402555450" />
-    <link type="text/css" rel="stylesheet"
-        href="https://cdn01.jotfor.ms/themes/CSS/5e6b428acc8c4e222d1beb91.css?v=3.3.42150&themeRevisionID=5eb3b4ae85bd2e1e2966db96" />
-    <link type="text/css" rel="stylesheet"
-        href="https://cdn02.jotfor.ms/css/styles/payment/payment_styles.css?3.3.42150" />
-    <link type="text/css" rel="stylesheet"
-        href="https://cdn03.jotfor.ms/css/styles/payment/payment_feature.css?3.3.42150" />
-    <script src="https://cdn01.jotfor.ms/static/prototype.forms.js?3.3.42150" type="text/javascript"></script>
-    <script src="https://cdn02.jotfor.ms/static/jotform.forms.js?3.3.42150" type="text/javascript"></script>
-    <script src="https://cdn03.jotfor.ms/js/vendor/jquery-1.8.0.min.js?v=3.3.42150" type="text/javascript"></script>
-    <script defer src="https://cdn01.jotfor.ms/js/vendor/maskedinput.min.js?v=3.3.42150"
-        type="text/javascript"></script>
-    <script defer src="https://cdn02.jotfor.ms/js/vendor/jquery.maskedinput.min.js?v=3.3.42150"
-        type="text/javascript"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.js"></script>
-    <script src="https://cdn03.jotfor.ms/js/vendor/imageinfo.js?v=3.3.42150" type="text/javascript"></script>
-    <script src="https://cdn01.jotfor.ms/file-uploader/fileuploader.js?v=3.3.42150"></script>
-    <script src="https://cdn02.jotfor.ms/js/payments/validategateways.js?v=3.3.42150" type="text/javascript"></script>
-    <script src="../../user_assets/js/post-script.js"></script>
-    <link rel="stylesheet" href="../../user_assets/css/post-style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../user_assets/css/post-car-style.css">
 </head>
 
 <body>
     <!-- Page Preloder -->
-<!--    <div id="preloder">-->
-<!--        <div class="loader"></div>-->
-<!--    </div>-->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -173,237 +152,137 @@
         </div>
     </div>
 
-    <form class="jotform-form" action="/test/post" method="post"
-        enctype="multipart/form-data" name="form_231444402555450" id="231444402555450" accept-charset="utf-8"
-        autocomplete="on"><input type="hidden" name="formID" value="231444402555450" /><input type="hidden"
-            id="JWTContainer" value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
-        <div role="main" class="form-all">
-            <link type="text/css" rel="stylesheet" media="all"
-                href="https://cdn.jotfor.ms/wizards/languageWizard/custom-dropdown/css/lang-dd.css?3.3.42150" />
-            <div class="cont"><input type="text" id="input_language" name="input_language" style="display:none" />
-                <div class="language-dd" id="langDd" style="display:none">
-                    <div class="dd-placeholder lang-emp">Language</div>
-                    <ul class="lang-list dn" id="langList">
-                        <li data-lang="en" class="en">English (US)</li>
-                    </ul>
-                </div>
-            </div>
-            <script type="text/javascript" src="https://cdn.jotfor.ms/js/formTranslation.v2.js?3.3.42150"></script>
-            <ul class="form-section page-section">
-                <li id="cid_1" class="form-input-wide" data-type="control_head">
-                    <div style="display:table;width:100%">
-                        <div class="form-header-group hasImage header-large" data-imagealign="Top">
-                            <div class="header-logo"><img
-                                    src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;amp;ixlib=rb-1.2.1&amp;amp;auto=format&amp;amp;fit=crop&amp;amp;w=1189&amp;amp;q=80"
-                                    alt="Car Show Entry Form" width="350" class="header-logo-top" /></div>
-                            <div class="header-text httac htvam">
-                                <h1 id="header_1" class="form-header" data-component="header">Car Show Entry Form</h1>
-                                <div id="subHeader_1" class="form-subHeader">Easily register your car for the show using
-                                   </div>
-                            </div>
+    <form action="" id="myForm">
+        <ul class="container main-container">
+            <li class="row header main-header">
+                <h1>Car Show Entry Form</h1>
+                <p>Easily register your car for the show using</p>
+            </li>
+            <li class="row">
+                <ul class="container">
+                    <li class="row header">
+                        <h3>Attendee Information</h3>
+                        <p>Please fill in the required fields (indicated by *).</p>
+                    </li>
+                    <li class="row">
+                        <h4>Full Name</h4>
+                        <div class="first-name col-sm-12 col-md-6">
+                            <input type="text" id="first-name">
+                            <label for="first-name">First Name</label>
                         </div>
-                    </div>
-                </li>
-                <li id="cid_30" class="form-input-wide" data-type="control_head">
-                    <div class="form-header-group  header-default">
-                        <div class="header-text httal htvam">
-                            <h2 id="header_30" class="form-header" data-component="header">Attendee Information</h2>
-                            <div id="subHeader_30" class="form-subHeader">Please fill in the required fields (indicated
-                                by *).</div>
+                        <div class="last-name col-sm-12 col-md-6">
+                            <input type="text" id="last-name">
+                            <label for="last-name">Last Name</label>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_fullname" id="id_3"><label
-                        class="form-label form-label-top form-label-auto" id="label_3" for="first_3"> Full Name<span
-                            class="form-required">*</span> </label>
-                    <div id="cid_3" class="form-input-wide jf-required" data-layout="full">
-                        <div data-wrapper-react="true"><span class="form-sub-label-container" style="vertical-align:top"
-                                data-input-type="first"><input type="text" id="first_3" name="q3_fullName3[first]"
-                                    class="form-textbox validate[required]" data-defaultvalue=""
-                                    autoComplete="section-input_3 given-name" size="10" value="" data-component="first"
-                                    aria-labelledby="label_3 sublabel_3_first" required="" /><label
-                                    class="form-sub-label" for="first_3" id="sublabel_3_first" style="min-height:13px"
-                                    aria-hidden="false">First Name</label></span><span class="form-sub-label-container"
-                                style="vertical-align:top" data-input-type="last"><input type="text" id="last_3"
-                                    name="q3_fullName3[last]" class="form-textbox validate[required]"
-                                    data-defaultvalue="" autoComplete="section-input_3 family-name" size="15" value=""
-                                    data-component="last" aria-labelledby="label_3 sublabel_3_last" required="" /><label
-                                    class="form-sub-label" for="last_3" id="sublabel_3_last" style="min-height:13px"
-                                    aria-hidden="false">Last Name</label></span></div>
-                    </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_address" id="id_4"><label
-                        class="form-label form-label-top form-label-auto" id="label_4" for="input_4_addr_line1">
-                        Address<span class="form-required">*</span> </label>
-                    <div id="cid_4" class="form-input-wide jf-required" data-layout="full">
-                        <div summary="" class="form-address-table jsTest-addressField">
-                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span
-                                    class="form-address-line form-address-street-line jsTest-address-lineField"><span
-                                        class="form-sub-label-container" style="vertical-align:top"><input type="text"
-                                            id="input_4_addr_line1" name="q4_address4[addr_line1]"
-                                            class="form-textbox validate[required] form-address-line"
-                                            data-defaultvalue="" autoComplete="section-input_4 address-line1" value=""
-                                            data-component="address_line_1"
-                                            aria-labelledby="label_4 sublabel_4_addr_line1" required="" /><label
-                                            class="form-sub-label" for="input_4_addr_line1" id="sublabel_4_addr_line1"
-                                            style="min-height:13px" aria-hidden="false">Street
-                                            Address</label></span></span></div>
-                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span
-                                    class="form-address-line form-address-street-line jsTest-address-lineField"><span
-                                        class="form-sub-label-container" style="vertical-align:top"><input type="text"
-                                            id="input_4_addr_line2" name="q4_address4[addr_line2]"
-                                            class="form-textbox form-address-line" data-defaultvalue=""
-                                            autoComplete="section-input_4 address-line2" value=""
-                                            data-component="address_line_2"
-                                            aria-labelledby="label_4 sublabel_4_addr_line2" /><label
-                                            class="form-sub-label" for="input_4_addr_line2" id="sublabel_4_addr_line2"
-                                            style="min-height:13px" aria-hidden="false">Street Address Line
-                                            2</label></span></span></div>
-                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span
-                                    class="form-address-line form-address-city-line jsTest-address-lineField "><span
-                                        class="form-sub-label-container" style="vertical-align:top"><input type="text"
-                                            id="input_4_city" name="q4_address4[city]"
-                                            class="form-textbox validate[required] form-address-city"
-                                            data-defaultvalue="" autoComplete="section-input_4 address-level2" value=""
-                                            data-component="city" aria-labelledby="label_4 sublabel_4_city"
-                                            required="" /><label class="form-sub-label" for="input_4_city"
-                                            id="sublabel_4_city" style="min-height:13px"
-                                            aria-hidden="false">City</label></span></span><span
-                                    class="form-address-line form-address-state-line jsTest-address-lineField "><span
-                                        class="form-sub-label-container" style="vertical-align:top"><input type="text"
-                                            id="input_4_state" name="q4_address4[state]"
-                                            class="form-textbox validate[required] form-address-state"
-                                            data-defaultvalue="" autoComplete="section-input_4 address-level1" value=""
-                                            data-component="state" aria-labelledby="label_4 sublabel_4_state"
-                                            required="" /><label class="form-sub-label" for="input_4_state"
-                                            id="sublabel_4_state" style="min-height:13px" aria-hidden="false">State /
-                                            Province</label></span></span></div>
-                            <div class="form-address-line-wrapper jsTest-address-line-wrapperField"><span
-                                    class="form-address-line form-address-zip-line jsTest-address-lineField "><span
-                                        class="form-sub-label-container" style="vertical-align:top"><input type="text"
-                                            id="input_4_postal" name="q4_address4[postal]"
-                                            class="form-textbox form-address-postal" data-defaultvalue=""
-                                            autoComplete="section-input_4 postal-code" value="" data-component="zip"
-                                            aria-labelledby="label_4 sublabel_4_postal" /><label class="form-sub-label"
-                                            for="input_4_postal" id="sublabel_4_postal" style="min-height:13px"
-                                            aria-hidden="false">Postal / Zip
-                                            Code</label></span></span></div>
+                    </li>
+                    <li class="row">
+                        <h4>Address</h4>
+                        <div class="street-address">
+                            <input type="text" id="street-address">
+                            <label for="street-address">Street Address</label>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_phone" id="id_5"><label
-                        class="form-label form-label-top form-label-auto" id="label_5" for="input_5_full"> Phone
-                        Number<span class="form-required">*</span> </label>
-                    <div id="cid_5" class="form-input-wide jf-required" data-layout="half"> <span
-                            class="form-sub-label-container" style="vertical-align:top"><input type="tel"
-                                id="input_5_full" name="q5_phoneNumber5[full]" data-type="mask-number"
-                                class="mask-phone-number form-textbox validate[required, Fill Mask]"
-                                data-defaultvalue="" autoComplete="section-input_5 tel-national" style="width:310px"
-                                data-masked="true" value="" placeholder="(000) 000-0000" data-component="phone"
-                                aria-labelledby="label_5" required="" /></span> </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_email" id="id_6"><label
-                        class="form-label form-label-top form-label-auto" id="label_6" for="input_6"> E-mail<span
-                            class="form-required">*</span> </label>
-                    <div id="cid_6" class="form-input-wide jf-required" data-layout="half"> <span
-                            class="form-sub-label-container" style="vertical-align:top"><input type="email" id="input_6"
-                                name="q6_email6" class="form-textbox validate[required, Email]" data-defaultvalue=""
-                                style="width:310px" size="310" value="" placeholder="ex: email@yahoo.com"
-                                data-component="email" aria-labelledby="label_6 sublabel_input_6" required="" /><label
-                                class="form-sub-label" for="input_6" id="sublabel_input_6" style="min-height:13px"
-                                aria-hidden="false">example@example.com</label></span>
-                    </div>
-                </li>
-                <li id="cid_25" class="form-input-wide" data-type="control_head">
-                    <div class="form-header-group  header-default">
-                        <div class="header-text httal htvam">
-                            <h2 id="header_25" class="form-header" data-component="header">Car Information</h2>
-                            <div id="subHeader_25" class="form-subHeader">We need some information about your car to
-                                register you for
-                                the show.</div>
+                        <div class="street-address-line-2">
+                            <input type="text" id="street-address-line-2">
+                            <label for="street-address-line-2">Street Address Line 2</label>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_textbox" id="id_24"><label
-                        class="form-label form-label-top form-label-auto" id="label_24" for="input_24"> Car's
-                        brand:<span class="form-required">*</span> </label>
-                    <div id="cid_24" class="form-input-wide jf-required" data-layout="half"> <input type="text"
-                            id="input_24" name="q24_carsBrand" data-type="input-textbox"
-                            class="form-textbox validate[required, AlphaNumeric]" data-defaultvalue=""
-                            style="width:310px" size="310" value="" placeholder="ex: Volkswagen"
-                            data-component="textbox" aria-labelledby="label_24" required="" /> </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_number" id="id_23"><label
-                        class="form-label form-label-top form-label-auto" id="label_23" for="input_23"> Car's age:<span
-                            class="form-required">*</span> </label>
-                    <div id="cid_23" class="form-input-wide jf-required" data-layout="half"> <input type="number"
-                            id="input_23" name="q23_carsAge" data-type="input-number"
-                            class=" form-number-input form-textbox validate[required]" data-defaultvalue=""
-                            style="width:310px" size="310" value="" placeholder="ex: 8" data-component="number"
-                            aria-labelledby="label_23" required="" step="any" /> </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_fileupload" id="id_16"><label
-                        class="form-label form-label-top" id="label_16" for="input_16"> Upload images of the car from
-                        all sides (max
-                        4):<span class="form-required">*</span> </label>
-                    <div id="cid_16" class="form-input-wide jf-required" data-layout="full">
-                        <div class="jfQuestion-fields" data-wrapper-react="true">
-                            <div class="jfField isFilled">
-                                <div class="jfUpload-wrapper">
-                                    <div class="jfUpload-container">
-                                        <div class="jfUpload-button-container">
-                                            <div class="jfUpload-button" aria-hidden="true" tabindex="0"
-                                                style="display:none" data-version="v2">Browse Files<div
-                                                    class="jfUpload-heading forDesktop">Drag and drop files here
-                                                </div>
-                                                <div class="jfUpload-heading forMobile">Choose a file</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="jfUpload-files-container">
-                                        <div class="validate[multipleUpload]"><input type="file" id="input_16"
-                                                name="q16_uploadImages[]" multiple=""
-                                                class="form-upload-multiple validate[required]" data-imagevalidate="yes"
-                                                data-file-accept="jpg, jpeg, png, gif" data-file-maxsize="10854"
-                                                data-file-minsize="0" data-file-limit="4" data-component="fileupload"
-                                                required="" aria-label="Browse Files" /></div>
-                                    </div>
+                        <div class="city col-sm-12 col-md-6">
+                            <input type="text" id="city">
+                            <label for="city">City</label>
+                        </div>
+                        <div class="state-province col-sm-12 col-md-6">
+                            <input type="text" id="state-province">
+                            <label for="state-province">State / Province</label>
+                        </div>
+                        <div class="postal-zipcode">
+                            <input type="text" id="postal-zipcode">
+                            <label for="postal-zipcode">Postal / Zip Code</label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Phone Number</h4>
+                        <div class="phone-number col-sm-12 col-md-6">
+                            <input type="text" id="phone-number" placeholder="(0000) 000-000">
+                            <label for="phone-number"></label>
+                            <p class="phone-number-result"></p>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>E-mail</h4>
+                        <div class="email col-sm-12 col-md-6">
+                            <input type="email" id="e-mail" placeholder="ex: email@yahoo.com">
+                            <label for="e-mail">example@example.com</label>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="row">
+                <ul class="container">
+                    <li class="row header">
+                        <h3>Car Information</h3>
+                        <p>We need some information about your car to register you for the show.</p>
+                    </li>
+                    <li class="row">
+                        <h4>Car's brand</h4>
+                        <div class="car-brand">
+                            <input type="text" id="car-brand" placeholder="ex: Volkswagen">
+                            <label for="car-brand"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Car's age</h4>
+                        <div class="car-age">
+                            <input type="text" id="car-age" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                   maxlength="2"
+                                   placeholder="ex: 8">
+                            <label for="car-age"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Upload images of the car from all sides (max 4):</h4>
+                        <div class="car-images">
+                            <input type="file" id="car-image"
+                                   onchange="uploadField(); previewImages();" multiple
+                                   accept="image/png, image/gif, image/jpeg">
+                            <div class="row">
+                                <div class="image col-sm-12 col-md-3">
+                                    <img src="" alt="">
                                 </div>
-                                <div data-wrapper-react="true"></div>
-                            </div><span style="display:none" class="cancelText">Cancel</span><span style="display:none"
-                                class="ofText">of</span>
-                        </div>
-                    </div>
-                </li>
-                <li id="cid_26" class="form-input-wide" data-type="control_head">
-                    <div class="form-header-group  header-default">
-                        <div class="header-text httal htvam">
-                            <h2 id="header_26" class="form-header" data-component="header">Show Information</h2>
-                            <div id="subHeader_26" class="form-subHeader">Let&#x27;s continue with a few questions
-                                regarding the show.
+                                <div class="image col-sm-12 col-md-3">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="image col-sm-12 col-md-3">
+                                    <img src="" alt="">
+                                </div>
+                                <div class="image col-sm-12 col-md-3">
+                                    <img src="" alt="">
+                                </div>
                             </div>
+                            <label for="car-image">To select multiple files, hold down the CTRL or SHIFT key while
+                                selecting.</label>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line" data-type="control_textarea" id="id_11"><label
-                        class="form-label form-label-top form-label-auto" id="label_11" for="input_11"> Other
-                        Description </label>
-                    <div id="cid_11" class="form-input-wide" data-layout="full"> <textarea id="input_11"
-                            class="form-textarea" name="q11_otherDescription" style="width:648px;height:163px"
-                            data-component="textarea" aria-labelledby="label_11"></textarea> </div>
-                </li>
-                <li class="form-line" data-type="control_button" id="id_29">
-                    <div id="cid_29" class="form-input-wide" data-layout="full">
-                        <div data-align="auto"
-                            class="form-buttons-wrapper form-buttons-auto   jsTest-button-wrapperField"><button
-                                id="input_29" type="submit"
-                                class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
-                                data-component="button" data-content="">Submit</button></div>
-                    </div>
-                </li>
-                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
-            </ul>
-        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="row">
+                <ul class="container">
+                    <li class="row header">
+                        <h3>Show Information</h3>
+                        <p>Let's continue with a few questions regarding the show.</p>
+                    </li>
+                    <li class="row">
+                        <h4>Any questions</h4>
+                        <div class="questions">
+                            <textarea id="questions"></textarea>
+                            <label for="questions"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <input type="submit" value="Submit">
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
     </form>
 
     <!-- Footer Section Begin -->
@@ -505,6 +384,7 @@
     <!-- Search End -->
 
     <!-- Js Plugins -->
+    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../user_assets/js/bootstrap.min.js"></script>
     <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
     <script src="../../user_assets/js/jquery-ui.min.js"></script>
@@ -514,21 +394,11 @@
     <script src="../../user_assets/js/owl.carousel.min.js"></script>
     <script src="../../user_assets/js/main.js"></script>
 
-    <script>
-        JotForm.showJotFormPowered = "new_footer";
-    </script>
-    <script>
-        JotForm.poweredByText = "Powered by Jotform";
-    </script><input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc" value="231444402555450" />
-    <script type="text/javascript">
-        var all_spc = document.querySelectorAll("form[id='231444402555450'] .si" + "mple" + "_spc");
-        for (var i = 0; i < all_spc.length; i++) {
-            all_spc[i].value = "231444402555450-231444402555450";
-        }
-    </script>
-    <script type="text/javascript">JotForm.ownerView = true;</script>
-    <script src="https://cdn.jotfor.ms//js/vendor/smoothscroll.min.js?v=3.3.42150"></script>
-    <script src="https://cdn.jotfor.ms//js/errorNavigation.js?v=3.3.42150"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="../../user_assets/js/post-car-script.js"></script>
 </body>
 
 </html>

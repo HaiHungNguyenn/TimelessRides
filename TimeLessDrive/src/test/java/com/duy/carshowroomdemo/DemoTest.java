@@ -81,7 +81,7 @@ public class DemoTest {
         for (int i = 1; i < 5; i++) {
             Showroom showroom = new Showroom();
             showroom.setName("Showroom " + i);
-            showroom.setAddress("123 sample address");
+            showroom.setAddress(Util.getRandAddress());
             showroom.setCity("Thai Nguyen");
             showroom.setPhone(Util.getRandPhone());
             Showroom save = showroomRepository.save(showroom);
