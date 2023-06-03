@@ -19,16 +19,13 @@ public class Car {
     @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "brand", length = 100)
-    private String brand;
-
     @Column(name = "price")
     private Long price;
 
     @Column(name = "status", length = 50)
     private String status;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private CarDescription carDescription;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

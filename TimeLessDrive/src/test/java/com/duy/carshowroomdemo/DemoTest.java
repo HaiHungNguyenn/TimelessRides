@@ -1,33 +1,21 @@
 package com.duy.carshowroomdemo;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
-import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 @DataJpaTest
@@ -62,22 +50,20 @@ public class DemoTest {
     private final Lorem lorem = new LoremIpsum();
 
     @Test
-    public void testAddData(){
-        testAddAdmin();
-        testAddShowroom();
-        testAddStaff();
-        testAddClient();
-        testAddCarDescription();
-        testAddCar();
-        testAddCarImage();
-        testAddPost();
-        testAddInvoice();
-        testAddOffMeeting();
-        testAddFeedback();
+    public void addSampleData(){
+        addAdmin();
+        addShowrooms();
+        addStaff();
+        addClients();
+        addCarAndCarDescription();
+        addCarImages();
+        addPosts();
+        addInvoices();
+        addFeedbacks();
     }
 
     @Test
-    public void testAddShowroom(){
+    public void addShowrooms(){
         for (int i = 1; i < 5; i++) {
             Showroom showroom = new Showroom();
             showroom.setName("Showroom " + i);
@@ -91,7 +77,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddStaff(){
+    public void addStaff(){
         List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
         for (int i = 0; i < 100; i++) {
             Staff staff = new Staff();
@@ -131,7 +117,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddAdmin(){
+    public void addAdmin(){
         Admin admin = new Admin();
         admin.setEmail("hai@gmail.com");
         admin.setAvatar(AVATAR_URL);
@@ -142,7 +128,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddClient(){
+    public void addClients(){
         for (int i = 0; i < 100; i++) {
             Client client = new Client();
             client.setRole("client");
@@ -163,63 +149,140 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddCarDescription(){
-//        for (int i = 0; i < 100; i++) {
-//            CarDescription carDescription = new CarDescription();
-//            carDescription.setColor(Util.getRandColor());
-//            carDescription.setLicensePlate(Util.getRandLicensePlate());
-//            carDescription.setFuelType(Util.getRandFuelType());
-//            carDescription.setNoOfSeat((short) Util.getRandInt(4,8));
-//            carDescription.setHp((short) (Util.getRandInt(1800) + 200));
-//            carDescription.setWheelSize((short) (Util.getRandInt(35) + 35));
-//            carDescription.setBoughtYear((short) (Util.getRandInt(30) + 1990));
-//            carDescription.setWidth((short) (Util.getRandInt(50) + 150));
-//            carDescription.setLength((short) (Util.getRandInt(50) + 400));
-//            carDescription.setHeight((short) (Util.getRandInt(10) + 175));
-//            carDescription.setKmSpend(String.valueOf(Util.getRandInt(100,2000)));
-//            carDescription.setManufacturedYear((short) (carDescription.getBoughtYear() - Util.getRandInt(5)));
-//            carDescription.setOthers(Util.getRandText(30));
-//            CarDescription save = carDescriptionRepository.save(carDescription);
-//
-//            Assertions.assertThat(save).isNotNull();
-//        }
+    public void addCarAndCarDescription(){
+        String filePath = "D:\\.UNIVERSITY\\T5_2023_SUMMER\\SWP391\\Car_Showroom_Project\\Web_Scraping\\car_data.txt";
+        List<Showroom> showroomList = showroomRepository.findAll();
+        List<String> carNames = new ArrayList<>();
+
+        try(FileReader fileReader = new FileReader(filePath)) {
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            CarDescription carDescription = new CarDescription();
+            Car car = new Car();
+            while((line = bufferedReader.readLine()) != null){
+                if(line.contains("START")){
+
+                    carDescription = new CarDescription();
+                    car = new Car();
+
+                } else if (line.contains("END")) {
+
+                    if(carNames.contains(car.getName())){
+                        continue;
+                    }
+                    carDescription.setLicensePlate(Util.getRandLicensePlate());
+                    carDescription.setOthers(Util.getRandText(15));
+                    carDescription.setCar(car);
+                    car.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
+                    car.setPrice(Util.getRandPrice());
+                    car.setCarDescription(carDescription);
+                    car.setStatus("Available");
+                    carNames.add(car.getName());
+                    carRepository.save(car);
+
+                } else if (line.contains("Car name")) {
+
+                    car.setName(Util.handleDirName(line.replace("Car name:", "").trim()));
+
+                } else if (line.contains("Make")) {
+
+                    carDescription.setMake(line.replace("Make:", "").trim());
+
+                } else if (line.contains("Model")) {
+
+                    carDescription.setModel(line.replace("Model:", "").trim());
+
+                } else if (line.contains("Body color")) {
+
+                    carDescription.setBodyColor(line.replace("Body color:", "").trim());
+
+                } else if (line.contains("Interior color")) {
+
+                    carDescription.setInteriorColor(line.replace("Interior color:", "").trim());
+
+                } else if (line.contains("Interior material")) {
+
+                    carDescription.setInteriorMaterial(line.replace("Interior material:", "").trim());
+
+                } else if (line.contains("Body")) {
+
+                    carDescription.setBody(line.replace("Body:", "").trim());
+
+                } else if (line.contains("Seats")) {
+
+                    carDescription.setSeats(Util.handleInteger(line.replace("Seats:", "").trim()));
+
+                } else if (line.contains("Fuel")) {
+
+                    carDescription.setFuelType(line.replace("Fuel:", "").trim());
+
+                } else if (line.contains("Transmission")) {
+
+                    carDescription.setTransmission(line.replace("Transmission:", "").trim());
+
+                } else if (line.contains("Power")) {
+
+                    carDescription.setPower(Util.handleInteger(line.replace("Power:", "").trim()));
+
+                } else if (line.contains("Engine capacity")) {
+
+                    carDescription.setPower(Util.handleInteger(line.replace("Engine capacity:", "").trim()));
+
+                } else if (line.contains("CO2 emission")) {
+
+                    carDescription.setCo2Emission(Util.handleInteger(line.replace("CO2 emission:", "").trim()));
+
+                } else if (line.contains("Kms driven")) {
+
+                    carDescription.setKmsDriven(Util.handleInteger(line.replace("Kms driven:", "").trim()));
+
+                } else if (line.contains("First registration")) {
+
+                    carDescription.setFirstRegistration(line.replace("First registration:", "").trim());
+
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Test
-    public void testAddCar(){
-        List<CarDescription> carDescriptionList = new ArrayList<>(carDescriptionRepository.findAll());
-        List<Showroom> showroomList = new ArrayList<>(showroomRepository.findAll());
-        carDescriptionList.forEach((x) -> {
-            Car car = new Car();
-            car.setCarDescription(x);
-            car.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
-            car.setName(Util.getRandCarName());
-            car.setBrand(Util.getRandBrand());
-            car.setPrice(Util.getRandPrice());
-            car.setStatus("Available");
+    public void addCarImages(){
+        String rootPath = "D:\\Image_Gallery";
+        File file = new File(rootPath);
+        String[] directories = file.list();
+        assert directories != null;
+        Arrays.stream(directories).forEach((directory) ->{
+            String subDirectory = rootPath + "\\" + directory;
+            Car car = carRepository.findByName(directory);
+            if(car != null){
 
-            Car save = carRepository.save(car);
+                File file1 = new File(subDirectory);
+                String[] images = file1.list();
+                assert images != null;
+                List<CarImage> carImageList = new ArrayList<>();
+                Arrays.stream(images).forEach((image -> {
+                    try(FileInputStream fileInputStream = new FileInputStream(subDirectory + "\\" + image)) {
+                        CarImage carImage = new CarImage();
+                        carImage.setCar(car);
+                        carImage.setContent(fileInputStream.readAllBytes());
+                        carImageList.add(carImage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+                car.setCarImageList(carImageList);
+                carRepository.save(car);
 
-            Assertions.assertThat(save).isNotNull();
+            }
         });
     }
 
     @Test
-    public void testAddCarImage(){
-        for (int i = 0; i < 300; i++) {
-            List<Car> carList = new ArrayList<>(carRepository.findAll());
-            CarImage carImage = new CarImage();
-            carImage.setCar(carList.get(Util.getRandInt(carList.size())));
-//            carImage.setLink(CAR_IMAGE_URL);
-
-            CarImage save = carImageRepository.save(carImage);
-
-            Assertions.assertThat(save).isNotNull();
-        }
-    }
-
-    @Test
-    public void testAddPost(){
+    public void addPosts(){
         List<Car> carList = new ArrayList<>(carRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
 
@@ -239,7 +302,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddInvoice(){
+    public void addInvoices(){
 
         List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
@@ -263,7 +326,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddOffMeeting(){
+    public void addOffMeetings(){
         List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
         for (int i = 0; i < 100; i++) {
@@ -282,7 +345,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testAddFeedback(){
+    public void addFeedbacks(){
         for (int i = 0; i < 100; i++) {
             List<Client> clientList = new ArrayList<>(clientRepository.findAll());
             Feedback feedback = new Feedback();
@@ -297,121 +360,8 @@ public class DemoTest {
 
     }
 
-    @Test
-    public void testDeleteStaff(){
-        staffRepository.deleteAll();
-    }
-
-    @Test
-    public void testDeleteCar(){
-        List<Car> carList = new ArrayList<>();
-        Iterable<Car> all = carRepository.findAll();
-        all.forEach(carList::add);
-        Car car = carList.get(0);
-//        System.out.println(car.getCarDescription().getColor());
-        carRepository.delete(car);
-        Iterable<Car> all1 = carRepository.findAll();
-
-        Assertions.assertThat(all1).isEmpty();
-
-    }
-
-    @Test
-    public void testLoadInvoice(){
-        invoiceRepository.save(new Invoice());
-        List<Invoice> invoiceList = new ArrayList<>();
-        invoiceRepository.findAll().forEach(invoiceList::add);
-//        invoiceList.get(0).setCar(new Car());
-        Invoice save = invoiceRepository.save(invoiceList.get(0));
-        Assertions.assertThat(save).isNotNull();
-    }
-
-    @Test
-    public void testLoadCar(){
-        Car car = carRepository.findById("1").get();
-        Assertions.assertThat(car).isNotNull();
-    }
-
-    @Test
-    public void testArray(){
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            Scanner scanner = new Scanner(System.in);
-            list.set(i, scanner.nextInt());
-        }
-        list.forEach(System.out::println);
-    }
-
-    @Test
-    public void testMapper(){
-        ModelMapper modelMapper = new ModelMapper();
-        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
-
-        offMeetingRepository.findAll().forEach(x -> {
-            OffMeetingDto offMeetingDto = modelMapper.map(x, OffMeetingDto.class);
-            offMeetingDto.setClient(modelMapper.map(x.getClient(), ClientDto.class));
-            offMeetingDto.setStaff(modelMapper.map(x.getStaff(), StaffDto.class));
-            offMeetingDtoList.add(offMeetingDto);
-        });
-
-        Assertions.assertThat(offMeetingDtoList).isNotEmpty();
-
-        OffMeetingDto offMeetingDto = offMeetingDtoList.get(0);
-
-        System.out.println(offMeetingDto.getClient() + offMeetingDto.getMeetingDate().toString() + offMeetingDto.getDescription()
-                            + offMeetingDto.getStatus() + offMeetingDto.getStaff()
-        );
-
-    }
-
-    @Test
-    public void testMappers(){
-        MapperManager mapperManager = new MapperManager();
-        Client client = clientRepository.findById("55").get();
-        ClientDto dto = mapperManager.getClientMapper().toDto(client);
-        Client entity = mapperManager.getClientMapper().toEntity(dto);
-
-        List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
-
-        offMeetingRepository.findOffMeetingsByClient(entity, PageRequest.of(0,10)).forEach(x -> {
-            offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
-        });
-
-        offMeetingDtoList.forEach(x -> System.out.println(x.toString()));
 
 
-    }
-
-    @Test
-    public void testLogin(){
-//        offMeetingRepository.findAll(Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
-//        offMeetingRepository.findAll(PageRequest.of(1, 10), Sort.by("meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
-//        System.out.println("==========================================================");
-//        Util.writeRandomParagraph(10000);
-
-
-        System.out.println(UUID.randomUUID());
-//        PageImpl page = new PageImpl<>(offMeetingRepository.findAll(), PageRequest.of(0, 10), offMeetingRepository.count());
-////        System.out.println(page.getTotalElements());
-////        System.out.println(page.getTotalPages());
-//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
-//        page = new PageImpl(page.getContent(), page.nextPageable(), page.getTotalElements());
-//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
-
-
-
-//        System.out.println("==========================================================");
-//        offMeetingRepository.findAll(page.nextPageable()).forEach(x -> System.out.println(x.getMeetingDate()));
-
-
-
-
-//        offMeetingRepository.findAll(PageRequest.of(0, 10)).forEach(x -> System.out.println(x.getMeetingDate()));
-//        offMeetingRepository.findAll(PageRequest.of(0, 10, Sort.Direction.ASC, "meetingDate")).forEach(x -> System.out.println(x.getMeetingDate()));
-//        System.out.println("==========================================================");
-//        offMeetingRepository.findAll(PageRequest.of(, 10, Sort.by("meetingDate"))).forEach(x -> System.out.println(x.getMeetingDate()));
-    }
     @Test
     public void testADd(){
         Client client = new Client();
@@ -430,176 +380,4 @@ public class DemoTest {
 
         Assertions.assertThat(save).isNotNull();
     }
-    MapperManager mapperManager = new MapperManager();
-
-    @Test
-    public void testViewClient() {
-        List<Client> client = clientRepository.findAll();
-        List<ClientDto> clientList = new ArrayList<>();
-        for (Client x : client) {
-            clientList.add(mapperManager.getClientMapper().toDto(x));
-        }
-        for (ClientDto x : clientList) {
-            System.out.println(x);
-        }
-    }
-
-    @Test
-    public void testAddMoreClientRequest(){
-        Optional<Client> byEmail = clientRepository.findByEmail("QuanDH2603@gmail.com");
-//        if(byEmail.isPresent()){
-//            for (int i = 0; i < 10; i++) {
-//
-//                List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
-//                OffMeeting offMeeting = new OffMeeting();
-//                offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
-//                offMeeting.setClient(byEmail.get());
-//                offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
-//                offMeeting.setCreatedAt(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
-//                offMeeting.setDescription(Util.getRandText(30));
-//                offMeeting.setStatus("Not yet");
-//
-//                OffMeeting save = offMeetingRepository.save(offMeeting);
-//            }
-//        }
-        List<Post> all = postRepository.findAll();
-        if(byEmail.isPresent()){
-            for (int i = 0; i < 10; i++) {
-
-                all.get(i).setClient(byEmail.get());
-
-            }
-        }
-    }
-
-    private final ModelMapper modelMapper = new ModelMapper();
-
-    @Test
-    public void testPaging(){
-//        Page<OffMeeting> page1 = offMeetingRepository.findAll(PageRequest.of(0, 10));
-//        Page<OffMeeting> page2 = offMeetingRepository.findAll(page1.nextPageable());
-//
-//        Pageable page = PageRequest.of(0,10);
-//
-//
-//        page1.map((element) -> modelMapper.map(element, OffMeetingDto.class)).forEach(x -> System.out.println(x.getClient().getName()));
-
-//        System.out.println("abc de fg hijk".replaceAll(" ", ""));
-        System.out.println(Util.getRandLicensePlate());
-
-    }
-
-    @Test
-    public void testAddNewInvoice(){
-
-        Service service = new Service();
-
-        String email = "KhoiNH3105@gmail.com";
-        String fullName = "Nguyen Huynh Khoi";
-        String phone = "0921217961";
-        String carName = "TRAVERSE";
-        String brand = "Ferrari";
-        int boughtYear = 1996;
-        String licensePlate = "82B24537";
-        String additionalInfo = "sdfjklsdfjklsdfj";
-
-        StaffDto staff = modelMapper.map(staffRepository.findByEmail("duy@gmail.com").get(), StaffDto.class);
-
-
-
-        ClientDto client = modelMapper.map(clientRepository.findByEmailAndNameAndPhone(email, fullName, phone), ClientDto.class);
-
-        Optional<Car> carOptional = carRepository.findCarByNameAndBrand(carName, brand);
-        if(carOptional.isEmpty()){
-            System.out.println("null");
-        }
-
-//        if(carOptional.get().getCarDescription().getBoughtYear() != boughtYear || carOptional.get().getCarDescription().getLicensePlate().equalsIgnoreCase(licensePlate)){
-//            System.out.println("null");
-//        }
-
-        Invoice invoice = new Invoice();
-        invoice.setCar(modelMapper.map(carOptional.get(), Car.class));
-        invoice.setClient(modelMapper.map(client, Client.class));
-        invoice.setStaff(modelMapper.map(staff, Staff.class));
-        invoice.setTotal(carOptional.get().getPrice());
-        invoice.setTax(Util.getRandText(10));
-        invoice.setStatus("Paid");
-        invoice.setCreateDate(LocalDate.now());
-        invoice.setOtherInformation(additionalInfo);
-
-        Invoice save = invoiceRepository.save(invoice);
-
-        Assertions.assertThat(save).isNotNull();
-    }
-
-    @Test
-    public void testLorem() throws IOException {
-//        String address = lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
-//        System.out.println(address);
-//        System.out.println(new LoremIpsum().getWords(30));
-//        byte[] content = imageRepo.findAll().get(0).getContent();
-//
-//        System.out.println(content.length);
-
-        URL url = new URL("https://api.api-ninjas.com/v1/cars?model=camry");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestProperty("accept", "application/json");
-        InputStream responseStream = connection.getInputStream();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(responseStream);
-        System.out.println(root.path("fact").asText());
-    }
-
-    @Test
-    public void testStoreImage() throws IOException {
-        Car car = carRepository.findByName("Car for testing");
-        CarImage carImage = new CarImage();
-        try(FileInputStream fileInputStream = new FileInputStream("D:\\Image_Gallery\\BMW X5 xDrive 290 kW\\carvago1.jpg")){
-            carImage.setContent(fileInputStream.readAllBytes());
-        }
-        carImage.setCar(car);
-        car.getCarImageList().add(carImage);
-        carRepository.save(car);
-//        Car carForTesting = carRepository.findByName("Car for testing");
-//        System.out.println(carForTesting.getCarImageList().size());
-
-//        FileImageInputStream fileImageInputStream = new FileImageInputStream(new File(""));
-
-    }
-
-    @Test
-    public void testWorkWithDirectories(){
-        String rootPath = "D:\\Image_Gallery";
-        File file = new File(rootPath);
-        String[] directories = file.list();
-        List<CarDescription> descriptionList = carDescriptionRepository.findAll();
-        assert directories != null;
-        AtomicInteger count = new AtomicInteger();
-        Arrays.stream(directories).forEach((directory) ->{
-            String subDirectory = rootPath + "\\" + directory;
-            File file1 = new File(subDirectory);
-            String[] images = file1.list();
-            assert images != null;
-            Car car = new Car();
-            car.setName(directory);
-            car.setCarDescription(descriptionList.get(count.getAndIncrement()));
-            List<CarImage> carImageList = new ArrayList<>();
-            Arrays.stream(images).forEach((image -> {
-                try(FileInputStream fileInputStream = new FileInputStream(subDirectory + "\\" + image)) {
-                    CarImage carImage = new CarImage();
-                    carImage.setCar(car);
-                    carImage.setContent(fileInputStream.readAllBytes());
-                    carImageList.add(carImage);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }));
-            car.setCarImageList(carImageList);
-            carRepository.save(car);
-        });
-    }
-
-
-
 }

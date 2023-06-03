@@ -71,12 +71,11 @@ CREATE TABLE car_description (
 	fuel_type				VARCHAR(50),
 	transmission			VARCHAR(50),
 	first_registration		VARCHAR(50),
-	seats					SMALLINT,
-	[power]					SMALLINT,
-	engine_capacity			SMALLINT,
-	co2_emission			SMALLINT,
-	kms_driven				SMALLINT,
-	manufactured_year		SMALLINT,
+	seats					INT,
+	[power]					INT,
+	engine_capacity			INT,
+	co2_emission			INT,
+	kms_driven				INT,
 	others					NVARCHAR(2000)
 )
 
@@ -85,7 +84,6 @@ CREATE TABLE car (
 	car_description_id		VARCHAR(100) FOREIGN KEY REFERENCES car_description(id) UNIQUE NOT NULL,
 	showroom_id				VARCHAR(100) FOREIGN KEY REFERENCES showroom(id),
 	[name]					VARCHAR(100),
-	brand					VARCHAR(100), 
 	price					BIGINT,
 	[status]				VARCHAR(50)
 )

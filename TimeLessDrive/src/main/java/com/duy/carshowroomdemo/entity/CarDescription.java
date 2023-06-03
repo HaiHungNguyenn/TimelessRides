@@ -40,22 +40,19 @@ public class CarDescription {
     @Column(name = "first_registration")
     private String firstRegistration;
 
-    private Short seats;
+    private int seats;
 
     @Column(name = "power")
-    private Short power;
+    private int power;
 
     @Column(name = "engine_capacity")
-    private Short engineCapacity;
+    private int engineCapacity;
 
     @Column(name = "co2_emission")
-    private Short co2Emission;
+    private int co2Emission;
 
     @Column(name = "kms_driven")
-    private Short kmsDriven;
-
-    @Column(name = "manufactured_year")
-    private Short manufacturedYear;
+    private int kmsDriven;
 
     @Column(name = "others", length = 2000)
     private String others;
