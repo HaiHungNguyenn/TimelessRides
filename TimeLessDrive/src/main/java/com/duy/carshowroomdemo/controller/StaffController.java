@@ -170,11 +170,11 @@ public class StaffController {
             return modelAndView;
         }
 
-        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(1, 10);
+        List<PostDto> postRequestList = service.getPostService().getPostsPerPage(1, 10);
         long totalPostRequests = service.getPostService().getTotalPostRequests();
         long lastOffset = service.getPostService().getLastOffset(10);
         modelAndView.addObject("offset", 1);
-        modelAndView.addObject("postRequestList", allPostRequests);
+        modelAndView.addObject("postRequestList", postRequestList);
         modelAndView.addObject("totalPostRequests", totalPostRequests);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");

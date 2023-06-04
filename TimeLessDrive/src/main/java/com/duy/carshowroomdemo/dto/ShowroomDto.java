@@ -12,9 +12,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class ShowroomDto implements Serializable {
-    String id;
-    String name;
-    String address;
-    String city;
-    String phone;
+    private String id;
+    private String name;
+    private String address;
+    private String city;
+    private String phone;
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Stack;
@@ -93,6 +94,21 @@ public class UserController {
         modelAndView.setViewName("views/user/customer-service");
         return modelAndView;
     }
+
+    @RequestMapping("/confirm-post")
+    public ModelAndView confirmPost(@RequestParam("file") MultipartFile[] file){
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println(file.length);
+
+//        if error occurred
+//        if(condition){
+//            modelAndView.addObject("errorMsg", "Error message");
+//            return modelAndView;
+//        }
+
+        return postCar();
+    }
+
     @GetMapping ("/signin")
     public ModelAndView signIn(OAuth2AuthenticationToken token){
         if(token != null){

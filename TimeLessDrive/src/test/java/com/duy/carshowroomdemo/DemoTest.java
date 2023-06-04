@@ -1,11 +1,11 @@
 package com.duy.carshowroomdemo;
 
 import com.duy.carshowroomdemo.entity.*;
-import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
 import com.duy.carshowroomdemo.util.Util;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @DataJpaTest
@@ -51,11 +53,13 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
+        int cars = 100;
+        Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
         addStaff();
         addClients();
-        addCarAndCarDescription();
+        addCarAndCarDescription(cars);
         addCarImages();
         addPosts();
         addInvoices();
@@ -105,7 +109,7 @@ public class DemoTest {
         staff.setPhone(Util.getRandPhone());
         staff.setGender("male");
         staff.setPassword(Util.encodePassword("123"));
-        staff.setAddress("123 sample address");
+        staff.setAddress(Util.getRandAddress());
         staff.setDob(Util.getRandBirthDay());
         staff.setJoinDate(LocalDate.now());
         staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
@@ -149,10 +153,11 @@ public class DemoTest {
     }
 
     @Test
-    public void addCarAndCarDescription(){
-        String filePath = "D:\\.UNIVERSITY\\T5_2023_SUMMER\\SWP391\\Car_Showroom_Project\\Web_Scraping\\car_data.txt";
+    public void addCarAndCarDescription(int cars){
+        String filePath = "src\\main\\java\\com\\duy\\carshowroomdemo\\util\\car_data.txt";
         List<Showroom> showroomList = showroomRepository.findAll();
         List<String> carNames = new ArrayList<>();
+        int count = 0;
 
         try(FileReader fileReader = new FileReader(filePath)) {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -161,6 +166,11 @@ public class DemoTest {
             Car car = new Car();
             while((line = bufferedReader.readLine()) != null){
                 if(line.contains("START")){
+
+                    count++;
+                    if(count > cars){
+                        break;
+                    }
 
                     carDescription = new CarDescription();
                     car = new Car();
@@ -359,8 +369,6 @@ public class DemoTest {
         }
 
     }
-
-
 
     @Test
     public void testADd(){

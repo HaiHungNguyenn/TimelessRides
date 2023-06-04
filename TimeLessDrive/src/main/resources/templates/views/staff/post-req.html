@@ -90,7 +90,7 @@
                     <th class="sort align-middle" scope="col" style="width:15%;">Car Name</th>
                     <th class="sort align-middle" scope="col" style="width:30%;">Description</th>
                       <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                          <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/post-requests/sorted-by-createdAt-' + ${direction}" th:text="'Created At'"/>
+                          <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/post-requests/sorted-by-postDate-' + ${direction}" th:text="'Created At'"/>
                       </th>
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:25%;"> </th>
                   </tr>

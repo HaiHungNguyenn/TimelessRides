@@ -152,7 +152,7 @@
         </div>
     </div>
 
-    <form action="" id="myForm">
+    <form action="/confirm-post" id="myForm" enctype="multipart/form-data" method="post">
         <ul class="container main-container">
             <li class="row header main-header">
                 <h1>Car Show Entry Form</h1>
@@ -241,6 +241,7 @@
                         <h4>Upload images of the car from all sides (max 4):</h4>
                         <div class="car-images">
                             <input type="file" id="car-image"
+                                   name="file"
                                    onchange="uploadField(); previewImages();" multiple
                                    accept="image/png, image/gif, image/jpeg">
                             <div class="row">

@@ -15,11 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class CarDto implements Serializable {
-    String id;
-    String name;
-    String brand;
-    Long price;
-    String status;
-    CarDescriptionDto carDescription;
-    List<CarImageDto> carImageList;
+    private String id;
+    private String name;
+    private Long price;
+    private String status;
+    private CarDescriptionDto carDescription;
+    private List<CarImageDto> carImageList;
 }

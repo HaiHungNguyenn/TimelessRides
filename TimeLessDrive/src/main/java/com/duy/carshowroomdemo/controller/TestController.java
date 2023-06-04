@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/test")
@@ -57,13 +56,25 @@ public class TestController {
         return "views/result";
     }
 
-    @RequestMapping("/show/{imageName}")
-    public String showCarImage(Model model, @PathVariable String imageName){
+    @RequestMapping("/show/{carName}")
+    public String showCarImage(Model model, @PathVariable String carName){
 
-        Car carForTesting = service.getCarService().findCarByName(imageName);
+        Car carForTesting = service.getCarService().findCarByName(carName);
         model.addAttribute("car", carForTesting);
 
         return "views/show-car-image";
+
+
+    }
+
+    @RequestMapping("/show/id={imageId}")
+    public String showCarImageNext(Model model, @PathVariable String imageId){
+
+        CarImageDto image = service.getCarImageService().findById(imageId);
+        model.addAttribute("image", image);
+
+        return "views/single-image";
+
     }
 
     @GetMapping("/display-image")

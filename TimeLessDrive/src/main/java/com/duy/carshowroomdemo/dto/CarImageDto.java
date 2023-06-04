@@ -11,7 +11,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class CarImageDto implements Serializable {
-    String id;
-    byte[] content;
+    private String id;
+    private byte[] content;
 
 }

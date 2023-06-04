@@ -16,11 +16,11 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Data
 public class PostDto implements Serializable {
-    String id;
-    CarDto car;
-    ClientDto client;
-    String description;
-    LocalDate postDate;
-    LocalTime postTime;
-    String status;
+    private String id;
+    private CarDto car;
+    private ClientDto client;
+    private String description;
+    private LocalDate postDate;
+    private LocalTime postTime;
+    private String status;
 }
