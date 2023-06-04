@@ -161,88 +161,128 @@
             <li class="row">
                 <ul class="container">
                     <li class="row header">
-                        <h3>Attendee Information</h3>
+                        <h3>Car attributes:</h3>
                         <p>Please fill in the required fields (indicated by *).</p>
                     </li>
                     <li class="row">
-                        <h4>Full Name</h4>
-                        <div class="first-name col-sm-12 col-md-6">
-                            <input type="text" id="first-name">
-                            <label for="first-name">First Name</label>
+                        <h4>Model</h4>
+                        <div class="make col-sm-12 col-md-6">
+                            <input type="text" id="make">
+                            <label for="make">Make</label>
                         </div>
-                        <div class="last-name col-sm-12 col-md-6">
-                            <input type="text" id="last-name">
-                            <label for="last-name">Last Name</label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <h4>Address</h4>
-                        <div class="street-address">
-                            <input type="text" id="street-address">
-                            <label for="street-address">Street Address</label>
-                        </div>
-                        <div class="street-address-line-2">
-                            <input type="text" id="street-address-line-2">
-                            <label for="street-address-line-2">Street Address Line 2</label>
-                        </div>
-                        <div class="city col-sm-12 col-md-6">
-                            <input type="text" id="city">
-                            <label for="city">City</label>
-                        </div>
-                        <div class="state-province col-sm-12 col-md-6">
-                            <input type="text" id="state-province">
-                            <label for="state-province">State / Province</label>
-                        </div>
-                        <div class="postal-zipcode">
-                            <input type="text" id="postal-zipcode">
-                            <label for="postal-zipcode">Postal / Zip Code</label>
+                        <div class="model col-sm-12 col-md-6">
+                            <input type="text" id="model">
+                            <label for="model">Model</label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>Phone Number</h4>
-                        <div class="phone-number col-sm-12 col-md-6">
-                            <input type="text" id="phone-number" placeholder="(0000) 000-000">
-                            <label for="phone-number"></label>
-                            <p class="phone-number-result"></p>
+                        <h4>Color</h4>
+                        <div class="body-color col-sm-12 col-md-6">
+                            <input type="text" id="body-color">
+                            <label for="body-color">Body Color</label>
+                        </div>
+                        <div class="interior-color col-sm-12 col-md-6">
+                            <input type="text" id="interior-color">
+                            <label for="interior-color">Interior color</label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>E-mail</h4>
-                        <div class="email col-sm-12 col-md-6">
-                            <input type="email" id="e-mail" placeholder="ex: email@yahoo.com">
-                            <label for="e-mail">example@example.com</label>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Interior Material</h4>
+                            <div class="interior-material">
+                                <input type="text" id="interior-material">
+                                <label for="interior-material">Interior Material</label>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="row">
-                <ul class="container">
-                    <li class="row header">
-                        <h3>Car Information</h3>
-                        <p>We need some information about your car to register you for the show.</p>
-                    </li>
-                    <li class="row">
-                        <h4>Car's brand</h4>
-                        <div class="car-brand">
-                            <input type="text" id="car-brand" placeholder="ex: Volkswagen">
-                            <label for="car-brand"></label>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Body</h4>
+                            <div class="body">
+                                <input type="text" id="body">
+                                <label for="body">Body</label>
+                            </div>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>Car's age</h4>
-                        <div class="car-age">
-                            <input type="text" id="car-age" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                   maxlength="2"
-                                   placeholder="ex: 8">
-                            <label for="car-age"></label>
+                        <h4>License Plate</h4>
+                        <div class="license-plate">
+                            <input type="text" id="license-plate" placeholder="ex: 12F-123.456">
+                            <label for="license-plate"></label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>Upload images of the car from all sides (max 4):</h4>
+                        <h4>Transmission</h4>
+                        <div class="transmission">
+                            <input type="text" id="transmission" placeholder="ex: Automatic Transmission">
+                            <label for="transmission"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Seats</h4>
+                            <div class="seats">
+                                <input type="number" id="seats"
+                                       min="2"
+                                       max="11"
+                                       placeholder="ex: 8">
+                                <label for="seats"></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Kms Driven</h4>
+                            <div class="kms-driven">
+                                <input type="number" id="kms-driven"
+                                       placeholder="ex: 15000">
+                                <label for="kms-driven"></label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Engine Capacity</h4>
+                            <div class="engine-capacity">
+                                <input type="number" id="engine-capacity"
+                                       placeholder="ex: 1498">
+                                <label for="engine-capacity">Calculation Unit: cc</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Power</h4>
+                            <div class="power">
+                                <input type="number" id="power" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                       maxlength="2"
+                                       placeholder="ex: 200">
+                                <label for="power">Calculation Unit: hp</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>CO2 Emission</h4>
+                        <div class="co2-emission">
+                            <input type="text" id="co2-emission"
+                                   placeholder="ex: 20">
+                            <label for="co2-emission"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Fuel Type</h4>
+                        <div class="fuel-type">
+                            <input type="text" id="fuel-type" placeholder="ex: Gasoline">
+                            <label for="fuel-type"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>First Registration</h4>
+                        <div class="first-registration">
+                            <input type="month" id="first-registration" pattern="[0-9]{2}/[0-9]{4}">
+                            <label for="first-registration">First Registration(MM/yyyy)</label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Upload images of the car from all sides :</h4>
                         <div class="car-images">
                             <input type="file" id="car-image"
                                    name="file"
-                                   onchange="uploadField(); previewImages();" multiple
+                                   onchange=" previewImages(); uploadField();" multiple
                                    accept="image/png, image/gif, image/jpeg">
                             <div class="row">
                                 <div class="image col-sm-12 col-md-3">
@@ -261,14 +301,6 @@
                             <label for="car-image">To select multiple files, hold down the CTRL or SHIFT key while
                                 selecting.</label>
                         </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="row">
-                <ul class="container">
-                    <li class="row header">
-                        <h3>Show Information</h3>
-                        <p>Let's continue with a few questions regarding the show.</p>
                     </li>
                     <li class="row">
                         <h4>Any questions</h4>
