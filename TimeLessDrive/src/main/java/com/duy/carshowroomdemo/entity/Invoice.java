@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -31,10 +32,13 @@ public class Invoice {
     @Column(name = "total")
     private Long total;
 
-    @Column(name = "created_at")
-    private LocalDate createdAt;
+    @Column(name = "create_date")
+    private LocalDate createDate;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "create_time")
+    private LocalTime createTime;
+
+    @Column(name = "status", length = 50)
     private String status;
 
     @Column(name = "tax", length = 100)

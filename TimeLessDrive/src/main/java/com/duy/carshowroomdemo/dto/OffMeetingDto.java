@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * DTO for {@link OffMeeting}
@@ -19,7 +20,9 @@ public class OffMeetingDto implements Serializable {
     ClientDto client;
     StaffDto staff;
     LocalDate meetingDate;
-    LocalDate createdAt;
+    LocalTime meetingTime;
+    LocalDate createDate;
+    LocalTime createTime;
     String description;
     String status;
 

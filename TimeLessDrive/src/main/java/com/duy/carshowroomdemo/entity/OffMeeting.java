@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -27,13 +28,19 @@ public class OffMeeting {
     @Column(name = "meeting_date")
     private LocalDate meetingDate;
 
-    @Column(name = "created_at")
-    private LocalDate createdAt;
+    @Column(name = "meeting_time")
+    private LocalTime meetingTime;
+
+    @Column(name = "create_date")
+    private LocalDate createDate;
+
+    @Column(name = "create_time")
+    private LocalTime createTime;
 
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "status", length = 50)
     private String status;
 
 }

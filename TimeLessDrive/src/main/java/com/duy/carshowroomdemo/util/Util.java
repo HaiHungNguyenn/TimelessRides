@@ -5,7 +5,12 @@ import com.thedeanda.lorem.LoremIpsum;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -14,6 +19,9 @@ public class Util {
     static Random random = new Random();
     static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
     static Lorem lorem = new LoremIpsum();
+    static final String DATA_SRC_PATH = "D:\\.UNIVERSITY\\T5_2023_SUMMER\\SWP391\\Car_Showroom_Project\\Web_Scraping\\car_data.txt";
+
+
     public static String getRandPhone(){
         String phone = "09";
 
@@ -98,50 +106,7 @@ public class Util {
     }
 
     public static String getRandText(int wordCount){
-//        StringBuilder text = new StringBuilder();
-//        while (wordCount > 0) {
-//            int noOfWords = getRandInt(10,15);
-//            wordCount -= noOfWords;
-//            for (int i = 0; i < noOfWords; i++) {
-//                int noOfChar = getRandInt(1,8);
-//                for (int j = 0; j < noOfChar; j++) {
-//                    text.append((char) (getRandInt(1, 26) + 97));
-//                }
-//                if(i != (noOfWords - 1)){
-//                    text.append(" ");
-//                }
-//            }
-//            text.append(". ");
-//        }
-//        return text.toString();
         return lorem.getWords(wordCount);
-    }
-
-    public static void writeRandomParagraph(int wordCount){
-        StringBuilder text = new StringBuilder();
-        while (wordCount > 0) {
-            int noOfWords = getRandInt(10,15);
-            wordCount -= noOfWords;
-            for (int i = 0; i < noOfWords; i++) {
-                int noOfChar = getRandInt(1,8);
-                for (int j = 0; j < noOfChar; j++) {
-                    text.append((char) (getRandInt(1, 26) + 97));
-                }
-                if(i != (noOfWords - 1)){
-                    text.append(" ");
-                }
-            }
-            text.append(". ");
-        }
-        try {
-            final String path = "D:\\text.txt";
-            FileWriter fileWriter = new FileWriter(path);
-            fileWriter.write(text.toString());
-            fileWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     public static String getRandLicensePlate() {
@@ -156,5 +121,79 @@ public class Util {
 
     public static String getRandAddress() {
         return getRandInt(1,500) + " " + lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
+    }
+
+    public static void setupImageGallery(String dataSourceFilePath) {
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(dataSourceFilePath))){
+            List<String> dirNames = new ArrayList<>();
+            String line;
+            String imageRootDir = "d:/Image_Gallery/";
+            String currentDir = "";
+            int count = 1;
+            while((line = bufferedReader.readLine()) != null){
+                if(line.contains("START:")){
+                    System.out.println("Downloading folder started!");
+                    if(line.contains("101")){
+                        break;
+                    }
+                } else if(line.contains("Car name:")){
+
+                    String directory = handleDirName(line.replace("Car name:", "").trim());
+                    if(dirNames.contains(directory)){
+                        currentDir = null;
+                        continue;
+                    }
+                    dirNames.add(directory);
+                    currentDir = imageRootDir + directory;
+                    Files.createDirectory(Paths.get(currentDir));
+
+                } else if(line.contains("link")){
+
+                    if(currentDir != null){
+
+                        String imageName = "carvago" + (count++) + ".jpg";
+                        downloadImage(handleImageTag(line), currentDir + "/" + imageName);
+
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String handleImageTag(String line){
+        int start = line.indexOf("src=\"") + "src=\"".length();
+        int end = line.length() - 3;
+        String substring = line.substring(start, end);
+        return substring.replaceAll("amp;", "");
+    }
+
+    public static String handleDirName(String dirName){
+        if(dirName.contains("/")){
+            return dirName.replaceAll("\\W","");
+        }
+        return dirName;
+    }
+
+    public static int handleInteger(String src){
+        return Integer.parseInt(src.replaceAll("\\D", ""));
+    }
+
+    public static void downloadImage(String remoteUrl, String path){
+        try {
+            URL url = new URL(remoteUrl);
+            InputStream inputStream = url.openStream();
+            FileOutputStream fileOutputStream = new FileOutputStream(path);
+            byte[] buffer = new byte[2048];
+            int length = 0;
+            while((length = inputStream.read(buffer)) != -1){
+                fileOutputStream.write(buffer, 0, length);
+            }
+            fileOutputStream.close();
+            inputStream.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

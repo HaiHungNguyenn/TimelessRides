@@ -17,7 +17,8 @@ public class CarImage {
     @ManyToOne(fetch = FetchType.LAZY)
     private Car car;
 
-    @Column(name = "link", length = 300)
-    private String link;
+    @Lob
+    @Column(name = "content", length = Integer.MAX_VALUE)
+    private byte[] content;
 
 }

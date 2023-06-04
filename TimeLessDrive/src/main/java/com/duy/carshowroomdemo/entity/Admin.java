@@ -14,7 +14,7 @@ public class Admin {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "role", length = 20)
+    @Column(name = "role", length = 50)
     private String role;
 
     @Column(name = "name", length = 50)
@@ -23,7 +23,7 @@ public class Admin {
     @Column(name = "avatar", length = 100)
     private String avatar;
 
-    @Column(name = "email", length = 45)
+    @Column(name = "email", length = 50)
     private String email;
 
     @Column(name = "password", length = 100)

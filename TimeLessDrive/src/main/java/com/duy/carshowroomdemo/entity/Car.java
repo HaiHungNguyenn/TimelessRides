@@ -16,19 +16,16 @@ public class Car {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 100)
     private String name;
-
-    @Column(name = "brand", length = 50)
-    private String brand;
 
     @Column(name = "price")
     private Long price;
 
-    @Column(name = "status", length = 20)
+    @Column(name = "status", length = 50)
     private String status;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private CarDescription carDescription;
 
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -40,6 +37,6 @@ public class Car {
     @OneToMany(mappedBy = "car")
     private List<Invoice> invoiceList;
 
-    @OneToOne(mappedBy = "car", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "car")
     private Post post;
 }

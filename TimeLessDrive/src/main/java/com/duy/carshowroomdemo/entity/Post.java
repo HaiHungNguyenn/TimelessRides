@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -27,8 +28,11 @@ public class Post {
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Column(name = "created_at")
-    private LocalDate createdAt;
+    @Column(name = "post_date")
+    private LocalDate postDate;
+
+    @Column(name = "post_time")
+    private LocalTime postTime;
 
     private String status;
 

@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  * DTO for {@link Invoice}
@@ -17,7 +18,8 @@ public class InvoiceDto implements Serializable {
     String id;
     CarDto car;
     Long total;
-    LocalDate createdAt;
+    LocalDate createDate;
+    LocalTime createTime;
     String status;
     String tax;
     String otherInformation;

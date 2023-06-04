@@ -378,7 +378,8 @@ public class StaffController {
             return modelAndView;
         }
 
-        CarDto car = service.getCarService().findCarByNameAndBrandAndBoughtYearAndLicensePlate(carName, brand, boughtYear, licensePlate);
+//        CarDto car = service.getCarService().findCarByNameAndBrandAndBoughtYearAndLicensePlate(carName, brand, boughtYear, licensePlate);
+        CarDto car = new CarDto();
 
         if(car == null){
             modelAndView.addObject("errorMsg", "Car not found");
