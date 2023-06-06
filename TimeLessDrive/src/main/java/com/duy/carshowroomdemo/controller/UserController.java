@@ -47,6 +47,8 @@ public class UserController {
         Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
         modelAndView.addObject("car", carByName);
         modelAndView.setViewName("views/user/car");
+//        session.setAttribute("carList",service.getCarService().getCarList());
+        modelAndView.addObject("carList",service.getCarService().getCarList());
         return modelAndView;
     }
     @GetMapping ("/account")
@@ -81,10 +83,10 @@ public class UserController {
         modelAndView.setViewName("views/user/meeting-history");
         return modelAndView;
     }
-    @GetMapping ("/car-detail")
-    public ModelAndView carDetail(){
+    @GetMapping ("/car-detail/{id}")
+    public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
-
+        modelAndView.addObject("carDto",service.getCarService().findCarById(id));
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;
     }

@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.service.Service;
@@ -55,5 +56,9 @@ public class AdminController {
     public boolean changeStaffPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
         return service.getStaffService().changePassword(id,oldPass,newPass);
     }
-
+    @RequestMapping("/xxx")
+    public List<CarDto> getCarList(){
+        List<CarDto> list = service.getCarService().getCarList();
+        return list;
+    }
 }
