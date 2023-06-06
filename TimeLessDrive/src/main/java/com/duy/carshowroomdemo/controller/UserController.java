@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,8 @@ public class UserController {
     public ModelAndView car(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/car");
+//        session.setAttribute("carList",service.getCarService().getCarList());
+        modelAndView.addObject("carList",service.getCarService().getCarList());
         return modelAndView;
     }
     @GetMapping ("/account")
@@ -71,10 +74,10 @@ public class UserController {
         modelAndView.setViewName("views/user/meeting-history");
         return modelAndView;
     }
-    @GetMapping ("/car-detail")
-    public ModelAndView carDetail(){
+    @GetMapping ("/car-detail/{id}")
+    public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
-
+        modelAndView.addObject("carDto",service.getCarService().findCarById(id));
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;
     }

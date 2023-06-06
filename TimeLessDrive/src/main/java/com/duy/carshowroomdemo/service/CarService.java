@@ -1,8 +1,10 @@
 package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Car;
 
+import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.CarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,15 @@ import java.util.Optional;
 public class CarService {
     @Autowired
     private CarRepository repository;
-    private final ModelMapper modelMapper = new ModelMapper();
+//    private final ModelMapper modelMapper = new ModelMapper();
+    private MapperManager mapperManager = new MapperManager();
 
-    public List<Car> loadCars(){
-        return new ArrayList<>(repository.findAll());
+    public List<CarDto> getCarList(){
+        List<CarDto> carList = new ArrayList<>();
+        repository.findAll().forEach(x -> {carList.add(mapperManager.getCarMapper().toDto(x));});
+        return carList;
     }
+
 
     public void paging(){
         Page<Car> all = repository.findAll(PageRequest.of(1, 10));
@@ -49,5 +55,9 @@ public class CarService {
 
     public void save(Car car) {
         repository.save(car);
+    }
+
+    public CarDto findCarById(String id) {
+        return mapperManager.getCarMapper().toDto(repository.findById(id).get());
     }
 }
