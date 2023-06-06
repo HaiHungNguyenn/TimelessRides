@@ -8,6 +8,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * DTO for {@link Post}
@@ -23,4 +24,8 @@ public class PostDto implements Serializable {
     private LocalDate postDate;
     private LocalTime postTime;
     private String status;
+
+    public String getPostTime() {
+        return postTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
 }

@@ -104,9 +104,13 @@
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${postRequest.getCar().getName()}"/>
                     <td class="color align-middle flex-wrap fs--1 text-900" th:text="${postRequest.getDescription()}"/>
                     <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold" th:text="${postRequest.getPostDate()}"/>
-                    <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                      <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
-                      <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                    <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0" th:with="tDirection=((${direction} == 'asc') ? 'desc' : 'asc')">
+                        <a th:href="@{/staff/post-requests/action=decline(id=${postRequest.getId()}, offset=${offset}, direction=${direction}, property=${property})}" class="hover-text-decoration-none">
+                            <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
+                        </a>
+                        <a th:href="@{/staff/post-requests/action=approve(id=${postRequest.getId()}, offset=${offset}, direction=${direction}, property=${property})}" class="hover-text-decoration-none">
+                            <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                        </a>
                     </td>
                   </tr>
                 </tbody>
