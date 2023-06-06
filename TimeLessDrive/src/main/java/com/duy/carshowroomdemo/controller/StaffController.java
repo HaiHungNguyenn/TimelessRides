@@ -2,15 +2,20 @@ package com.duy.carshowroomdemo.controller;
 
 //import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Status;
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scripting.bsh.BshScriptUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -140,10 +145,9 @@ public class StaffController {
     public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable String property,
                                                          @PathVariable String direction,
                                                          @PathVariable int offset){
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
@@ -162,20 +166,36 @@ public class StaffController {
     }
 
     @RequestMapping("/post-requests")
-    public ModelAndView showPostRequestList(){
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView showPostRequestList(String direction, String property, Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
-        List<PostDto> postRequestList = service.getPostService().getPostsPerPage(1, 10);
-        long totalPostRequests = service.getPostService().getTotalPostRequests();
-        long lastOffset = service.getPostService().getLastOffset(10);
-        modelAndView.addObject("offset", 1);
+        direction = (direction == null) ? "" : direction;
+        property = (property == null) ? "" : property;
+        offset = (offset == null) ? 1 : offset;
+
+        List<PostDto> postRequestList;
+        long totalPostRequests;
+        long lastOffset;
+
+        if(!direction.isEmpty() && !property.isEmpty()){
+            postRequestList = service.getPostService().getPostSortedPerPage(offset - 1, 10, property, direction);
+            totalPostRequests = service.getPostService().getTotalPostRequests();
+            lastOffset = service.getPostService().getLastOffset(10);
+        }else {
+            postRequestList = service.getPostService().getPostsPerPage(offset - 1, 10);
+            totalPostRequests = service.getPostService().getTotalPostRequests();
+            lastOffset = service.getPostService().getLastOffset(10);
+        }
+
+        modelAndView.addObject("offset", offset);
         modelAndView.addObject("postRequestList", postRequestList);
         modelAndView.addObject("totalPostRequests", totalPostRequests);
+        modelAndView.addObject("direction", direction);
+        modelAndView.addObject("property", property);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
 
@@ -184,70 +204,49 @@ public class StaffController {
 
     @RequestMapping("/post-requests/page={offset}")
     public ModelAndView showPostRequestsPerPage(@PathVariable int offset){
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-
-        List<PostDto> allPostRequests = service.getPostService().getPostsPerPage(offset-1, 10);
-        long totalPostRequests = service.getPostService().getTotalPostRequests();
-        long lastOffset = service.getPostService().getLastOffset(10);
-        modelAndView.addObject("postRequestList", allPostRequests);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("totalPostRequests", totalPostRequests);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/post-req");
-
-        return modelAndView;
+        return showPostRequestList("","",offset);
     }
 
     @RequestMapping("/post-requests/sorted-by-{property}-{direction}")
     public ModelAndView showPostRequestSortedPerPage(@PathVariable String direction,
                                                      @PathVariable String property){
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-
-        List<PostDto> allPostRequests = service.getPostService().getPostSortedPerPage(0, 10, property, direction);
-        long totalPostRequests = service.getPostService().getTotalPostRequests();
-        long lastOffset = service.getPostService().getLastOffset(10);
-        modelAndView.addObject("postRequestList", allPostRequests);
-        modelAndView.addObject("offset", 1);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("totalPostRequests", totalPostRequests);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/post-req");
-        
-        return modelAndView;
+        return showPostRequestList(direction,property, null);
     }
 
     @RequestMapping("/post-requests/sorted-by-{property}-{direction}/page={offset}")
     public ModelAndView showPostRequestSortedPerPage1(@PathVariable String direction,
                                                      @PathVariable String property,
                                                       @PathVariable int offset){
-        ModelAndView modelAndView = new ModelAndView();
+        return showPostRequestList(direction, property, offset);
+    }
+
+    @RequestMapping("/post-requests/action={action}")
+    public ModelAndView declinePostRequest(@PathVariable String action,
+                                           @RequestParam("id") String id,
+                                           @RequestParam("offset") int offset,
+                                           @RequestParam("direction") String direction,
+                                           @RequestParam("property") String property){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
-        List<PostDto> allPostRequests = service.getPostService().getPostSortedPerPage(offset-1, 10, property, direction);
-        long totalPostRequests = service.getPostService().getTotalPostRequests();
-        long lastOffset = service.getPostService().getLastOffset(10);
-        modelAndView.addObject("postRequestList", allPostRequests);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("totalPostRequests", totalPostRequests);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/post-req");
+        Post post = service.getPostService().findById(id);
 
-        return modelAndView;
+        if(post == null){
+            return showPostRequestList(direction,property,offset);
+        }
+
+        if(action.equalsIgnoreCase("decline")){
+            post.setStatus(Status.DECLINED);
+        }else {
+            post.setStatus(Status.APPROVED);
+        }
+
+        service.getPostService().save(post);
+
+        return showPostRequestList(direction,property,offset);
     }
 
     @RequestMapping("/create-invoice")

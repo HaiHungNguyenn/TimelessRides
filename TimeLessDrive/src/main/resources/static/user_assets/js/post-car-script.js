@@ -7,7 +7,7 @@
 // });
 
 // Preview images
-const MAX_IMAGE_NUM = 4;
+const MAX_IMAGE_NUM = 10;
 
 function previewImages() {
     const previews = document.querySelectorAll('.image img'); // select all <img> elements
