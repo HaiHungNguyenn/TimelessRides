@@ -8,6 +8,7 @@ import com.duy.carshowroomdemo.repository.PostRepository;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -28,33 +29,27 @@ public class PostService {
         return postRequestList;
     }
 
-    public List<PostDto> getPostsByClient(ClientDto clientDto, int offset, int size){
+    public List<PostDto> getPostsByClient(ClientDto clientDto, Pageable pageable){
         List<PostDto> postDtoList = new ArrayList<>();
-        postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto), PageRequest.of(offset, size)).forEach(x -> {
+        postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto), pageable).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
         return postDtoList;
     }
 
-    public List<PostDto> getPostsPerPage(int offSet, int size){
+    public List<PostDto> getPostsPerPage(Pageable pageable){
         List<PostDto> postDtoList = new ArrayList<>();
 
-        postRepository.findAllByStatusIs(Status.PENDING, PageRequest.of(offSet, size))
+        postRepository.findAllByStatusIs(Status.PENDING, pageable)
                 .forEach((x) -> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
-
-//        postRepository.findAll(PageRequest.of(offSet, size)).forEach((x) -> {
-//            postDtoList.add(mapperManager.getPostMapper().toDto(x));
-//        });
 
         return postDtoList;
     }
 
-    public List<PostDto> getPostSortedPerPage(int offset, int size, String property, String direction) {
+    public List<PostDto> getPostSortedPerPage(Pageable pageable) {
         List<PostDto> postDtoList = new ArrayList<>();
 
-        Sort.Direction sortDirection = (direction.equalsIgnoreCase("asc")) ? Sort.Direction.ASC : Sort.Direction.DESC;
-
-        postRepository.findAllByStatusIs(Status.PENDING, PageRequest.of(offset, size, Sort.by(sortDirection, property))).forEach(x -> {
+        postRepository.findAllByStatusIs(Status.PENDING, pageable).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
 

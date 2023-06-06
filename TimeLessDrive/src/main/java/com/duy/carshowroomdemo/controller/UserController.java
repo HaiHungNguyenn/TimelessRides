@@ -44,6 +44,8 @@ public class UserController {
     @GetMapping ("/car")
     public ModelAndView car(){
         ModelAndView modelAndView = new ModelAndView();
+        Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
+        modelAndView.addObject("car", carByName);
         modelAndView.setViewName("views/user/car");
         return modelAndView;
     }

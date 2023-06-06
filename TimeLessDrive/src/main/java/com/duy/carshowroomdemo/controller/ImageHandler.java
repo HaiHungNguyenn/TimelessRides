@@ -21,7 +21,7 @@ public class ImageHandler {
 
         CarImageDto image = service.getCarImageService().findById(id);
 
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+        response.setContentType("image/jpg");
         response.getOutputStream().write(image.getContent());
         response.getOutputStream().close();
     }

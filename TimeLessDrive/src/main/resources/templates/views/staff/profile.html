@@ -46,7 +46,7 @@
           <div class="navbar-logo">
             <a class="navbar-brand me-1 me-sm-3" href="/staff/home">
               <div class="d-flex align-items-center">
-                <div class="d-flex align-items-center"><img src="../../staff_assets/img/icons/logo.png" alt="phoenix" width="80" />
+                <div class="d-flex align-items-center"><img src="../../../staff_assets/img/icons/logo.png" alt="logo" width="80" />
                   <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
                 </div>
               </div>
@@ -127,86 +127,83 @@
                 </div>
               </div>
             </div>
-
-            <section class="pt-5 pb-9">
-              <div class="container-small cart">
-                <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="${totalOffMeetings == null} ? '(0 requests)' : '(' + ${totalOffMeetings} + ' requests)'"></span></h2>
-                <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
-                  <div class="table-responsive scrollbar">
-                    <table class="table fs--1 mb-0">
-                      <thead>
-                      <tr>
-                        <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
-                        <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
-                        <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                          <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
-                        </th>
-                        <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                          <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createdAt-' + ${direction}" th:text="'Created At'"/>
-                        </th>
-                        <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
-                        <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
-                        <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
-                      </tr>
-                      </thead>
-                      <tbody class="list" id="profile-wishlist-table-body">
-                      <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                        <td class="align-middle white-space-nowrap ps-0 py-0">
-                          <div class="text-center">1</div>
-                        </td>
-                        <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1">2312</a></td>
-                        <td class="color align-middle white-space-nowrap fs--1 text-900">2321</td>
-                        <td class="color align-middle white-space-nowrap fs--1 text-900">12321</td>
-                        <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold">213123</td>
-                        <td class="price align-middle text-900 fs--1 fw-semi-bold text-center">123</td>
-                        <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                          <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
-                          <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <nav aria-label="Page navigation example" class="pt-3">
-                    <ul class="pagination">
-                      <li class="page-item">
-                        <a class="page-link" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" aria-label="Previous">
-                          <span aria-hidden="true">&lsaquo;</span>
-                          <span class="sr-only">Previous</span>
-                        </a>
-                      </li>
-                      <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                      <li class="page-item"><a class="page-link">2</a></li>
-                      <li class="page-item"><a class="page-link">3</a></li>
-                      <li class="page-item"><a class="page-link">4</a></li>
-                      <li class="page-item"><a class="page-link">5</a></li>
-                      <li class="page-item">
-                        <a class="page-link" aria-label="Next">
-                          <span class="sr-only">Next</span>
-                          <span aria-hidden="true">&rsaquo;</span>
-                        </a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link"aria-label="Next">
-                          <span class="sr-only">Next</span>
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-              </div>
-            </section>
-
           </div>
         </div>
       </section>
+        <section class="pt-5 pb-9">
+          <div class="container-small cart">
+            <h2 class="mb-5">Your Meetings<span class="text-700 fw-normal ms-2" th:text="${totalMeetings == null} ? '(0 meetings)' : '(' + ${totalMeetings} + ' meetings)'"></span></h2>
+            <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
+              <div class="table-responsive scrollbar">
+                <table class="table fs--1 mb-0">
+                  <thead>
+                  <tr>
+                    <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
+                    <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
+                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                      <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="@{'/staff/home/sorted-by-meetingDate-' + ${direction}(page=1)}" th:text="'Meeting Date'"/>
+                    </th>
+                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
+                      <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="@{'/staff/home/sorted-by-createDate-' + ${direction}(page=1)}" th:text="'Created At'"/>
+                    </th>
+                    <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
+                    <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
+                    <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
+                  </tr>
+                  </thead>
+                  <tbody class="list" id="profile-wishlist-table-body">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="meeting, iStat: ${meetingList}">
+                    <td class="align-middle white-space-nowrap ps-0 py-0">
+                      <div class="text-center" th:text="${(offset - 1) * 4 + iStat.count}"/>
+                    </td>
+                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${meeting.getClient().getId()}" th:text="${meeting.getClient().getName()}"/></td>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${meeting.getMeetingDate()}"/>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${meeting.getCreateTime()}"/>
+                    <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${meeting.getDescription()}"/>
+                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-center" th:text="${meeting.getStatus()}"/>
+                    <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
+                      <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
+                      <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <nav aria-label="Page navigation example" class="pt-3">
+                <ul class="pagination" th:with="url=(${property == null} ? '/staff/home' : '/staff/home/sorted-by-' + ${property} + '-' + ${direction})">
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url}(page=1)}">
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url}(page=${offset - 1})}">
+                      <span aria-hidden="true">&lsaquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
+                  <li class="page-item" th:if="${lastOffset >= offset + 1}"><a class="page-link" th:text="${offset+1}" th:href="@{${url}(page=${offset + 1})}"/></li>
+                  <li class="page-item" th:if="${lastOffset >= offset + 2}"><a class="page-link" th:text="${offset+2}" th:href="@{${url}(page=${offset + 2})}"/></li>
+                  <li class="page-item" th:if="${lastOffset >= offset + 3}"><a class="page-link" th:text="${offset+3}" th:href="@{${url}(page=${offset + 3})}"/></li>
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url}(page=${offset + 1})}">
+                      <span class="sr-only">Next</span>
+                      <span aria-hidden="true">&rsaquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url}(page=${lastOffset})}">
+                      <span class="sr-only">Next</span>
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </section>
       </div>
 
       <section class="bg-100 dark__bg-1100 py-9">

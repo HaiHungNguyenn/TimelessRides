@@ -401,6 +401,8 @@ public class DemoTest {
 
         offMeetingRepository.findAll().forEach((x) -> {
             x.setStatus(Status.PENDING);
+            x.setStatus(null);
+//            x.setCreateTime(LocalTime.now());
             offMeetingRepository.save(x);
         });
     }
