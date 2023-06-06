@@ -2,20 +2,20 @@ package com.duy.carshowroomdemo.controller;
 
 //import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Post;
+import com.duy.carshowroomdemo.entity.Staff;
+import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
-import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scripting.bsh.BshScriptUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,6 +26,7 @@ public class StaffController {
     private Service service;
     @Autowired
     private HttpSession session;
+    private final MapperManager mapperManager = new MapperManager();
 
     public boolean isAuthenticated(){
         return (session.getAttribute("staff") != null);
@@ -53,7 +54,6 @@ public class StaffController {
         if(staff != null){
             session.setAttribute("staff", staff);
             modelAndView.setViewName("views/staff/profile");
-//            modelAndView.addObject("staff", staff);
         }else{
             modelAndView.setViewName("views/staff/my-index");
         }
@@ -76,19 +76,34 @@ public class StaffController {
     }
 
     @RequestMapping("/meeting-requests")
-    public ModelAndView showMeetingRequestList(){
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView showMeetingRequestList(String direction, String property, Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
-        List<OffMeetingDto> offMeetingList = service.getOffMeetingService().getOffMeetingsPerPage(0, 10);
-        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
-        long lastOffset = service.getOffMeetingService().getLastOffset(10);
+        property = (property == null) ? "" : property;
+        direction = (direction == null) ? "" : direction;
+        offset = (offset == null) ? 1 : offset;
+
+        List<OffMeetingDto> offMeetingList;
+        long totalOffMeetings;
+        long lastOffset;
+
+        if(!property.isEmpty() && !direction.isEmpty()){
+            offMeetingList = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset - 1, 10, property, direction);
+        }else {
+            offMeetingList = service.getOffMeetingService().getOffMeetingsPerPage(offset - 1, 10);
+        }
+
+        totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        lastOffset = service.getOffMeetingService().getLastOffset(10);
+
         modelAndView.addObject("offMeetingList", offMeetingList);
-        modelAndView.addObject("offset", 1);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
         modelAndView.addObject("totalOffMeetings", totalOffMeetings);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
@@ -98,71 +113,50 @@ public class StaffController {
 
     @RequestMapping("/meeting-requests/page={offset}")
     public ModelAndView showMeetingRequestsPerPage(@PathVariable int offset){
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsPerPage(offset-1, 10);
-        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
-        long lastOffset = service.getOffMeetingService().getLastOffset(10);
-        modelAndView.addObject("offMeetingList", allOffMeetings);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/meeting-req");
-
-        return modelAndView;
+        return showMeetingRequestList(null, null,offset);
     }
 
     @RequestMapping("/meeting-requests/sorted-by-{property}-{direction}")
     public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property,
                                                           @PathVariable String direction){
-        ModelAndView modelAndView = new ModelAndView();
-
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-
-        List<OffMeetingDto> allOffMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(0, 10, property, direction);
-        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
-        long lastOffset = service.getOffMeetingService().getLastOffset(10);
-        modelAndView.addObject("offMeetingList", allOffMeetings);
-        modelAndView.addObject("offset", 1);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/meeting-req");
-
-        return modelAndView;
+        return showMeetingRequestList(direction, property, null);
     }
 
     @RequestMapping("/meeting-requests/sorted-by-{property}-{direction}/page={offset}")
     public ModelAndView showMeetingRequestsSortedPerPage(@PathVariable String property,
                                                          @PathVariable String direction,
                                                          @PathVariable int offset){
+        return showMeetingRequestList(direction, property, offset);
+    }
+
+    @RequestMapping("/meeting-requests/action={action}")
+    public ModelAndView respondMeetingRequest(@PathVariable String action,
+                                              @RequestParam("id") String id,
+                                              @RequestParam("property") String property,
+                                              @RequestParam("direction") String direction,
+                                              @RequestParam("offset") int offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
             return modelAndView;
         }
 
-        List<OffMeetingDto> offMeetings = service.getOffMeetingService().getOffMeetingsSortedPerPage(offset-1, 10, property, direction);
-        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
-        long lastOffset = service.getOffMeetingService().getLastOffset(10);
-        modelAndView.addObject("offMeetingList", offMeetings);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/meeting-req");
+        OffMeeting offMeeting = service.getOffMeetingService().findById(id);
 
-        return modelAndView;
+        if(offMeeting == null){
+            return showPostRequestList(direction,property,offset);
+        }
+
+        if(offMeeting.getStaff() != null){
+            System.out.println("This request has been approved by someone else");
+        }else {
+            offMeeting.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
+            offMeeting.setStatus(action.equalsIgnoreCase("decline") ? Status.DECLINED : Status.APPROVED);
+        }
+
+        service.getOffMeetingService().save(offMeeting);
+
+        return showMeetingRequestList(direction,property,offset);
     }
 
     @RequestMapping("/post-requests")
@@ -183,13 +177,12 @@ public class StaffController {
 
         if(!direction.isEmpty() && !property.isEmpty()){
             postRequestList = service.getPostService().getPostSortedPerPage(offset - 1, 10, property, direction);
-            totalPostRequests = service.getPostService().getTotalPostRequests();
-            lastOffset = service.getPostService().getLastOffset(10);
         }else {
             postRequestList = service.getPostService().getPostsPerPage(offset - 1, 10);
-            totalPostRequests = service.getPostService().getTotalPostRequests();
-            lastOffset = service.getPostService().getLastOffset(10);
         }
+
+        totalPostRequests = service.getPostService().getTotalPostRequests();
+        lastOffset = service.getPostService().getLastOffset(10);
 
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("postRequestList", postRequestList);
@@ -204,7 +197,7 @@ public class StaffController {
 
     @RequestMapping("/post-requests/page={offset}")
     public ModelAndView showPostRequestsPerPage(@PathVariable int offset){
-        return showPostRequestList("","",offset);
+        return showPostRequestList(null,null,offset);
     }
 
     @RequestMapping("/post-requests/sorted-by-{property}-{direction}")
@@ -221,7 +214,7 @@ public class StaffController {
     }
 
     @RequestMapping("/post-requests/action={action}")
-    public ModelAndView declinePostRequest(@PathVariable String action,
+    public ModelAndView respondPostRequest(@PathVariable String action,
                                            @RequestParam("id") String id,
                                            @RequestParam("offset") int offset,
                                            @RequestParam("direction") String direction,

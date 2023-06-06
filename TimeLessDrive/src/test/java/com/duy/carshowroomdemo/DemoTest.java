@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo;
 
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
@@ -50,8 +51,6 @@ public class DemoTest {
     private StaffRepository staffRepository;
 
     public final String AVATAR_URL = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
-    public final String CAR_IMAGE_URL = "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80";
-    private final Lorem lorem = new LoremIpsum();
 
     @Test
     public void addSampleData(){
@@ -65,6 +64,7 @@ public class DemoTest {
         addCarImages();
         addPosts();
         addInvoices();
+        addOffMeetings();
         addFeedbacks();
     }
 
@@ -339,11 +339,11 @@ public class DemoTest {
 
     @Test
     public void addOffMeetings(){
-        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+//        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
         for (int i = 0; i < 100; i++) {
             OffMeeting offMeeting = new OffMeeting();
-            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
+//            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
             offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
             offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
@@ -390,5 +390,19 @@ public class DemoTest {
 
         Assertions.assertThat(save).isNotNull();
     }
-    
+
+    @Test
+    public void changePostStatus(){
+//        List<Post> all = postRepository.findAll();
+//        all.forEach((x) -> {
+//            x.setStatus(Status.PENDING);
+//            postRepository.save(x);
+//        });
+
+        offMeetingRepository.findAll().forEach((x) -> {
+            x.setStatus(Status.PENDING);
+            offMeetingRepository.save(x);
+        });
+    }
+
 }

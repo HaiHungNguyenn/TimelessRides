@@ -31,13 +31,6 @@
     <link href="../../../staff_assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
   </head>
-
-    <style>
-        .no-underline:hover{
-            text-decoration: none;
-        }
-    </style>
-
   <body>
     <main class="main" id="top">
         <nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
@@ -77,10 +70,10 @@
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
                     <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
+                        <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
                     </th>
                       <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createdAt-' + ${direction}" th:text="'Created At'"/>
+                        <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createDate-' + ${direction}" th:text="'Created At'"/>
                     </th>
                     <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
                     <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
@@ -98,8 +91,12 @@
                     <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-center" th:text="${offMeeting.getStatus()}"/>
                     <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                      <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
-                      <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                        <a th:href="@{/staff/meeting-requests/action=decline(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}" class="hover-text-decoration-none">
+                            <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
+                        </a>
+                        <a th:href="@{/staff/meeting-requests/action=approve(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}" class="hover-text-decoration-none">
+                            <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                        </a>
                     </td>
                   </tr>
                 </tbody>
