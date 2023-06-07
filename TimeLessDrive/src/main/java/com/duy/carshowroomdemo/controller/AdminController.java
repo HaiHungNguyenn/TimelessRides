@@ -61,4 +61,22 @@ public class AdminController {
         List<CarDto> list = service.getCarService().getCarList();
         return list;
     }
+    @RequestMapping("/print_meeting")
+    public void form(@RequestParam("q24_selectAn[implementation]") String imple,
+                        @RequestParam("q24_selectAn[date]") String date,
+                        @RequestParam("q24_selectAn[duration]") String duration,
+                       @RequestParam("q24_selectAn[timezone]") String timezone,
+                       @RequestParam("q32_phoneNumber32[full]") String phone,
+                       @RequestParam("q31_otherRequirements") String others){
+        String a = "RequestParam{" +
+                "imple='" + imple + '\'' +
+                ", date='" + date + '\'' +
+                ", duration='" + duration + '\'' +
+                ", timezone='" + timezone + '\'' +
+                ", phone='" + phone + '\'' +
+                ", others='" + others + '\'' +
+                '}';
+
+        System.out.println(a);
+    }
 }

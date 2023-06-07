@@ -1,16 +1,16 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.entity.*;
+import com.duy.carshowroomdemo.service.OffMeetingService;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Status;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.Stack;
 
 @Controller
+
 public class UserController {
     @Autowired
     private Service service;
@@ -223,6 +224,25 @@ public class UserController {
         session.removeAttribute("client");
         modelAndView.setViewName("views/user/index");
         return modelAndView;
+    }
+    @RequestMapping("/bookmeeting")
+    public ModelAndView book(@RequestParam("carID")String carID, @RequestParam("bookingDate") String date, @RequestParam("bookingTime") String time, @RequestParam("descrip") String descrip){
+        ModelAndView modelAndView = new ModelAndView();
+
+        OffMeeting offMeeting = new OffMeeting();
+        offMeeting.setClient((Client)session.getAttribute("client"));
+        offMeeting.setMeetingDate(LocalDate.parse(date));
+        offMeeting.setMeetingTime(LocalTime.parse(time));
+        offMeeting.setCreateDate(LocalDate.now());
+        offMeeting.setCreateTime(LocalTime.now());
+        offMeeting.setDescription(descrip);
+        offMeeting.setStatus(Status.PENDING);
+
+
+        service.getOffMeetingService().save(offMeeting);
+        modelAndView.setViewName("views/user/car");
+        return modelAndView;
+
     }
 
 }

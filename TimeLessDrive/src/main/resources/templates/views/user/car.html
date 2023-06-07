@@ -262,7 +262,7 @@
                                 <div class="car__item__pic__slider owl-carousel">
                                     <div th:each="i : ${#numbers.sequence(0, 3)}">
                                         <!-- Access the image at the current index -->
-                                        <img th:src="'/image-resolver/' + ${car.getCarImageList()[i].getId()}" alt="">
+                                        <img th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">
                                     </div>
                                 </div>
 

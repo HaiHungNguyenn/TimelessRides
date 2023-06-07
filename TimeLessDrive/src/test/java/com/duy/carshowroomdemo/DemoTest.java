@@ -348,7 +348,7 @@ public class DemoTest {
             offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
             offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
             offMeeting.setDescription(Util.getRandText(30));
-            offMeeting.setStatus("Not yet");
+            offMeeting.setStatus(Status.PENDING);
 
             OffMeeting save = offMeetingRepository.save(offMeeting);
 
