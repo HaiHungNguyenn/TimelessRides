@@ -35,7 +35,6 @@
 }
 
 .image span{
-    display: none;
     cursor: pointer;
     border: 1px solid black;
 }
@@ -62,3 +61,25 @@
     margin: auto;
     border-radius: 20px;
 }
+
+.image span{
+    border: 2px solid white;
+    margin: 3%;
+    padding: 2px;
+    color: white;
+}
+
+.image p {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    color: white;
+    font-size: 113%;
+}
+
+.image{
+    background: red;
+    color: white;
+    margin: 5px;
+}
+
