@@ -17,16 +17,16 @@ import java.time.Period;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StaffDto implements Serializable {
-    String id;
-    String role;
-    String name;
-    String avatar;
-    String email;
-    String phone;
-    String gender;
-    String address;
-    LocalDate dob;
-    LocalDate joinDate;
+    private String id;
+    private String role;
+    private String name;
+    private String avatar;
+    private String email;
+    private String phone;
+    private String gender;
+    private String address;
+    private LocalDate dob;
+    private LocalDate joinDate;
     public int getWorkingTime(){
         return Period.between(this.getJoinDate(), LocalDate.now()).getMonths();
     }

@@ -1,7 +1,5 @@
 package com.duy.carshowroomdemo.dto;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import lombok.*;
 
@@ -16,17 +14,17 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OffMeetingDto implements Serializable {
-    String id;
-    ClientDto client;
-    StaffDto staff;
-    LocalDate meetingDate;
-    LocalTime meetingTime;
-    LocalDate createDate;
-    LocalTime createTime;
-    String description;
-    String status;
+    private String id;
+    private ClientDto client;
+    private StaffDto staff;
+    private LocalDate meetingDate;
+    private LocalTime meetingTime;
+    private LocalDate createDate;
+    private LocalTime createTime;
+    private String description;
+    private String status;
 
     public String toString(){
-        return client.getName() + staff.getName() + meetingDate + description + status;
+        return client.getName() + staff.getName() + meetingDate + description + getStatus();
     }
 }

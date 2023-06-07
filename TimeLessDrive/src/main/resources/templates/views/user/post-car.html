@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
@@ -28,6 +29,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../user_assets/css/post-car-style.css">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -152,11 +155,12 @@
         </div>
     </div>
 
-    <form action="" id="myForm">
+    <form th:action="'/confirm-post/' + ${session.client.getId()}" id="myForm" enctype="multipart/form-data" method="post">
         <ul class="container main-container">
             <li class="row header main-header">
                 <h1>Car Show Entry Form</h1>
-                <p>Easily register your car for the show using</p>
+                <p class="text-danger fs-5" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+                <p class="text-success fs-5" th:if="${successMsg != null}" th:text="${successMsg}"/>
             </li>
             <li class="row">
                 <ul class="container">
@@ -165,77 +169,81 @@
                         <p>Please fill in the required fields (indicated by *).</p>
                     </li>
                     <li class="row">
-                        <h4>Model</h4>
-                        <div class="make col-sm-12 col-md-6">
-                            <input type="text" id="make">
-                            <label for="make">Make</label>
-                        </div>
-                        <div class="model col-sm-12 col-md-6">
-                            <input type="text" id="model">
-                            <label for="model">Model</label>
+                        <div class="required-field">
+                            <h4>Car name</h4>
+                            <input type="text" name="carName" id="car-name" required>
+                            <label for="car-name"></label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>Color</h4>
-                        <div class="body-color col-sm-12 col-md-6">
-                            <input type="text" id="body-color">
-                            <label for="body-color">Body Color</label>
+                        <div class="col-sm-12 col-md-6 required-field">
+                            <h4>Make</h4>
+                            <input type="text" name="make" id="make" required>
+                            <label for="make"></label>
                         </div>
-                        <div class="interior-color col-sm-12 col-md-6">
-                            <input type="text" id="interior-color">
-                            <label for="interior-color">Interior color</label>
+                        <div class="col-sm-12 col-md-6 required-field">
+                            <h4>Model</h4>
+                            <input type="text" name="model" id="model" required>
+                            <label for="model"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Body</h4>
+                            <input type="text" name="body" id="body">
+                            <label for="body"></label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Body color</h4>
+                            <input type="text" name="bodyColor" id="body-color">
+                            <label for="body-color"></label>
                         </div>
                     </li>
                     <li class="row">
                         <div class="col-sm-12 col-md-6">
                             <h4>Interior Material</h4>
                             <div class="interior-material">
-                                <input type="text" id="interior-material">
-                                <label for="interior-material">Interior Material</label>
+                                <input type="text" name="interiorMaterial" id="interior-material">
+                                <label for="interior-material"></label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
-                            <h4>Body</h4>
-                            <div class="body">
-                                <input type="text" id="body">
-                                <label for="body">Body</label>
-                            </div>
+                            <h4>Interior color</h4>
+                            <input type="text" name="interiorColor" id="interior-color">
+                            <label for="interior-color"></label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>License Plate</h4>
-                        <div class="license-plate">
-                            <input type="text" id="license-plate" placeholder="ex: 12F-123.456">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>License Plate</h4>
+                            <input type="text" name="licensePlate" id="license-plate" placeholder="ex: 12F-123.456">
                             <label for="license-plate"></label>
                         </div>
-                    </li>
-                    <li class="row">
-                        <h4>Transmission</h4>
-                        <div class="transmission">
-                            <input type="text" id="transmission" placeholder="ex: Automatic Transmission">
+
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Transmission</h4>
+                            <input type="text" name="transmission" id="transmission" placeholder="ex: Automatic Transmission">
                             <label for="transmission"></label>
                         </div>
                     </li>
+
                     <li class="row">
                         <div class="col-sm-12 col-md-6">
                             <h4>Seats</h4>
                             <div class="seats">
-                                <input type="number" id="seats"
-                                       onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                <input type="number" name="seats" id="seats"
                                        min="2"
-                                       max="11"
-                                       placeholder="ex: 8">
+                                       max="11">
                                 <label for="seats"></label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                         <div class="col-sm-12 col-md-6">
-                            <h4>Kms Driven</h4>
-                            <div class="kms-driven">
-                                <input type="number" id="kms-driven"
-                                       onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                       placeholder="ex: 15000">
-                                <label for="kms-driven"></label>
+                            <h4>Mileage</h4>
+                            <div>
+                                <input type="number" name="mileage" id="mileage"
+                                       min="0">
+                                <label for="mileage"></label>
                             </div>
                         </div>
                     </li>
@@ -243,45 +251,44 @@
                         <div class="col-sm-12 col-md-6">
                             <h4>Engine Capacity</h4>
                             <div class="engine-capacity">
-                                <input type="number" id="engine-capacity"
-                                       onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                       placeholder="ex: 1498">
+                                <input type="number" name="engineCapacity" id="engine-capacity" min="0">
                                 <label for="engine-capacity">Calculation Unit: cc</label>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <h4>Power</h4>
                             <div class="power">
-                                <input type="number" id="power" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                       maxlength="2"
-                                       placeholder="ex: 200">
+                                <input type="number" name="power" id="power" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                       maxlength="2" min="0">
                                 <label for="power">Calculation Unit: hp</label>
                             </div>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>CO2 Emission</h4>
-                        <div class="co2-emission">
-                            <input type="text" id="co2-emission"
-                                   placeholder="ex: 20">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>CO2 Emission</h4>
+                            <input type="number" name="co2Emission" id="co2-emission" min="0">
                             <label for="co2-emission"></label>
                         </div>
-                    </li>
-                    <li class="row">
-                        <h4>Fuel Type</h4>
-                        <div class="fuel-type">
-                            <input type="text" id="fuel-type" placeholder="ex: Gasoline">
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Fuel Type</h4>
+                            <input type="text" name="fuelType" id="fuel-type" placeholder="ex: Gasoline">
                             <label for="fuel-type"></label>
                         </div>
                     </li>
                     <li class="row">
-                        <h4>First Registration</h4>
-                        <div class="first-registration">
-                            <input type="month" id="first-registration" pattern="[0-9]{2}/[0-9]{4}">
-                            <label for="first-registration">First Registration(MM/yyyy)</label>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>First Registration</h4>
+                            <input type="month" id="first-registration" name="firstRegistration" pattern="[0-9]{2}/[0-9]{4}">
+                            <label for="first-registration"></label>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <h4>Price</h4>
+                            <input type="number" name="price" id="price" min="0">
+                            <label for="price"></label>
                         </div>
                     </li>
-                    <li class="row">
+                    <li class="row duy-container">
                         <h4>Upload images of the car from all sides :</h4>
                         <div class="car-images">
                             <input type="file" id="car-image"
@@ -293,14 +300,29 @@
                             <label for="car-image">To select multiple files, hold down the CTRL or SHIFT key while
                                 selecting.</label>
                         </div>
+
                     </li>
                     <li class="row">
-                        <h4>Any questions</h4>
-                        <div class="questions">
-                            <textarea id="questions"></textarea>
+                        <h4>Other information about the car</h4>
+                        <div>
+                            <textarea id="questions" name="others"></textarea>
                             <label for="questions"></label>
                         </div>
 
+                    </li>
+                    <li class="row">
+                        <h4>Write a description for your post</h4>
+                        <div>
+                            <textarea id="description" name="postDescription"></textarea>
+                            <label for="description"></label>
+                        </div>
+                    </li>
+                    <li class="row">
+                        <h4>Write a description for your post</h4>
+                        <div>
+                            <textarea id="description" name="postDescription"></textarea>
+                            <label for="description"></label>
+                        </div>
                     </li>
                     <li class="row">
                         <input type="submit" value="Submit">
@@ -408,6 +430,9 @@
         </div>
     </div>
     <!-- Search End -->
+
+
+
 
     <!-- Js Plugins -->
     <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>

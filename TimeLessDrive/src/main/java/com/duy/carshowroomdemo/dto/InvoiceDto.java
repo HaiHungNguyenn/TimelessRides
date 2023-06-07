@@ -15,12 +15,12 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Data
 public class InvoiceDto implements Serializable {
-    String id;
-    CarDto car;
-    Long total;
-    LocalDate createDate;
-    LocalTime createTime;
-    String status;
-    String tax;
-    String otherInformation;
+    private String id;
+    private CarDto car;
+    private Long total;
+    private LocalDate createDate;
+    private LocalTime createTime;
+    private String status;
+    private String tax;
+    private String otherInformation;
 }

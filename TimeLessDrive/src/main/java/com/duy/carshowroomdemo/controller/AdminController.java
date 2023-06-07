@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.service.Service;
@@ -55,5 +56,27 @@ public class AdminController {
     public boolean changeStaffPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
         return service.getStaffService().changePassword(id,oldPass,newPass);
     }
+    @RequestMapping("/xxx")
+    public List<CarDto> getCarList(){
+        List<CarDto> list = service.getCarService().getCarList();
+        return list;
+    }
+    @RequestMapping("/print_meeting")
+    public void form(@RequestParam("q24_selectAn[implementation]") String imple,
+                        @RequestParam("q24_selectAn[date]") String date,
+                        @RequestParam("q24_selectAn[duration]") String duration,
+                       @RequestParam("q24_selectAn[timezone]") String timezone,
+                       @RequestParam("q32_phoneNumber32[full]") String phone,
+                       @RequestParam("q31_otherRequirements") String others){
+        String a = "RequestParam{" +
+                "imple='" + imple + '\'' +
+                ", date='" + date + '\'' +
+                ", duration='" + duration + '\'' +
+                ", timezone='" + timezone + '\'' +
+                ", phone='" + phone + '\'' +
+                ", others='" + others + '\'' +
+                '}';
 
+        System.out.println(a);
+    }
 }

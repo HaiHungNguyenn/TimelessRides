@@ -12,18 +12,21 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Data
 public class CarDescriptionDto implements Serializable {
-    String id;
-    String color;
-
-    Short noOfSeat;
-    String fuelType;
-    Short hp;
-    Short wheelSize;
-    Short boughtYear;
-    Short width;
-    Short length;
-    Short height;
-    String kmSpend;
-    Short manufacturedYear;
-    String others;
+    private String id;
+    private String make;
+    private String model;
+    private String bodyColor;
+    private String interiorColor;
+    private String interiorMaterial;
+    private String body;
+    private String licensePlate;
+    private String fuelType;
+    private String transmission;
+    private String firstRegistration;
+    private int seats;
+    private int power;
+    private int engineCapacity;
+    private int co2Emission;
+    private int kmsDriven;
+    private String others;
 }

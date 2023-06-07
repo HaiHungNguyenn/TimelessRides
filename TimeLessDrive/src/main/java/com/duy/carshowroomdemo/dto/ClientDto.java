@@ -16,14 +16,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Data
 public class ClientDto implements Serializable {
-    String id;
-    String role;
-    String name;
-    String avatar;
-    String phone;
-    String email;
-    String address;
-    String gender;
-    LocalDate dob;
-    LocalDate joinDate;
+    private String id;
+    private String role;
+    private String name;
+    private String avatar;
+    private String phone;
+    private String email;
+    private String address;
+    private String gender;
+    private LocalDate dob;
+    private LocalDate joinDate;
 }

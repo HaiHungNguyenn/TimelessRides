@@ -420,69 +420,75 @@
 <!-- Start pop up form -->
 <div class="pop-up">
     <form class="jotform-form" action="https://submit.jotform.com/submit/231493697523465" method="post"
+
           name="form_231493697523465" id="231493697523465" accept-charset="utf-8" autocomplete="on"><input
             type="hidden" name="formID" value="231493697523465" /><input type="hidden" id="JWTContainer"
-                                                                         value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
-        <div role="main" class="form-all" style="background: white;">
-            <ul class="form-section page-section">
-                <li id="cid_23" class="form-input-wide" data-type="control_head">
-                    <div class="form-header-group  header-default">
-                        <div class="header-text httal htvam">
-                            <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION
-                            </h2>
-                            <div class="esc-button">&times;</div>
+
+                                                                   value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
+        <form action="/print_meeting">
+
+
+            <div role="main" class="form-all" style="background: white;">
+                <ul class="form-section page-section">
+                    <li id="cid_23" class="form-input-wide" data-type="control_head">
+                        <div class="form-header-group  header-default">
+                            <div class="header-text httal htvam">
+                                <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION
+                                </h2>
+                                <div class="esc-button">&times;</div>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line" data-type="control_appointment" id="id_24"><label
-                        class="form-label form-label-top" id="label_24" for="input_24"> Select an Appointment
-                    Date
-                </label>
-                    <div id="cid_24" class="form-input-wide">
-                        <div id="input_24" class="appointmentFieldWrapper jfQuestion-fields"><input
-                                class="appointmentFieldInput" name="q24_selectAn[implementation]" value="new"
-                                id="input_24implementation" /><input class="appointmentFieldInput "
-                                                                     name="q24_selectAn[date]" id="input_24_date" data-timeformat="" /><input
-                                class="appointmentFieldInput" name="q24_selectAn[duration]" value="60"
-                                id="input_24_duration" /><input class="appointmentFieldInput"
-                                                                name="q24_selectAn[timezone]" value="Asia/Bangkok (GMT+07:00)"
-                                                                id="input_24_timezone" />
-                            <div class="appointmentField"></div>
+                    </li>
+                    <li class="form-line" data-type="control_appointment" id="id_24"><label
+                            class="form-label form-label-top" id="label_24" for="input_24"> Select an Appointment
+                        Date
+                    </label>
+                        <div id="cid_24" class="form-input-wide">
+                            <div id="input_24" class="appointmentFieldWrapper jfQuestion-fields"><input
+                                    class="appointmentFieldInput" name="q24_selectAn[implementation]" value="new"
+                                    id="input_24implementation" /><input class="appointmentFieldInput "
+                                                                         name="q24_selectAn[date]" id="input_24_date" data-timeformat="" /><input
+                                    class="appointmentFieldInput" name="q24_selectAn[duration]" value="60"
+                                    id="input_24_duration" /><input class="appointmentFieldInput"
+                                                                    name="q24_selectAn[timezone]" value="Asia/Bangkok (GMT+07:00)"
+                                                                    id="input_24_timezone" />
+                                <div class="appointmentField"></div>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li class="form-line jf-required" data-type="control_phone" id="id_32"><label
-                        class="form-label form-label-left form-label-auto" id="label_32" for="input_32_full">
-                    Phone
-                    Number<span class="form-required">*</span> </label>
-                    <div id="cid_32" class="form-input jf-required"> <span class="form-sub-label-container"
-                                                                           style="vertical-align:top"><input type="tel" id="input_32_full"
-                                                                                                             name="q32_phoneNumber32[full]" data-type="mask-number"
-                                                                                                             class="mask-phone-number form-textbox validate[required, Fill Mask]"
-                                                                                                             data-defaultvalue="" autoComplete="section-input_32 tel-national" data-masked="true"
-                                                                                                             value="" data-component="phone" aria-labelledby="label_32" required="" /></span>
-                    </div>
-                </li>
-                <li class="form-line" data-type="control_textarea" id="id_31"><label
-                        class="form-label form-label-left form-label-auto" id="label_31" for="input_31"> Other
-                    requirements </label>
-                    <div id="cid_31" class="form-input"> <textarea id="input_31" class="form-textarea"
-                                                                   name="q31_otherRequirements" cols="40" rows="6" data-component="textarea"
-                                                                   aria-labelledby="label_31"></textarea> </div>
-                </li>
-                <li class="form-line" data-type="control_button" id="id_2">
-                    <div id="cid_2" class="form-input-wide">
-                        <div data-align="center"
-                             class="form-buttons-wrapper form-buttons-center   jsTest-button-wrapperField">
-                            <button id="input_2" type="submit"
-                                    class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
-                                    data-component="button" data-content="">Submit</button>
+                    </li>
+                    <li class="form-line jf-required" data-type="control_phone" id="id_32"><label
+                            class="form-label form-label-left form-label-auto" id="label_32" for="input_32_full">
+                        Phone
+                        Number<span class="form-required">*</span> </label>
+                        <div id="cid_32" class="form-input jf-required"> <span class="form-sub-label-container"
+                                                                               style="vertical-align:top"><input type="tel" id="input_32_full"
+                                                                                                                 name="q32_phoneNumber32[full]" data-type="mask-number"
+                                                                                                                 class="mask-phone-number form-textbox validate[required, Fill Mask]"
+                                                                                                                 data-defaultvalue="" autoComplete="section-input_32 tel-national" data-masked="true"
+                                                                                                                 value="" data-component="phone" aria-labelledby="label_32" required="" /></span>
                         </div>
-                    </div>
-                </li>
-                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
-            </ul>
-        </div>
+                    </li>
+                    <li class="form-line" data-type="control_textarea" id="id_31"><label
+                            class="form-label form-label-left form-label-auto" id="label_31" for="input_31"> Other
+                        requirements </label>
+                        <div id="cid_31" class="form-input"> <textarea id="input_31" class="form-textarea"
+                                                                       name="q31_otherRequirements" cols="40" rows="6" data-component="textarea"
+                                                                       aria-labelledby="label_31"></textarea> </div>
+                    </li>
+                    <li class="form-line" data-type="control_button" id="id_2">
+                        <div id="cid_2" class="form-input-wide">
+                            <div data-align="center"
+                                 class="form-buttons-wrapper form-buttons-center   jsTest-button-wrapperField">
+                                <button id="input_2" type="submit"
+                                        class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
+                                        data-component="button" data-content="">Submit</button>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+                </ul>
+            </div>
+        </form>
         <script>
             JotForm.showJotFormPowered = "new_footer";
         </script>

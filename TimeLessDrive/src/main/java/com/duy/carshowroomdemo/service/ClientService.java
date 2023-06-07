@@ -30,6 +30,10 @@ public class ClientService {
         return mapperManager.getClientMapper().toDto(repository.findById(id).orElse(null));
     }
 
+    public Client findEntityById(String id) {
+        return repository.findById(id).orElse(null);
+    }
+
 
 
     public ClientDto login(String email, String pass){

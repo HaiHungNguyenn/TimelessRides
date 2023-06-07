@@ -2,6 +2,11 @@
     border-bottom: 1px solid #ECEDF3;
 }
 
+#myForm h4 {
+    opacity: 0.8;
+    font-size: 1.2rem;
+}
+
 #myForm .main-header > *{
     display: flex;
     justify-content: center;
@@ -15,23 +20,26 @@
 #myForm input{
     width: 100%;
     padding: 8px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 #myForm input:hover,:focus{
-    border-color: red;
+    border-color: #fb2f30;
+
 }
 
 #myForm input:hover,:focus + label{
-    color: red;
+    color: black;
 }
 
 #myForm textarea{
     width: 100%;
+    height: 150px;
+    padding: 1rem;
 }
 
 .image img{
-    width: 100%;
+    width: 50px;
 }
 
 .image span{
@@ -46,8 +54,8 @@
 
 #myForm .main-container{
     border: 1px solid black;
-    border-radius: 20px;
-    box-shadow: 2px 2px 5px 5px black;
+    border-radius: 2px;
+    box-shadow: 0 0 20px 2px black;
 }
 
 #myForm .row{
@@ -55,11 +63,67 @@
 }
 
 #myForm input[type=submit]{
-    background-color: red;
+    background-color: #fb2f30;
     color: white;
-    width: 40%;
+    width: 25%;
     margin: auto;
-    border-radius: 20px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*text-align: center;*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#myForm input[type=submit]{
+    background-color: #fb2f30;
+    color: white;
+    width: 25%;
+    margin: auto;
+    border: none;
+    border-radius: 2px;
+}
+
+#myForm input[type=submit]:hover{
+    background-color: #cd2425;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="file"]{
+    display: none;
+}
+
+#image-label{
+    color: white;
+    height: 60px;
+    width: 250px;
+    background-color: grey;
+    /*position: absolute;*/
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*text-align: center;*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.duy-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 
 .image span{

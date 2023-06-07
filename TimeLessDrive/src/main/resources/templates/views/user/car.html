@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -255,228 +255,30 @@
                             </div>
                         </div>
                     </div>
+<!--                    insert car here-->
                     <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
+                        <div class="col-lg-4 col-md-4"th:each="car:${carList}">
+                            <div class="car__item" >
                                 <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
+                                    <div th:each="i : ${#numbers.sequence(0, 3)}">
+                                        <!-- Access the image at the current index -->
+                                        <img th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">
+                                    </div>
                                 </div>
+
                                 <div class="car__item__text">
                                     <div class="car__item__text__inner">
-                                        <div class="label-date">2016</div>
-                                        <h5><a href="/car-detail">Porsche cayenne turbo s</a></h5>
+                                        <div class="label-date" th:text="${car.getCarDescription().getFirstRegistration()}"/>
+                                        <h5><a th:href="'/car-detail/'+${car.getId()}" th:text="${car.getName()}"></a></h5>
                                         <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
+                                            <li><span th:text="${car.getCarDescription().getKmsDriven()}"/> mi</li>
+                                            <li th:text="${car.getCarDescription().getTransmission()}"/>
+                                            <li><span th:text="${car.getCarDescription().getPower()}"/> hp</li>
                                         </ul>
                                     </div>
                                     <div class="car__item__price">
                                         <span class="car-option">For Sale</span>
-                                        <h6>$218<span>/Month</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-4.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2020</div>
-                                        <h5><a href="#">Toyota camry asv50l-jeteku</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option sale">For Sale</span>
-                                        <h6>$73,900</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-5.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2017</div>
-                                        <h5><a href="#">Bmw s1000rr 2019 m</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option">For Sale</span>
-                                        <h6>$299<span>/Month</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-5.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-7.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2018</div>
-                                        <h5><a href="#">Audi q8 2020</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option">For Sale</span>
-                                        <h6>$319<span>/Month</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2016</div>
-                                        <h5><a href="#">Mustang shelby gt500</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option sale">For Sale</span>
-                                        <h6>$730,900</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-4.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2019</div>
-                                        <h5><a href="#">Lamborghini huracan evo</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option">For Sale</span>
-                                        <h6>$319<span>/Month</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-7.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-4.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2020</div>
-                                        <h5><a href="#">Lamborghini huracan evo</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option sale">For Sale</span>
-                                        <h6>$120,000</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-5.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2017</div>
-                                        <h5><a href="#">Porsche cayenne turbo s</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option">For Sale</span>
-                                        <h6>$319<span>/Month</span></h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4">
-                            <div class="car__item">
-                                <div class="car__item__pic__slider owl-carousel">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-5.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-2.jpg" alt="">
-                                </div>
-                                <div class="car__item__text">
-                                    <div class="car__item__text__inner">
-                                        <div class="label-date">2020</div>
-                                        <h5><a href="#">Toyota camry asv50l-jeteku</a></h5>
-                                        <ul>
-                                            <li><span>35,000</span> mi</li>
-                                            <li>Auto</li>
-                                            <li><span>700</span> hp</li>
-                                        </ul>
-                                    </div>
-                                    <div class="car__item__price">
-                                        <span class="car-option sale">For sale</span>
-                                        <h6>$73,900</h6>
+                                        <h6 th:text=" ${car.getPrice()}"></h6>
                                     </div>
                                 </div>
                             </div>

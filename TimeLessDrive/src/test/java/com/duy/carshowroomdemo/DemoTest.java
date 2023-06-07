@@ -1,11 +1,12 @@
 package com.duy.carshowroomdemo;
 
 import com.duy.carshowroomdemo.entity.*;
-import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,12 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @DataJpaTest
@@ -46,19 +51,20 @@ public class DemoTest {
     private StaffRepository staffRepository;
 
     public final String AVATAR_URL = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg";
-    public final String CAR_IMAGE_URL = "https://images.unsplash.com/photo-1502877338535-766e1452684a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=872&q=80";
-    private final Lorem lorem = new LoremIpsum();
 
     @Test
     public void addSampleData(){
+        int cars = 5;
+        Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
         addStaff();
         addClients();
-        addCarAndCarDescription();
+        addCarAndCarDescription(cars);
         addCarImages();
         addPosts();
         addInvoices();
+        addOffMeetings();
         addFeedbacks();
     }
 
@@ -105,7 +111,7 @@ public class DemoTest {
         staff.setPhone(Util.getRandPhone());
         staff.setGender("male");
         staff.setPassword(Util.encodePassword("123"));
-        staff.setAddress("123 sample address");
+        staff.setAddress(Util.getRandAddress());
         staff.setDob(Util.getRandBirthDay());
         staff.setJoinDate(LocalDate.now());
         staff.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
@@ -149,10 +155,11 @@ public class DemoTest {
     }
 
     @Test
-    public void addCarAndCarDescription(){
-        String filePath = "D:\\.UNIVERSITY\\T5_2023_SUMMER\\SWP391\\Car_Showroom_Project\\Web_Scraping\\car_data.txt";
+    public void addCarAndCarDescription(int cars){
+        String filePath = "src\\main\\java\\com\\duy\\carshowroomdemo\\util\\car_data.txt";
         List<Showroom> showroomList = showroomRepository.findAll();
         List<String> carNames = new ArrayList<>();
+        int count = 0;
 
         try(FileReader fileReader = new FileReader(filePath)) {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -161,6 +168,11 @@ public class DemoTest {
             Car car = new Car();
             while((line = bufferedReader.readLine()) != null){
                 if(line.contains("START")){
+
+                    count++;
+                    if(count > cars){
+                        break;
+                    }
 
                     carDescription = new CarDescription();
                     car = new Car();
@@ -327,16 +339,16 @@ public class DemoTest {
 
     @Test
     public void addOffMeetings(){
-        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
+//        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
         List<Client> clientList = new ArrayList<>(clientRepository.findAll());
         for (int i = 0; i < 100; i++) {
             OffMeeting offMeeting = new OffMeeting();
-            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
+//            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
             offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
             offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
             offMeeting.setDescription(Util.getRandText(30));
-            offMeeting.setStatus("Not yet");
+            offMeeting.setStatus(Status.PENDING);
 
             OffMeeting save = offMeetingRepository.save(offMeeting);
 
@@ -360,8 +372,6 @@ public class DemoTest {
 
     }
 
-
-
     @Test
     public void testADd(){
         Client client = new Client();
@@ -380,4 +390,21 @@ public class DemoTest {
 
         Assertions.assertThat(save).isNotNull();
     }
+
+    @Test
+    public void changePostStatus(){
+//        List<Post> all = postRepository.findAll();
+//        all.forEach((x) -> {
+//            x.setStatus(Status.PENDING);
+//            postRepository.save(x);
+//        });
+
+        offMeetingRepository.findAll().forEach((x) -> {
+            x.setStatus(Status.PENDING);
+            x.setStatus(null);
+//            x.setCreateTime(LocalTime.now());
+            offMeetingRepository.save(x);
+        });
+    }
+
 }

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Util {
     static Random random = new Random();
     static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
     static Lorem lorem = new LoremIpsum();
-    static final String DATA_SRC_PATH = "D:\\.UNIVERSITY\\T5_2023_SUMMER\\SWP391\\Car_Showroom_Project\\Web_Scraping\\car_data.txt";
+    static final String DATA_SRC_PATH = "src\\main\\java\\com\\duy\\carshowroomdemo\\util\\car_data.txt";
 
 
     public static String getRandPhone(){
@@ -123,20 +124,28 @@ public class Util {
         return getRandInt(1,500) + " " + lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
     }
 
-    public static void setupImageGallery(String dataSourceFilePath) {
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(dataSourceFilePath))){
+    public static void setupImageGallery(int cars) {
+        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(DATA_SRC_PATH))){
             List<String> dirNames = new ArrayList<>();
+            int carCount = 0;
             String line;
-            String imageRootDir = "d:/Image_Gallery/";
+            String imageRootDir = "D:/Image_Gallery/";
+            Path path = Paths.get(imageRootDir);
+            if(!Files.exists(path)){
+                Files.createDirectory(path);
+            }
             String currentDir = "";
-            int count = 1;
+            int imageCount = 1;
             while((line = bufferedReader.readLine()) != null){
                 if(line.contains("START:")){
+
                     System.out.println("Downloading folder started!");
-                    if(line.contains("101")){
+
+                } else if(line.contains("Car name:")){
+
+                    if(carCount > cars){
                         break;
                     }
-                } else if(line.contains("Car name:")){
 
                     String directory = handleDirName(line.replace("Car name:", "").trim());
                     if(dirNames.contains(directory)){
@@ -146,12 +155,13 @@ public class Util {
                     dirNames.add(directory);
                     currentDir = imageRootDir + directory;
                     Files.createDirectory(Paths.get(currentDir));
+                    carCount++;
 
                 } else if(line.contains("link")){
 
                     if(currentDir != null){
 
-                        String imageName = "carvago" + (count++) + ".jpg";
+                        String imageName = "carvago" + (imageCount++) + ".jpg";
                         downloadImage(handleImageTag(line), currentDir + "/" + imageName);
 
                     }
