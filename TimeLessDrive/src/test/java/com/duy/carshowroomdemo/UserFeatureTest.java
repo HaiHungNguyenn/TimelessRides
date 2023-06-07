@@ -58,4 +58,13 @@ public class UserFeatureTest {
 
 
     }
+    private MapperManager mapperManager = new MapperManager();
+    @Test
+    public void searchCar(){
+        Car a = carRepository.findById("20de2101-c963-4a5c-bbd6-65d99346be7b").get();
+        CarDto aDto = mapperManager.getCarMapper().toDto(a);
+        System.out.println("a:"+a);
+        System.out.println(a.getName());
+        System.out.println("aDto:"+aDto);
+    }
 }

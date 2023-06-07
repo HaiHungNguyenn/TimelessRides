@@ -248,8 +248,8 @@
                                 <div class="car__filter__option__item car__filter__option__item--right">
                                     <h6>Sort By</h6>
                                     <select>
-                                        <option value="">Price: Highest Fist</option>
-                                        <option value="">Price: Lowest Fist</option>
+                                        <option value=""><a>Price: Highest Fist</a></option>
+                                        <option value=""><a>Price: Lowest Fist</a></option>
                                     </select>
                                 </div>
                             </div>
@@ -263,7 +263,12 @@
                                     <div th:each="i : ${#numbers.sequence(0, 3)}">
                                         <!-- Access the image at the current index -->
                                         <img th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">
+
                                     </div>
+<!--                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">-->
                                 </div>
 
                                 <div class="car__item__text">

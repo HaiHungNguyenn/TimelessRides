@@ -304,6 +304,7 @@ public class DemoTest {
             post.setCar(x);
             post.setClient(clientList.get(Util.getRandInt(clientList.size())));
             post.setDescription(Util.getRandText(30));
+            post.setPostTime(LocalTime.now());
             post.setStatus("Pending");
             post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
 

@@ -33,7 +33,7 @@ public class Car {
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Showroom showroom;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CarImage> carImageList;
 
     @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)

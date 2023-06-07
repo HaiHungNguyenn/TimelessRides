@@ -87,6 +87,8 @@ public class UserController {
     @GetMapping ("/car-detail/{id}")
     public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println("id = "+id);
+        System.out.println("cardto: "+service.getCarService().findCarById(id));
         modelAndView.addObject("carDto",service.getCarService().findCarById(id));
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;

@@ -159,11 +159,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Porsche Cayenne Turbo S 2019</h2>
+                        <h2 th:text="${carDto.getName()}"></h2>
                         <div class="breadcrumb__links">
                             <a href="/"><i class="fa fa-home"></i> Home</a>
                             <a href="/car">Car Inventory</a>
-                            <span>Porsche cayenne turbo s</span>
+                            <span th:text="${carDto.getName()}"/>
                         </div>
                     </div>
                 </div>
@@ -239,11 +239,11 @@
                                         <div class="col-lg-12 col-md-12">
                                             <div class="car__details__tab__info__item">
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> <b>Name:</b> Dacia Duster TCe 90 66 kW</li>
-                                                    <li><i class="fa fa-check"></i> <b>Price:</b> 1199000000</li>
-                                                    <li><i class="fa fa-check"></i> <b>Status:</b> Available</li>
-                                                    <li><i class="fa fa-check"></i> <b>Interior Color:</b> Other interior color</li>
-                                                    <li><i class="fa fa-check"></i> <b>Interior Material:</b> Other interior material</li>
+                                                    <li><i class="fa fa-check"></i> <b>Name:</b> <span th:text="${carDto.getName()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Price:</b> $<span th:text="${carDto.getPrice()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Status:</b> <span th:text="${carDto.getStatus()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Interior Color:</b> <span th:text="${carDto.getCarDescription().getInteriorColor()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Interior Material:</b> <span th:text="${carDto.getCarDescription().getInteriorMaterial()}"/></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -256,26 +256,26 @@
                                         <div class="col-lg-6 col-md-6">
                                             <div class="car__details__tab__info__item">
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> <b>Make:</b> Dacia</li>
-                                                    <li><i class="fa fa-check"></i> <b>Model:</b> Duster</li>
-                                                    <li><i class="fa fa-check"></i> <b>Body Color:</b> Black</li>
-                                                    <li><i class="fa fa-check"></i> <b>Body:</b> SUV / offroad</li>
-                                                    <li><i class="fa fa-check"></i> <b>License Plate:</b> 41C58603</li>
-                                                    <li><i class="fa fa-check"></i> <b>Fuel Type:</b> Petrol</li>
-                                                    <li><i class="fa fa-check"></i> <b>Transmission:</b> Manual</li>
+                                                    <li><i class="fa fa-check"></i> <b>Make:</b><span th:text="${carDto.getCarDescription().getMake()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Model:</b> <span th:text="${carDto.getCarDescription().getModel()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Body Color:</b> <span th:text="${carDto.getCarDescription().getBodyColor()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Body:</b> <span th:text="${carDto.getCarDescription().getBody()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>License Plate:</b> <span th:text="${carDto.getCarDescription().getLicensePlate()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Fuel Type:</b> <span th:text="${carDto.getCarDescription().getFuelType()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Transmission:</b><span th:text="${carDto.getCarDescription().getTransmission()}"/></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6">
                                             <div class="car__details__tab__info__item">
                                                 <ul>
-                                                    <li><i class="fa fa-check"></i> <b>First Registration:</b> 2/2022</li>
-                                                    <li><i class="fa fa-check"></i> <b>Seats:</b> 5</li>
-                                                    <li><i class="fa fa-check"></i> <b>Power:</b> 999</li>
-                                                    <li><i class="fa fa-check"></i> <b>Engine Capacity:</b> 0</li>
-                                                    <li><i class="fa fa-check"></i> <b>CO2 Emission:</b> 2137</li>
-                                                    <li><i class="fa fa-check"></i> <b>Kms Driven:</b> 6532</li>
-                                                    <li><i class="fa fa-check"></i> <b>Others:</b> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam assumenda, eum facilis laborum necessitatibus </li>
+                                                    <li><i class="fa fa-check"></i> <b>First Registration:</b> <span th:text="${carDto.getCarDescription().getFirstRegistration()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Seats:</b> <span th:text="${carDto.getCarDescription().getSeats()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Power:</b> <span th:text="${carDto.getCarDescription().getPower()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Engine Capacity:</b> <span th:text="${carDto.getCarDescription().getEngineCapacity()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>CO2 Emission:</b> <span th:text="${carDto.getCarDescription().getCo2Emission()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Kms Driven:</b> <span th:text="${carDto.getCarDescription().getKmsDriven()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Others:</b> <span th:text="${carDto.getCarDescription().getOthers()}"/></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -289,19 +289,18 @@
                     <div class="car__details__sidebar">
                         <div class="car__details__sidebar__model">
                             <ul>
-                                <li>Stock <span>K99D10459934</span></li>
-                                <li>Vin <span>3VWKM245686</span></li>
+                                <li>Brand <span th:text="${carDto.getCarDescription().getMake()}"/></li>
+                                <li>Model <span th:text="${carDto.getCarDescription().getModel()}"/></li >
                             </ul>
                             <a href="#" class="primary-btn">Get Today Is Price</a>
-                            <p>Pricing in 11/26/2019</p>
+<!--                            <p>Pricing in <span th:text="${carDto.getPost().getPostDate()}"/></p>-->
                         </div>
                         <div class="car__details__sidebar__payment">
                             <ul>
-                                <li>MSRP <span>$120,000</span></li>
-                                <li>Dealer Discounts <span>$3,000</span></li>
-                                <li>Price <span>$117,000</span></li>
+
+                                <li>Price $<span th:text="${carDto.getPrice()}"/></li>
                             </ul>
-                            <a href="#" class="primary-btn"><i class="fa fa-credit-card"></i> Express Purchase</a>
+                            <a href="#" class="primary-btn"><i class="fa fa-credit-card"></i> Tax Calculator</a>
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build
                                 Payment</a>
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-money"></i> Value Trade</a>

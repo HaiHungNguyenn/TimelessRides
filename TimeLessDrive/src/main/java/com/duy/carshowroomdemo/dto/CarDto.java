@@ -21,4 +21,5 @@ public class CarDto implements Serializable {
     private String status;
     private CarDescriptionDto carDescription;
     private List<CarImageDto> carImageList;
+    private PostDto post;
 }
