@@ -121,6 +121,8 @@ CREATE TABLE off_meeting (
 	id						VARCHAR(100) PRIMARY KEY,
 	staff_id				VARCHAR(100) FOREIGN KEY REFERENCES staff(id),
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
+	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id),
+	phone					VARCHAR(10),
 	meeting_date			DATE,
 	meeting_time			TIME,
 	create_date				DATE,

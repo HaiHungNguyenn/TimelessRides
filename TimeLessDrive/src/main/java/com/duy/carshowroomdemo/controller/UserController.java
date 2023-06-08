@@ -165,7 +165,7 @@ public class UserController {
     }
 
     @RequestMapping("/confirm-post/{clientId}")
-    public ModelAndView confirmPost(@RequestParam("files") MultipartFile[] files,
+    public ModelAndView confirmPost(@Nullable @RequestParam("files") MultipartFile[] files,
                                     @RequestParam("carName") String carName,
                                     @RequestParam("price") String price,
                                     @RequestParam("make") String make,
@@ -214,16 +214,18 @@ public class UserController {
         carDescription.setKmsDriven((Objects.equals(mileage, "")) ? 0 : Integer.parseInt(mileage));
         carDescription.setOthers(others);
 
-        for (MultipartFile file: files) {
-            CarImage carImage = new CarImage();
-            try {
-                carImage.setContent(file.getBytes());
-            } catch (IOException e) {
-                modelAndView.addObject("errorMsg", "An error occurred");
-                return modelAndView;
+        if(files != null){
+            for (MultipartFile file: files) {
+                CarImage carImage = new CarImage();
+                try {
+                    carImage.setContent(file.getBytes());
+                } catch (IOException e) {
+                    modelAndView.addObject("errorMsg", "An error occurred");
+                    return modelAndView;
+                }
+                carImage.setCar(car);
+                carImageList.add(carImage);
             }
-            carImage.setCar(car);
-            carImageList.add(carImage);
         }
 
         if(car.getCarImageList() == null){

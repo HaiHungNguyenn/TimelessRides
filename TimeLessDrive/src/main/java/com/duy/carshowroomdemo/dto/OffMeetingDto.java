@@ -18,6 +18,8 @@ public class OffMeetingDto implements Serializable {
     private String id;
     private ClientDto client;
     private StaffDto staff;
+    private CarDto car;
+    private String phone;
     private LocalDate meetingDate;
     private LocalTime meetingTime;
     private LocalDate createDate;

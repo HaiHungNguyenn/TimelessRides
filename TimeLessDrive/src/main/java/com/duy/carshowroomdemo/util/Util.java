@@ -206,4 +206,19 @@ public class Util {
             e.printStackTrace();
         }
     }
+
+    public static String getRandCity() {
+        return lorem.getCity();
+    }
+
+    public static Long calculateTotal(Long price, String tax) {
+        StringBuilder taxNumber = new StringBuilder();
+
+        for (char c: tax.toCharArray()) {
+            if(Character.isDigit(c)){
+                taxNumber.append(c);
+            }
+        }
+        return price + price * Long.parseLong(taxNumber.toString());
+    }
 }

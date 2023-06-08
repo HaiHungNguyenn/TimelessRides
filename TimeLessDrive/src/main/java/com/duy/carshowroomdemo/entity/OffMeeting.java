@@ -25,6 +25,13 @@ public class OffMeeting {
     @JoinColumn(name = "staff_id")
     private Staff staff;
 
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
+    @Column(name = "phone", length = 10)
+    private String phone;
+
     @Column(name = "meeting_date")
     private LocalDate meetingDate;
 

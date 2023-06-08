@@ -54,8 +54,8 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
-        int cars = 25;
-        Util.setupImageGallery(cars);
+        int cars = 100;
+//        Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
         addStaff();
@@ -74,7 +74,7 @@ public class DemoTest {
             Showroom showroom = new Showroom();
             showroom.setName("Showroom " + i);
             showroom.setAddress(Util.getRandAddress());
-            showroom.setCity("Thai Nguyen");
+            showroom.setCity(Util.getRandCity());
             showroom.setPhone(Util.getRandPhone());
             Showroom save = showroomRepository.save(showroom);
 
@@ -328,6 +328,7 @@ public class DemoTest {
             invoice.setCar(x);
             invoice.setTotal(Util.getRandPrice());
             invoice.setCreateDate(Util.getRandDate(LocalDate.of(2020,1,1), LocalDate.now()));
+            invoice.setCreateTime(LocalTime.now());
             invoice.setStatus("Paid");
             invoice.setTax(Util.getRandText(5));
             invoice.setOtherInformation(Util.getRandText(50));
@@ -341,14 +342,19 @@ public class DemoTest {
     @Test
     public void addOffMeetings(){
 //        List<Staff> staffList = new ArrayList<>(staffRepository.findAll());
-        List<Client> clientList = new ArrayList<>(clientRepository.findAll());
+        List<Client> clientList = clientRepository.findAll();
+        List<Car> carList = carRepository.findAll();
         for (int i = 0; i < 100; i++) {
             OffMeeting offMeeting = new OffMeeting();
 //            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
             offMeeting.setClient(clientList.get(Util.getRandInt(clientList.size())));
-            offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
+            offMeeting.setCar(carList.get(Util.getRandInt(carList.size())));
+            offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 4,1), LocalDate.of(2023, 8,15)));
             offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
+            offMeeting.setMeetingTime(LocalTime.now());
+            offMeeting.setCreateTime(LocalTime.now());
             offMeeting.setDescription(Util.getRandText(30));
+            offMeeting.setPhone(Util.getRandPhone());
             offMeeting.setStatus(Status.PENDING);
 
             OffMeeting save = offMeetingRepository.save(offMeeting);
@@ -468,20 +474,9 @@ public class DemoTest {
 
     @Test
     public void test(){
-        Car car1 = new Car();
-        car1.setName("BMW X5 xDrive 290 kW");
-//        car1.setId();
-        Client client = clientRepository.findById("905d8b7a-8a6e-4a49-8fb0-849da3e7c51e").orElse(null);
+        System.out.println(Util.calculateTotal(10023023L, "sdfk15%"));
 
 
-        Post post = new Post();
-        post.setClient(client);
-        post.setCar(car1);
-        postRepository.save(post);
-
-//        carRepository.save(car1);
-//        Car car = carRepository.findByName("BMW X5 xDrive 290 kW");
-//        System.out.println(car.getName());
     }
 
 }

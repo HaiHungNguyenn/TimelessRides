@@ -2,13 +2,17 @@ package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.AdminDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +39,18 @@ public class LogInController {
         if(staffDto != null){
             modelAndView.setViewName("views/staff/profile");
             session.setAttribute("staff", staffDto);
+
+            List<OffMeetingDto> meetingList;
+
+            meetingList = service.getOffMeetingService().findOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED, PageRequest.of(0, 4));
+            long lastOffset = service.getOffMeetingService().getLastOffset(staffDto, Status.APPROVED, 4);
+            long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED);
+            modelAndView.addObject("meetingList", meetingList);
+            modelAndView.addObject("property", null);
+            modelAndView.addObject("direction", null);
+            modelAndView.addObject("offset", 1);
+            modelAndView.addObject("lastOffset", lastOffset);
+            modelAndView.addObject("totalMeetings", totalMeetings);
         }
 
         else if(clientDto != null){

@@ -371,13 +371,13 @@ public class StaffController {
         Invoice invoice = new Invoice();
         invoice.setClient(meeting.getClient());
         invoice.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
-        invoice.setCar(null);
+        invoice.setCar(meeting.getCar());
         invoice.setCreateDate(LocalDate.now());
         invoice.setCreateTime(LocalTime.now());
-        invoice.setStatus(null);
-        invoice.setTotal(0L);
-        invoice.setOtherInformation(Util.getRandText(10));
+        invoice.setStatus(Status.PAID);
         invoice.setTax("10%");
+        invoice.setTotal(Util.calculateTotal(meeting.getCar().getPrice(), invoice.getTax()));
+        invoice.setOtherInformation(Util.getRandText(10));
 
         service.getInvoiceService().save(invoice);
 
