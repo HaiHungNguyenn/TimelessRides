@@ -43,7 +43,6 @@
 }
 
 .image span{
-    display: none;
     cursor: pointer;
     border: 1px solid black;
 }
@@ -61,6 +60,22 @@
 
 #myForm .row{
     margin: 10px 0;
+}
+
+#myForm input[type=submit]{
+    background-color: #fb2f30;
+    color: white;
+    width: 25%;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /*text-align: center;*/
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #myForm input[type=submit]{
@@ -110,3 +125,25 @@ input[type="file"]{
     justify-content: center;
 
 }
+
+.image span{
+    border: 2px solid white;
+    margin: 3%;
+    padding: 2px;
+    color: white;
+}
+
+.image p {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    color: white;
+    font-size: 113%;
+}
+
+.image{
+    background: red;
+    color: white;
+    margin: 5px;
+}
+

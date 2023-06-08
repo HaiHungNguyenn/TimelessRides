@@ -6,6 +6,7 @@ import com.duy.carshowroomdemo.entity.Car;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,4 +22,9 @@ public class CarDto implements Serializable {
     private String status;
     private CarDescriptionDto carDescription;
     private List<CarImageDto> carImageList;
+//    private PostDto post;
+
+    public List<CarImageDto> getCarImageList() {
+        return (carImageList != null) ? carImageList:new ArrayList<>();
+    }
 }

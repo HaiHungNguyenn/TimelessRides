@@ -11,6 +11,8 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
     <!-- Css Styles -->
@@ -26,8 +28,6 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="../../user_assets/css/post-car-style.css">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
 
@@ -238,12 +238,14 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-6">
                             <h4>Mileage</h4>
                             <div>
                                 <input type="number" name="mileage" id="mileage"
                                        min="0">
                                 <label for="mileage"></label>
                             </div>
+                        </div>
                         </div>
                     </li>
                     <li class="row">
@@ -291,26 +293,10 @@
                         <h4>Upload images of the car from all sides :</h4>
                         <div class="car-images">
                             <input type="file" id="car-image"
-                                   name="files"
-                                   onchange=" previewImages(); uploadField();" multiple
-                                   accept="image/*">
-                            <label for="car-image" id="image-label">
-                                <i class="fas fa-cloud-upload-alt"></i>
-                                &nbsp;Choose photos
-                            </label>
-                            <div class="row">
-                                <div class="image col-sm-12 col-md-3">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="image col-sm-12 col-md-3">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="image col-sm-12 col-md-3">
-                                    <img src="" alt="">
-                                </div>
-                                <div class="image col-sm-12 col-md-3">
-                                    <img src="" alt="">
-                                </div>
+                                   onchange="previewImages();" multiple
+                                   accept="image/png, image/gif, image/jpeg">
+                            <div id="images">
+
                             </div>
                             <label for="car-image">To select multiple files, hold down the CTRL or SHIFT key while
                                 selecting.</label>
@@ -323,6 +309,7 @@
                             <textarea id="questions" name="others"></textarea>
                             <label for="questions"></label>
                         </div>
+
                     </li>
                     <li class="row">
                         <h4>Write a description for your post</h4>

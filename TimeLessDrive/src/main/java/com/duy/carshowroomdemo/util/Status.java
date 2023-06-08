@@ -7,4 +7,6 @@ public class Status {
     public static final String SUCCESS = "Success";
     public static final String FAILED= "Failed";
     public static final String DONE = "Done";
+    public static final String AVAILABLE = "Available";
+
 }

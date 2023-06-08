@@ -246,24 +246,29 @@
                             </div>
                             <div class="col-lg-6 col-md-6">
                                 <div class="car__filter__option__item car__filter__option__item--right">
-                                    <h6>Sort By</h6>
-                                    <select>
-                                        <option value="">Price: Highest Fist</option>
-                                        <option value="">Price: Lowest Fist</option>
-                                    </select>
+                                    <h6>Sort By
+                                        <a th:href="@{/car/sorted-by-price-asc} " th:text="asc" />
+                                        <a th:href="@{/car/sorted-by-price-desc} " th:text="desc" />
+                                    </h6>
+
                                 </div>
                             </div>
                         </div>
                     </div>
 <!--                    insert car here-->
                     <div class="row">
-                        <div class="col-lg-4 col-md-4" th:each="car:${carList}">
+                        <div class="col-lg-4 col-md-4"th:each="car :${carlist}">
                             <div class="car__item" >
                                 <div class="car__item__pic__slider owl-carousel">
-                                    <div th:each="i : ${#numbers.sequence(0, 3)}">
-                                        <!-- Access the image at the current index -->
-                                        <img th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt=""/>
-                                    </div>
+<!--                                    <div th:each="image,i :${car.carImageList}">-->
+<!--                                        &lt;!&ndash; Access the image at the current index &ndash;&gt;-->
+<!--                                        <img th:if="${i.count < 5} "th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">-->
+
+<!--                                    </div>-->
+                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
+                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
+                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
+                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
                                 </div>
 
                                 <div class="car__item__text">
@@ -284,11 +289,24 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="pagination__option">
-                        <a href="#" class="active">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#"><span class="arrow_carrot-2right"></span></a>
+                        <ul th:with="url=(${property == null} ? '/car' : '/car/sorted-by-' + ${property} + '-' + ${direction})">
+
+
+                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" th:text="first"/> </li>
+
+                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = ${offset - 1})}" th:text="previous"/> </li>
+
+                            <li> <a href="#" class="active" th:text="${offset}"></a></li>
+                            <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (page = ${offset + 1})}" /></li>
+                            <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (page = ${offset + 2})}" /></li>
+
+                            <li> <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" th:text="next"/></li>
+                            <li><a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" th:text="last"/></li>
+
+
+                        </ul>
                     </div>
                 </div>
             </div>

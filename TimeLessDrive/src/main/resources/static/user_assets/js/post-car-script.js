@@ -5,50 +5,90 @@
 //     var x = e.target.value.replace(/[a-z]/g, '').match(/(\d{0,2})(\d{0,3})(\d{0,3})/);
 //     e.target.value = !x[2] ? x[1] :  x[1] + '-' + x[2] + (x[3] ? '.' + x[3] : '');
 // });
-
 // Preview images
-const MAX_IMAGE_NUM = 10;
+let filesToUpload = []; //store prev images
 
-function previewImages() {
-    const previews = document.querySelectorAll('.image img'); // select all <img> elements
-    const fileInput = document.getElementById('car-image'); // get all uploaded files
+async function previewImages() {
+    const previews = document.getElementById('images'); // select all <img> elements
+    let fileInput = Array.from(document.getElementById('car-image').files); //change file list to array
 
-    for (let i = 0; i < MAX_IMAGE_NUM; i++) {
-        const file = fileInput.files[i]; // get the uploaded file for the current input element
-        const preview = previews[i]; // get the corresponding <img> element
+    previews.innerHTML = "";
+    fileInput = filesToUpload.concat(fileInput); //concat prev and new images
 
-        const reader = new FileReader(); // create a new FileReader object
+    //change the value on input tag
+    let fileBuffer = new DataTransfer(); //change array back to file list
+    let loadedImages = [];
+    let toLoad = fileInput.length;
+    let synchronizedPreview = (ordinal, image) => {
+        loadedImages[ordinal] = image;
+        if (--toLoad > 0) return;
+        setPreview(loadedImages);
+    };
 
-        reader.onloadend = function () {
-            preview.src = reader.result; // set the src of the <img> element to the uploaded image
-            preview.style.display = 'inline-block';
+    for (let i=0; i < fileInput.length; i++) {
+        fileBuffer.items.add(fileInput[i]);
+        const ordinal = i;
+        if(fileInput[i]){
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                synchronizedPreview(ordinal, reader.result);
+            }
+            reader.readAsDataURL(fileInput[i]);
+        }
+        else{
+            synchronizedPreview(ordinal, fileInput[i]);
         }
 
-        if (file) {
-            reader.readAsDataURL(file); // read the uploaded file as a URL
-        } else {
-            preview.src = ""; // if no file is selected, clear the <img> element
-        }
+    }
+    document.getElementById('car-image').files = fileBuffer.files;
+    filesToUpload = fileInput;
+}
+
+function setPreview(images){
+    let fileInput = document.getElementById('car-image').files;
+    const previews = document.getElementById('images'); // select all <img> elements
+    let i= 0;
+    for(let i=0;i < images.length; i++) {
+        previews.innerHTML +=
+            '<div class="image" id="' + i + '">' +
+                '<img src="' + images[i] + '" style="width: 20%;">' +
+                '<p>'+fileInput.item(i).name+'</p>' +
+                '<span class="close">' +
+                    '<i class="fa fa-trash-o"></i>' +
+                '</span>' +
+            '</div>';
     }
 }
-// Check num of files
-// $(function () {
-//     $("input[type='file']").change(function () {
-//         var $fileUpload = $("input[type='file']");
-//         if (parseInt($fileUpload.get(0).files.length) > MAX_IMAGE_NUM) {
-//             this.value = "";
-//             alert("You can only upload a maximum of " + MAX_IMAGE_NUM + " files");
-//             previewImages();
-//         }
-//     });
-// });
-// Check file size
-function uploadField () {
+$(document).on('click', '.close', function () {
+    const parentID = $(this).parent().attr("id");
+    const fileInput = document.getElementById('car-image');
+    const preview = document.getElementsByClassName('image'); // select all <img> elements
+    let deletePoint = false;
+
+    $(this).parent().remove();
+
+    let fileBuffer = new DataTransfer(); //change array back to file list
+
+    for (let i = 0; i < fileInput.files.length; i++) {
+
+        if (i != parentID) {
+            fileBuffer.items.add(fileInput.files[i]);
+        }
+    }
+    fileInput.files = fileBuffer.files;
+    filesToUpload = Array.from(fileBuffer.files);
+    for (let i = 0; i < fileInput.files.length; i++) {
+        preview[i].setAttribute("id", "" + i);
+    }
+});
+
+function uploadField() {
     var uploadField = document.getElementById("car-image");
     for (let i = 0; i < uploadField.files.length; i++) {
         if (uploadField.files[i].size > 2097152) {
             alert("File is too big!");
             uploadField.value = "";
         }
-    };
+    }
+    ;
 };

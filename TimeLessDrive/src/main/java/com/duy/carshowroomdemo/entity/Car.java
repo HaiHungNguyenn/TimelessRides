@@ -33,7 +33,8 @@ public class Car {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Showroom showroom;
 
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
     private List<CarImage> carImageList;
 
     @OneToMany(mappedBy = "car")

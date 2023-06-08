@@ -54,7 +54,7 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
-        int cars = 100;
+        int cars = 25;
         Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
@@ -304,9 +304,10 @@ public class DemoTest {
             post.setCar(x);
             post.setClient(clientList.get(Util.getRandInt(clientList.size())));
             post.setDescription(Util.getRandText(30));
+            post.setPostTime(LocalTime.now());
             post.setStatus("Pending");
             post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
-
+            post.setPostTime(LocalTime.now());
             Post save = postRepository.save(post);
 
             Assertions.assertThat(save).isNotNull();
@@ -348,7 +349,7 @@ public class DemoTest {
             offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
             offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
             offMeeting.setDescription(Util.getRandText(30));
-            offMeeting.setStatus("Not yet");
+            offMeeting.setStatus(Status.PENDING);
 
             OffMeeting save = offMeetingRepository.save(offMeeting);
 

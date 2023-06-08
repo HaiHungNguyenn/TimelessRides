@@ -39,13 +39,6 @@
     <link href="../../../staff_assets/css/user-rtl.min.css" type="text/css" rel="stylesheet" id="user-style-rtl">
     <link href="../../../staff_assets/css/user.min.css" type="text/css" rel="stylesheet" id="user-style-default">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
-
-    <style>
-        .no-underline:hover{
-            text-decoration: none;
-        }
-    </style>
-
 </head>
 
 <body>
@@ -95,6 +88,7 @@
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:25%;"> </th>
                   </tr>
                 </thead>
+                                                <!-- pagin here                  -->
                 <tbody class="list" id="profile-wishlist-table-body">
                   <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="postRequest, iStat: ${postRequestList}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">

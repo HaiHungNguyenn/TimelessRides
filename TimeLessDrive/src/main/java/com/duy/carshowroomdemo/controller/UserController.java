@@ -1,17 +1,20 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.entity.*;
+import com.duy.carshowroomdemo.service.OffMeetingService;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,6 +27,7 @@ import java.util.Objects;
 import java.util.Stack;
 
 @Controller
+
 public class UserController {
     @Autowired
     private Service service;
@@ -42,16 +46,67 @@ public class UserController {
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
-    @GetMapping ("/car")
-    public ModelAndView car(){
+//    @GetMapping ("/car")
+//    public ModelAndView car(){
+//        ModelAndView modelAndView = new ModelAndView();
+//        Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
+//        modelAndView.addObject("car", carByName);
+//        modelAndView.setViewName("views/user/car");
+////        session.setAttribute("carList",service.getCarService().getCarList());
+//        modelAndView.addObject("carList",service.getCarService().getCarList());
+//        return modelAndView;
+//    }
+
+    @RequestMapping("/car")
+    public ModelAndView showCarList(String direction,
+                                    String property,
+                                    @Nullable @RequestParam("page") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
-        Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
-        modelAndView.addObject("car", carByName);
+
+
+        offset = (offset == null) ? 1: offset;
+
+        List<CarDto> carList;
+
+        if(property != null && direction != null){
+            Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+            carList = service.getCarService().getCarSortedPerPage(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+
+        }else{
+            carList = service.getCarService().getCarPerPage(PageRequest.of(offset - 1, 9));
+        }
+        long lastOffSet = service.getCarService().getLastOffset(9);
+
+        modelAndView.addObject("carlist",carList);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
+        modelAndView.addObject("lastOffset", lastOffSet);
         modelAndView.setViewName("views/user/car");
-//        session.setAttribute("carList",service.getCarService().getCarList());
-        modelAndView.addObject("carList",service.getCarService().getCarList());
         return modelAndView;
     }
+
+    @RequestMapping("/car/sorted-by-{property}-{direction}")
+    public ModelAndView showCarSortedPerPage(@PathVariable String direction,
+                                             @PathVariable String property,
+                                             @Nullable @RequestParam("page") Integer offset){
+        System.out.println("**************************************");
+        return showCarList(direction, property, offset);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     @GetMapping ("/account")
     public ModelAndView account(){
         ModelAndView modelAndView = new ModelAndView();
@@ -87,6 +142,7 @@ public class UserController {
     @GetMapping ("/car-detail/{id}")
     public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
+        System.out.println("cardto: "+service.getCarService().findCarById(id));
         modelAndView.addObject("carDto",service.getCarService().findCarById(id));
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;
@@ -225,6 +281,25 @@ public class UserController {
         session.removeAttribute("client");
         modelAndView.setViewName("views/user/index");
         return modelAndView;
+    }
+    @RequestMapping("/bookmeeting")
+    public ModelAndView book(@RequestParam("carID")String carID, @RequestParam("bookingDate") String date, @RequestParam("bookingTime") String time, @RequestParam("descrip") String descrip){
+        ModelAndView modelAndView = new ModelAndView();
+
+        OffMeeting offMeeting = new OffMeeting();
+        offMeeting.setClient((Client)session.getAttribute("client"));
+        offMeeting.setMeetingDate(LocalDate.parse(date));
+        offMeeting.setMeetingTime(LocalTime.parse(time));
+        offMeeting.setCreateDate(LocalDate.now());
+        offMeeting.setCreateTime(LocalTime.now());
+        offMeeting.setDescription(descrip);
+        offMeeting.setStatus(Status.PENDING);
+
+
+        service.getOffMeetingService().save(offMeeting);
+        modelAndView.setViewName("views/user/car");
+        return modelAndView;
+
     }
 
 }
