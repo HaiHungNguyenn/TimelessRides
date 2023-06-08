@@ -1,6 +1,8 @@
 package com.duy.carshowroomdemo.repository;
 
 import com.duy.carshowroomdemo.entity.Car;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -10,6 +12,8 @@ public interface CarRepository extends JpaRepository<Car, String> {
 
     Car findByName(String carName);
      Optional<Car> findById(String carID);
+
+     Page<Car> findAllByStatus(String status, Pageable pageable);
 
 
 
