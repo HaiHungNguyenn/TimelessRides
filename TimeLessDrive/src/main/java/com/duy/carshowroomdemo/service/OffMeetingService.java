@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
+import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
@@ -10,7 +11,6 @@ import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -61,7 +61,7 @@ public class OffMeetingService {
         return offMeetingDtoList;
     }
 
-    public long getTotalOffMeetings() {
+    public long getTotalOffMeetingsByStaffAndStatus() {
         return offMeetingRepository.countByStatus(Status.PENDING);
     }
 
@@ -81,18 +81,22 @@ public class OffMeetingService {
         offMeetingRepository.save(offMeeting);
     }
 
-    public List<OffMeetingDto> findOffMeetingsByStaffAndStatus(Staff staff, String status, Pageable pageable) {
+    public List<OffMeetingDto> findOffMeetingsByStaffAndStatus(StaffDto staff, String status, Pageable pageable) {
         List<OffMeetingDto> offMeetingList = new ArrayList<>();
-        offMeetingRepository.findAllByStaffAndStatus(staff, status, pageable)
+        offMeetingRepository.findAllByStaffAndStatus(mapperManager.getStaffMapper().toEntity(staff), status, pageable)
                 .forEach((x) -> offMeetingList.add(mapperManager.getOffMeetingMapper().toDto(x)));
         return offMeetingList;
     }
 
-    public long getLastOffset(Staff staff, String status, int size) {
-        return offMeetingRepository.findAllByStaffAndStatus(staff, status, PageRequest.of(0,size)).getTotalPages();
+    public long getLastOffset(StaffDto staff, String status, int size) {
+        return offMeetingRepository.findAllByStaffAndStatus(mapperManager.getStaffMapper().toEntity(staff), status, PageRequest.of(0,size)).getTotalPages();
     }
 
-    public long getTotalOffMeetings(Staff staff, String status) {
-        return offMeetingRepository.countByStaffAndStatus(staff, status);
+    public long getTotalOffMeetingsByStaffAndStatus(StaffDto staff, String status) {
+        return offMeetingRepository.countByStaffAndStatus(mapperManager.getStaffMapper().toEntity(staff), status);
+    }
+
+    public long getTotalOffMeetingsByClient(ClientDto client) {
+        return offMeetingRepository.countByClient(mapperManager.getClientMapper().toEntity(client));
     }
 }

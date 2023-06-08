@@ -14,7 +14,7 @@ public class CarImage {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Car car;
 
     @Lob

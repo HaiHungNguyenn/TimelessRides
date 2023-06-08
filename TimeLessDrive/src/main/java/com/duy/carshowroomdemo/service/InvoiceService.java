@@ -34,4 +34,8 @@ public class InvoiceService {
 
         return (invoiceRepository.save(invoice) != null);
     }
+
+    public void save(Invoice invoice) {
+        invoiceRepository.save(invoice);
+    }
 }

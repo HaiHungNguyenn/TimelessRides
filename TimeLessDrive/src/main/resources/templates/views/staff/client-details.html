@@ -155,17 +155,17 @@
                 <div class="scrollspy-example bg-body-tertiary rounded-2" data-bs-spy="scroll" data-bs-mOffset="0" data-bs-target="#navbar-deals-detail" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
                     <div class="mb-8">
                         <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals1">
-                            <h2 class="mb-0">Meeting Requests</h2>
+                            <h2 class="mb-0" th:text="'Meeting Requests (' + ${totalMeetings} + ' meetings)'"/>
                         </div>
-                        <div class="border-top border-bottom border-200" id="leadDetailsTable1" data-list='{"valueNames":["dealName","amount","stage","probability","date","type"],"page":5,"pagination":true}'>
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable1">
                             <div class="table-responsive scrollbar mx-n1 px-1">
                                 <table class="table fs--1 mb-0">
                                     <thead>
                                     <tr>
                                         <th class="sort align-middle text-start text-uppercase" scope="col" style="width:50%; min-width:100px">Description</th>
-                                        <th class="sort align-middle pe-6 text-uppercase text-center" scope="col" data-sort="amount" style="width:10%; min-width:80px">Meeting Date</th>
-                                        <th class="sort align-middle ps-0 text-center text-uppercase" scope="col" data-sort="date" style="width:10%; min-width:80px">Created At</th>
-                                        <th class="sort align-middle text-center text-uppercase" scope="col" data-sort="type" style="width:10%; min-width:140px">Status</th>
+                                        <th class="sort align-middle pe-6 text-uppercase text-center nowrap" scope="col" style="width:20%; min-width:200px">Meeting Date</th>
+                                        <th class="sort align-middle ps-0 text-center text-uppercase" scope="col" style="width:10%; min-width:80px">Created At</th>
+                                        <th class="sort align-middle text-center text-uppercase" scope="col" style="width:10%; min-width:140px">Status</th>
                                     </tr>
                                     </thead>
                                     <tbody class="list">
@@ -180,19 +180,19 @@
                             </div>
                             <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
 
-                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()} + '/meeting-requests-page=')">
+                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()})">
                                     <ul class="pagination">
                                         <li class="page-item">
-                                            <a class="page-link" aria-label="Previous" th:classappend="${mOffset == 1} ? 'disabled'" th:href="${url} + ${mOffset - 1}">
+                                            <a class="page-link" aria-label="Previous" th:classappend="${mOffset == 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset - 1}, pOffset = ${pOffset})}">
                                                 <span aria-hidden="true">&lsaquo;</span>
                                                 <span class="sr-only">Previous</span>
                                             </a>
                                         </li>
                                         <li class="page-item"><a class="page-link active" th:text="${mOffset}" href="#"/></li>
-                                        <li class="page-item" th:if="${lastMOffset >= mOffset + 1}"><a class="page-link" th:href="${url} + ${mOffset + 1}" th:text="${mOffset + 1}"/></li>
-                                        <li class="page-item" th:if="${lastMOffset >= mOffset + 2}"><a class="page-link" th:href="${url} + ${mOffset + 2}" th:text="${mOffset + 2}"/></li>
+                                        <li class="page-item" th:if="${lastMOffset >= mOffset + 1}"><a class="page-link" th:href="@{${url} (mOffset = ${mOffset + 1}, pOffset = ${pOffset})}" th:text="${mOffset + 1}"/></li>
+                                        <li class="page-item" th:if="${lastMOffset >= mOffset + 2}"><a class="page-link" th:href="@{${url} (mOffset = ${mOffset + 2}, pOffset = ${pOffset})}" th:text="${mOffset + 2}"/></li>
                                         <li class="page-item">
-                                            <a class="page-link" aria-label="Next" th:classappend="${lastMOffset < mOffset + 1} ? 'disabled'" th:href="${url} + ${mOffset + 1}">
+                                            <a class="page-link" aria-label="Next" th:classappend="${lastMOffset < mOffset + 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset + 1}, pOffset = ${pOffset})}">
                                                 <span class="sr-only">Next</span>
                                                 <span aria-hidden="true">&rsaquo;</span>
                                             </a>
@@ -204,17 +204,17 @@
                     </div>
                     <div class="mb-8">
                         <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals">
-                            <h2 class="mb-0">Post Requests</h2>
+                            <h2 class="mb-0" th:text="'Posts (' + ${totalPosts} + ' posts)'"/>
                         </div>
-                        <div class="border-top border-bottom border-200" id="leadDetailsTable" data-list='{"valueNames":["dealName","amount","stage","probability","date","type"],"page":5,"pagination":true}'>
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable" >
                             <div class="table-responsive scrollbar mx-n1 px-1">
                                 <table class="table fs--1 mb-0">
                                     <thead>
                                     <tr>
                                         <th class="sort white-space-nowrap align-middle pe-3 ps-0 text-uppercase" scope="col" style="width:7%; min-width:80px">Car Name</th>
                                         <th class="sort align-middle text-start text-uppercase" scope="col" style="width:35%; min-width:100px">Description</th>
-                                        <th class="sort align-middle ps-0 text-center text-uppercase" scope="col" data-sort="date" style="width:3%; min-width:80px">Created At</th>
-                                        <th class="sort align-middle text-center text-uppercase" scope="col" data-sort="type" style="width:15%; min-width:140px">Status</th>
+                                        <th class="sort align-middle ps-0 text-center text-uppercase" scope="col" style="width:3%; min-width:80px">Created At</th>
+                                        <th class="sort align-middle text-center text-uppercase" scope="col" style="width:15%; min-width:140px">Status</th>
                                     </tr>
                                     </thead>
                                     <tbody class="list">
@@ -228,19 +228,19 @@
                                 </table>
                             </div>
                             <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
-                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()} + '/post-requests-page=')">
+                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()})">
                                     <ul class="pagination">
                                         <li class="page-item">
-                                            <a class="page-link" aria-label="Previous" th:classappend="${pOffset == 1} ? 'disabled'" th:href="${url} + ${pOffset - 1}">
+                                            <a class="page-link" aria-label="Previous" th:classappend="${pOffset == 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset}, pOffset = ${pOffset - 1})}">
                                                 <span aria-hidden="true">&lsaquo;</span>
                                                 <span class="sr-only">Previous</span>
                                             </a>
                                         </li>
                                         <li class="page-item"><a class="page-link active" th:text="${pOffset}" href="#"/></li>
-                                        <li class="page-item" th:if="${lastPOffset >= pOffset + 1}"><a class="page-link" th:href="${url} + ${pOffset + 1}" th:text="${pOffset + 1}"/></li>
-                                        <li class="page-item" th:if="${lastPOffset >= pOffset + 2}"><a class="page-link" th:href="${url} + ${pOffset + 2}" th:text="${pOffset + 2}"/></li>
+                                        <li class="page-item" th:if="${lastPOffset >= pOffset + 1}"><a class="page-link" th:href="@{${url} (mOffset = ${mOffset}, pOffset = ${pOffset + 1})}" th:text="${pOffset + 1}"/></li>
+                                        <li class="page-item" th:if="${lastPOffset >= pOffset + 2}"><a class="page-link" th:href="@{${url} (mOffset = ${mOffset}, pOffset = ${pOffset + 2})}" th:text="${pOffset + 2}"/></li>
                                         <li class="page-item">
-                                            <a class="page-link" aria-label="Next" th:classappend="${lastPOffset < pOffset + 1} ? 'disabled'" th:href="${url} + ${pOffset + 1}">
+                                            <a class="page-link" aria-label="Next" th:classappend="${lastPOffset < pOffset + 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset}, pOffset = ${pOffset + 1})}">
                                                 <span class="sr-only">Next</span>
                                                 <span aria-hidden="true">&rsaquo;</span>
                                             </a>

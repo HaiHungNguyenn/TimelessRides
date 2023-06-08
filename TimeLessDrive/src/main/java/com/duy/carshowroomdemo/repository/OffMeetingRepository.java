@@ -26,5 +26,7 @@ public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> 
     long countByStatus(String status);
 
     Page<OffMeeting> findAllByStaffAndStatus(Staff staff, String status, Pageable pageable);
+
+    long countByClient(Client client);
     //    List<OffMeeting> findAll(Pageable pageable, Sort sort);
 }

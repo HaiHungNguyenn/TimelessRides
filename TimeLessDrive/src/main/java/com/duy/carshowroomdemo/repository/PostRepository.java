@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, String>{
-    List<Post> findPostsByClient(Client client, Pageable pageable);
+    Page<Post> findPostsByClient(Client client, Pageable pageable);
 
     Page<Post> findAllByStatusIs(String status, Pageable pageable);
 

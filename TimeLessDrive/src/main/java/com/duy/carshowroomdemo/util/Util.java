@@ -143,9 +143,6 @@ public class Util {
 
                 } else if(line.contains("Car name:")){
 
-                    if(carCount > cars){
-                        break;
-                    }
 
                     String directory = handleDirName(line.replace("Car name:", "").trim());
                     if(dirNames.contains(directory)){
@@ -156,6 +153,9 @@ public class Util {
                     currentDir = imageRootDir + directory;
                     Files.createDirectory(Paths.get(currentDir));
                     carCount++;
+                    if(carCount > cars){
+                        break;
+                    }
 
                 } else if(line.contains("link")){
 

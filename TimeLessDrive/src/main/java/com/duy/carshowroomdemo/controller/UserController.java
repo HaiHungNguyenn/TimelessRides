@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Status;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -185,9 +186,10 @@ public class UserController {
         post.setClient(client);
         post.setPostDate(LocalDate.now());
         post.setPostTime(LocalTime.now());
-        post.setStatus("Waiting for approval");
+        post.setStatus(Status.PENDING);
         post.setDescription(postDescription);
 
+        service.getCarService().save(car);
         service.getPostService().save(post);
 
         modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");

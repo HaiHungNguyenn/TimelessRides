@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.controller;
 
 //import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.entity.Invoice;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.entity.Staff;
@@ -9,6 +10,7 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.OffMeetingRepository;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -70,14 +74,14 @@ public class StaffController {
     @RequestMapping("/home")
     public ModelAndView showHomePage(String direction,
                                      String property,
-                                     @Nullable @RequestParam("page") Integer offset){
+                                     @Nullable @RequestParam("offset") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
             return modelAndView;
         }
 
-        Staff staff = mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff"));
+        StaffDto staff = (StaffDto) session.getAttribute("staff");
 
         offset = (offset == null) ? 1 : offset;
 
@@ -91,9 +95,11 @@ public class StaffController {
         }
 
         long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.APPROVED, 4);
-        long totalMeetings = service.getOffMeetingService().getTotalOffMeetings(staff, Status.APPROVED);
+        long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.APPROVED);
 
         modelAndView.addObject("meetingList", meetingList);
+        modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.addObject("totalMeetings", totalMeetings);
@@ -103,9 +109,41 @@ public class StaffController {
     }
 
     @RequestMapping("/home/sorted-by-{property}-{direction}")
-    public ModelAndView showHomePageSortedNext(@RequestParam("page") int offset,
+    public ModelAndView showHomePageSortedNext(@RequestParam("offset") int offset,
                                                @PathVariable String property,
                                                @PathVariable String direction){
+        return showHomePage(direction, property, offset);
+    }
+
+    @RequestMapping("/home/action={action}")
+    public ModelAndView showHomePageAction(@PathVariable String action,
+                                           @RequestParam("meetingId") String id,
+                                           @RequestParam("property") String property,
+                                           @RequestParam("direction") String direction,
+                                           @Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        OffMeeting offMeeting = service.getOffMeetingService().findById(id);
+
+        if(offMeeting == null){
+            return modelAndView;
+        }
+
+        if(action.equalsIgnoreCase("fail")){
+            offMeeting.setStatus(Status.FAILED);
+        }else if(action.equalsIgnoreCase("succeed")){
+            offMeeting.setStatus(Status.SUCCESS);
+        }
+
+        service.getOffMeetingService().save(offMeeting);
+
+        property = property.isEmpty() ? null : property;
+        direction = direction.isEmpty() ? null : direction;
+
         return showHomePage(direction, property, offset);
     }
 
@@ -131,7 +169,7 @@ public class StaffController {
             offMeetingList = service.getOffMeetingService().getOffMeetingsPerPage(PageRequest.of(offset - 1, 10));
         }
 
-        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetings();
+        long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus();
         long lastOffset = service.getOffMeetingService().getLastOffset(10);
 
         modelAndView.addObject("offMeetingList", offMeetingList);
@@ -154,7 +192,7 @@ public class StaffController {
 
     @RequestMapping("/meeting-requests/action={action}")
     public ModelAndView respondMeetingRequest(@PathVariable String action,
-                                              @RequestParam("id") String id,
+                                              @RequestParam("id") String meetingId,
                                               @RequestParam("property") String property,
                                               @RequestParam("direction") String direction,
                                               @RequestParam("offset") Integer offset){
@@ -164,7 +202,7 @@ public class StaffController {
             return modelAndView;
         }
 
-        OffMeeting offMeeting = service.getOffMeetingService().findById(id);
+        OffMeeting offMeeting = service.getOffMeetingService().findById(meetingId);
 
         if(offMeeting == null){
             return showPostRequestList(direction,property,offset);
@@ -261,19 +299,6 @@ public class StaffController {
         return showPostRequestList(direction,property,offset);
     }
 
-    @RequestMapping("/create-invoice")
-    public ModelAndView showCreateInvoicePage(){
-        ModelAndView modelAndView = new ModelAndView("views/user/login");
-
-        if(!isAuthenticated()){
-            return modelAndView;
-        }
-
-        modelAndView.setViewName("views/staff/create-invoice");
-
-        return modelAndView;
-    }
-
     @RequestMapping("/user-details/{id}")
     public ModelAndView viewUserDetails(@PathVariable String id,
                                         @Nullable @RequestParam("mOffset") Integer mOffset,
@@ -287,14 +312,18 @@ public class StaffController {
         mOffset = (mOffset == null) ? 1 : mOffset;
         pOffset = (pOffset == null) ? 1 : pOffset;
 
-        ClientDto clientDto = service.getClientService().findById(id);
-        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(clientDto, PageRequest.of(mOffset - 1, 3));
-        List<PostDto> postsByClient = service.getPostService().getPostsByClient(clientDto, PageRequest.of(pOffset - 1, 3));
-        long lastMOffset = service.getOffMeetingService().getLastOffset(clientDto, 3);
-        long lastPOffset = service.getPostService().getLastOffset(clientDto, 3);
-        modelAndView.addObject("client", clientDto);
+        ClientDto client = service.getClientService().findById(id);
+        List<OffMeetingDto> offMeetingsByClient = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(mOffset - 1, 3));
+        List<PostDto> postsByClient = service.getPostService().getPostsByClient(client, PageRequest.of(pOffset - 1, 3));
+        long lastMOffset = service.getOffMeetingService().getLastOffset(client, 3);
+        long lastPOffset = service.getPostService().getLastOffset(client, 3);
+        long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByClient(client);
+        long totalPosts = service.getPostService().getTotalPostRequests(client);
+        modelAndView.addObject("client", client);
         modelAndView.addObject("offMeetingList", offMeetingsByClient);
         modelAndView.addObject("postList", postsByClient);
+        modelAndView.addObject("totalMeetings", totalMeetings);
+        modelAndView.addObject("totalPosts", totalPosts);
         modelAndView.addObject("mOffset", mOffset);
         modelAndView.addObject("pOffset", pOffset);
         modelAndView.addObject("lastMOffset", lastMOffset);
@@ -304,16 +333,61 @@ public class StaffController {
         return modelAndView;
     }
 
-    @RequestMapping("/user-details/{id}/meeting-requests-page={mOffset}")
-    public ModelAndView viewUserDetailsPagedByMeetingRequest(@PathVariable String id,
-                                                             @PathVariable Integer mOffset){
-        return viewUserDetails(id, mOffset, null);
+    @RequestMapping("/create-invoice")
+    public ModelAndView showCreateInvoicePage(@Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        offset = (offset == null) ? 1 : offset;
+
+        StaffDto staff = (StaffDto) session.getAttribute("staff");
+        List<OffMeetingDto> offMeetingList = service.getOffMeetingService().findOffMeetingsByStaffAndStatus(staff, Status.SUCCESS, PageRequest.of(offset - 1, 5));
+        long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.SUCCESS, 5);
+        long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.SUCCESS);
+
+        modelAndView.addObject("offMeetingList", offMeetingList);
+        modelAndView.addObject("lastOffset", lastOffset);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("totalMeetings", totalMeetings);
+        modelAndView.setViewName("views/staff/create-invoice-test");
+
+        return modelAndView;
     }
 
-    @RequestMapping("/user-details/{id}/post-requests-page={pOffset}")
-    public ModelAndView viewUserDetailsPagedByPostRequest(@PathVariable String id,
-                                                          @PathVariable Integer pOffset){
-        return viewUserDetails(id, null, pOffset);
+    @RequestMapping("/create-invoice/create/{id}")
+    public ModelAndView createInvoiceConfirm(@PathVariable String id,
+                                             @Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        OffMeeting meeting = service.getOffMeetingService().findById(id);
+
+        Invoice invoice = new Invoice();
+        invoice.setClient(meeting.getClient());
+        invoice.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
+        invoice.setCar(null);
+        invoice.setCreateDate(LocalDate.now());
+        invoice.setCreateTime(LocalTime.now());
+        invoice.setStatus(null);
+        invoice.setTotal(0L);
+        invoice.setOtherInformation(Util.getRandText(10));
+        invoice.setTax("10%");
+
+        service.getInvoiceService().save(invoice);
+
+        meeting.setStatus(Status.DONE);
+
+        service.getOffMeetingService().save(meeting);
+
+
+        return showCreateInvoicePage(offset);
+
     }
 
     @RequestMapping("/create-invoice/create")
@@ -374,7 +448,6 @@ public class StaffController {
 
         return modelAndView;
     }
-
 
     @RequestMapping("/log-out")
     public ModelAndView logout(){

@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -23,6 +24,10 @@ public class OffMeetingDto implements Serializable {
     private LocalTime createTime;
     private String description;
     private String status;
+
+    public String getTimeStatus(){
+        return LocalDateTime.of(meetingDate, meetingTime).isAfter(LocalDateTime.now()) ? "Up coming" : "Past";
+    }
 
     public String toString(){
         return client.getName() + staff.getName() + meetingDate + description + getStatus();

@@ -87,8 +87,8 @@
                   <tr>
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap align-middle text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
-                    <th class="sort align-middle" scope="col" style="width:15%;">Car Name</th>
-                    <th class="sort align-middle" scope="col" style="width:30%;">Description</th>
+                    <th class="sort align-middle flex-wrap" scope="col" style="width:15%;">Car Name</th>
+                    <th class="sort align-middle" scope="col" style="width:35%;">Description</th>
                       <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
                           <a class="link-dark no-underline" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="@{'/staff/post-requests/sorted-by-postDate-' + ${direction}}" th:text="'Created At'"/>
                       </th>

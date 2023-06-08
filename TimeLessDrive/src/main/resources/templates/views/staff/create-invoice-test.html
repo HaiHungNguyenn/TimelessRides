@@ -49,9 +49,9 @@
                 <div class="container-small d-flex flex-between-center" data-navbar="data-navbar">
                     <ul class="navbar-nav justify-content-end align-items-center">
                         <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/home">Home</a></li>
-                        <li class="nav-item active" data-nav-item="data-nav-item"><a class="nav-link fs-md-1" href="/staff/meeting-requests">Meeting Requests</a></li>
+                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/meeting-requests">Meeting Requests</a></li>
                         <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/post-requests">Post Requests</a></li>
-                        <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/create-invoice">Create Invoice</a></li>
+                        <li class="nav-item active" data-nav-item="data-nav-item"><a class="nav-link fs-md-1" href="/staff/create-invoice">Create Invoice</a></li>
                         <li class="nav-item" data-nav-item="data-nav-item"><a class="nav-link fs-md-0" href="/staff/log-out">Log Out</a></li>
                     </ul>
                 </div>
@@ -61,7 +61,7 @@
 
       <section class="pt-5 pb-9">
         <div class="container-small cart">
-          <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalOffMeetings} + ' requests)'"></span></h2>
+          <h2 class="mb-5">Successful Meetings<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalMeetings} + ' meetings)'"></span></h2>
           <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
@@ -70,67 +70,64 @@
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
                     <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
+                        <a class="link-dark hover-text-decoration-none" th:text="'Meeting Date'"/>
                     </th>
-                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createDate-' + ${direction}" th:text="'Created At'"/>
-                    </th>
-                    <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
-                    <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>
+                    <th class="sort align-middle" scope="col" style="width:45%;">Description</th>
+<!--                    <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>-->
                     <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
                   </tr>
                 </thead>
                 <tbody class="list" id="profile-wishlist-table-body">
-                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="offMeeting, iStat: ${offMeetingList}">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="meeting, iStat: ${offMeetingList}">
                     <td class="align-middle white-space-nowrap ps-0 py-0">
-                      <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
+                      <div class="text-center" th:with="count=(${(offset - 1) * 5 +  iStat.count})" th:text="${count}"/>
                     </td>
-                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
-                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getMeetingDate()}"/>
-                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateDate()}"/>
-                    <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
-                    <td class="price align-middle text-900 fs--1 fw-semi-bold text-center " >
-                        <span class="badge badge-phoenix badge-phoenix-info" th:text="${offMeeting.getStatus()}"/>
-                    </td>
+                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{'/staff/user-details/' + ${meeting.getClient().getId()}}" th:text="${meeting.getClient().getName()}"/></td>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${meeting.getMeetingDate()}"/>
+<!--                    <td class="color align-middle white-space-nowrap fs&#45;&#45;1 text-900"/>-->
+                    <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${meeting.getDescription()}" />
+<!--                    <td class="price align-middle text-900 fs&#45;&#45;1 fw-semi-bold text-center " >-->
+<!--                        <span class="badge badge-phoenix badge-phoenix-info" />-->
+<!--                    </td>-->
                     <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                        <a class="hover-text-decoration-none" th:href="@{/staff/meeting-requests/action=decline(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}" >
-                            <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
+                        <a class="hover-text-decoration-none" th:href="@{'/staff/create-invoice/create/' + ${meeting.getId()} (offset = ${offset})}">
+                            <button class="btn btn-success hover-text-600 fs-md--1">Create invoice</button>
                         </a>
-                        <a class="hover-text-decoration-none" th:href="@{/staff/meeting-requests/action=approve(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}">
-                            <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
-                        </a>
+<!--                        <a class="hover-text-decoration-none">-->
+<!--                            <button class="btn btn-primary hover-text-600 fs&#45;&#45;2">Approve</button>-->
+<!--                        </a>-->
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
                 <nav aria-label="Page navigation example" class="pt-3">
-                    <ul class="pagination" th:with="url=(${property == null} ? '/staff/meeting-requests' : '/staff/meeting-requests/sorted-by-' + ${property} + '-' + ${direction})">
+                    <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" aria-label="Previous">
+                            <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=1)}">
                                 <span aria-hidden="true">&laquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="${url} + ${offset - 1}" aria-label="Previous">
+                            <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${offset - 1})}">
                                 <span aria-hidden="true">&lsaquo;</span>
                                 <span class="sr-only">Previous</span>
                             </a>
                         </li>
                         <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 1}"><a class="page-link" th:text="${offset+1}" th:href="@{${url} (page = ${offset + 1})}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 2}"><a class="page-link" th:text="${offset+2}" th:href="@{${url} (page = ${offset + 2})}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 3}"><a class="page-link" th:text="${offset+3}" th:href="@{${url} (page = ${offset + 3})}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 4}"><a class="page-link" th:text="${offset+4}" th:href="@{${url} (page = ${offset + 4})}"/></li>
+                        <li class="page-item" th:if="${lastOffset >= offset + 1}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 1})}" th:text="${offset + 1}"/></li>
+                        <li class="page-item" th:if="${lastOffset >= offset + 2}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 2})}" th:text="${offset + 2}"/></li>
+                        <li class="page-item" th:if="${lastOffset >= offset + 3}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 3})}" th:text="${offset + 3}"/></li>
+                        <li class="page-item" th:if="${lastOffset >= offset + 4}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 4})}" th:text="${offset + 4}"/></li>
                         <li class="page-item">
-                            <a class="page-link" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" aria-label="Next">
+                            <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${offset + 1})}">
                                 <span class="sr-only">Next</span>
                                 <span aria-hidden="true">&rsaquo;</span>
                             </a>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" aria-label="Next">
+                            <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${lastOffset})}">
                                 <span class="sr-only">Next</span>
                                 <span aria-hidden="true">&raquo;</span>
                             </a>

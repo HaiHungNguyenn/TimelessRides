@@ -65,8 +65,7 @@ public class PostService {
     }
 
     public long getLastOffset(ClientDto clientDto, int size) {
-        int totalElements =  postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).size();
-        return (long) Math.ceil((double) totalElements / size);
+        return postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).getTotalPages();
     }
 
     public void save(Post post) {
@@ -75,5 +74,9 @@ public class PostService {
 
     public Post findById(String id) {
         return postRepository.findById(id).orElse(null);
+    }
+
+    public long getTotalPostRequests(ClientDto client) {
+        return postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(client),PageRequest.of(0, 1)).getTotalElements();
     }
 }

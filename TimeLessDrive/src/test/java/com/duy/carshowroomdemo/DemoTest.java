@@ -54,7 +54,7 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
-        int cars = 5;
+        int cars = 100;
         Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
@@ -401,10 +401,86 @@ public class DemoTest {
 
         offMeetingRepository.findAll().forEach((x) -> {
             x.setStatus(Status.PENDING);
-            x.setStatus(null);
+            x.setStaff(null);
+            x.setMeetingTime(LocalTime.now());
+            x.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 4,1), LocalDate.of(2023, 8,1)));
 //            x.setCreateTime(LocalTime.now());
             offMeetingRepository.save(x);
         });
+    }
+
+    @Test
+    public void testNewTable(){
+//        Staff staff = staffRepository.findAll().get(0);
+//        OffMeeting offMeeting = offMeetingRepository.findAll().get(0);
+//
+        Client client = clientRepository.findByEmail("lynnette.hansen@example.com").orElse(null);
+
+        if(client != null){
+            if(client.getOffMeetingList() == null){
+                client.setOffMeetingList(new ArrayList<>());
+            }
+            if (client.getPostList() == null){
+                client.setPostList(new ArrayList<>());
+            }
+        }else {
+            return;
+        }
+
+        for (int i = 0; i < 20; i++) {
+            OffMeeting offMeeting = new OffMeeting();
+//            offMeeting.setStaff(staffList.get(Util.getRandInt(staffList.size())));
+            offMeeting.setClient(client);
+            offMeeting.setMeetingDate(Util.getRandDate(LocalDate.of(2023, 7,1), LocalDate.of(2023, 9,1)));
+            offMeeting.setCreateDate(Util.getRandDate(LocalDate.of(2023, 5,20), LocalDate.now()));
+            offMeeting.setDescription(Util.getRandText(30));
+            offMeeting.setStatus("Not yet");
+            client.getOffMeetingList().add(offMeeting);
+        }
+
+        List<Showroom> showroomList = showroomRepository.findAll();
+
+        for (int i = 0; i < 20; i++) {
+            Car car = new Car();
+            CarDescription carDescription = new CarDescription();
+            car.setName("Car test " + i);
+
+            carDescription.setLicensePlate(Util.getRandLicensePlate());
+            carDescription.setOthers(Util.getRandText(15));
+            carDescription.setCar(car);
+            car.setShowroom(showroomList.get(Util.getRandInt(showroomList.size())));
+            car.setPrice(Util.getRandPrice());
+            car.setCarDescription(carDescription);
+            car.setStatus("Available");
+
+            Post post = new Post();
+                post.setCar(car);
+                post.setClient(client);
+                post.setDescription(Util.getRandText(30));
+                post.setStatus("Pending");
+                post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
+                client.getPostList().add(post);
+        }
+
+        clientRepository.save(client);
+    }
+
+    @Test
+    public void test(){
+        Car car1 = new Car();
+        car1.setName("BMW X5 xDrive 290 kW");
+//        car1.setId();
+        Client client = clientRepository.findById("905d8b7a-8a6e-4a49-8fb0-849da3e7c51e").orElse(null);
+
+
+        Post post = new Post();
+        post.setClient(client);
+        post.setCar(car1);
+        postRepository.save(post);
+
+//        carRepository.save(car1);
+//        Car car = carRepository.findByName("BMW X5 xDrive 290 kW");
+//        System.out.println(car.getName());
     }
 
 }
