@@ -54,7 +54,7 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
-        int cars = 100;
+        int cars = 30;
 //        Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();

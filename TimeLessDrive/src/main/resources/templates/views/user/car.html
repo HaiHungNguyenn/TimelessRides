@@ -162,25 +162,33 @@
                         </div>
                         <div class="car__filter">
                             <h5>Car Filter</h5>
-                            <form action="#">
-                                <select>
+                            <form action="#" >
+                                <select class="mySelect" onchange="handleSelectChange(this)">
                                     <option data-display="Brand">Select Brand</option>
-                                    <option value="">Acura</option>
-                                    <option value="">Audi</option>
-                                    <option value="">Bentley</option>
-                                    <option value="">BMW</option>
-                                    <option value="">Bugatti</option>
+                                    <div th:each="car:${session.staticList}">
+                                        <option th:value="'searchBy-make-'+${car.getCarDescription().getMake()}" th:text="${car.getCarDescription().getMake()}"></option>
+                                    </div>
+<!--                                    <option value="">Audi</option>-->
+<!--                                    <option value="">Bentley</option>-->
+<!--                                    <option value="">BMW</option>-->
+<!--                                    <option value="">Bugatti</option>-->
                                 </select>
-                                <select>
+                                <select class="mySelect" onchange="handleSelectChange(this)">
                                     <option data-display="Model">Select Model</option>
-                                    <option value="">Q3</option>
-                                    <option value="">A4 </option>
-                                    <option value="">AVENTADOR</option>
+                                    <div th:each="car:${session.staticList}">
+                                        <option th:value="'searhBy-model-'+${car.getCarDescription().getModel()}" th:text="${car.getCarDescription().getModel()}"></option>
+                                    </div>
+<!--                                    <option value="">Q3</option>-->
+<!--                                    <option value="">A4 </option>-->
+<!--                                    <option value="">AVENTADOR</option>-->
                                 </select>
-                                <select>
-                                    <option value="">Body Style</option>
-                                    <option value="">Option 1</option>
-                                    <option value="">Option 2</option>
+                                <select class="mySelect" onchange="handleSelectChange(this)">
+                                    <div th:each="car:${session.staticList}">
+                                        <option th:value="'searhBy-body-'+${car.getCarDescription().getBody()}" th:text="${car.getCarDescription().getBody()}"></option>
+                                    </div>
+<!--                                    <option value="">Body Style</option>-->
+<!--                                    <option value="">Option 1</option>-->
+<!--                                    <option value="">Option 2</option>-->
                                 </select>
                                 <select>
                                     <option value="">Condition</option>
@@ -205,9 +213,11 @@
                                     <option value="">BS4</option>
                                     <option value="">BS5</option>
                                     <option value="">BS6</option>
+                                    <option value="">BS6</option>
                                 </select>
-                                <select>
+                                <select >
                                     <option value="">Colors</option>
+<!--                                    <option th:value="" th:text="${car.getCarDescription().getBodyColor()}" />-->
                                     <option value="">Red</option>
                                     <option value="">Blue</option>
                                     <option value="">Black</option>
@@ -418,6 +428,20 @@
     <script src="../../user_assets/js/jquery.slicknav.js"></script>
     <script src="../../user_assets/js/owl.carousel.min.js"></script>
     <script src="../../user_assets/js/main.js"></script>
+    <script>
+        function separateItems(string) {
+            var items = string.split("-").map(item => item.trim());
+            var [item1, item2, item3] = items;
+            return [item1, item2, item3];
+        }
+        function handleSelectChange(selectElement) {
+            var selectedValue = selectElement.value;
+            var [item1, properties, value] = separateItems(selectedValue);
+            var  linkToController = "/car/searchCarBy-"+properties+"-"+value+"";
+            window.location.href=linkToController;
+
+        }
+    </script>
 </body>
 
 </html>

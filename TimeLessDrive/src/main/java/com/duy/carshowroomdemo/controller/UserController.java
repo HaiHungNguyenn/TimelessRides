@@ -78,6 +78,55 @@ public class UserController {
         long lastOffSet = service.getCarService().getLastOffset(9);
 
         modelAndView.addObject("carlist",carList);
+        session.setAttribute("staticList",carList);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
+        modelAndView.addObject("lastOffset", lastOffSet);
+        modelAndView.setViewName("views/user/car");
+        return modelAndView;
+    }
+
+    public ModelAndView showCarListWithAvailableList(String direction,
+                                    String property,
+                                    @Nullable @RequestParam("page") Integer offset,
+                                                     String field , String value){
+        ModelAndView modelAndView = new ModelAndView();
+
+
+        offset = (offset == null) ? 1: offset;
+
+        List<CarDto> carList = new ArrayList<>();
+        switch(field){
+            case"make":
+                if(property != null && direction != null){
+                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    carList = service.getCarDescriptionService().getSearchedCarByMakeSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                }else{
+                    carList = service.getCarDescriptionService().getSearchedCarByMakePerPage(value,PageRequest.of(offset - 1, 9));
+                }
+                break;
+            case"model":
+                if(property != null && direction != null){
+                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    carList = service.getCarDescriptionService().getSearchedCarByModelSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                }else{
+                    carList = service.getCarDescriptionService().getSearchedCarByModelPerPage(value,PageRequest.of(offset - 1, 9));
+                }
+                break;
+            case"body":
+                if(property != null && direction != null){
+                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    carList = service.getCarDescriptionService().getSearchedCarByBodySortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                }else{
+                    carList = service.getCarDescriptionService().getSearchedCarByBodyPerPage(value,PageRequest.of(offset - 1, 9));
+                }
+                break;
+
+        }
+        long lastOffSet = service.getCarDescriptionService().getLastOffset(value,field,9);
+
+        modelAndView.addObject("carlist",carList);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);
@@ -94,16 +143,26 @@ public class UserController {
         return showCarList(direction, property, offset);
 
     }
+    @RequestMapping("/car/searchCarBy-{properties}-{value}")
+    public ModelAndView searchCarByProperties(@PathVariable String properties,
+                                              @PathVariable String value){
+        List<CarDto> carList = new ArrayList<>();
+//         switch (properties){
+//             case"make":
+//                 carList = service.getCarDescriptionService().findCarByMake(value);
+//                 break;
+//             case"model":
+//                 carList = service.getCarDescriptionService().findCarByModel(value);
+//                 break;
+//             case"body":
+//                 carList = service.getCarDescriptionService().findCarByBodyStyle(value);
+//
+//         }
 
 
+        return showCarListWithAvailableList(null,null,null,properties,value);
 
-
-
-
-
-
-
-
+    }
 
 
 
