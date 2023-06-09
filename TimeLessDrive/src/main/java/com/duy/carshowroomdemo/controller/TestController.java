@@ -85,8 +85,16 @@ public class TestController {
         response.getOutputStream().close();
     }
 
+
     @RequestMapping("/car-details")
     public String showCarDetails(){
         return "views/staff/car-details";
     }
+
+    @RequestMapping("/test-buy-package")
+    public String testBuyPackage(){
+        return "views/BuyPackage";
+
+    }
 }
+

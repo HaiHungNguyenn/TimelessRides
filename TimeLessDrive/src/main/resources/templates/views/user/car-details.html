@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx"  dir="ltr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -24,27 +24,14 @@
     <link rel="stylesheet" href="../../user_assets/css/splide-sea-green.min.css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
 
-    <link href="https://cdn01.jotfor.ms/static/formCss.css?3.3.42293" rel="stylesheet" type="text/css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn02.jotfor.ms/css/styles/nova.css?3.3.42293" />
 
-    <link type="text/css" rel="stylesheet"
-          href="https://cdn03.jotfor.ms/themes/CSS/566a91c2977cdfcd478b4567.css?v=3.3.42293" />
-    <link type="text/css" rel="stylesheet"
-          href="https://cdn01.jotfor.ms/css/styles/payment/payment_feature.css?3.3.42293" />
-
-
-    <script src="https://cdn02.jotfor.ms/static/prototype.forms.js?3.3.42293" type="text/javascript"></script>
-    <script src="https://cdn03.jotfor.ms/static/jotform.forms.js?3.3.42293" type="text/javascript"></script>
-    <script src="https://cdn01.jotfor.ms/js/vendor/jquery-1.8.0.min.js?v=3.3.42293" type="text/javascript"></script>
-    <script defer src="https://cdn02.jotfor.ms/js/vendor/maskedinput.min.js?v=3.3.42293"
-            type="text/javascript"></script>
-    <script defer src="https://cdn03.jotfor.ms/js/vendor/jquery.maskedinput.min.js?v=3.3.42293"
-            type="text/javascript"></script>
-    <script src="https://cdn01.jotfor.ms/js/payments/validategateways.js?v=3.3.42293" type="text/javascript"></script>
-    <script src="https://cdn01.jotfor.ms/s/umd/b7f9bb16e8b/for-appointment-field.js?v=3.3.42293"
-            type="text/javascript"></script>
     <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
     <script src="../../user_assets/js/booking-meeting.js"></script>
+
+    <link rel="stylesheet" href="../../user_assets/css/calendar-style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet" />
 </head>
 
 <body>
@@ -418,94 +405,65 @@
 <!-- Search End -->
 <!-- Start pop up form -->
 <div class="pop-up">
-    <form class="jotform-form" action="https://submit.jotform.com/submit/231493697523465" method="post"
-
-          name="form_231493697523465" id="231493697523465" accept-charset="utf-8" autocomplete="on"><input
-            type="hidden" name="formID" value="231493697523465" /><input type="hidden" id="JWTContainer"
-
-                                                                   value="" /><input type="hidden" id="cardinalOrderNumber" value="" />
-        <form action="/print_meeting">
-
-
-            <div role="main" class="form-all" style="background: white;">
-                <ul class="form-section page-section">
-                    <li id="cid_23" class="form-input-wide" data-type="control_head">
-                        <div class="form-header-group  header-default">
-                            <div class="header-text httal htvam">
-                                <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION
-                                </h2>
-                                <div class="esc-button">&times;</div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="form-line" data-type="control_appointment" id="id_24"><label
-                            class="form-label form-label-top" id="label_24" for="input_24"> Select an Appointment
-                        Date
+    <form action="/print_meeting">
+        <div role="main" class="form-all" style="background: white;">
+            <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
+            <div class="esc-button">&times;</div>
+            <ul>
+                <li class="form-line">
+                    <label class="form-label form-label-top" for="appointment">
+                        Select an Appointment Date
                     </label>
-                        <div id="cid_24" class="form-input-wide">
-                            <div id="input_24" class="appointmentFieldWrapper jfQuestion-fields"><input
-                                    class="appointmentFieldInput" name="q24_selectAn[implementation]" value="new"
-                                    id="input_24implementation" /><input class="appointmentFieldInput "
-                                                                         name="q24_selectAn[date]" id="input_24_date" data-timeformat="" /><input
-                                    class="appointmentFieldInput" name="q24_selectAn[duration]" value="60"
-                                    id="input_24_duration" /><input class="appointmentFieldInput"
-                                                                    name="q24_selectAn[timezone]" value="Asia/Bangkok (GMT+07:00)"
-                                                                    id="input_24_timezone" />
-                                <div class="appointmentField"></div>
+                    <div class="row">
+                        <div class="calendar col-sm-12 col-md-6">
+                            <div class="month">
+                                <i class="fas fa-angle-left prev"></i>
+                                <div class="date">
+                                    <h1></h1>
+                                    <p></p>
+                                </div>
+                                <i class="fas fa-angle-right next"></i>
                             </div>
-                        </div>
-                    </li>
-                    <li class="form-line jf-required" data-type="control_phone" id="id_32"><label
-                            class="form-label form-label-left form-label-auto" id="label_32" for="input_32_full">
-                        Phone
-                        Number<span class="form-required">*</span> </label>
-                        <div id="cid_32" class="form-input jf-required"> <span class="form-sub-label-container"
-                                                                               style="vertical-align:top"><input type="tel" id="input_32_full"
-                                                                                                                 name="q32_phoneNumber32[full]" data-type="mask-number"
-                                                                                                                 class="mask-phone-number form-textbox validate[required, Fill Mask]"
-                                                                                                                 data-defaultvalue="" autoComplete="section-input_32 tel-national" data-masked="true"
-                                                                                                                 value="" data-component="phone" aria-labelledby="label_32" required="" /></span>
-                        </div>
-                    </li>
-                    <li class="form-line" data-type="control_textarea" id="id_31"><label
-                            class="form-label form-label-left form-label-auto" id="label_31" for="input_31"> Other
-                        requirements </label>
-                        <div id="cid_31" class="form-input"> <textarea id="input_31" class="form-textarea"
-                                                                       name="q31_otherRequirements" cols="40" rows="6" data-component="textarea"
-                                                                       aria-labelledby="label_31"></textarea> </div>
-                    </li>
-                    <li class="form-line" data-type="control_button" id="id_2">
-                        <div id="cid_2" class="form-input-wide">
-                            <div data-align="center"
-                                 class="form-buttons-wrapper form-buttons-center   jsTest-button-wrapperField">
-                                <button id="input_2" type="submit"
-                                        class="form-submit-button submit-button jf-form-buttons jsTest-submitField"
-                                        data-component="button" data-content="">Submit</button>
+                            <div class="weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
                             </div>
+                            <div class="days"></div>
                         </div>
-                    </li>
-                    <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
-                </ul>
-            </div>
-        </form>
-        <script>
-            JotForm.showJotFormPowered = "new_footer";
-        </script>
-        <script>
-            JotForm.poweredByText = "Powered by Jotform";
-        </script><input type="hidden" class="simple_spc" id="simple_spc" name="simple_spc"
-                        value="231493697523465" />
-        <script type="text/javascript">
-            var all_spc = document.querySelectorAll("form[id='231493697523465'] .si" + "mple" + "_spc");
-            for (var i = 0; i < all_spc.length; i++) {
-                all_spc[i].value = "231493697523465-231493697523465";
-            }
-        </script>
+                        <div class="slots col-sm-12 col-md-5" id="slots">
 
+                        </div>
+                    </div>
+                </li>
+                <li class="form-line">
+                    <label class="form-label form-label-top" for="phone-number">
+                        Phone Number
+                    </label>
+                    <input type="text" id="phone-number">
+                </li>
+                <li class="form-line">
+                    <label class="form-label form-label-top" for="other">
+                        Other
+                    </label>
+                    <textarea type="text" id="other"></textarea>
+                </li>
+                <li class="form-line">
+                    <input type="submit" value="Submit">
+                </li>
+                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+            </ul>
+        </div>
     </form>
 </div>
+
 <!-- End pop up form -->
 <!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../user_assets/js/bootstrap.min.js"></script>
 <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
 <script src="../../user_assets/js/jquery-ui.min.js"></script>
@@ -516,7 +474,7 @@
 <script src="../../user_assets/js/splide.min.js"></script>
 <script src="../../user_assets/js/main.js"></script>
 <script src="../../user_assets/js/booking-show.js"></script>
+<script src="../../user_assets/js/calendar-script.js"></script>
 </body>
 
 </html>
-<script type="text/javascript">JotForm.ownerView = true;</script>

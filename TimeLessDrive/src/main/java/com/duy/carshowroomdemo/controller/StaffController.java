@@ -35,8 +35,7 @@ public class StaffController {
     @Autowired
     private HttpSession session;
     private final MapperManager mapperManager = new MapperManager();
-    @Autowired
-    private OffMeetingRepository offMeetingRepository;
+
 
     public boolean isAuthenticated(){
         return (session.getAttribute("staff") != null);
