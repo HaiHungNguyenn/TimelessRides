@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.dto;
 
 import com.duy.carshowroomdemo.entity.CarDescription;
 import lombok.*;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Cacheable("carDescription")
 public class CarDescriptionDto implements Serializable {
     private String id;
     private String make;

@@ -459,7 +459,20 @@ public class StaffController {
         return modelAndView;
     }
 
+    @RequestMapping("/car-details/{id}")
+    public ModelAndView showCarDetails(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        CarDto car = service.getCarService().findCarById(id);
+        modelAndView.addObject("car", car);
+        modelAndView.setViewName("views/staff/car-details");
+
+        return modelAndView;
+    }
 
 
     // change password

@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.dto;
 
 import com.duy.carshowroomdemo.entity.Feedback;
 import lombok.*;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Cacheable("feedback")
 public class FeedbackDto implements Serializable {
     private String id;
     private LocalDate createdAt;

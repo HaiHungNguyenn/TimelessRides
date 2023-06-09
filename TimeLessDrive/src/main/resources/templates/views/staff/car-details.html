@@ -97,40 +97,14 @@
           <div class="row g-0 g-md-4 g-xl-6">
             <div class="col-md-5 col-lg-5 col-xl-6">
                 <div class="slider">
-                    <input type="radio" name="slide_switch" id="id1"/>
-                    <label for="id1">
-                        <img src="http://thecodeplayer.com/uploads/media/3yiC6Yq.jpg" width="100"/>
-                    </label>
-                    <img src="http://thecodeplayer.com/uploads/media/3yiC6Yq.jpg"/>
-
-                    <!--Lets show the second image by default on page load-->
-                    <input type="radio" name="slide_switch" id="id2" checked="checked"/>
-                    <label for="id2">
-                        <img src="http://thecodeplayer.com/uploads/media/40Ly3VB.jpg" width="100"/>
-                    </label>
-                    <img src="http://thecodeplayer.com/uploads/media/40Ly3VB.jpg"/>
-
-                    <input type="radio" name="slide_switch" id="id3"/>
-                    <label for="id3">
-                        <img src="http://thecodeplayer.com/uploads/media/00kih8g.jpg" width="100"/>
-                    </label>
-                    <img src="http://thecodeplayer.com/uploads/media/00kih8g.jpg"/>
-
-                    <input type="radio" name="slide_switch" id="id4"/>
-                    <label for="id4">
-                        <img src="http://thecodeplayer.com/uploads/media/2rT2vdx.jpg" width="100"/>
-                    </label>
-                    <img src="http://thecodeplayer.com/uploads/media/2rT2vdx.jpg"/>
-
-                    <input type="radio" name="slide_switch" id="id5"/>
-                    <label for="id5">
-                        <img src="http://thecodeplayer.com/uploads/media/8k3N3EL.jpg" width="100"/>
-                    </label>
-                    <img src="http://thecodeplayer.com/uploads/media/8k3N3EL.jpg"/>
+                    <th:block th:if="${car.getCarImageList() != null}" th:each="image, iStat : ${car.getCarImageList()}">
+                        <input type="radio" name="slide_switch" th:id="'id' + ${iStat.count}"/>
+                        <label th:for="'id' + ${iStat.count}">
+                            <img th:src="'/image-resolver/' + ${image.getId()}" width="100"/>
+                        </label>
+                        <img th:src="'/image-resolver/' + ${image.getId()}"/>
+                    </th:block>
                 </div>
-
-                <!-- We will use PrefixFree - a script that takes care of CSS3 vendor prefixes
-                You can download it from http://leaverou.github.com/prefixfree/ -->
                 <script src="http://thecodeplayer.com/uploads/js/prefixfree.js" type="text/javascript"></script>
             </div>
             <div class="col-md-7 col-lg-7 col-xl-6">
@@ -143,51 +117,51 @@
                         <table style="width:100%">
                             <tr>
                                 <th>Name:</th>
-                                <td>Dacia Duster TCe 90 66 kW</td>
+                                <td th:text="${car.getName()}" />
                             </tr>
                             <tr>
                                 <th>Price:</th>
-                                <td>1199000000</td>
+                                <td th:text="${car.getPrice()}"/>
                             </tr>
                             <tr>
                                 <th>Status:</th>
-                                <td>Available</td>
+                                <td th:text="${car.getStatus()}"/>
                             </tr>
                             <tr>
                                 <th>Interior Color:</th>
-                                <td>Other interior color</td>
+                                <td th:text="${car.getCarDescription().getInteriorColor()}"/>
                             </tr>
                             <tr>
                                 <th>Interior Material:</th>
-                                <td>Other interior material</td>
+                                <td th:text="${car.getCarDescription().getInteriorMaterial()}"/>
                             </tr>
                             <tr>
                                 <th>Make:</th>
-                                <td>Dacia</td>
+                                <td th:text="${car.getCarDescription().getMake()}"/>
                             </tr>
                             <tr>
                                 <th>Model:</th>
-                                <td>Duster</td>
+                                <td th:text="${car.getCarDescription().getModel()}"/>
                             </tr>
                             <tr>
                                 <th>Body Color:</th>
-                                <td>Black</td>
+                                <td th:text="${car.getCarDescription().getBodyColor()}"/>
                             </tr>
                             <tr>
                                 <th>Body:</th>
-                                <td>SUV / offroad</td>
+                                <td th:text="${car.getCarDescription().getBody()}"/>
                             </tr>
                             <tr>
                                 <th>License Plate:</th>
-                                <td>41C58603</td>
+                                <td th:text="${car.getCarDescription().getLicensePlate()}"/>
                             </tr>
                             <tr>
                                 <th>Fuel Type:</th>
-                                <td>Petrol</td>
+                                <td th:text="${car.getCarDescription().getFuelType()}"/>
                             </tr>
                             <tr>
                                 <th>Transmission:</th>
-                                <td>Manual</td>
+                                <td th:text="${car.getCarDescription().getTransmission()}"/>
                             </tr>
 
                         </table>

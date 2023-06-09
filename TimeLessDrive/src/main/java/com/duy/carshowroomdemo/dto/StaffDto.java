@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Value;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.time.Period;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Cacheable("staff")
 public class StaffDto implements Serializable {
     private String id;
     private String role;

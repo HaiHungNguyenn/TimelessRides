@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.dto;
 import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.entity.Invoice;
 import lombok.*;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Cacheable("invoice")
 public class InvoiceDto implements Serializable {
     private String id;
     private CarDto car;

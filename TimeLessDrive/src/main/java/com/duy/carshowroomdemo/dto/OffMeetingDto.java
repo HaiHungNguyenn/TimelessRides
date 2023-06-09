@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.dto;
 
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import lombok.*;
+import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Cacheable("offMeeting")
 public class OffMeetingDto implements Serializable {
     private String id;
     private ClientDto client;

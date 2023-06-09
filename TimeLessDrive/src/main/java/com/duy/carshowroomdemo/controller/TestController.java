@@ -84,4 +84,9 @@ public class TestController {
         response.getOutputStream().write(image.getContent());
         response.getOutputStream().close();
     }
+
+    @RequestMapping("/car-details")
+    public String showCarDetails(){
+        return "views/staff/car-details";
+    }
 }
