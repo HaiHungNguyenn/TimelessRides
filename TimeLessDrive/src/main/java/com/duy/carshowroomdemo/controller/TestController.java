@@ -84,4 +84,9 @@ public class TestController {
         response.getOutputStream().write(image.getContent());
         response.getOutputStream().close();
     }
+    @RequestMapping("/test-buy-package")
+    public String testBuyPackage(){
+        return "views/BuyPackage";
+    }
 }
+

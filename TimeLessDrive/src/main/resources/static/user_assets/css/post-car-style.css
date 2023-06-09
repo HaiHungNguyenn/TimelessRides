@@ -65,7 +65,7 @@
 #myForm input[type=submit]{
     background-color: #fb2f30;
     color: white;
-    width: 25%;
+    width: 15%;
     margin: auto;
     top: 0;
     right: 0;
@@ -81,7 +81,7 @@
 #myForm input[type=submit]{
     background-color: #fb2f30;
     color: white;
-    width: 25%;
+    width: 15%;
     margin: auto;
     border: none;
     border-radius: 2px;

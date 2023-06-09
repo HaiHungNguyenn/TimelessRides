@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="684b42b3-3786-482d-a833-f57f6406ea75" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/TimeLessDrive/src/test/java/com/duy/carshowroomdemo/DemoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/TimeLessDrive/src/test/java/com/duy/carshowroomdemo/DemoTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="684b42b3-3786-482d-a833-f57f6406ea75" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/SUM23/SWP/TimelessRide_05/TimeLessDrive",
+    "last_opened_file_path": "C:/Users/Admin/OneDrive/Desktop/FPT Edu/Semester 5/SWP391/SWP Project/TimeLessDrive",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "vue.rearranger.settings.migration": "true"
   }
@@ -51,6 +49,7 @@
       <option name="presentableId" value="Default" />
       <updated>1686044129740</updated>
       <workItem from="1686044131118" duration="278000" />
+      <workItem from="1686125985006" duration="21000" />
     </task>
     <servers />
   </component>
