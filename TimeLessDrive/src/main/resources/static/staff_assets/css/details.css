@@ -8,7 +8,7 @@ body {background: #ccc;}
     /*Instead of height we will use padding*/
     padding-top: 320px; /*That helps bring the labels down*/
     
-    margin: 100px auto;
+    margin: 10px auto;
     
     /*Lets add a shadow*/
     box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
