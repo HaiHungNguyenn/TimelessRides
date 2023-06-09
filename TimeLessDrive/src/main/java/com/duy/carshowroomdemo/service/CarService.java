@@ -4,7 +4,9 @@ import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Car;
 
+import com.duy.carshowroomdemo.entity.CarDescription;
 import com.duy.carshowroomdemo.mapper.MapperManager;
+import com.duy.carshowroomdemo.repository.CarDescriptionRepository;
 import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.util.Status;
 import org.modelmapper.ModelMapper;
@@ -22,7 +24,8 @@ import java.util.Optional;
 public class CarService {
     @Autowired
     private CarRepository repository;
-//    private final ModelMapper modelMapper = new ModelMapper();
+
+    private final ModelMapper modelMapper = new ModelMapper();
     private MapperManager mapperManager = new MapperManager();
 
     public List<CarDto> getCarList(){
@@ -81,7 +84,13 @@ public class CarService {
 
     }
 
+
     public long getLastOffset(int size) {
         return repository.findAllByStatus(Status.AVAILABLE,PageRequest.of(0,size)).getTotalPages();
     }
+
+
+
+
+
 }
