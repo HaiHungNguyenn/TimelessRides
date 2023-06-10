@@ -86,6 +86,7 @@ public class LogInController {
                 client.setPassword(Util.encodePassword(password));
                 client.setJoinDate(LocalDate.now());
                 service.getClientService().save(client);
+                modelAndView.addObject("loginMess","Successfully registered");
                 modelAndView.setViewName("views/user/login");
             }
             return modelAndView;

@@ -134,6 +134,27 @@ public class UserController {
         modelAndView.setViewName("views/user/car");
         return modelAndView;
     }
+    @GetMapping("/car/bookmeeting")
+    public ModelAndView bookMeeting(@RequestParam("slot") String slot,
+                                    @RequestParam("phone") String phone,
+                                    @RequestParam("carId") String carId,
+                                    @RequestParam("description") String description){
+        String[] parts = Util.splitDateTimeString(slot);
+        OffMeeting offMeeting = new OffMeeting();
+        offMeeting.setClient((Client) session.getAttribute("client"));
+        offMeeting.setMeetingDate(Util.parseLocalDate(parts[0]));
+        offMeeting.setMeetingTime(Util.parseLocalTime(parts[1]));
+        offMeeting.setPhone(phone);
+        offMeeting.setCreateDate(LocalDate.now());
+        offMeeting.setCreateTime(LocalTime.now());
+        offMeeting.setDescription(description);
+        offMeeting.setCar(service.getCarService().findCarEntityById(carId));
+        offMeeting.setStatus(Status.PENDING);
+        service.getOffMeetingService().save(offMeeting);
+        return carDetail(carId);
+    }
+
+
 
     @RequestMapping("/car/sorted-by-{property}-{direction}")
     public ModelAndView showCarSortedPerPage(@PathVariable String direction,
@@ -147,21 +168,7 @@ public class UserController {
     public ModelAndView searchCarByProperties(@PathVariable String properties,
                                               @PathVariable String value){
         List<CarDto> carList = new ArrayList<>();
-//         switch (properties){
-//             case"make":
-//                 carList = service.getCarDescriptionService().findCarByMake(value);
-//                 break;
-//             case"model":
-//                 carList = service.getCarDescriptionService().findCarByModel(value);
-//                 break;
-//             case"body":
-//                 carList = service.getCarDescriptionService().findCarByBodyStyle(value);
-//
-//         }
-
-
         return showCarListWithAvailableList(null,null,null,properties,value);
-
     }
 
 
@@ -343,24 +350,24 @@ public class UserController {
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
-    @RequestMapping("/bookmeeting")
-    public ModelAndView book(@RequestParam("carID")String carID, @RequestParam("bookingDate") String date, @RequestParam("bookingTime") String time, @RequestParam("descrip") String descrip){
-        ModelAndView modelAndView = new ModelAndView();
-
-        OffMeeting offMeeting = new OffMeeting();
-        offMeeting.setClient((Client)session.getAttribute("client"));
-        offMeeting.setMeetingDate(LocalDate.parse(date));
-        offMeeting.setMeetingTime(LocalTime.parse(time));
-        offMeeting.setCreateDate(LocalDate.now());
-        offMeeting.setCreateTime(LocalTime.now());
-        offMeeting.setDescription(descrip);
-        offMeeting.setStatus(Status.PENDING);
-
-
-        service.getOffMeetingService().save(offMeeting);
-        modelAndView.setViewName("views/user/car");
-        return modelAndView;
-
-    }
+//    @RequestMapping("/bookmeeting")
+//    public ModelAndView book(@RequestParam("carID")String carID, @RequestParam("bookingDate") String date, @RequestParam("bookingTime") String time, @RequestParam("descrip") String descrip){
+//        ModelAndView modelAndView = new ModelAndView();
+//
+//        OffMeeting offMeeting = new OffMeeting();
+//        offMeeting.setClient((Client)session.getAttribute("client"));
+//        offMeeting.setMeetingDate(LocalDate.parse(date));
+//        offMeeting.setMeetingTime(LocalTime.parse(time));
+//        offMeeting.setCreateDate(LocalDate.now());
+//        offMeeting.setCreateTime(LocalTime.now());
+//        offMeeting.setDescription(descrip);
+//        offMeeting.setStatus(Status.PENDING);
+//
+//
+//        service.getOffMeetingService().save(offMeeting);
+//        modelAndView.setViewName("views/user/car");
+//        return modelAndView;
+//
+//    }
 
 }

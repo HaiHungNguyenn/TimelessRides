@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -220,5 +222,27 @@ public class Util {
             }
         }
         return price + price * Long.parseLong(taxNumber.toString());
+    }
+    public static LocalDate parseLocalDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return LocalDate.parse(dateString, formatter);
+    }
+    public static LocalTime parseLocalTime(String timeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return LocalTime.parse(timeString, formatter);
+    }
+    public static String[] splitDateTimeString(String dateTimeString) {
+        // Remove the parentheses and leading/trailing whitespace
+        String cleanString = dateTimeString.replace("(", "").replace(")", "").trim();
+
+        // Split the string using space as the delimiter
+        String[] parts = cleanString.split(" ");
+
+        // Extract the date, time, and time zone
+        String date = parts[1] + " " + parts[2] + " " + parts[3];
+        String time = parts[4];
+        String timeZone = parts[5];
+
+        return new String[]{date, time, timeZone};
     }
 }

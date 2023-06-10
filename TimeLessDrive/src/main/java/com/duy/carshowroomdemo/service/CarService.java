@@ -90,7 +90,7 @@ public class CarService {
     }
 
 
-
-
-
+    public Car findCarEntityById(String carId) {
+        return repository.findById(carId).get();
+    }
 }
