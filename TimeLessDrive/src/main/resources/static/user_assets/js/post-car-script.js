@@ -92,3 +92,17 @@ function uploadField() {
     }
     ;
 };
+
+function selectPackage(packageId) {
+    var selectedPackage = document.getElementById(packageId);
+    var isSelected = selectedPackage.classList.contains("selected");
+
+    var packages = document.getElementsByClassName("pricing-card");
+    for (var i = 0; i < packages.length; i++) {
+        packages[i].classList.remove("selected");
+    }
+
+    if (!isSelected) {
+        selectedPackage.classList.add("selected");
+    }
+}

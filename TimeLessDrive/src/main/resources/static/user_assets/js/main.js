@@ -242,3 +242,5 @@ document.addEventListener('DOMContentLoaded', function () {
     main.mount();
     thumbnails.mount();
 });
+
+
