@@ -1,7 +1,9 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.*;
+import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.OffMeetingService;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
@@ -36,6 +38,8 @@ public class UserController {
     @Autowired
     private HttpServletRequest request;
     public final Stack<String> stack = new Stack<>();
+
+    MapperManager mapperManager = new MapperManager();
     public boolean isAuthenticated(){
         return(session.getAttribute("client")!=null);
     }
@@ -141,14 +145,14 @@ public class UserController {
                                     @RequestParam("description") String description){
         
         if(!isAuthenticated()) {
-            ModelAndView modelAndView = new ModelAndView;
+            ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
         
         String[] parts = Util.splitDateTimeString(slot);
         OffMeeting offMeeting = new OffMeeting();
-        offMeeting.setClient((Client) session.getAttribute("client"));
+        offMeeting.setClient( mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")));
         offMeeting.setMeetingDate(Util.parseLocalDate(parts[0]));
         offMeeting.setMeetingTime(Util.parseLocalTime(parts[1]));
         offMeeting.setPhone(phone);
@@ -159,6 +163,22 @@ public class UserController {
         offMeeting.setStatus(Status.PENDING);
         service.getOffMeetingService().save(offMeeting);
         return carDetail(carId);
+    }
+    @RequestMapping("/testadd")
+    public ModelAndView test(){
+        OffMeeting offMeeting = new OffMeeting();
+        offMeeting.setClient( mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")));
+        offMeeting.setMeetingDate(LocalDate.of(2023,6,5));
+        offMeeting.setMeetingTime(LocalTime.of(22,39));
+        offMeeting.setPhone("0988763136");
+        offMeeting.setCreateDate(LocalDate.now());
+        offMeeting.setCreateTime(LocalTime.now());
+        offMeeting.setDescription("hello 123 abgh em");
+        offMeeting.setCar(service.getCarService().findCarEntityById("0ee0327a-3254-4b84-b169-7b0dda68372b"));
+        offMeeting.setStatus(Status.PENDING);
+        service.getOffMeetingService().save(offMeeting);
+        ModelAndView modelAndView = new ModelAndView("views/user/index");return modelAndView;
+
     }
 
 
@@ -220,16 +240,7 @@ public class UserController {
         modelAndView.setViewName("views/user/car-details");
         return modelAndView;
     }
-    @GetMapping ("/post_car")
-    public ModelAndView postCar(){
-        ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-        modelAndView.setViewName("views/user/post-car");
-        return modelAndView;
-    }
+
     @GetMapping ("/customer_service")
     public ModelAndView customerService(){
         ModelAndView modelAndView = new ModelAndView();

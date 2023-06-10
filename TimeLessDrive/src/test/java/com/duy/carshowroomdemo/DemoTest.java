@@ -476,11 +476,7 @@ public class DemoTest {
         clientRepository.save(client);
     }
 
-    @Test
-    public void test(){
-        System.out.println(Util.calculateTotal(10023023L, "sdfk15%"));
 
 
-    }
 
 }

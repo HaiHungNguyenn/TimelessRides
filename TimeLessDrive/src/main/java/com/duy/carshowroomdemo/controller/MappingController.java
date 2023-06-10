@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.controller;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,24 +12,33 @@ public class MappingController {
     @Autowired
     private HttpSession session;
 
-    boolean isAuthenticaed(){
+    boolean isAuthenticated(){
         return (session.getAttribute("admin") != null);
     }
 
     @RequestMapping("/admin/home")
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/index");
         return modelAndView;
     }
-
+    @GetMapping("/post_car")
+    public ModelAndView postCar(){
+        ModelAndView modelAndView = new ModelAndView();
+        if(!isAuthenticated()) {
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+        modelAndView.setViewName("views/user/post-car");
+        return modelAndView;
+    }
     @RequestMapping("/admin/mailbox")
     public ModelAndView mailBox(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/mail-box");
@@ -37,7 +47,7 @@ public class MappingController {
     @RequestMapping("/admin/staff_list")
     public ModelAndView staffList(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/staff-list");
@@ -46,7 +56,7 @@ public class MappingController {
     @RequestMapping("/admin/add_new_staff")
     public ModelAndView addStaff(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/add-new-staff");
@@ -56,7 +66,7 @@ public class MappingController {
     @RequestMapping("/admin/user-list")
     public ModelAndView userList(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/user-list");
@@ -66,7 +76,7 @@ public class MappingController {
     @RequestMapping("/admim/carmanagement")
     public ModelAndView carManagement(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/car-management");
@@ -75,7 +85,7 @@ public class MappingController {
     @RequestMapping("/admin/schedule")
     public ModelAndView scheduleManagement(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/schedule-management");
@@ -85,7 +95,7 @@ public class MappingController {
     @RequestMapping("/admin/showroom-list")
     public ModelAndView showroomManagement(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/showroom-list");
@@ -98,7 +108,7 @@ public class MappingController {
     @RequestMapping("/admin/staff-detail")
     public ModelAndView staffDetail(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/staff-profile");
@@ -107,7 +117,7 @@ public class MappingController {
     @RequestMapping("/admin/client-detail")
     public ModelAndView clientDetail(){
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticaed()){
+        if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/user-profile");
