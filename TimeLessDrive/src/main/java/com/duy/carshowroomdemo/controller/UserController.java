@@ -139,6 +139,13 @@ public class UserController {
                                     @RequestParam("phone") String phone,
                                     @RequestParam("carId") String carId,
                                     @RequestParam("description") String description){
+        
+        if(!isAuthenticated()) {
+            ModelAndView modelAndView = new ModelAndView;
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+        
         String[] parts = Util.splitDateTimeString(slot);
         OffMeeting offMeeting = new OffMeeting();
         offMeeting.setClient((Client) session.getAttribute("client"));
