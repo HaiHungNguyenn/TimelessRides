@@ -1,9 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.AdminDto;
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
@@ -21,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -86,6 +85,7 @@ public class LogInController {
                 client.setPassword(Util.encodePassword(password));
                 client.setJoinDate(LocalDate.now());
                 service.getClientService().save(client);
+                modelAndView.addObject("loginMess","Successfully registered");
                 modelAndView.setViewName("views/user/login");
             }
             return modelAndView;

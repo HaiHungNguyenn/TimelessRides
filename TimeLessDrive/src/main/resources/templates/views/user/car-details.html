@@ -405,7 +405,7 @@
 <!-- Search End -->
 <!-- Start pop up form -->
 <div class="pop-up">
-    <form action="/print_meeting">
+    <form action="/car/bookmeeting">
         <div role="main" class="form-all" style="background: white;">
             <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
             <div class="esc-button">&times;</div>
@@ -444,14 +444,15 @@
                     <label class="form-label form-label-top" for="phone-number">
                         Phone Number
                     </label>
-                    <input type="text" id="phone-number">
+                    <input type="text" id="phone-number"  name="phone">
                 </li>
                 <li class="form-line">
                     <label class="form-label form-label-top" for="other">
                         Other
                     </label>
-                    <textarea type="text" id="other"></textarea>
+                    <textarea type="text" id="other" name="description"></textarea>
                 </li>
+                <input type="hidden" name="carId" th:value="${carDto.getId()}">
                 <li class="form-line">
                     <input type="submit" value="Submit">
                 </li>

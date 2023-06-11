@@ -54,7 +54,11 @@ const renderCalendar = () => {
     }
 
     for (let i = 1; i <= lastDay; i++) {
-        days += `<div data="${new Date(date.getFullYear(), date.getMonth(), i)}">${i}</div>`;
+        if (new Date(date.getFullYear(), date.getMonth(), i+1) < new Date()) {
+            days += `<div class="prev-date">${i}</div>`;
+        }
+        else
+            days += `<div data="${new Date(date.getFullYear(), date.getMonth(), i)}">${i}</div>`;
     }
 
     for (let j = 1; j <= nextDays; j++) {
@@ -63,9 +67,13 @@ const renderCalendar = () => {
     monthDays.innerHTML = days;
 };
 
-const renderSlot = () => {
+const renderSlot = (active) => {
+    //reset slots
     const slotInsert = document.getElementById("slots");
     slotInsert.innerHTML = "";
+    if (active == null) return;
+
+    const d = new Date(active.getAttribute("data"));
     const slots = [
         "7",
         "8",
@@ -83,10 +91,12 @@ const renderSlot = () => {
         "21",
         "22",
     ];
-    if(document.getElementsByClassName("today")[0]==null) return;
     for (let slot of slots) {
-        slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
-                              <label for="${slot}">${slot+":00"}</label>`
+        if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot) < new Date())
+            slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
+                               <label class="unavailable" for="${slot}">${slot + ":00"}</label>`
+        else slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
+                              <label for="${slot}">${slot + ":00"}</label>`
     }
 }
 
@@ -104,10 +114,10 @@ const switchDate = () => {
     for (let i = 0; i < days.length; i++) {
         days[i].addEventListener("click", function () {
             const active = document.getElementsByClassName("today")[0];
-            if(active)
+            if (active)
                 active.classList.toggle("today");
             days[i].classList.toggle("today");
-            renderSlot();
+            renderSlot(this);
             addDatetoInput(this);
         });
     }
@@ -130,6 +140,4 @@ document.querySelector(".next").addEventListener("click", () => {
 
 
 renderCalendar();
-renderSlot();
 switchDate();
-addDatetoInput(document.getElementsByClassName("today")[0]);

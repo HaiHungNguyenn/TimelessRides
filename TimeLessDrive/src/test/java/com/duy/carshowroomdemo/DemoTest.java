@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo;
 
+import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.repository.*;
 import com.duy.carshowroomdemo.util.Status;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.*;
@@ -474,9 +476,12 @@ public class DemoTest {
 
     @Test
     public void test(){
-        System.out.println(Util.calculateTotal(10023023L, "sdfk15%"));
-
+        List<Post> postDtoList = new ArrayList<>();
+         postRepository.findAllByStatusIsAndCarMake("Peugeot", PageRequest.of(0,10)).forEach(x->{
+             System.out.println(x.getCar());
+         });
 
     }
+
 
 }

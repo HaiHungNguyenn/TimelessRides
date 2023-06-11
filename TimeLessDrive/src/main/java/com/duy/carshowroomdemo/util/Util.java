@@ -1,7 +1,10 @@
 package com.duy.carshowroomdemo.util;
 
+import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.service.Service;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.*;
@@ -10,13 +13,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
+
+    Service service = new Service();
+
+
+
     static Random random = new Random();
     static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
     static Lorem lorem = new LoremIpsum();
@@ -221,4 +228,28 @@ public class Util {
         }
         return price + price * Long.parseLong(taxNumber.toString());
     }
+    public static LocalDate parseLocalDate(String dateString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return LocalDate.parse(dateString, formatter);
+    }
+    public static LocalTime parseLocalTime(String timeString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        return LocalTime.parse(timeString, formatter);
+    }
+    public static String[] splitDateTimeString(String dateTimeString) {
+        // Remove the parentheses and leading/trailing whitespace
+        String cleanString = dateTimeString.replace("(", "").replace(")", "").trim();
+
+        // Split the string using space as the delimiter
+        String[] parts = cleanString.split(" ");
+
+        // Extract the date, time, and time zone
+        String date = parts[1] + " " + parts[2] + " " + parts[3];
+        String time = parts[4];
+        String timeZone = parts[5];
+
+        return new String[]{date, time, timeZone};
+    }
+
+
 }

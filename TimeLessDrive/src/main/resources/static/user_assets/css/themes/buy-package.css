@@ -7,6 +7,9 @@
 .pricing-card h2{
     font-size: 27px;
     text-align: center;
+    font-weight: bold;
+
+
 }
 body {
     font-family: Arial, sans-serif;
@@ -66,12 +69,31 @@ p {
     gap: 30px;
 }
 
+
+
 .pricing-card {
     background-color: #ffffff;
+    border: 1px solid #ddd;
     border-radius: 10px;
     padding: 25px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transfrom 0.3s ease;
+    cursor: pointer;
+
 }
+.pricing-card:hover {
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.pricing-card.selected {
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: #fb2f30;
+    opacity: 0.9;
+    transform: scale(1.1);
+}
+
 
 .price {
     font-size: 22px;
@@ -87,9 +109,11 @@ ul {
 
 ul li {
     margin-bottom: 10px;
-}.upgrade-button:hover {
+}
+#upgrade-button:hover {
     background-color:  #fb2f30;
-}.upgrade-button {
+}
+#upgrade-button {
      display: block;
      margin: 0 auto;
      padding: 10px 30px;

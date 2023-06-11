@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.service;
 
+import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.Post;
@@ -7,6 +8,7 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.PostRepository;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -40,7 +42,7 @@ public class PostService {
     public List<PostDto> getPostsPerPage(Pageable pageable){
         List<PostDto> postDtoList = new ArrayList<>();
 
-        postRepository.findAllByStatusIs(Status.PENDING, pageable)
+        postRepository.findAllByStatus(Status.PENDING, pageable)
                 .forEach((x) -> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
 
         return postDtoList;
@@ -49,7 +51,7 @@ public class PostService {
     public List<PostDto> getPostSortedPerPage(Pageable pageable) {
         List<PostDto> postDtoList = new ArrayList<>();
 
-        postRepository.findAllByStatusIs(Status.PENDING, pageable).forEach(x -> {
+        postRepository.findAllByStatus(Status.PENDING, pageable).forEach(x -> {
             postDtoList.add(mapperManager.getPostMapper().toDto(x));
         });
 
@@ -61,7 +63,7 @@ public class PostService {
     }
 
     public long getLastOffset(int size) {
-        return postRepository.findAllByStatusIs(Status.PENDING, PageRequest.of(0,size)).getTotalPages();
+        return postRepository.findAllByStatus(Status.PENDING, PageRequest.of(0,size)).getTotalPages();
     }
 
     public long getLastOffset(ClientDto clientDto, int size) {
@@ -78,5 +80,47 @@ public class PostService {
 
     public long getTotalPostRequests(ClientDto client) {
         return postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(client),PageRequest.of(0, 1)).getTotalElements();
+    }
+
+//    public List<PostDto> getPostsByStatus(String status,Pageable pageable) {
+////        List<PostDto> postDtoList = new ArrayList<>();
+////
+////        postRepository.findAllByStatusIs(Status.PENDING, pageable).forEach(x -> {
+////            postDtoList.add(mapperManager.getPostMapper().toDto(x));
+////        });
+//
+////        return postDtoList;
+//        List<PostDto> postDtoList = new ArrayList<>();
+//        postRepository.findAllByStatusIs(status,pageable).forEach(x->{postDtoList.add(mapperManager.getPostMapper().toDto(x));});
+//
+//        return postDtoList;
+//
+//    }
+
+    public List<PostDto> getApprovedPostsByStatus(Pageable pageable) {
+                List<PostDto> postDtoList = new ArrayList<>();
+
+        postRepository.findAllByStatus(Status.APPROVED, pageable).forEach(x -> {
+            postDtoList.add(mapperManager.getPostMapper().toDto(x));
+        });
+        return postDtoList;
+    }
+
+    public List<PostDto> searchApprovedCarByMake(String value, Pageable pageable) {
+        List<PostDto>postDtoList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarMake(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        return postDtoList;
+    }
+
+    public List<PostDto> searchApprovedCarByModel(String value, Pageable pageable) {
+        List<PostDto>postDtoList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarModel(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        return postDtoList;
+    }
+
+    public List<PostDto> searchApprovedCarByBody(String value, Pageable pageable) {
+        List<PostDto>postDtoList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarBody(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        return postDtoList;
     }
 }

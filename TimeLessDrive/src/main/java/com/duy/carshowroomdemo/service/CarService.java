@@ -26,6 +26,7 @@ public class CarService {
     @Autowired
     private CarRepository repository;
 
+
     private final ModelMapper modelMapper = new ModelMapper();
     private MapperManager mapperManager = new MapperManager();
 
@@ -93,7 +94,7 @@ public class CarService {
     }
 
 
-
-
-
+    public Car findCarEntityById(String carId) {
+        return repository.findById(carId).get();
+    }
 }

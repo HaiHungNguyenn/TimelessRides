@@ -130,6 +130,7 @@ html {
 .slots label:hover {
     background-color: #dd5a5a;
     color: white;
+    cursor: pointer;
 }
 
 .slots input[type="radio"]:checked+label {
@@ -172,4 +173,15 @@ html {
 .form-all h2 {
     text-align: center;
     margin-top: 10px;
+}
+
+.slots .unavailable{
+    opacity: 0.5;
+    cursor: none;
+    pointer-events: none;
+}
+
+.slots .unavailable:hover{
+    background-color: none;
+    color: black;
 }
