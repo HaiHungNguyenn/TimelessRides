@@ -25,16 +25,7 @@ public class MappingController {
         modelAndView.setViewName("views/admin/index");
         return modelAndView;
     }
-    @GetMapping("/post_car")
-    public ModelAndView postCar(){
-        ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-        modelAndView.setViewName("views/user/post-car");
-        return modelAndView;
-    }
+
     @RequestMapping("/admin/mailbox")
     public ModelAndView mailBox(){
         ModelAndView modelAndView = new ModelAndView();

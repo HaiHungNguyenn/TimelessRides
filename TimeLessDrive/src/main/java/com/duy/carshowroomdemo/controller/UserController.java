@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.OffMeetingService;
@@ -23,10 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 @Controller
 
@@ -48,9 +46,37 @@ public class UserController {
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/index");
+        configSearchList();
         return modelAndView;
     }
-//    @GetMapping ("/car")
+    public void configSearchList(){
+        List<CarDto> carList = service.getCarService().getCarList();
+//      make
+        List<String> makes = new ArrayList<>();
+        carList.forEach(x -> {makes.add(x.getCarDescription().getMake());});
+        HashSet<String> makeList = new HashSet<>(makes);
+        makes.clear();
+        makes.addAll(makeList);
+//        model
+        List<String> models = new ArrayList<>();
+        carList.forEach(x -> {models.add(x.getCarDescription().getModel());});
+        HashSet<String> modelList = new HashSet<>(models);
+        models.clear();
+        models.addAll(modelList);
+//        body
+        List<String> bodys = new ArrayList<>();
+        carList.forEach(x -> {bodys.add(x.getCarDescription().getBody());});
+        HashSet<String> bodyList = new HashSet<>(bodys);
+        bodys.clear();
+        bodys.addAll(bodyList);
+
+        session.setAttribute("makeList",makes);
+        session.setAttribute("modelList",models);
+        session.setAttribute("bodyList",bodys);
+
+    }
+
+    //    @GetMapping ("/car")
 //    public ModelAndView car(){
 //        ModelAndView modelAndView = new ModelAndView();
 //        Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
@@ -60,8 +86,17 @@ public class UserController {
 //        modelAndView.addObject("carList",service.getCarService().getCarList());
 //        return modelAndView;
 //    }
-
-    @RequestMapping("/car")
+@GetMapping("/post_car")
+public ModelAndView postCar(){
+    ModelAndView modelAndView = new ModelAndView();
+    if(!isAuthenticated()) {
+        modelAndView.setViewName("views/user/login");
+        return modelAndView;
+    }
+    modelAndView.setViewName("views/user/post-car");
+    return modelAndView;
+}
+    @RequestMapping("/car2")
     public ModelAndView showCarList(String direction,
                                     String property,
                                     @Nullable @RequestParam("page") Integer offset ){
@@ -82,7 +117,38 @@ public class UserController {
         long lastOffSet = service.getCarService().getLastOffset(9);
 
         modelAndView.addObject("carlist",carList);
-        session.setAttribute("staticList",carList);
+//        session.setAttribute("staticList",carList);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("property", property);
+        modelAndView.addObject("direction", direction);
+        modelAndView.addObject("lastOffset", lastOffSet);
+        modelAndView.setViewName("views/user/car");
+        return modelAndView;
+    }
+    @RequestMapping("/car")
+    public ModelAndView showCar2List(String direction,
+                                    String property,
+                                    @Nullable @RequestParam("page") Integer offset ){
+        ModelAndView modelAndView = new ModelAndView();
+
+
+        offset = (offset == null) ? 1: offset;
+
+        List<PostDto> postDto;
+
+        if(property != null && direction != null){
+            Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+
+
+        }else{
+//            postDto = service.getCarService().getCarPerPage(PageRequest.of(offset - 1, 9));
+            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9));
+        }
+        long lastOffSet = service.getCarService().getLastOffset(9);
+
+
+        modelAndView.addObject("postDto",postDto);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);
@@ -101,36 +167,39 @@ public class UserController {
         offset = (offset == null) ? 1: offset;
 
         List<CarDto> carList = new ArrayList<>();
+        List<PostDto>postDtoList = new ArrayList<>();
         switch(field){
             case"make":
                 if(property != null && direction != null){
                     Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    carList = service.getCarDescriptionService().getSearchedCarByMakeSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+//                    carList = service.getCarDescriptionService().getSearchedCarByMakeSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                    postDtoList = service.getPostService().searchApprovedCarByMake(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
                 }else{
-                    carList = service.getCarDescriptionService().getSearchedCarByMakePerPage(value,PageRequest.of(offset - 1, 9));
+//                    carList = service.getCarDescriptionService().getSearchedCarByMakePerPage(value,PageRequest.of(offset - 1, 9));
+                    postDtoList = service.getPostService().searchApprovedCarByMake(value,PageRequest.of(offset - 1, 9));
                 }
                 break;
             case"model":
                 if(property != null && direction != null){
                     Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    carList = service.getCarDescriptionService().getSearchedCarByModelSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                    postDtoList = service.getPostService().searchApprovedCarByModel(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
                 }else{
-                    carList = service.getCarDescriptionService().getSearchedCarByModelPerPage(value,PageRequest.of(offset - 1, 9));
+                    postDtoList = service.getPostService().searchApprovedCarByModel(value,PageRequest.of(offset - 1, 9));
                 }
                 break;
             case"body":
                 if(property != null && direction != null){
                     Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    carList = service.getCarDescriptionService().getSearchedCarByBodySortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                    postDtoList = service.getPostService().searchApprovedCarByBody(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
                 }else{
-                    carList = service.getCarDescriptionService().getSearchedCarByBodyPerPage(value,PageRequest.of(offset - 1, 9));
+                    postDtoList = service.getPostService().searchApprovedCarByBody(value,PageRequest.of(offset - 1, 9));
                 }
                 break;
 
         }
         long lastOffSet = service.getCarDescriptionService().getLastOffset(value,field,9);
 
-        modelAndView.addObject("carlist",carList);
+        modelAndView.addObject("postDto",postDtoList);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("property", property);
         modelAndView.addObject("direction", direction);

@@ -1,7 +1,10 @@
 package com.duy.carshowroomdemo.util;
 
+import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.service.Service;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.*;
@@ -12,13 +15,15 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Util {
+
+    Service service = new Service();
+
+
+
     static Random random = new Random();
     static BCryptPasswordEncoder passwordEncoder= new BCryptPasswordEncoder();
     static Lorem lorem = new LoremIpsum();
@@ -245,4 +250,6 @@ public class Util {
 
         return new String[]{date, time, timeZone};
     }
+
+
 }

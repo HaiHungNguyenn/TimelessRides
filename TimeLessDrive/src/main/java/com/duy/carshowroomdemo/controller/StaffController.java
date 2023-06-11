@@ -24,6 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -39,6 +41,32 @@ public class StaffController {
 
     public boolean isAuthenticated(){
         return (session.getAttribute("staff") != null);
+    }
+    public void configSearchList(){
+        List<CarDto> carList = service.getCarService().getCarList();
+//      make
+        List<String> makes = new ArrayList<>();
+        carList.forEach(x -> {makes.add(x.getCarDescription().getMake());});
+        HashSet<String> makeList = new HashSet<>(makes);
+        makes.clear();
+        makes.addAll(makeList);
+//        model
+        List<String> models = new ArrayList<>();
+        carList.forEach(x -> {models.add(x.getCarDescription().getModel());});
+        HashSet<String> modelList = new HashSet<>(models);
+        models.clear();
+        models.addAll(modelList);
+//        body
+        List<String> bodys = new ArrayList<>();
+        carList.forEach(x -> {bodys.add(x.getCarDescription().getBody());});
+        HashSet<String> bodyList = new HashSet<>(bodys);
+        bodys.clear();
+        bodys.addAll(bodyList);
+
+        session.setAttribute("makeList",makes);
+        session.setAttribute("modelList",models);
+        session.setAttribute("bodyList",bodys);
+
     }
 
     @RequestMapping("/staff/")
@@ -288,10 +316,10 @@ public class StaffController {
             post.setStatus(Status.DECLINED);
         }else {
             post.setStatus(Status.APPROVED);
+            configSearchList();
         }
 
         service.getPostService().save(post);
-
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
 
