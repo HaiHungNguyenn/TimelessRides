@@ -65,6 +65,7 @@ public class LogInController {
         else {
             modelAndView.setViewName("views/user/login");
         }
+
         return modelAndView;
 
     }
