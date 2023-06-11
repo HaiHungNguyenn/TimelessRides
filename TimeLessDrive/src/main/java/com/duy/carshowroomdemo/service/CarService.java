@@ -11,6 +11,7 @@ import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.util.Status;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public class CarService {
     private final ModelMapper modelMapper = new ModelMapper();
     private MapperManager mapperManager = new MapperManager();
 
+    @Cacheable("cars")
     public List<CarDto> getCarList(){
         List<CarDto> carList = new ArrayList<>();
         repository.findAll().forEach(x -> {carList.add(mapperManager.getCarMapper().toDto(x));});
@@ -36,6 +38,7 @@ public class CarService {
 
 
     public void paging(){
+
         Page<Car> all = repository.findAll(PageRequest.of(1, 10));
 
     }

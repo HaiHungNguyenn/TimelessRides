@@ -9,6 +9,9 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.OffMeetingRepository;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,7 @@ public class OffMeetingService {
         return offMeetingList;
     }
 
+    @Cacheable("offMeetings")
     public List<OffMeetingDto> getOffMeetingsByClient(ClientDto clientDto, Pageable pageable){
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
         offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto),pageable).forEach(x -> {

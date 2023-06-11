@@ -96,7 +96,7 @@
           </div>
           <div class="row g-0 g-md-4 g-xl-6">
             <div class="col-md-5 col-lg-5 col-xl-6">
-                <div class="slider">
+                <div class="slider" style="object-fit: cover">
                     <th:block th:if="${car.getCarImageList() != null}" th:each="image, iStat : ${car.getCarImageList()}">
                         <input type="radio" name="slide_switch" th:id="'id' + ${iStat.count}"/>
                         <label th:for="'id' + ${iStat.count}">
