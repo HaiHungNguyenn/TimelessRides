@@ -46,35 +46,10 @@ public class UserController {
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/user/index");
-        configSearchList();
+        service.configSearchList();
         return modelAndView;
     }
-    public void configSearchList(){
-        List<CarDto> carList = service.getCarService().getCarList();
-//      make
-        List<String> makes = new ArrayList<>();
-        carList.forEach(x -> {makes.add(x.getCarDescription().getMake());});
-        HashSet<String> makeList = new HashSet<>(makes);
-        makes.clear();
-        makes.addAll(makeList);
-//        model
-        List<String> models = new ArrayList<>();
-        carList.forEach(x -> {models.add(x.getCarDescription().getModel());});
-        HashSet<String> modelList = new HashSet<>(models);
-        models.clear();
-        models.addAll(modelList);
-//        body
-        List<String> bodys = new ArrayList<>();
-        carList.forEach(x -> {bodys.add(x.getCarDescription().getBody());});
-        HashSet<String> bodyList = new HashSet<>(bodys);
-        bodys.clear();
-        bodys.addAll(bodyList);
 
-        session.setAttribute("makeList",makes);
-        session.setAttribute("modelList",models);
-        session.setAttribute("bodyList",bodys);
-
-    }
 
     //    @GetMapping ("/car")
 //    public ModelAndView car(){
@@ -97,7 +72,7 @@ public ModelAndView postCar(){
     return modelAndView;
 }
     @RequestMapping("/car2")
-    public ModelAndView showCarList(String direction,
+    public ModelAndView showCar2List(String direction,
                                     String property,
                                     @Nullable @RequestParam("page") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
@@ -126,7 +101,7 @@ public ModelAndView postCar(){
         return modelAndView;
     }
     @RequestMapping("/car")
-    public ModelAndView showCar2List(String direction,
+    public ModelAndView showCarList(String direction,
                                     String property,
                                     @Nullable @RequestParam("page") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
@@ -154,6 +129,7 @@ public ModelAndView postCar(){
         modelAndView.addObject("direction", direction);
         modelAndView.addObject("lastOffset", lastOffSet);
         modelAndView.setViewName("views/user/car");
+        service.configSearchList();
         return modelAndView;
     }
 
@@ -193,6 +169,22 @@ public ModelAndView postCar(){
                     postDtoList = service.getPostService().searchApprovedCarByBody(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
                 }else{
                     postDtoList = service.getPostService().searchApprovedCarByBody(value,PageRequest.of(offset - 1, 9));
+                }
+                break;
+            case"tranmision":
+                if(property != null && direction != null){
+                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    postDtoList = service.getPostService().searchApprovedCarByTran(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                }else{
+                    postDtoList = service.getPostService().searchApprovedCarByTran(value,PageRequest.of(offset - 1, 9));
+                }
+                break;
+            case"fuel":
+                if(property != null && direction != null){
+                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    postDtoList = service.getPostService().searchApprovedCarByFuel(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+                }else{
+                    postDtoList = service.getPostService().searchApprovedCarByFuel(value,PageRequest.of(offset - 1, 9));
                 }
                 break;
 

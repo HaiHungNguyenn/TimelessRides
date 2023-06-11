@@ -59,84 +59,84 @@
         </nav>
         <div class="content">
 
-      <section class="pt-5 pb-9">
-        <div class="container-small cart">
-          <h2 class="mb-5">Successful Meetings<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalMeetings} + ' meetings)'"></span></h2>
-          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
-            <div class="table-responsive scrollbar">
-              <table class="table fs--1 mb-0">
-                <thead>
-                  <tr>
-                    <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
-                    <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
-                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark hover-text-decoration-none" th:text="'Meeting Date'"/>
-                    </th>
-                    <th class="sort align-middle" scope="col" style="width:45%;">Description</th>
-<!--                    <th class="sort align-middle text-center" scope="col" data-sort="price" style="width:10%;">Status</th>-->
-                    <th class="sort align-middle text-end pe-0" scope="col" style="width:35%;"></th>
-                  </tr>
-                </thead>
-                <tbody class="list" id="profile-wishlist-table-body">
-                  <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="meeting, iStat: ${offMeetingList}">
-                    <td class="align-middle white-space-nowrap ps-0 py-0">
-                      <div class="text-center" th:with="count=(${(offset - 1) * 5 +  iStat.count})" th:text="${count}"/>
-                    </td>
-                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{'/staff/user-details/' + ${meeting.getClient().getId()}}" th:text="${meeting.getClient().getName()}"/></td>
-                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${meeting.getMeetingDate()}"/>
-<!--                    <td class="color align-middle white-space-nowrap fs&#45;&#45;1 text-900"/>-->
-                    <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${meeting.getDescription()}" />
-<!--                    <td class="price align-middle text-900 fs&#45;&#45;1 fw-semi-bold text-center " >-->
-<!--                        <span class="badge badge-phoenix badge-phoenix-info" />-->
-<!--                    </td>-->
-                    <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
-                        <a class="hover-text-decoration-none" th:href="@{'/staff/create-invoice/create/' + ${meeting.getId()} (offset = ${offset})}">
-                            <button class="btn btn-success hover-text-600 fs-md--1">Create invoice</button>
-                        </a>
-<!--                        <a class="hover-text-decoration-none">-->
-<!--                            <button class="btn btn-primary hover-text-600 fs&#45;&#45;2">Approve</button>-->
-<!--                        </a>-->
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-                <nav aria-label="Page navigation example" class="pt-3">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=1)}">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${offset - 1})}">
-                                <span aria-hidden="true">&lsaquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link active" th:text="${offset}" href="#"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 1}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 1})}" th:text="${offset + 1}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 2}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 2})}" th:text="${offset + 2}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 3}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 3})}" th:text="${offset + 3}"/></li>
-                        <li class="page-item" th:if="${lastOffset >= offset + 4}"><a class="page-link" th:href="@{/staff/create-invoice (offset=${offset + 4})}" th:text="${offset + 4}"/></li>
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${offset + 1})}">
-                                <span class="sr-only">Next</span>
-                                <span aria-hidden="true">&rsaquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Next" th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{/staff/create-invoice (offset=${lastOffset})}">
-                                <span class="sr-only">Next</span>
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-          </div>
-        </div>
-      </section>
+            <section style="width:100%;" >
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" th:src="${meeting.getClient().getAvatar()}"><span class="font-weight-bold" th:text="${meeting.getClient().getName()}"/><span class="text-black-50" th:text="${meeting.getClient().getEmail()}"/></div>
+                        </div>
+                        <div class="col-md-9 border">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Client Information</h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Full Name</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getName()}" th:value="${meeting.getClient().getName()}" disabled></div>
+                                    <div class="col-md-6"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getPhone()}" th:value="${meeting.getClient().getPhone()}" disabled></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Email</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getEmail()}" th:value="${meeting.getClient().getEmail()}" disabled></div>
+                                    <div class="col-md-6"><label class="labels">Day of Birth</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getDob()}" th:value="${meeting.getClient().getDob()}" disabled></div>
+                                    <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getAddress()}" th:value="${meeting.getClient().getAddress()}" disabled></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-12 border">
+                            <div class="p-3 py-5">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right">Car Information</h4>
+                                </div>
+                                <div class="row mt2">
+                                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" th:value="${meeting.getCar().getName()}" disabled></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">Make</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getMake()}" disabled></div>
+                                    <div class="col-md-6"><label class="labels">Model</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getModel()}" disabled></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6"><label class="labels">License Plate</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getLicensePlate()}" disabled></div>
+                                    <div class="col-md-6"><label class="labels">Price</label><input type="text" class="form-control" th:value="${meeting.getCar().getPrice()}" disabled></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container rounded bg-white mt-5 mb-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="p-3 py-5">
+                                <form th:action="@{'/staff/create-invoice/confirm/' + ${meeting.getId()}}" method="post">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="text-right">Additional Information</h4>
+                                    </div>
+                                    <div class="row mt2">
+                                        <div class="col-md-2"><label class="labels">Tax</label><input type="text" name="tax" class="form-control" placeholder="ex: 15%" required></div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-6 align-content-end">
+                                            <label class="labels">Notes</label>
+                                            <textarea rows="5" name="notes" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-md-2">
+                                            <button onclick="window.location='/staff/create-invoice'" class="form-control btn-secondary">Cancel</button>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="submit" name="action" class="form-control btn-success" value="Create invoice">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         <section class="bg-100 dark__bg-1100 py-9">
             <div class="container-small">

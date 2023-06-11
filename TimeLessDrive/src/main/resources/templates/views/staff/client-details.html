@@ -219,7 +219,9 @@
                                     </thead>
                                     <tbody class="list">
                                     <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="post: ${postList}">
-                                        <td class="dealName align-middle white-space-nowrap py-2 ps-0"><a class="fw-semi-bold text-primary" th:text="${post.getCar().getName()}"/></td>
+                                        <td class="dealName align-middle white-space-nowrap py-2 ps-0">
+                                            <a class="fw-semi-bold text-primary" th:href="@{'/staff/car-details/' + ${post.getCar().getId()}}" th:text="${post.getCar().getName()}"/>
+                                        </td>
                                         <td class="probability align-middle flex-wrap" th:text="${post.getDescription()}"/>
                                         <td class="amount align-middle white-space-nowrap text-center fw-bold text-700 py-2 text-end pe-6" th:text="${post.getPostDate()}"/>
                                         <td class="type align-middle fw-semi-bold py-2 text-center"><span class="badge badge-phoenix fs--2 badge-phoenix-info" th:text="${post.getStatus()}"/></td>

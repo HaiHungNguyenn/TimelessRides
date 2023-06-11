@@ -23,6 +23,12 @@ public interface PostRepository extends JpaRepository<Post, String>{
     Page<Post> findAllByStatusIsAndCarModel(@Param("value") String value, Pageable pageable );
     @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value ")
     Page<Post> findAllByStatusIsAndCarBody(@Param("value") String value, Pageable pageable );
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.transmission = :value ")
+    Page<Post> findAllByStatusIsAndCarTran(@Param("value") String value, Pageable pageable );
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.fuelType = :value ")
+    Page<Post> findAllByStatusIsAndCarFuel(@Param("value") String value, Pageable pageable );
 
     Page<Post> findAllByStatus(String status, Pageable pageable);
+
+
 }

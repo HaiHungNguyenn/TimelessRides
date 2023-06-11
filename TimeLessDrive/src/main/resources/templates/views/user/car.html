@@ -191,38 +191,21 @@
 <!--                                    <option value="">Option 1</option>-->
 <!--                                    <option value="">Option 2</option>-->
                                 </select>
-                                <select>
-                                    <option value="">Condition</option>
-                                    <option value="">First Hand</option>
-                                    <option value="">Second Hand</option>
+
+                                <select class="mySelect" onchange="handleSelectChange(this)">
+                                    <option data-display="Tranmission">Select Tranmission</option>
+                                    <div th:each="x:${session.tranmissionList}">
+                                        <option th:value="'searhBy-tranmision-'+${x}" th:text="${x}"></option>
+                                    </div>
                                 </select>
-                                <select>
-                                    <option value="">Transmisson</option>
-                                    <option value="">Bluetooth</option>
-                                    <option value="">WiFi</option>
+                                <select class="mySelect" onchange="handleSelectChange(this)">
+                                    <option data-display="Fuel Style">Select Fuel Style</option>
+                                    <div th:each="x:${session.fuelList}">
+                                        <option th:value="'searhBy-fuel-'+${x}" th:text="${x}"></option>
+                                    </div>
                                 </select>
-                                <select>
-                                    <option value="">Mileage</option>
-                                    <option value="">27</option>
-                                    <option value="">20</option>
-                                    <option value="">15</option>
-                                    <option value="">10</option>
-                                </select>
-                                <select>
-                                    <option value="">Engine</option>
-                                    <option value="">BS3</option>
-                                    <option value="">BS4</option>
-                                    <option value="">BS5</option>
-                                    <option value="">BS6</option>
-                                    <option value="">BS6</option>
-                                </select>
-                                <select >
-                                    <option value="">Colors</option>
-                                    <option value="">Red</option>
-                                    <option value="">Blue</option>
-                                    <option value="">Black</option>
-                                    <option value="">Yellow</option>
-                                </select>
+
+
                                 <div class="filter-price">
                                     <p>Price:</p>
                                     <div class="price-range-wrap">

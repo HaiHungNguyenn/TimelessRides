@@ -123,4 +123,16 @@ public class PostService {
         postRepository.findAllByStatusIsAndCarBody(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
+
+    public List<PostDto> searchApprovedCarByTran(String value, Pageable pageable) {
+        List<PostDto>postDtoList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarTran(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        return postDtoList;
+    }
+
+    public List<PostDto> searchApprovedCarByFuel(String value, Pageable pageable) {
+        List<PostDto>postDtoList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarFuel(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        return postDtoList;
+    }
 }
