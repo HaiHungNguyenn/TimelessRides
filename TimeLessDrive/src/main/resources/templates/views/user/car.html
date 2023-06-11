@@ -39,7 +39,8 @@
             <a href="#" class="primary-btn">Add Car</a>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
+            <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+            <p class="logo-text ms-2 d-none d-sm-block" >Timeless Ride</p>
         </div>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget__add">
@@ -61,42 +62,44 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <ul class="header__top__widget">
-                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="header__top__right">
-                            <div class="header__top__phone">
-                                <i class="fa fa-phone"></i>
-                                <span>(+12) 345 678 910</span>
-                            </div>
-                            <div class="header__top__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div class="header__top">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-7">-->
+<!--                        <ul class="header__top__widget">-->
+<!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
+<!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-5">-->
+<!--                        <div class="header__top__right">-->
+<!--                            <div class="header__top__phone">-->
+<!--                                <i class="fa fa-phone"></i>-->
+<!--                                <span>(+12) 345 678 910</span>-->
+<!--                            </div>-->
+<!--                            <div class="header__top__social">-->
+<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-google"></i></a>-->
+<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="container">
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
                         <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+                        <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
+
                     </div>
                 </div>
                 <div class="col-lg-10">
                     <div class="header__nav">
-                        <nav class="header__menu">
+                        <nav class="header__menu" style="margin: -70px">
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li class="active"><a href="/car">Car Inventory</a></li>
@@ -137,7 +140,7 @@
                     <div class="breadcrumb__text">
                         <h2>Car Listing</h2>
                         <div class="breadcrumb__links">
-                            <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                            <a href="/"><i class="fa fa-home"></i> Home</a>
                             <span>Car Inventory</span>
                         </div>
                     </div>
@@ -288,20 +291,36 @@
                         <ul th:with="url=(${property == null} ? '/car' : '/car/sorted-by-' + ${property} + '-' + ${direction})">
 
 
-                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" th:text="first"/> </li>
+                            <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" th:text="First"/>&laquo
 
-                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = ${offset - 1})}" th:text="previous"/> </li>
+                           <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = ${offset - 1})}" th:text="Prev"/>
 
-                            <li> <a href="#" class="active" th:text="${offset}"></a></li>
+                             <a href="#" class="active" th:text="${offset}"></a>
                             <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (page = ${offset + 1})}" /></li>
                             <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (page = ${offset + 2})}" /></li>
 
-                            <li> <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" th:text="next"/></li>
-                            <li><a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" th:text="last"/></li>
-
-
+                           <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" th:text="Next"/>&raquo
+                            <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" th:text="Last"/>
                         </ul>
                     </div>
+<!--                    <div class="pagination__option">-->
+<!--                        <ul th:with="url=(${property == null} ? '/car' : '/car/sorted-by-' + ${property} + '-' + ${direction})">-->
+
+
+<!--                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" th:text="first"/> </li>-->
+
+<!--                            <li><a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = ${offset - 1})}" th:text="previous"/> </li>-->
+
+<!--                            <li> <a href="#" class="active" th:text="${offset}"></a></li>-->
+<!--                            <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (page = ${offset + 1})}" /></li>-->
+<!--                            <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (page = ${offset + 2})}" /></li>-->
+
+<!--                            <li> <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" th:text="next"/></li>-->
+<!--                            <li><a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" th:text="last"/></li>-->
+
+
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -331,10 +350,11 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="../../user_assets/img/footer-logo.png" alt=""></a>
+                            <a href="/"><img src="../../user_assets/img/logo2.png"width="100"></a>
+                            <p class="logo-text ms-2 d-none d-sm-block">Timeless Ride</p>
                         </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                            on (+1) 96 123 8888</p>
+
+
                         <div class="footer__social">
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
                             <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
