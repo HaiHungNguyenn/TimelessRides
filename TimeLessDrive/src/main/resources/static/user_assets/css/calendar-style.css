@@ -185,3 +185,7 @@ html {
     background-color: none;
     color: black;
 }
+
+html{
+    scroll-behavior: smooth;
+}
