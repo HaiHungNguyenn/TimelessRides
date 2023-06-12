@@ -60,9 +60,11 @@
         <div class="content">
 
       <section class="pt-5 pb-9">
+        <p class="text-danger fs-3 text-center" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+        <p class="text-success fs-3 text-center" th:if="${successMsg != null}" th:text="${successMsg}"/>
         <div class="container-small cart">
           <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalOffMeetings} + ' requests)'"></span></h2>
-          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
+          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}' th:if="${!offMeetingList.isEmpty()}">
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
                 <thead>
@@ -85,7 +87,7 @@
                     <td class="align-middle white-space-nowrap ps-0 py-0">
                       <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>
-                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${offMeeting.getClient().getId()}" th:text="${offMeeting.getClient().getName()}"/></td>
+                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{/staff/user-details (id = ${offMeeting.getClient().getId()})}" th:text="${offMeeting.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getMeetingDate()}"/>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateDate()}"/>
                     <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
@@ -104,7 +106,7 @@
                 </tbody>
               </table>
             </div>
-                <nav aria-label="Page navigation example" class="pt-3">
+                <nav aria-label="Page navigation example" class="pt-3" th:if="${lastOffset > 1}">
                     <ul class="pagination" th:with="url=(${property == null} ? '/staff/meeting-requests' : '/staff/meeting-requests/sorted-by-' + ${property} + '-' + ${direction})">
                         <li class="page-item">
                             <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" aria-label="Previous">

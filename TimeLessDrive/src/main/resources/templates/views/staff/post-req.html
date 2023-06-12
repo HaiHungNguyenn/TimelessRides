@@ -71,9 +71,11 @@
 
 
       <section class="pt-5 pb-9">
+          <p class="text-danger fs-3 text-center" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+          <p class="text-success fs-3 text-center" th:if="${successMsg != null}" th:text="${successMsg}"/>
         <div class="container-small cart">
           <h2 class="mb-5">Post Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalPostRequests} + ' requests)'" /></h2>
-          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
+          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}' th:if="${!postRequestList.isEmpty()}">
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
                 <thead>
@@ -94,9 +96,9 @@
                     <td class="align-middle white-space-nowrap ps-0 py-0">
                       <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>
-                    <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{'/staff/user-details/' + ${postRequest.getClient().getId()}}" th:text="${postRequest.getClient().getName()}"/></td>
+                    <td class="products align-middle pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{/staff/user-details (id = ${postRequest.getClient().getId()})}" th:text="${postRequest.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" >
-                        <a th:href="@{'/staff/car-details/' + ${postRequest.getCar().getId()}}" th:text="${postRequest.getCar().getName()}"/>
+                        <a th:href="@{/staff/car-details (id = ${postRequest.getCar().getId()})}" th:text="${postRequest.getCar().getName()}"/>
                     </td>
                     <td class="color align-middle flex-wrap fs--1 text-900" th:text="${postRequest.getDescription()}"/>
                     <td class="size align-middle white-space-nowrap text-700 fs--1 fw-semi-bold" th:text="${postRequest.getPostDate()}"/>
@@ -112,7 +114,7 @@
                 </tbody>
               </table>
             </div>
-              <nav aria-label="Page navigation example" class="pt-3">
+              <nav aria-label="Page navigation example" class="pt-3" th:if="${lastOffset > 1}">
                   <ul class="pagination" th:with="url=(${property == null} ? '/staff/post-requests' : '/staff/post-requests/sorted-by-' + ${property} + '-' + ${direction})">
                       <li class="page-item">
                           <a class="page-link" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" aria-label="Previous">

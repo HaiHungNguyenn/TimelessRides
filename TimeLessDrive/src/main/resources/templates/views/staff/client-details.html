@@ -157,7 +157,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals1">
                             <h2 class="mb-0" th:text="'Meeting Requests (' + ${totalMeetings} + ' meetings)'"/>
                         </div>
-                        <div class="border-top border-bottom border-200" id="leadDetailsTable1">
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable1" th:if="${!offMeetingList.isEmpty()}">
                             <div class="table-responsive scrollbar mx-n1 px-1">
                                 <table class="table fs--1 mb-0">
                                     <thead>
@@ -178,9 +178,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
-
-                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()})">
+                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1" th:if="${lastPOffset > 1}">
+                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details?id=' + ${client.getId()})">
                                     <ul class="pagination">
                                         <li class="page-item">
                                             <a class="page-link" aria-label="Previous" th:classappend="${mOffset == 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset - 1}, pOffset = ${pOffset})}">
@@ -206,7 +205,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-4" id="scrollspyDeals">
                             <h2 class="mb-0" th:text="'Posts (' + ${totalPosts} + ' posts)'"/>
                         </div>
-                        <div class="border-top border-bottom border-200" id="leadDetailsTable" >
+                        <div class="border-top border-bottom border-200" id="leadDetailsTable" th:if="${!postList.isEmpty()}">
                             <div class="table-responsive scrollbar mx-n1 px-1">
                                 <table class="table fs--1 mb-0">
                                     <thead>
@@ -220,7 +219,7 @@
                                     <tbody class="list">
                                     <tr class="hover-actions-trigger btn-reveal-trigger position-static" th:each="post: ${postList}">
                                         <td class="dealName align-middle white-space-nowrap py-2 ps-0">
-                                            <a class="fw-semi-bold text-primary" th:href="@{'/staff/car-details/' + ${post.getCar().getId()}}" th:text="${post.getCar().getName()}"/>
+                                            <a class="fw-semi-bold text-primary" th:href="@{/staff/car-details (id = ${post.getCar().getId()})}" th:text="${post.getCar().getName()}"/>
                                         </td>
                                         <td class="probability align-middle flex-wrap" th:text="${post.getDescription()}"/>
                                         <td class="amount align-middle white-space-nowrap text-center fw-bold text-700 py-2 text-end pe-6" th:text="${post.getPostDate()}"/>
@@ -229,8 +228,8 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1">
-                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details/' + ${client.getId()})">
+                            <div class="row align-items-center justify-content-between py-2 pe-0 fs--1" th:if="${lastMOffset > 1}">
+                                <nav aria-label="Page navigation example" class="pt-3" th:with="url=('/staff/user-details?id=' + ${client.getId()})">
                                     <ul class="pagination">
                                         <li class="page-item">
                                             <a class="page-link" aria-label="Previous" th:classappend="${pOffset == 1} ? 'disabled'" th:href="@{${url} (mOffset = ${mOffset}, pOffset = ${pOffset - 1})}">

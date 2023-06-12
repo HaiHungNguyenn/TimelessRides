@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-md-6"><label class="labels">License Plate</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getLicensePlate()}" disabled></div>
-                                    <div class="col-md-6"><label class="labels">Price</label><input type="text" class="form-control" th:value="${meeting.getCar().getPrice()}" disabled></div>
+                                    <div class="col-md-6"><label class="labels">Price</label><input type="text" class="form-control" th:value="${meeting.getCar().getFormattedPrice()}" disabled></div>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="p-3 py-5">
-                                <form th:action="@{'/staff/create-invoice/confirm/' + ${meeting.getId()}}" method="post">
+                                <form th:action="@{/staff/create-invoice/confirm (id = ${meeting.getId()})}" method="post">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4 class="text-right">Additional Information</h4>
                                     </div>
@@ -120,7 +120,7 @@
                                     <div class="row mt-2">
                                         <div class="col-md-6 align-content-end">
                                             <label class="labels">Notes</label>
-                                            <textarea rows="5" name="notes" class="form-control"></textarea>
+                                            <textarea type="text" rows="5" name="notes" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="row mt-5">

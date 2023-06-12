@@ -483,5 +483,8 @@ public class DemoTest {
 
     }
 
-
+    @Test
+    public void testDisplay(){
+        System.out.println(Util.formatPhone("1234567890"));
+    }
 }
