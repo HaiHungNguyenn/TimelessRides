@@ -56,12 +56,8 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
-
         int cars = 30;
         Util.setupImageGallery(cars);
-;
-        Util.setupImageGallery(cars);
-
         addAdmin();
         addShowrooms();
         addStaff();

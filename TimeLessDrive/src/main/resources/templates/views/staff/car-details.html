@@ -96,12 +96,16 @@
           </div>
           <div class="row g-0 g-md-4 g-xl-6">
             <div class="col-md-5 col-lg-5 col-xl-6">
+<!--<<<<<<< HEAD-->
+<!--                <div class="slider" style="object-fit: cover">-->
+<!--=======-->
 
 
 
 
 
                 <div class="slideshow-container">
+<!--&gt;>>>>>> e6aefa698b0dfddeed194d9c1bbe4ad08e4b15e1-->
                     <th:block th:if="${car.getCarImageList() != null}" th:each="image, iStat : ${car.getCarImageList()}">
                         <div class="mySlides">
                             <img th:src="'/image-resolver/' + ${image.getId()}" style="width:100%">
@@ -117,36 +121,6 @@
                         <span class="dot" th:onclick="currentSlide(${image.getId()})"></span>
                     </th:block>
                 </div>
-
-
-                <script>
-                    let slideIndex = 1;
-                    showSlides(slideIndex);
-
-                    function plusSlides(n) {
-                        showSlides(slideIndex += n);
-                    }
-
-                    function currentSlide(n) {
-                        showSlides(slideIndex = n);
-                    }
-
-                    function showSlides(n) {
-                        let i;
-                        let slides = document.getElementsByClassName("mySlides");
-                        let dots = document.getElementsByClassName("dot");
-                        if (n > slides.length) {slideIndex = 1}
-                        if (n < 1) {slideIndex = slides.length}
-                        for (i = 0; i < slides.length; i++) {
-                            slides[i].style.display = "none";
-                        }
-                        for (i = 0; i < dots.length; i++) {
-                            dots[i].className = dots[i].className.replace(" active", "");
-                        }
-                        slides[slideIndex-1].style.display = "block";
-                        dots[slideIndex-1].className += " active";
-                    }
-                </script>
             </div>
             <div class="col-md-7 col-lg-7 col-xl-6">
               <div class="lead-details-container">
@@ -243,6 +217,34 @@
         </section>
     </main>
   </body>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+        }
+    </script>
 
 
 <!-- Mirrored from prium.github.io/phoenix/v1.12.0/apps/crm/lead-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 21 May 2023 14:36:00 GMT -->

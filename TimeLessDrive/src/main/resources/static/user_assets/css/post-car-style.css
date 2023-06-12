@@ -153,6 +153,12 @@ input[type="file"]{
     border: 1px solid black;
     transition: box-shadow 0.3s ease, transfrom 0.3s ease;
 }
+/*.header__nav{*/
+/*    padding: 121px 0 33px;*/
+/*}*/
+/*header__menu{*/
+/*    margin: -121px;*/
+/*}*/
 
 .image:hover{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

@@ -384,7 +384,7 @@ ol {
 
 .header__nav {
 	text-align: right;
-	padding: 32px 0 33px;
+	padding: 70px 0 33px;
 }
 
 .header__logo {
@@ -393,6 +393,10 @@ ol {
 
 .header__logo a {
 	display: inline-block;
+	
+}
+.header__logo p{
+	font-size: 27px;
 }
 
 .header__menu {
@@ -1164,43 +1168,7 @@ ol {
 	font-weight: 400;
 }
 
-.pagination__option {
-	padding-top: 20px;
-}
 
-.pagination__option a {
-	display: inline-block;
-	height: 50px;
-	width: 50px;
-	font-size: 18px;
-	color: #727171;
-	font-weight: 700;
-	border: 1px solid #ebebeb;
-	border-radius: 2px;
-	line-height: 50px;
-	text-align: center;
-	margin-right: 6px;
-	-webkit-transition: all, 0.3s;
-	-o-transition: all, 0.3s;
-	transition: all, 0.3s;
-}
-
-.pagination__option a:hover,
-.pagination__option a.active {
-	border-color: #db2d2e;
-	color: #353535;
-}
-
-.pagination__option a:last-child {
-	margin-right: 0;
-}
-
-.pagination__option a span {
-	font-size: 18px;
-	position: relative;
-	top: 2px;
-	font-weight: 700;
-}
 
 .car__sidebar {
 	background: #f7f7f7;
@@ -3157,6 +3125,9 @@ ol {
 	.header__menu ul li {
 		margin-right: 32px;
 	}
+	.header__menu ul{
+		margin: -70px;
+	}
 	.chooseus {
 		height: auto;
 	}
@@ -3316,7 +3287,9 @@ ol {
 	}
 	.offcanvas__logo {
 		margin-bottom: 30px;
+
 	}
+
 	.offcanvas__widget {
 		margin-bottom: 30px;
 	}
@@ -3732,4 +3705,53 @@ ol {
 .splide--nav>.splide__track>.splide__list>.splide__slide.is-active {
 	border: 3px solid red;
 	opacity: 1;
+}
+/* pagination option style */
+.pagination__option a:hover {
+	background-color: #f60000;
+}
+.pagination__option ul{
+	margin: 0;
+	padding: 0;
+}
+
+.pagination__option .prev {
+	margin-right: 10px;
+}
+
+.pagination__option .next {
+	margin-left: 10px;
+}
+
+
+.pagination__option .prev,
+.pagination__option .next {
+	margin: 0 10px;
+}
+.pagination__option {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.pagination__option a {
+	display: inline-block;
+	padding: 8px 16px;
+	text-decoration: none;
+	color: #333;
+	background-color: #f2f2f2;
+	border-radius: 2px;
+	margin: 0 5px;
+	transition: background-color 0.3s ease;
+}
+
+.pagination__option .prev,
+.pagination__option .next {
+	font-weight: bold;
+}
+
+.pagination__option .current {
+	font-weight: bold;
+	background-color: #ccc;
+	color: #333;
+	cursor: default;
 }

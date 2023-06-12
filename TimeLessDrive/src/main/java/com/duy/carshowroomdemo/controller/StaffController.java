@@ -5,9 +5,7 @@ import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Invoice;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Post;
-import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
-import com.duy.carshowroomdemo.repository.OffMeetingRepository;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
@@ -24,8 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -354,14 +350,31 @@ public class StaffController {
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("totalMeetings", totalMeetings);
-        modelAndView.setViewName("views/staff/create-invoice-test");
+        modelAndView.setViewName("views/staff/create-invoice");
 
         return modelAndView;
     }
 
     @RequestMapping("/create-invoice/create/{id}")
+    public ModelAndView showInvoiceDetailsPage(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        OffMeetingDto offMeeting = mapperManager.getOffMeetingMapper().toDto(service.getOffMeetingService().findById(id));
+
+        modelAndView.addObject("meeting", offMeeting);
+        modelAndView.setViewName("views/staff/invoice-details");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/create-invoice/confirm/{id}")
     public ModelAndView createInvoiceConfirm(@PathVariable String id,
-                                             @Nullable @RequestParam("offset") Integer offset){
+                                             @Nullable @RequestParam("notes") String notes,
+                                             @RequestParam("tax") String tax){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
@@ -377,78 +390,16 @@ public class StaffController {
         invoice.setCreateDate(LocalDate.now());
         invoice.setCreateTime(LocalTime.now());
         invoice.setStatus(Status.PAID);
-        invoice.setTax("10%");
+        invoice.setTax(tax);
         invoice.setTotal(Util.calculateTotal(meeting.getCar().getPrice(), invoice.getTax()));
-        invoice.setOtherInformation(Util.getRandText(10));
-
-        service.getInvoiceService().save(invoice);
-
+        invoice.setOtherInformation(notes);
+        meeting.getCar().setStatus(Status.BOUGHT);
         meeting.setStatus(Status.DONE);
 
+        service.getInvoiceService().save(invoice);
         service.getOffMeetingService().save(meeting);
 
-
-        return showCreateInvoicePage(offset);
-
-    }
-
-    @RequestMapping("/create-invoice/create")
-    public ModelAndView createInvoice(@RequestParam("fullName") String fullName,
-                                      @RequestParam("email") String email,
-                                      @RequestParam("phone") String phone,
-                                      @RequestParam("carName") String carName,
-                                      @RequestParam("brand") String brand,
-                                      @RequestParam("boughtYear") int boughtYear,
-                                      @RequestParam("licensePlate") String licensePlate,
-                                      @RequestParam("additionalInfo") String additionalInfo){
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("views/staff/create-invoice");
-
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
-        }
-
-        ClientDto client = service.getClientService().getClientByEmailAndNameAndPhone(email, fullName, phone);
-
-        if(client == null){
-            modelAndView.addObject("errorMsg", "Client not found");
-            modelAndView.addObject("fullName", fullName);
-            modelAndView.addObject("email", email);
-            modelAndView.addObject("phone", phone);
-            modelAndView.addObject("carName", carName);
-            modelAndView.addObject("brand", brand);
-            modelAndView.addObject("boughtYear", boughtYear);
-            modelAndView.addObject("licensePlate", licensePlate);
-            modelAndView.addObject("additionalInfo", additionalInfo);
-            return modelAndView;
-        }
-
-//        CarDto car = service.getCarService().findCarByNameAndBrandAndBoughtYearAndLicensePlate(carName, brand, boughtYear, licensePlate);
-        CarDto car = new CarDto();
-
-        if(car == null){
-            modelAndView.addObject("errorMsg", "Car not found");
-            modelAndView.addObject("fullName", fullName);
-            modelAndView.addObject("email", email);
-            modelAndView.addObject("phone", phone);
-            modelAndView.addObject("carName", carName);
-            modelAndView.addObject("brand", brand);
-            modelAndView.addObject("boughtYear", boughtYear);
-            modelAndView.addObject("licensePlate", licensePlate);
-            modelAndView.addObject("additionalInfo", additionalInfo);
-            return modelAndView;
-        }
-
-        boolean isSavedInvoice = service.getInvoiceService().createNewInvoice(client, (StaffDto) session.getAttribute("staff"), car, additionalInfo);
-        if(isSavedInvoice){
-            modelAndView.addObject("successMsg", "Invoice created successfully");
-        }else {
-            modelAndView.addObject("errorMsg", "An error occurred");
-        }
-
-        return modelAndView;
+        return showCreateInvoicePage(1);
     }
 
     @RequestMapping("/log-out")
