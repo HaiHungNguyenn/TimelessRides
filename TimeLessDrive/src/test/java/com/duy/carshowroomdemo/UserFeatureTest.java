@@ -1,9 +1,11 @@
 package com.duy.carshowroomdemo;
 import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.OffMeeting;
+import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
@@ -16,6 +18,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 
 import com.duy.carshowroomdemo.repository.*;
@@ -35,6 +38,8 @@ public class UserFeatureTest {
     private ClientRepository clientRepository;
     @Autowired
     private OffMeetingRepository offMeetingRepository;
+    @Autowired
+    private PostRepository postRepository;
 
     @Test
     public void loadCar(){
@@ -66,5 +71,18 @@ public class UserFeatureTest {
         System.out.println("a:"+a);
         System.out.println(a.getName());
         System.out.println("aDto:"+aDto.getId());
+    }
+    @Test
+    public void testLoadOrderBy(){
+        List<Post> postList = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarMakeWithPriceASC("honda", PageRequest.of(0, 9)).forEach(x->{postList.add(x);});
+        postList.forEach(x->{
+            System.out.println(x.getCar().getName()+", price:"+x.getCar().getPrice());
+        });
+        List<Post> postList1 = new ArrayList<>();
+        postRepository.findAllByStatusIsAndCarMakeWithPriceDESC("honda", PageRequest.of(0, 9)).forEach(x->{postList1.add(x);});
+        postList1.forEach(x->{
+            System.out.println(x.getCar().getName()+", price:"+x.getCar().getPrice());
+        });
     }
 }
