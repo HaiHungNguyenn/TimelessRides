@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/nice-select.css" type="text/css">
@@ -118,7 +117,7 @@
                                         <li><a href="/meeting_history">Meeting History</a></li>
                                     </ul>
                                 </li>
-                                <li class="active"><a href="/post_car">Post Car</a></li>
+                                <li><a href="/post_car">Post Car</a></li>
                                 <li><a href="/customer_service">Customer Service</a></li>
                                 <li th:if="${session.client != null}">
                                     <a href="/log-out">Log out</a>
@@ -297,11 +296,13 @@
                             <input type="file" id="car-image"
                                    onchange="previewImages();" multiple
                                    accept="image/png, image/gif, image/jpeg">
+                            <label for="car-image">
+                                <i class="fa fa-cloud-upload"></i><br>
+                                To select multiple files, hold down the CTRL or SHIFT key while
+                                selecting.</label>
                             <div id="images">
 
                             </div>
-                            <label for="car-image">To select multiple files, hold down the CTRL or SHIFT key while
-                                selecting.</label>
                         </div>
 
                     </li>

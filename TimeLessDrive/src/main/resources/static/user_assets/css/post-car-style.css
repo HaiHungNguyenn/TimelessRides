@@ -40,6 +40,8 @@
 
 .image img{
     width: 50px;
+    height: 188.88px;
+    padding: 1%;
 }
 
 .image span{
@@ -128,25 +130,57 @@ input[type="file"]{
 }
 
 .image span{
-    border: 2px solid white;
-    margin: 3%;
+    border: 2px solid black;
     padding: 2px;
-    color: white;
+    position: absolute;
+    left: 93%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }
 
 .image p {
     display: inline-block;
     width: 50%;
     text-align: center;
-    color: white;
     font-size: 113%;
 }
 
 .image{
-    background: red;
-    color: white;
+    position: relative;
     margin: 5px;
+    border-radius: 9px;
+    border: 1px solid black;
+    transition: box-shadow 0.3s ease, transfrom 0.3s ease;
 }
 
 
 
+.image:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.car-images label{
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: box-shadow 0.3s ease, transfrom 0.3s ease;
+}
+
+.car-images label:hover{
+    box-shadow: 0 0 10px indianred;
+}
+
+.car-images .fa-cloud-upload{
+    font-size: 60px;
+}
+
+.header{
+    padding: 0px;
+}
+
+.header__menu li{
+    margin-right: 18px;
+}
