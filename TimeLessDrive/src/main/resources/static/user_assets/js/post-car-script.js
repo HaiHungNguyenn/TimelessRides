@@ -51,7 +51,7 @@ function setPreview(images){
     for(let i=0;i < images.length; i++) {
         previews.innerHTML +=
             '<div class="image" id="' + i + '">' +
-                '<img src="' + images[i] + '" style="width: 20%;">' +
+                '<img src="' + images[i] + '">' +
                 '<p>'+fileInput.item(i).name+'</p>' +
                 '<span class="close">' +
                     '<i class="fa fa-trash-o"></i>' +

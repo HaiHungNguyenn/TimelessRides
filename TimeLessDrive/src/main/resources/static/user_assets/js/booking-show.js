@@ -21,3 +21,15 @@ document.querySelector('#nav-2').addEventListener("click",function (){
     document.querySelector('#tabs-1').className = "tab-pane";
     document.querySelector('#tabs-2').className = "tab-pane active";
 });
+
+$('#phone-number').keypress(function (e) {
+    var key = String.fromCharCode(e.which);
+    var pattern=/^[0-9]{1,11}(,[0-9]{0,2})?$/;
+
+    // test this
+    var txt = $(this).val() + key;
+
+    if (!pattern.test(txt)) {
+        e.preventDefault();
+    }
+});

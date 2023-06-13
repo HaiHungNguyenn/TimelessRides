@@ -4,6 +4,11 @@
 /*    padding: 0;*/
 /*    box-sizing: border-box;*/
 /*}*/
+
+html{
+    font-family: "Lato", sans-serif;
+}
+
 .pricing-card h2{
     font-size: 27px;
     text-align: center;
@@ -12,7 +17,7 @@
 
 }
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Lato", sans-serif;
     background-color: #f5f5f5;
 }
 

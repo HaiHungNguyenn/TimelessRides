@@ -39,8 +39,8 @@
 }
 
 .image img{
-    width: 50px;
-    height: 188.88px;
+    width: 10%;
+    max-height: 65px;
     padding: 1%;
 }
 
@@ -181,6 +181,6 @@ input[type="file"]{
     padding: 0px;
 }
 
-.header__menu li{
+.header__menu li {
     margin-right: 18px;
 }
