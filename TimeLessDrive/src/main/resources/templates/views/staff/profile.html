@@ -131,9 +131,11 @@
         </div>
       </section>
         <section class="pt-5 pb-9">
+          <p class="text-danger fs-3 text-center" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+          <p class="text-success fs-3 text-center" th:if="${successMsg != null}" th:text="${successMsg}"/>
           <div class="container-small cart">
             <h2 class="mb-5">My Meetings<span class="text-700 fw-normal ms-2" th:text="${totalMeetings == null} ? '(0 meetings)' : '(' + ${totalMeetings} + ' meetings)'"></span></h2>
-            <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}'>
+            <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}' th:if="${!meetingList.isEmpty()}">
               <div class="table-responsive scrollbar">
                 <table class="table fs--1 mb-0">
                   <thead>
@@ -143,9 +145,6 @@
                     <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
                       <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="@{'/staff/home/sorted-by-meetingDate-' + ${direction}(offset=1)}" th:text="'Meeting Date'"/>
                     </th>
-<!--                    <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">-->
-<!--                      <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="@{'/staff/home/sorted-by-createDate-' + ${direction}(page=1)}" th:text="'Created At'"/>-->
-<!--                    </th>-->
                     <th class="sort align-middle" scope="col" style="width:30%; min-width: 250px">Description</th>
                     <th class="sort align-middle text-center" scope="col" style="width:10%;">Status</th>
                     <th class="sort align-middle text-center pe-0" scope="col" style="width:30%;">Negotiation status</th>
@@ -156,9 +155,8 @@
                     <td class="align-middle white-space-nowrap ps-0 py-0">
                       <div class="text-center" th:text="${(offset - 1) * 4 + iStat.count}"/>
                     </td>
-                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="'/staff/user-details/' + ${meeting.getClient().getId()}" th:text="${meeting.getClient().getName()}"/></td>
+                    <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{/staff/user-details (id = ${meeting.getClient().getId()})}" th:text="${meeting.getClient().getName()}"/></td>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${meeting.getMeetingDate()}"/>
-<!--                    <td class="color align-middle white-space-nowrap fs&#45;&#45;1 text-900" th:text="${meeting.getCreateTime()}"/>-->
                     <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${meeting.getDescription()}"/>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-center">
                       <span class="badge fs-md--1 badge-phoenix" th:classappend="${meeting.getTimeStatus() == 'Past'} ? 'badge-phoenix-warning' : 'badge-phoenix-secondary'" th:text="${meeting.getTimeStatus()}"/>
@@ -170,6 +168,9 @@
                       <a class="hover-text-decoration-none">
                         <button class="btn btn-success hover-text-600 fs--1 disabled" th:text="Succeed"/>
                       </a>
+                      <a class="hover-text-decoration-none" th:href="@{'/staff/home/action=cancel' (meetingId=${meeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}">
+                        <button class="btn btn-danger hover-text-600 fs--1" th:text="Cancel"/>
+                      </a>
                     </td>
                     <td class="total align-middle fw-bold text-1000 text-center text-nowrap pe-0" th:if="${meeting.getTimeStatus() == 'Past'}">
                       <a class="hover-text-decoration-none" th:href="@{'/staff/home/action=fail' (meetingId=${meeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}">
@@ -178,12 +179,15 @@
                       <a class="hover-text-decoration-none" th:href="@{'/staff/home/action=succeed' (meetingId=${meeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}">
                         <button class="btn btn-success hover-text-600 fs--1" th:text="Succeed"/>
                       </a>
+                      <a class="hover-text-decoration-none">
+                        <button class="btn btn-danger hover-text-600 fs--1 disabled" th:text="Cancel"/>
+                      </a>
                     </td>
                   </tr>
                   </tbody>
                 </table>
               </div>
-              <nav aria-label="Page navigation example" class="pt-3">
+              <nav aria-label="Page navigation example" class="pt-3" th:if="${lastOffset > 1}">
                 <ul class="pagination" th:with="url=(${property == null} ? '/staff/home' : '/staff/home/sorted-by-' + ${property} + '-' + ${direction})">
                   <li class="page-item">
                     <a class="page-link" aria-label="Previous" th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url}(offset=1)}">

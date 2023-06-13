@@ -7,11 +7,16 @@ import com.thedeanda.lorem.LoremIpsum;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.swing.text.MaskFormatter;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DecimalFormat;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -252,4 +257,18 @@ public class Util {
     }
 
 
+    public static String formatVndPrice(Long price) {
+        String priceString = NumberFormat.getCurrencyInstance(Locale.JAPAN).format(price);
+        return priceString.substring(1) + " vnd";
+    }
+
+    public static String formatPhone(String phone) {
+        try {
+            MaskFormatter maskFormatter = new MaskFormatter("###-###-####");
+            maskFormatter.setValueContainsLiteralCharacters(false);
+            return maskFormatter.valueToString(phone);
+        } catch (ParseException e) {
+            return "";
+        }
+    }
 }

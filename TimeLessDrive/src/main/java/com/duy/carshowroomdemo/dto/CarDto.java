@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.dto;
 import com.duy.carshowroomdemo.dto.CarDescriptionDto;
 import com.duy.carshowroomdemo.dto.CarImageDto;
 import com.duy.carshowroomdemo.entity.Car;
+import com.duy.carshowroomdemo.util.Util;
 import lombok.*;
 import org.springframework.cache.annotation.Cacheable;
 
@@ -25,6 +26,11 @@ public class CarDto implements Serializable {
     private CarDescriptionDto carDescription;
     private List<CarImageDto> carImageList;
 //    private PostDto post;
+
+
+    public String getFormattedPrice() {
+        return Util.formatVndPrice(price);
+    }
 
     public List<CarImageDto> getCarImageList() {
         return (carImageList != null) ? carImageList:new ArrayList<>();

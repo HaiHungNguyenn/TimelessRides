@@ -72,6 +72,8 @@ public class StaffController {
     @RequestMapping("/home")
     public ModelAndView showHomePage(String direction,
                                      String property,
+                                     String successMsg,
+                                     String errorMsg,
                                      @Nullable @RequestParam("offset") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
@@ -101,6 +103,13 @@ public class StaffController {
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.addObject("totalMeetings", totalMeetings);
+        if(successMsg != null){
+            modelAndView.addObject("successMsg", successMsg);
+        }
+        if(errorMsg!= null){
+            modelAndView.addObject("errorMsg", errorMsg);
+        }
+
         modelAndView.setViewName("views/staff/profile");
 
         return modelAndView;
@@ -110,7 +119,7 @@ public class StaffController {
     public ModelAndView showHomePageSortedNext(@RequestParam("offset") int offset,
                                                @PathVariable String property,
                                                @PathVariable String direction){
-        return showHomePage(direction, property, offset);
+        return showHomePage(direction, property, null, null, offset);
     }
 
     @RequestMapping("/home/action={action}")
@@ -120,6 +129,8 @@ public class StaffController {
                                            @RequestParam("direction") String direction,
                                            @Nullable @RequestParam("offset") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
 
         if(!isAuthenticated()){
             return modelAndView;
@@ -128,13 +139,20 @@ public class StaffController {
         OffMeeting offMeeting = service.getOffMeetingService().findById(id);
 
         if(offMeeting == null){
-            return modelAndView;
+            errorMsg = "An error occurred, cannot perform this action";
+            return showHomePage(direction, property, successMsg, errorMsg, offset);
         }
 
         if(action.equalsIgnoreCase("fail")){
             offMeeting.setStatus(Status.FAILED);
+            successMsg = "Deleted a failed meeting";
         }else if(action.equalsIgnoreCase("succeed")){
             offMeeting.setStatus(Status.SUCCESS);
+            successMsg = "Updated meeting's status. Ready to create invoice";
+        }else if(action.equalsIgnoreCase("cancel")){
+            offMeeting.setStatus(Status.PENDING);
+            offMeeting.setStaff(null);
+            successMsg = "Cancelled meeting with " + offMeeting.getClient().getName();
         }
 
         service.getOffMeetingService().save(offMeeting);
@@ -142,13 +160,15 @@ public class StaffController {
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
 
-        return showHomePage(direction, property, offset);
+        return showHomePage(direction, property, successMsg, errorMsg, offset);
     }
 
 
     @RequestMapping("/meeting-requests")
     public ModelAndView showMeetingRequestList(String direction,
                                                String property,
+                                               String successMsg,
+                                               String errorMsg,
                                                @Nullable @RequestParam("page") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
@@ -177,6 +197,12 @@ public class StaffController {
         modelAndView.addObject("totalOffMeetings", totalOffMeetings);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/meeting-req");
+        if(successMsg != null){
+            modelAndView.addObject("successMsg", successMsg);
+        }
+        if(errorMsg!= null){
+            modelAndView.addObject("errorMsg", errorMsg);
+        }
 
         return modelAndView;
     }
@@ -185,7 +211,7 @@ public class StaffController {
     public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property,
                                                           @PathVariable String direction,
                                                           @Nullable @RequestParam("page") Integer offset){
-        return showMeetingRequestList(direction, property, offset);
+        return showMeetingRequestList(direction, property, null, null, offset);
     }
 
     @RequestMapping("/meeting-requests/action={action}")
@@ -195,6 +221,8 @@ public class StaffController {
                                               @RequestParam("direction") String direction,
                                               @RequestParam("offset") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
 
         if(!isAuthenticated()){
             return modelAndView;
@@ -203,27 +231,31 @@ public class StaffController {
         OffMeeting offMeeting = service.getOffMeetingService().findById(meetingId);
 
         if(offMeeting == null){
-            return showPostRequestList(direction,property,offset);
-        }
-
-        if(offMeeting.getStaff() != null){
-            System.out.println("This request has been reviewed by someone else");
+            errorMsg = "An error occurred, cannot perform this action";
+        }else if(offMeeting.getStaff() != null){
+            errorMsg = "This request has been reviewed by someone else";
         }else {
             offMeeting.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
             offMeeting.setStatus(action.equalsIgnoreCase("decline") ? Status.DECLINED : Status.APPROVED);
+            if(offMeeting.getStatus().equalsIgnoreCase(Status.DECLINED)){
+                successMsg = "Declined meeting with " + offMeeting.getClient().getName();
+            }else {
+                successMsg = "Approved meeting with " + offMeeting.getClient().getName();
+            }
+            service.getOffMeetingService().save(offMeeting);
         }
-
-        service.getOffMeetingService().save(offMeeting);
 
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
 
-        return showMeetingRequestList(direction,property,offset);
+        return showMeetingRequestList(direction, property, successMsg, errorMsg, offset);
     }
 
     @RequestMapping("/post-requests")
     public ModelAndView showPostRequestList(String direction,
                                             String property,
+                                            String successMsg,
+                                            String errorMsg,
                                             @Nullable @RequestParam("page") Integer offset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
@@ -252,6 +284,12 @@ public class StaffController {
         modelAndView.addObject("property", property);
         modelAndView.addObject("lastOffset", lastOffset);
         modelAndView.setViewName("views/staff/post-req");
+        if(successMsg != null){
+            modelAndView.addObject("successMsg", successMsg);
+        }
+        if(errorMsg!= null){
+            modelAndView.addObject("errorMsg", errorMsg);
+        }
 
         return modelAndView;
     }
@@ -260,7 +298,7 @@ public class StaffController {
     public ModelAndView showPostRequestSortedPerPage(@PathVariable String direction,
                                                      @PathVariable String property,
                                                      @Nullable @RequestParam("page") Integer offset){
-        return showPostRequestList(direction,property, offset);
+        return showPostRequestList(direction, property, null, null, offset);
     }
 
     @RequestMapping("/post-requests/action={action}")
@@ -270,6 +308,8 @@ public class StaffController {
                                            @RequestParam("direction") String direction,
                                            @RequestParam("property") String property){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
 
         if(!isAuthenticated()){
             return modelAndView;
@@ -278,27 +318,29 @@ public class StaffController {
         Post post = service.getPostService().findById(id);
 
         if(post == null){
-            return showPostRequestList(direction,property,offset);
+            errorMsg = "An error occurred, cannot perform this action";
         }else if(!post.getStatus().equalsIgnoreCase(Status.PENDING)){
-            return showPostRequestList(direction,property,offset);
-        }
-
-        if(action.equalsIgnoreCase("decline")){
-            post.setStatus(Status.DECLINED);
-        }else {
-            post.setStatus(Status.APPROVED);
-            service.configSearchList();
+            errorMsg = "This post has already been handled by someone else";
+        }else{
+            if(action.equalsIgnoreCase("decline")){
+                post.setStatus(Status.DECLINED);
+                successMsg = "Declined post from " + post.getClient().getName();
+            }else {
+                post.setStatus(Status.APPROVED);
+                successMsg = "Approved post from " + post.getClient().getName();
+                service.configSearchList();
+            }
         }
 
         service.getPostService().save(post);
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
 
-        return showPostRequestList(direction,property,offset);
+        return showPostRequestList(direction,property, successMsg, errorMsg, offset);
     }
 
-    @RequestMapping("/user-details/{id}")
-    public ModelAndView viewUserDetails(@PathVariable String id,
+    @RequestMapping("/user-details")
+    public ModelAndView viewUserDetails(@RequestParam("id") String id,
                                         @Nullable @RequestParam("mOffset") Integer mOffset,
                                         @Nullable @RequestParam("pOffset") Integer pOffset){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
@@ -332,7 +374,9 @@ public class StaffController {
     }
 
     @RequestMapping("/create-invoice")
-    public ModelAndView showCreateInvoicePage(@Nullable @RequestParam("offset") Integer offset){
+    public ModelAndView showCreateInvoicePage(@Nullable @RequestParam("offset") Integer offset,
+                                              String successMsg,
+                                              String errorMsg){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
@@ -351,13 +395,22 @@ public class StaffController {
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("totalMeetings", totalMeetings);
         modelAndView.setViewName("views/staff/create-invoice");
+        if(successMsg != null){
+            modelAndView.addObject("successMsg", successMsg);
+        }
+        if(errorMsg!= null){
+            modelAndView.addObject("errorMsg", errorMsg);
+        }
 
         return modelAndView;
     }
 
-    @RequestMapping("/create-invoice/create/{id}")
-    public ModelAndView showInvoiceDetailsPage(@PathVariable String id){
+    @RequestMapping("/create-invoice/{action}")
+    public ModelAndView showInvoiceDetailsPage(@RequestParam("id") String id,
+                                               @PathVariable String action){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
 
         if(!isAuthenticated()){
             return modelAndView;
@@ -365,14 +418,25 @@ public class StaffController {
 
         OffMeetingDto offMeeting = mapperManager.getOffMeetingMapper().toDto(service.getOffMeetingService().findById(id));
 
-        modelAndView.addObject("meeting", offMeeting);
-        modelAndView.setViewName("views/staff/invoice-details");
+        if(offMeeting == null){
+            errorMsg = "An error occurred, cannot perform this action";
+        }else {
+            if(action.equalsIgnoreCase("create")){
+                modelAndView.addObject("meeting", offMeeting);
+                modelAndView.setViewName("views/staff/invoice-details");
+                return modelAndView;
+            }else if(action.equalsIgnoreCase("cancel")){
+                offMeeting.setStatus(Status.APPROVED);
+                service.getOffMeetingService().save(mapperManager.getOffMeetingMapper().toEntity(offMeeting));
+                successMsg = "Meeting has been moved to your meetings queue";
+            }
+        }
 
-        return modelAndView;
+        return showCreateInvoicePage(null, successMsg, errorMsg);
     }
 
-    @RequestMapping("/create-invoice/confirm/{id}")
-    public ModelAndView createInvoiceConfirm(@PathVariable String id,
+    @RequestMapping("/create-invoice/confirm")
+    public ModelAndView createInvoiceConfirm(@RequestParam("id") String id,
                                              @Nullable @RequestParam("notes") String notes,
                                              @RequestParam("tax") String tax){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
@@ -399,21 +463,11 @@ public class StaffController {
         service.getInvoiceService().save(invoice);
         service.getOffMeetingService().save(meeting);
 
-        return showCreateInvoicePage(1);
+        return showCreateInvoicePage(null, null, null);
     }
 
-    @RequestMapping("/log-out")
-    public ModelAndView logout(){
-        ModelAndView modelAndView = new ModelAndView();
-
-        session.removeAttribute("staff");
-        modelAndView.setViewName("views/user/index");
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/car-details/{id}")
-    public ModelAndView showCarDetails(@PathVariable String id){
+    @RequestMapping("/car-details")
+    public ModelAndView showCarDetails(@RequestParam("id") String id){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if(!isAuthenticated()){
@@ -423,6 +477,16 @@ public class StaffController {
         CarDto car = service.getCarService().findCarById(id);
         modelAndView.addObject("car", car);
         modelAndView.setViewName("views/staff/car-details");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/log-out")
+    public ModelAndView logout(){
+        ModelAndView modelAndView = new ModelAndView();
+
+        session.removeAttribute("staff");
+        modelAndView.setViewName("views/user/index");
 
         return modelAndView;
     }

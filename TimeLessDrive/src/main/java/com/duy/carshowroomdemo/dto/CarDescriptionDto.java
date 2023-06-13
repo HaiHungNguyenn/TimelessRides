@@ -31,4 +31,8 @@ public class CarDescriptionDto implements Serializable {
     private int co2Emission;
     private int kmsDriven;
     private String others;
+
+    public String getLicensePlate() {
+        return licensePlate.substring(0,3) + "-" + licensePlate.substring(3,6) + "." + licensePlate.substring(6,8);
+    }
 }
