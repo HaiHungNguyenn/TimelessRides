@@ -230,5 +230,13 @@ public class PostService {
         return postDtoList;
     }
 
-
+    public List<PostDto> findSortedApprovedPosts(Pageable pageable, String direction){
+        List<PostDto> postList = new ArrayList<>();
+        if(direction.equalsIgnoreCase("asc")){
+            postRepository.findAllByStatusWithPriceASC(pageable).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
+        }else{
+            postRepository.findAllByStatusWithPriceDESC(pageable).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
+        }
+        return postList;
+    }
 }

@@ -66,78 +66,93 @@
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" th:src="${meeting.getClient().getAvatar()}"><span class="font-weight-bold" th:text="${meeting.getClient().getName()}"/><span class="text-black-50" th:text="${meeting.getClient().getEmail()}"/></div>
                         </div>
                         <div class="col-md-9 border">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Client Information</h4>
+                            <h4 class="mt-4 mb-3">Client Information</h4>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">Full name:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getClient().getName()}"/>
                                 </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">Full Name</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getName()}" th:value="${meeting.getClient().getName()}" disabled></div>
-                                    <div class="col-md-6"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getPhone()}" th:value="${meeting.getClient().getPhone()}" disabled></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">Email</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getEmail()}" th:value="${meeting.getClient().getEmail()}" disabled></div>
-                                    <div class="col-md-6"><label class="labels">Day of Birth</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getDob()}" th:value="${meeting.getClient().getDob()}" disabled></div>
-                                    <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" th:placeholder="${meeting.getClient().getAddress()}" th:value="${meeting.getClient().getAddress()}" disabled></div>
+                                <div class="col-md-5 row">
+                                    <div class="col-md-4 opacity-75">Phone:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getClient().getPhone()}"/>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container rounded bg-white mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-12 border">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Car Information</h4>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">Email:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getClient().getEmail()}"/>
                                 </div>
-                                <div class="row mt2">
-                                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" th:value="${meeting.getCar().getName()}" disabled></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">Make</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getMake()}" disabled></div>
-                                    <div class="col-md-6"><label class="labels">Model</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getModel()}" disabled></div>
-                                </div>
-                                <div class="row mt-2">
-                                    <div class="col-md-6"><label class="labels">License Plate</label><input type="text" class="form-control" th:value="${meeting.getCar().getCarDescription().getLicensePlate()}" disabled></div>
-                                    <div class="col-md-6"><label class="labels">Price</label><input type="text" class="form-control" th:value="${meeting.getCar().getFormattedPrice()}" disabled></div>
+                                <div class="col-md-5 row">
+                                    <div class="col-md-4 opacity-75">Dob:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getClient().getDob()}"/>
                                 </div>
                             </div>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">Address:</div>
+                                    <div class="col-md-8 text-nowrap fw-medium" th:text="${meeting.getClient().getAddress()}"/>
+                                </div>
+                            </div>
+
+                            <h4 class="mt-6 mb-3">Car Information</h4>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">Car name:</div>
+                                    <div class="col-md-8 text-nowrap fw-medium" th:text="${meeting.getCar().getName()}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">Make:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getCar().getCarDescription().getMake()}"/>
+                                </div>
+                                <div class="col-md-5 row">
+                                    <div class="col-md-4 opacity-75">Model:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getCar().getCarDescription().getModel()}"/>
+                                </div>
+                            </div>
+                            <div class="col-md-12 row mt-2">
+                                <div class="col-md-7 row">
+                                    <div class="col-md-4 opacity-75">License Plate:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getCar().getCarDescription().getLicensePlate()}"/>
+                                </div>
+                                <div class="col-md-5 row">
+                                    <div class="col-md-4 opacity-75">Price:</div>
+                                    <div class="col-md-8 fw-medium" th:text="${meeting.getCar().getFormattedPrice()}"/>
+                                </div>
+                            </div>
+                            <form th:action="@{/staff/create-invoice/confirm (id = ${meeting.getId()})}" method="post">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h4 class="text-right mt-6 mb-3">Additional Information</h4>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-2">
+                                        <label class="opacity-75">Tax</label>
+                                        <input type="text" name="tax" class="form-control" placeholder="ex: 15%" required>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-6 align-content-end">
+                                        <label class="opacity-75">Notes</label>
+                                        <textarea type="text" rows="5" name="notes" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 row mt-5 mb-5">
+                                    <div class="col-md-2">
+                                        <button onclick="window.location='/staff/create-invoice'" class="form-control btn-secondary">Cancel</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="submit" name="action" class="form-control btn-success" value="Create invoice">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
 
-                <div class="container rounded bg-white mt-5 mb-5">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="p-3 py-5">
-                                <form th:action="@{/staff/create-invoice/confirm (id = ${meeting.getId()})}" method="post">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="text-right">Additional Information</h4>
-                                    </div>
-                                    <div class="row mt2">
-                                        <div class="col-md-2"><label class="labels">Tax</label><input type="text" name="tax" class="form-control" placeholder="ex: 15%" required></div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-md-6 align-content-end">
-                                            <label class="labels">Notes</label>
-                                            <textarea type="text" rows="5" name="notes" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-5">
-                                        <div class="col-md-2">
-                                            <button onclick="window.location='/staff/create-invoice'" class="form-control btn-secondary">Cancel</button>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input type="submit" name="action" class="form-control btn-success" value="Create invoice">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
             </section>
-        </div>
         <section class="bg-100 dark__bg-1100 py-9">
             <div class="container-small">
                 <div class="row justify-content-between gy-4">
@@ -166,6 +181,7 @@
                 </div>
             </div>
         </section>
+        </div>
     </main>
   </body>
 </html>

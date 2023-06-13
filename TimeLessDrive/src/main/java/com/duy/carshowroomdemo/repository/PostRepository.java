@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.repository;
 
+import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Post;
 import org.springframework.data.domain.Page;
@@ -77,7 +78,5 @@ public interface PostRepository extends JpaRepository<Post, String>{
 
     @Query(" select p from Post p where p.status='Approved' order by p.car.price desc")
     Page<Post> findAllByStatusWithPriceDESC(Pageable pageable);
-
-
 
 }

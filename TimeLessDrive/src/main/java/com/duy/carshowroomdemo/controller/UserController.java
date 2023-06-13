@@ -101,31 +101,67 @@ public ModelAndView postCar(){
     @RequestMapping("/car")
     public ModelAndView showCarList(String direction,
                                     String property,
-                                    @Nullable @RequestParam("page") Integer offset ){
+                                    String value,
+                                    @Nullable @RequestParam("offset") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
-        System.out.println("he;;op");
 
         offset = (offset == null) ? 1: offset;
+        if(property != null){
+            if (property.isBlank()){
+                property = null;
+                value = null;
+            }
+        }
 
-        List<PostDto> postDto;
+        List<PostDto> postDto = new ArrayList<>();
 
-        if(property != null && direction != null){
-            Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-//
-//            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
-            System.out.println("can be here");
-            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9),property,direction);
+        if(property != null && value != null){
+            switch (property) {
+                case "make" -> {
+                    if (direction != null) {
+                        postDto = service.getPostService().searchOrderedApprovedCarByMake(value, PageRequest.of(offset - 1, 9), direction);
+                    } else {
+                        postDto = service.getPostService().searchApprovedCarByMake(value, PageRequest.of(offset - 1, 9));
+                    }
+                }
+                case "model" -> {
+                    if (direction != null) {
+                        postDto = service.getPostService().searchOrderedApprovedCarByModel(value, PageRequest.of(offset - 1, 9), direction);
+                    } else {
+                        postDto = service.getPostService().searchApprovedCarByModel(value, PageRequest.of(offset - 1, 9));
+                    }
+                }
+                case "body" -> {
+                    if (direction != null) {
+                        postDto = service.getPostService().searchOrderedApprovedCarByBody(value, PageRequest.of(offset - 1, 9), direction);
+                    } else {
+                        postDto = service.getPostService().searchApprovedCarByBody(value, PageRequest.of(offset - 1, 9));
+                    }
+                }
+                case "tranmision" -> {
+                    if (direction != null) {
+                        postDto = service.getPostService().searchOrderedApprovedCarByTran(value, PageRequest.of(offset - 1, 9), direction);
+                    } else {
+                        postDto = service.getPostService().searchApprovedCarByTran(value, PageRequest.of(offset - 1, 9));
+                    }
+                }
+                case "fuel" -> {
+                    if (direction != null) {
+                        postDto = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9), direction);
+                    } else {
+                        postDto = service.getPostService().searchApprovedCarByFuel(value, PageRequest.of(offset - 1, 9));
+                    }
+                }
+            }
 
-
-
+        }else if(direction != null){
+            postDto = service.getPostService().findSortedApprovedPosts(PageRequest.of(offset - 1, 9), direction);
         }else{
-//            postDto = service.getCarService().getCarPerPage(PageRequest.of(offset - 1, 9));
             postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9));
         }
         long lastOffSet = service.getCarService().getLastOffset(9);
-        String value = null;
 
-        modelAndView.addObject("postDto",postDto);
+        modelAndView.addObject("postDto", postDto);
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("property", property);
         modelAndView.addObject("value", value);
@@ -136,102 +172,20 @@ public ModelAndView postCar(){
         return modelAndView;
     }
 
-    public ModelAndView showSearchedCarList (String direction,
-                                             String property,
-                                             @Nullable @RequestParam("page") Integer offset,
-                                             String value){
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println("direction:"+direction);
-        System.out.println("property:"+property);
-        System.out.println("value:"+value);
-        offset = (offset == null) ? 1: offset;
-
-        List<CarDto> carList = new ArrayList<>();
-        List<PostDto>postDtoList = new ArrayList<>();
-        switch(property){
-            case"make":
-                if(property != null && direction != null){
-//                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-//                    carList = service.getCarDescriptionService().getSearchedCarByMakeSortedPerPage(value,PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
-                    System.out.println("can be here");
-                    System.out.println("properties");
-                    System.out.println("direction"+ direction);
-                    postDtoList = service.getPostService().searchOrderedApprovedCarByMake(value,PageRequest.of(offset -1, 9),direction);
-                }else{
-//                    carList = service.getCarDescriptionService().getSearchedCarByMakePerPage(value,PageRequest.of(offset - 1, 9));
-                    postDtoList = service.getPostService().searchApprovedCarByMake(value,PageRequest.of(offset - 1, 9));
-                }
-                break;
-            case"model":
-                if(property != null && direction != null){
-//                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    postDtoList = service.getPostService().searchOrderedApprovedCarByModel(value,PageRequest.of(offset -1, 9),direction);
-                }else{
-                    postDtoList = service.getPostService().searchApprovedCarByModel(value,PageRequest.of(offset - 1, 9));
-                }
-                break;
-            case"body":
-                if(property != null && direction != null){
-//                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    postDtoList = service.getPostService().searchOrderedApprovedCarByBody(value,PageRequest.of(offset -1, 9),direction);
-                }else{
-                    postDtoList = service.getPostService().searchApprovedCarByBody(value,PageRequest.of(offset - 1, 9));
-                }
-                break;
-            case"tranmision":
-                if(property != null && direction != null){
-//                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    postDtoList = service.getPostService().searchOrderedApprovedCarByTran(value,PageRequest.of(offset -1, 9),direction);
-                }else{
-                    postDtoList = service.getPostService().searchApprovedCarByTran(value,PageRequest.of(offset - 1, 9));
-                }
-                break;
-            case"fuel":
-                if(property != null && direction != null){
-//                    Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-                    postDtoList = service.getPostService().searchOrderedApprovedCarByFuel(value,PageRequest.of(offset -1, 9),direction);
-                }else{
-                    postDtoList = service.getPostService().searchApprovedCarByFuel(value,PageRequest.of(offset - 1, 9));
-                }
-                break;
-
-        }
-        long lastOffSet = service.getPostService().getLastOffset(value,property,9);
-
-        modelAndView.addObject("postDto",postDtoList);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("searchedProperties", property);
-        modelAndView.addObject("value",value);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("lastOffset", lastOffSet);
-        modelAndView.setViewName("views/user/car");
-        return modelAndView;
-    }
-    @RequestMapping("/car/sorted-by-{property}-{direction}-{searchedProperties}-{value}")
+    @RequestMapping("/car/sorted-{direction}")
     public ModelAndView showCarSortedPerPage(@PathVariable String direction,
-                                             @PathVariable String property,
-                                             @Nullable @RequestParam("page") Integer offset,
-                                             @Nullable @PathVariable String searchedProperties,
-                                             @Nullable @PathVariable String value){
-        System.out.println("**************************************");
-            System.out.println("search property: "+ searchedProperties);
-            System.out.println("order property: "+ property);
-            System.out.println("value: "+ value);
-        if(!searchedProperties.equalsIgnoreCase("null") && !value.equalsIgnoreCase("null")){
-
-            return showSearchedCarList(direction,searchedProperties,offset,value);
-        }else{
-
-            return showCarList(direction, property, offset);
-        }
-
+                                             @Nullable @RequestParam("property") String property,
+                                             @Nullable @RequestParam("value") String value,
+                                             @Nullable @RequestParam("offset") Integer offset){
+        return showCarList(direction, property, value, offset);
     }
-    @RequestMapping("/car/searchCarBy-{properties}-{value}")
-    public ModelAndView searchCarByProperties(@PathVariable String properties,
-                                              @PathVariable String value){
-        List<CarDto> carList = new ArrayList<>();
-        return showSearchedCarList(null,properties,null,value);
+
+    @RequestMapping("/car/searchCarBy-{property}-{value}")
+    public ModelAndView searchCarByProperties(@PathVariable String property,
+                                              @PathVariable String value,
+                                              @Nullable @RequestParam("direction") String direction,
+                                              @Nullable @RequestParam("offset") Integer offset){
+        return showCarList(direction,property,value,offset);
     }
 
 

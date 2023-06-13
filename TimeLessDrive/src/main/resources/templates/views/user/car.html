@@ -232,9 +232,9 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="car__filter__option__item car__filter__option__item--right">
                                     <h6>Sort By
-                                        <a th:href="@{'/car/sorted-by-price-asc-' + ${searchedProperties} + '-' + ${value}} " th:text="asc" />
+                                        <a th:href="@{/car/sorted-asc (property = ${property}, value = ${value})} " th:text="asc" />
 <!--                                        <a href="#" th:text="asc" />-->
-                                        <a th:href="@{'/car/sorted-by-price-desc-' + ${searchedProperties} + '-' + ${value}}" th:text="desc" />
+                                        <a th:href="@{/car/sorted-desc (property = ${property}, value = ${value})}" th:text="desc" />
 <!--                                        <a href="#" th:text="desc" />-->
                                     </h6>
 
@@ -280,20 +280,20 @@
                     </div>
 
                     <div class="pagination__option">
-                        <ul th:with="url=(${property == null} ? '/car' : '/car/sorted-by-price-'+${direction})">
+                        <ul th:with="url=(${property != null} ? '/car/searchCarBy-' + ${property} + '-' + ${value} : '/car/sorted-'+${direction})">
                             <p th:text="${property}"/>
                             <p th:text="${direction}"/>
 
-                            <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = 1)}" th:text="First"/>&laquo
+                            <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (offset = 1, property = ${property}, value = ${value}, direction = ${direction})}" th:text="First"/>&laquo
 
-                           <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (page = ${offset - 1})}" th:text="Prev"/>
+                           <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (offset = ${offset - 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Prev"/>
 
                              <a href="#" class="active" th:text="${offset}"></a>
-                            <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (page = ${offset + 1})}" /></li>
-                            <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (page = ${offset + 2})}" /></li>
+                            <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}" /></li>
+                            <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (offset = ${offset + 2}, property = ${property}, value = ${value}, direction = ${direction})}" /></li>
 
-                           <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${offset + 1})}" th:text="Next"/>&raquo
-                            <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (page = ${lastOffset})}" th:text="Last"/>
+                           <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Next"/>&raquo
+                            <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (offset = ${lastOffset}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Last"/>
                         </ul>
                     </div>
 <!--                    <div class="pagination__option">-->

@@ -440,6 +440,8 @@ public class StaffController {
                                              @Nullable @RequestParam("notes") String notes,
                                              @RequestParam("tax") String tax){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
 
         if(!isAuthenticated()){
             return modelAndView;
@@ -447,24 +449,29 @@ public class StaffController {
 
         OffMeeting meeting = service.getOffMeetingService().findById(id);
 
-        Invoice invoice = new Invoice();
-        invoice.setClient(meeting.getClient());
-        invoice.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
-        invoice.setCar(meeting.getCar());
-        invoice.setCreateDate(LocalDate.now());
-        invoice.setCreateTime(LocalTime.now());
-        invoice.setStatus(Status.PAID);
-        invoice.setTax(tax);
-        invoice.setTotal(Util.calculateTotal(meeting.getCar().getPrice(), invoice.getTax()));
-        invoice.setOtherInformation(notes);
-        meeting.getCar().setStatus(Status.BOUGHT);
-        meeting.setStatus(Status.DONE);
-        meeting.getCar().getPost().setStatus(Status.COMPLETED);
+        if(meeting == null){
+            errorMsg = "An error occurred, cannot perform this action";
+        }else {
+            Invoice invoice = new Invoice();
+            invoice.setClient(meeting.getClient());
+            invoice.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
+            invoice.setCar(meeting.getCar());
+            invoice.setCreateDate(LocalDate.now());
+            invoice.setCreateTime(LocalTime.now());
+            invoice.setStatus(Status.PAID);
+            invoice.setTax(tax);
+            invoice.setTotal(Util.calculateTotal(meeting.getCar().getPrice(), invoice.getTax()));
+            invoice.setOtherInformation(notes);
+            meeting.getCar().setStatus(Status.BOUGHT);
+            meeting.setStatus(Status.DONE);
+            meeting.getCar().getPost().setStatus(Status.COMPLETED);
 
-        service.getInvoiceService().save(invoice);
-        service.getOffMeetingService().save(meeting);
+            service.getInvoiceService().save(invoice);
+            service.getOffMeetingService().save(meeting);
+            successMsg = "Invoice has been created";
+        }
 
-        return showCreateInvoicePage(null, null, null);
+        return showCreateInvoicePage(null, successMsg, errorMsg);
     }
 
     @RequestMapping("/car-details")
