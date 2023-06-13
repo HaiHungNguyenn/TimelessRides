@@ -10,4 +10,5 @@ public class Status {
     public static final String AVAILABLE = "Available";
     public static final String PAID = "Paid";
     public static final String BOUGHT = "Bought";
+    public static final String COMPLETED = "Completed";
 }

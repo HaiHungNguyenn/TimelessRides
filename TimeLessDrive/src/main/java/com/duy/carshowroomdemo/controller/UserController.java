@@ -1,8 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.CarDto;
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.PostDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.OffMeetingService;
@@ -304,7 +302,13 @@ public ModelAndView postCar(){
             modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
+
+        ClientDto client = (ClientDto) session.getAttribute("client");
+        List<InvoiceDto> invoiceList = service.getInvoiceService().findByClient(mapperManager.getClientMapper().toEntity(client));
+
         modelAndView.setViewName("views/user/transactions-history");
+        modelAndView.addObject("invoiceList", invoiceList);
+
         return modelAndView;
     }
     @GetMapping ("/meeting_history")
@@ -314,7 +318,13 @@ public ModelAndView postCar(){
             modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
+
+        ClientDto client = (ClientDto) session.getAttribute("client");
+        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0,5));
+
         modelAndView.setViewName("views/user/meeting-history");
+        modelAndView.addObject("meetingList", meetingList);
+
         return modelAndView;
     }
     @GetMapping ("/car-detail/{id}")

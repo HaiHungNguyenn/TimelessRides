@@ -231,7 +231,7 @@ public class Util {
                 taxNumber.append(c);
             }
         }
-        return price + price * Long.parseLong(taxNumber.toString());
+        return price + price * (Long.parseLong(taxNumber.toString()) / 100);
     }
     public static LocalDate parseLocalDate(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");

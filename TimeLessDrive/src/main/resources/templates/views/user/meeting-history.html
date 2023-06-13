@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -13,15 +13,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="user_assets/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="user_assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
     <!-- Libs CSS -->
     <link href="css/feather.css" rel="stylesheet">
     <link href="css/bootstrap-icons.css" rel="stylesheet" />
@@ -139,7 +139,7 @@
     <!-- Header Section End -->
 
     <!-- Breadcrumb End -->
-    <div class="breadcrumb-option set-bg" data-setbg="user_assets/img/breadcrumb-bg.jpg">
+    <div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -177,123 +177,119 @@
                                 </div>
                                 <div class="mb-8">
                                     <!-- text -->
-                                    <div
-                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            <h5 class="mb-0">Wed - 12/01/2022</h5>
-                                            <span class="ms-2">Meets on January 12,2022</span>
-                                        </div>
+<!--                                    <div-->
+<!--                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">-->
+<!--                                        <div class="d-flex align-items-center justify-content-between">-->
+<!--                                            <h5 class="mb-0">Wed - 12/01/2022</h5>-->
+<!--                                            <span class="ms-2">Meets on January 12,2022</span>-->
+<!--                                        </div>-->
 
-                                    </div>
+<!--                                    </div>-->
                                     <!-- row -->
-                                    <div class="row justify-content-between align-items-center">
-                                        <!-- col -->
-                                        <div class="col-lg-8 col-12">
-                                            <div class="d-md-flex">
-                                                <div>
-                                                    <!-- img -->
-                                                    <h5 style="text-align: center;">31</h5>
-                                                    <p>minutes</p>
-                                                </div>
-                                                <div class="ms-md-4 mt-2 mt-lg-0">
-                                                    <!-- heading -->
-                                                    <h5 class="mb-1">
-                                                        Marketing
-                                                    </h5>
-                                                    <!-- text -->
-                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span
-                                                            class="text-dark"> 7:01 AM</span>
-                                                    </span>
-                                                    <!-- text -->
-                                                    <div class="mt-3">
-                                                        <h4></h4>
+                                    <th:block th:each="meeting: ${meetingList}">
+                                        <div class="row justify-content-between align-items-center">
+                                            <!-- col -->
+                                            <div class="col-lg-8 col-8">
+                                                <div class="d-md-flex">
+                                                    <div class="col-lg-8 col-12">
+                                                        <!-- img -->
+                                                        <p th:text="${meeting.getMeetingDate() + ' ' + meeting.getMeetingTime()}"></p>
+                                                    </div>
+                                                    <div class="ms-md-4 mt-2 mt-lg-0">
+                                                        <!-- heading -->
+                                                        <h5 class="mb-1">
+                                                            Marketing
+                                                        </h5>
+                                                        <!-- text -->
+                                                        <span>From: <span class="text-dark">6:30 AM</span> To:<span
+                                                                class="text-dark"> 7:01 AM</span>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- button -->
                                         </div>
-                                        <!-- button -->
-                                    </div>
-                                    <hr class="my-3">
-                                    <!-- row -->
-                                    <div class="row justify-content-between align-items-center">
-                                        <!-- col -->
-                                        <div class="col-lg-8 col-12">
-                                            <div class="d-md-flex">
-                                                <div>
-                                                    <!-- img -->
-                                                    <h5 style="text-align: center;">31</h5>
-                                                    <p>minutes</p>
-                                                </div>
-                                                <div class="ms-md-4 mt-2 mt-lg-0">
-                                                    <!-- heading -->
-                                                    <h5 class="mb-1">
-                                                        Marketing
-                                                    </h5>
-                                                    <!-- text -->
-                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span
-                                                            class="text-dark"> 7:01 AM</span>
-                                                    </span>
-                                                    <!-- text -->
-                                                    <div class="mt-3">
-                                                        <h4></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- button -->
-                                    </div>
-                                </div>
-                                <div class="mb-6">
-                                    <!-- text -->
-                                    <div
-                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">
-                                        <div class="d-flex align-items-center">
-                                            <h5 class="mb-0">Tue - 11/01/2022</h5>
-                                            <span class="ms-2">Meets on June 26,2022</span>
-                                        </div>
+                                    </th:block>
+<!--                                    <hr class="my-3">-->
+<!--                                    &lt;!&ndash; row &ndash;&gt;-->
+<!--                                    <div class="row justify-content-between align-items-center">-->
+<!--                                        &lt;!&ndash; col &ndash;&gt;-->
+<!--                                        <div class="col-lg-8 col-12">-->
+<!--                                            <div class="d-md-flex">-->
+<!--                                                <div>-->
+<!--                                                    &lt;!&ndash; img &ndash;&gt;-->
+<!--                                                    <h5 style="text-align: center;">31</h5>-->
+<!--                                                    <p>minutes</p>-->
+<!--                                                </div>-->
+<!--                                                <div class="ms-md-4 mt-2 mt-lg-0">-->
+<!--                                                    &lt;!&ndash; heading &ndash;&gt;-->
+<!--                                                    <h5 class="mb-1">-->
+<!--                                                        Marketing-->
+<!--                                                    </h5>-->
+<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
+<!--                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span-->
+<!--                                                            class="text-dark"> 7:01 AM</span>-->
+<!--                                                    </span>-->
+<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
+<!--                                                    <div class="mt-3">-->
+<!--                                                        <h4></h4>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; button &ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="mb-6">-->
+<!--                                    &lt;!&ndash; text &ndash;&gt;-->
+<!--                                    <div-->
+<!--                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">-->
+<!--                                        <div class="d-flex align-items-center">-->
+<!--                                            <h5 class="mb-0">Tue - 11/01/2022</h5>-->
+<!--                                            <span class="ms-2">Meets on June 26,2022</span>-->
+<!--                                        </div>-->
 
-                                    </div>
-                                    <!-- row -->
-                                    <div class="row justify-content-between align-items-center">
-                                        <!-- col -->
-                                        <div class="col-lg-8 col-12">
-                                            <div class="d-md-flex">
-                                                <div>
-                                                    <!-- img -->
-                                                    <h5 style="text-align: center;">31</h5>
-                                                    <p>minutes</p>
-                                                </div>
-                                                <div class="ms-md-4 mt-2 mt-lg-0">
-                                                    <!-- heading -->
-                                                    <h5 class="mb-1">
-                                                        Marketing
-                                                    </h5>
-                                                    <!-- text -->
-                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span
-                                                            class="text-dark"> 7:01 AM</span>
-                                                    </span>
-                                                    <!-- text -->
-                                                    <div class="mt-3">
-                                                        <h4></h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- button -->
-                                    </div>
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; row &ndash;&gt;-->
+<!--                                    <div class="row justify-content-between align-items-center">-->
+<!--                                        &lt;!&ndash; col &ndash;&gt;-->
+<!--                                        <div class="col-lg-8 col-12">-->
+<!--                                            <div class="d-md-flex">-->
+<!--                                                <div>-->
+<!--                                                    &lt;!&ndash; img &ndash;&gt;-->
+<!--                                                    <h5 style="text-align: center;">31</h5>-->
+<!--                                                    <p>minutes</p>-->
+<!--                                                </div>-->
+<!--                                                <div class="ms-md-4 mt-2 mt-lg-0">-->
+<!--                                                    &lt;!&ndash; heading &ndash;&gt;-->
+<!--                                                    <h5 class="mb-1">-->
+<!--                                                        Marketing-->
+<!--                                                    </h5>-->
+<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
+<!--                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span-->
+<!--                                                            class="text-dark"> 7:01 AM</span>-->
+<!--                                                    </span>-->
+<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
+<!--                                                    <div class="mt-3">-->
+<!--                                                        <h4></h4>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        &lt;!&ndash; button &ndash;&gt;-->
+<!--                                    </div>-->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-            </main>
         </div>
 
     </section>
 
     <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="user_assets/img/footer-bg.jpg">
+    <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
         <div class="container">
             <div class="footer__contact">
                 <div class="row">

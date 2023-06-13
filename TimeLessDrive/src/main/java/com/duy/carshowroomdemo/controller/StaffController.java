@@ -459,6 +459,7 @@ public class StaffController {
         invoice.setOtherInformation(notes);
         meeting.getCar().setStatus(Status.BOUGHT);
         meeting.setStatus(Status.DONE);
+        meeting.getCar().getPost().setStatus(Status.COMPLETED);
 
         service.getInvoiceService().save(invoice);
         service.getOffMeetingService().save(meeting);

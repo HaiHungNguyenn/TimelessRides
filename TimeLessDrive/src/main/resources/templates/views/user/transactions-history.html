@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns="http://www.w3.org/1999/html">
+<html lang="zxx" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -153,7 +153,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f5f5f5;
+            /*background-color: #f5f5f5;*/
+            background-color: #fff;
         }
 
         .body h1 {
@@ -427,63 +428,38 @@
 
     </style>
     <div class="body">
-
-        <div style="margin: 20px;">
-            <label for="datePicker">Select a Date:</label>
-            <input type="text" id="datePicker" readonly>
-            <button onclick="showTransactions()">Show </button>
-        </div>
-        <table id="transactionTable">
-            <thead>
-            <tr>
-                <th>Transaction ID</th>
-                <th>Seller</th>
-                <th>Car Make</th>
-                <th>Car Model</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>
-                <td>Toyota</td>
-                <td>Camry</td>
-                <td>$25,000</td>
-                <td class="status-completed">Completed</td>
-                <td>2023-05-15</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><a href="#" onclick="openProfileModal('Jane Smith')">Jane Smith</a></td>
-                <td>Honda</td>
-                <td>Civic</td>
-                <td>$20,000</td>
-                <td class="status-pending">Pending</td>
-                <td>2023-05-17</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td><a href="#" onclick="openProfileModal('Michael Johnson')">Michael Johnson</a></td>
-                <td>Ford</td>
-                <td>Mustang</td>
-                <td>$35,000</td>
-                <td class="status-completed">Completed</td>
-                <td>2023-05-22</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td><a href="#" onclick="openProfileModal('Sarah Thompson')">Sarah Thompson</a></td>
-                <td>Chevrolet</td>
-                <td>Corvette</td>
-                <td>$50,000</td>
-                <td class="status-pending">Pending</td>
-                <td>2023-05-25</td>
-            </tr>
-            </tbody>
-        </table>
+        <p th:if="${invoiceList.isEmpty()}" th:text="'You don\'t have any transactions'" class="text-center fs-md-5"/>
+        <th:block th:if="${!invoiceList.isEmpty()}">
+            <div style="margin: 20px;">
+                <label for="datePicker">Select a Date:</label>
+                <input type="text" id="datePicker" readonly>
+                <button onclick="showTransactions()">Show </button>
+            </div>
+            <table id="transactionTable">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Seller</th>
+                        <th>Car Make</th>
+                        <th>Car Model</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="invoice, iStat: ${invoiceList}">
+                        <td th:text="${iStat.count}"/>
+                        <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>
+                        <td th:text="${invoice.getClient().getName()}"/>
+                        <td th:text="${invoice.getCar().getName()}"/>
+                        <td th:text="${invoice.getFormattedTotal()}"/>
+                        <td class="status-completed" th:text="${invoice.getStatus()}"/>
+                        <td th:text="${invoice.getCreateDate()}"/>
+                    </tr>
+                </tbody>
+            </table>
+        </th:block>
 
 
 

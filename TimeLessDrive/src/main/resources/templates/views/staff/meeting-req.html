@@ -92,14 +92,14 @@
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateDate()}"/>
                     <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-center " >
-                        <span class="badge badge-phoenix badge-phoenix-info" th:text="${offMeeting.getStatus()}"/>
+                        <span class="badge badge-phoenix badge-phoenix-info fs--1" th:text="${offMeeting.getStatus()}"/>
                     </td>
                     <td class="total align-middle fw-bold text-1000 text-end text-nowrap pe-0">
                         <a class="hover-text-decoration-none" th:href="@{/staff/meeting-requests/action=decline(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}" >
-                            <button class="btn btn-dark hover-text-600 fs--2">Decline</button>
+                            <button class="btn btn-dark hover-text-600 fs--1">Decline</button>
                         </a>
                         <a class="hover-text-decoration-none" th:href="@{/staff/meeting-requests/action=approve(id=${offMeeting.getId()}, offset=${offset}, direction=${direction}, property=${property})}">
-                            <button class="btn btn-primary hover-text-600 fs--2">Approve</button>
+                            <button class="btn btn-primary hover-text-600 fs--1">Approve</button>
                         </a>
                     </td>
                   </tr>
