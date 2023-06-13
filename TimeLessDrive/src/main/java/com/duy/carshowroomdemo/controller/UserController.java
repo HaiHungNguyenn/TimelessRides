@@ -113,6 +113,7 @@ public ModelAndView postCar(){
             Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 //
 //            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
+            System.out.println("can be here");
             postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9),property,direction);
 
 
@@ -195,7 +196,7 @@ public ModelAndView postCar(){
                 break;
 
         }
-        long lastOffSet = service.getCarDescriptionService().getLastOffset(value,property,9);
+        long lastOffSet = service.getPostService().getLastOffset(value,property,9);
 
         modelAndView.addObject("postDto",postDtoList);
         modelAndView.addObject("offset", offset);
@@ -207,7 +208,7 @@ public ModelAndView postCar(){
         modelAndView.setViewName("views/user/car");
         return modelAndView;
     }
-        @RequestMapping("/car/sorted-by-{property}-{direction}-{searchedProperties}-{value}")
+    @RequestMapping("/car/sorted-by-{property}-{direction}-{searchedProperties}-{value}")
     public ModelAndView showCarSortedPerPage(@PathVariable String direction,
                                              @PathVariable String property,
                                              @Nullable @RequestParam("page") Integer offset,

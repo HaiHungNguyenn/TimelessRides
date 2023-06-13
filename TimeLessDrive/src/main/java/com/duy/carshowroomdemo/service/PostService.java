@@ -69,6 +69,21 @@ public class PostService {
     public long getLastOffset(ClientDto clientDto, int size) {
         return postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).getTotalPages();
     }
+    public long getLastOffset(String value, String property, int size) {
+        switch (property){
+            case"make":
+                return postRepository.findAllByStatusIsAndCarMake(value,PageRequest.of(0, size)).getTotalPages();
+            case"body":
+                return postRepository.findAllByStatusIsAndCarBody(value,PageRequest.of(0, size)).getTotalPages();
+            case"model":
+                return postRepository.findAllByStatusIsAndCarModel(value,PageRequest.of(0, size)).getTotalPages();
+            case"tranmision":
+                return postRepository.findAllByStatusIsAndCarTran(value,PageRequest.of(0, size)).getTotalPages();
+            case"fuel":
+                return postRepository.findAllByStatusIsAndCarFuel(value,PageRequest.of(0, size)).getTotalPages();
+        }
+        return  0 ;
+    }
 
     public void save(Post post) {
         postRepository.save(post);
@@ -214,4 +229,6 @@ public class PostService {
         }
         return postDtoList;
     }
+
+
 }
