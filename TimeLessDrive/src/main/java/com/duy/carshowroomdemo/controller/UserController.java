@@ -115,7 +115,7 @@ public ModelAndView postCar(){
             Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
 //
 //            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
-            System.out.println("cam ne");
+            System.out.println("can be here");
             postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset -1, 9),property,direction);
 
 
