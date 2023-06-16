@@ -157,134 +157,107 @@
     <section style="width:100%;height:80vh" >
 
         <!-- code here -->
-        <div id="db-wrapper">
-            <!-- navbar vertical -->
-            <!-- Sidebar -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f2f2f2;
+            }
 
-            <!-- Container fluid -->
-            <section class="container-fluid p-4">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-xxl-8 col-12">
-                        <!-- card -->
-                        <div class="card">
-                            <!-- card body-->
-                            <div class="card-body">
-                                <div class="mb-6">
-                                    <h4 class="mb-0">Your Meetings</h4>
-                                    <p>Check the status of recent orders, manage returns, and discover similar products.
-                                    </p>
-                                </div>
-                                <div class="mb-8">
-                                    <!-- text -->
-<!--                                    <div-->
-<!--                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">-->
-<!--                                        <div class="d-flex align-items-center justify-content-between">-->
-<!--                                            <h5 class="mb-0">Wed - 12/01/2022</h5>-->
-<!--                                            <span class="ms-2">Meets on January 12,2022</span>-->
-<!--                                        </div>-->
+            h1 {
+                color: #333;
+                text-align: center;
+                margin-bottom: 30px;
+            }
 
-<!--                                    </div>-->
-                                    <!-- row -->
-                                    <th:block th:each="meeting: ${meetingList}">
-                                        <div class="row justify-content-between align-items-center">
-                                            <!-- col -->
-                                            <div class="col-lg-8 col-8">
-                                                <div class="d-md-flex">
-                                                    <div class="col-lg-8 col-12">
-                                                        <!-- img -->
-                                                        <p th:text="${meeting.getMeetingDate() + ' ' + meeting.getMeetingTime()}"></p>
-                                                    </div>
-                                                    <div class="ms-md-4 mt-2 mt-lg-0">
-                                                        <!-- heading -->
-                                                        <h5 class="mb-1">
-                                                            Marketing
-                                                        </h5>
-                                                        <!-- text -->
-                                                        <span>From: <span class="text-dark">6:30 AM</span> To:<span
-                                                                class="text-dark"> 7:01 AM</span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- button -->
-                                        </div>
-                                    </th:block>
-<!--                                    <hr class="my-3">-->
-<!--                                    &lt;!&ndash; row &ndash;&gt;-->
-<!--                                    <div class="row justify-content-between align-items-center">-->
-<!--                                        &lt;!&ndash; col &ndash;&gt;-->
-<!--                                        <div class="col-lg-8 col-12">-->
-<!--                                            <div class="d-md-flex">-->
-<!--                                                <div>-->
-<!--                                                    &lt;!&ndash; img &ndash;&gt;-->
-<!--                                                    <h5 style="text-align: center;">31</h5>-->
-<!--                                                    <p>minutes</p>-->
-<!--                                                </div>-->
-<!--                                                <div class="ms-md-4 mt-2 mt-lg-0">-->
-<!--                                                    &lt;!&ndash; heading &ndash;&gt;-->
-<!--                                                    <h5 class="mb-1">-->
-<!--                                                        Marketing-->
-<!--                                                    </h5>-->
-<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
-<!--                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span-->
-<!--                                                            class="text-dark"> 7:01 AM</span>-->
-<!--                                                    </span>-->
-<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
-<!--                                                    <div class="mt-3">-->
-<!--                                                        <h4></h4>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash; button &ndash;&gt;-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="mb-6">-->
-<!--                                    &lt;!&ndash; text &ndash;&gt;-->
-<!--                                    <div-->
-<!--                                            class="border-bottom mb-3 pb-3 d-lg-flex align-items-center justify-content-between ">-->
-<!--                                        <div class="d-flex align-items-center">-->
-<!--                                            <h5 class="mb-0">Tue - 11/01/2022</h5>-->
-<!--                                            <span class="ms-2">Meets on June 26,2022</span>-->
-<!--                                        </div>-->
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
 
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash; row &ndash;&gt;-->
-<!--                                    <div class="row justify-content-between align-items-center">-->
-<!--                                        &lt;!&ndash; col &ndash;&gt;-->
-<!--                                        <div class="col-lg-8 col-12">-->
-<!--                                            <div class="d-md-flex">-->
-<!--                                                <div>-->
-<!--                                                    &lt;!&ndash; img &ndash;&gt;-->
-<!--                                                    <h5 style="text-align: center;">31</h5>-->
-<!--                                                    <p>minutes</p>-->
-<!--                                                </div>-->
-<!--                                                <div class="ms-md-4 mt-2 mt-lg-0">-->
-<!--                                                    &lt;!&ndash; heading &ndash;&gt;-->
-<!--                                                    <h5 class="mb-1">-->
-<!--                                                        Marketing-->
-<!--                                                    </h5>-->
-<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
-<!--                                                    <span>From: <span class="text-dark">6:30 AM</span> To:<span-->
-<!--                                                            class="text-dark"> 7:01 AM</span>-->
-<!--                                                    </span>-->
-<!--                                                    &lt;!&ndash; text &ndash;&gt;-->
-<!--                                                    <div class="mt-3">-->
-<!--                                                        <h4></h4>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        &lt;!&ndash; button &ndash;&gt;-->
-<!--                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f5f5f5;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: #f9f9f9;
+            }
+
+            td:nth-child(2) {
+                font-weight: bold;
+                color: #555;
+            }
+
+            .status {
+                text-transform: capitalize;
+                font-weight: bold;
+                padding: 5px 10px;
+                border-radius: 4px;
+            }
+
+            .pending {
+                /* background-color: #ffc107; */
+                color: #000000;
+            }
+
+            .approved {
+                /* background-color: #28a745; */
+                color: #09ff00;
+            }
+
+            .rejected {
+                /* background-color: #dc3545; */
+                color: #ff0000;
+            }
+
+            @media (max-width: 600px) {
+                table {
+                    font-size: 14px;
+                }
+            }
+        </style>
+
+
+        <p th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="text-center"/>
+
+        <table th:if="${!meetingList.isEmpty()}">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Meeting date</th>
+                <th>Meeting time</th>
+                <th>Staff name</th>
+                <th>Car model</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="meeting, iStat : ${meetingList}">
+                <tr>
+                    <td th:text="${iStat.count}"/>
+                    <td th:text="${meeting.getMeetingDate()}"/>
+                    <td th:text="${meeting.getMeetingTime()}"/>
+                    <td th:text="${meeting.getStaff().getName()}"/>
+                    <td th:text="${meeting.getCar().getName()}"/>
+                    <td><span class="status pending" th:text="${meeting.getStatus()}"/></td>
+                    <td>Cancel</td>
+                </tr>
+            </th:block>
+            <!-- Add more rows for additional meeting history -->
+            </tbody>
+        </table>
 
     </section>
 

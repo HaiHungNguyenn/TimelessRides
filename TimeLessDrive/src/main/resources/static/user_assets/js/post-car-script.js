@@ -104,5 +104,25 @@ function selectPackage(packageId) {
 
     if (!isSelected) {
         selectedPackage.classList.add("selected");
+        var plans = document.getElementsByName("plan");
+        plans.forEach(function(element){
+           element.remove();
+        });
+        var plan = document.createElement("input");
+        plan.name = "plan";
+        switch (packageId) {
+            case "pricing-card-1":
+                plan.value = "plan 1";
+                break;
+            case "pricing-card-2":
+                plan.value = "plan 2";
+                break;
+            case "pricing-card-3":
+                plan.value = "plan 3";
+                break;
+        }
+        plan.classList.add("d-none");
+        var parent = document.getElementById(packageId);
+        parent.appendChild(plan);
     }
 }

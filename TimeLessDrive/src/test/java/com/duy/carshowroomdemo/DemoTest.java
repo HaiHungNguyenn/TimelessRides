@@ -56,8 +56,12 @@ public class DemoTest {
 
     @Test
     public void addSampleData(){
+
         int cars = 30;
-//        Util.setupImageGallery(cars);
+
+
+
+        Util.setupImageGallery(cars);
         addAdmin();
         addShowrooms();
         addStaff();
@@ -310,6 +314,7 @@ public class DemoTest {
             post.setStatus("Pending");
             post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
             post.setPostTime(LocalTime.now());
+            post.setPlan("plan " + Util.getRandInt(1,3));
             Post save = postRepository.save(post);
 
             Assertions.assertThat(save).isNotNull();

@@ -248,15 +248,15 @@
 
                             <div class="car__item" >
                                 <div class="car__item__pic__slider owl-carousel">
-<!--                                    <div th:each="image,i :${car.carImageList}">-->
-<!--                                        &lt;!&ndash; Access the image at the current index &ndash;&gt;-->
-<!--                                        <img th:if="${i.count < 5} "th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">-->
+                                    <div th:if="${post.getCar() != null}" th:each="image,i : ${post.getCar().getCarImageList()}">
+                                        <!-- Access the image at the current index -->
+                                        <img th:if="${i.count < 5} "th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">
 
-<!--                                    </div>-->
-                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">
+                                    </div>
+<!--                                    <img src="../../user_assets/img/cars/car-1.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-8.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-6.jpg" alt="">-->
+<!--                                    <img src="../../user_assets/img/cars/car-3.jpg" alt="">-->
                                 </div>
 
                                 <div class="car__item__text">
