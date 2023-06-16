@@ -1,16 +1,16 @@
 USE master
 GO
 
-IF EXISTS(SELECT NAME FROM master.dbo.sysdatabases WHERE NAME = 'CarShowroom')
-	ALTER DATABASE CarShowroom SET OFFLINE WITH ROLLBACK IMMEDIATE
-	ALTER DATABASE CarShowroom SET ONLINE
-	DROP DATABASE CarShowroom
+IF EXISTS(SELECT NAME FROM master.dbo.sysdatabases WHERE NAME = 'OldCarShowroom')
+	ALTER DATABASE OldCarShowroom SET OFFLINE WITH ROLLBACK IMMEDIATE
+	ALTER DATABASE OldCarShowroom SET ONLINE
+	DROP DATABASE OldCarShowroom
 GO
 
-CREATE DATABASE CarShowroom
+CREATE DATABASE OldCarShowroom
 GO
 
-USE CarShowroom
+USE OldCarShowroom
 GO
 
 CREATE TABLE [admin] (
@@ -101,6 +101,7 @@ CREATE TABLE post (
 	[description]			VARCHAR(2000),
 	post_date				DATE,
 	post_time				TIME,
+	post_plan				VARCHAR(100),
 	[status]				VARCHAR(50)
 )
 

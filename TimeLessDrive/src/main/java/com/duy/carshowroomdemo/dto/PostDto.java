@@ -26,6 +26,7 @@ public class PostDto implements Serializable {
     private LocalDate postDate;
     private LocalTime postTime;
     private String status;
+    private String plan;
 
     public String getPostTime() {
         return postTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
