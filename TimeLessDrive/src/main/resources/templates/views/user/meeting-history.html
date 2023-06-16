@@ -227,53 +227,37 @@
                 }
             }
         </style>
-        </head>
-        <body>
-        <h1>Car Showroom Meeting History</h1>
 
-        <table>
+
+        <p th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="text-center"/>
+
+        <table th:if="${!meetingList.isEmpty()}">
             <thead>
             <tr>
                 <th>No.</th>
-                <th>Date Meeting</th>
+                <th>Meeting date</th>
                 <th>Meeting time</th>
-                <th>Staff Name</th>
-                <th>Car Model</th>
+                <th>Staff name</th>
+                <th>Car model</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>2023-06-10</td>
-                <td>10:00 AM</td>
-                <td>John Doe</td>
-                <td>Toyota Camry</td>
-
-                <td><span class="status pending">Pending</span></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2023-06-12</td>
-                <td>2:30 PM</td>
-                <td>Emma Johnson</td>
-                <td>Ford Mustang</td>
-
-                <td><span class="status approved">Approved</span></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>2023-06-15</td>
-                <td>11:15 AM</td>
-                <td>Michael Brown</td>
-                <td>Chevrolet Corvette</td>
-
-                <td><span class="status rejected">Rejected</span></td>
-            </tr>
+            <th:block th:each="meeting, iStat : ${meetingList}">
+                <tr>
+                    <td th:text="${iStat.count}"/>
+                    <td th:text="${meeting.getMeetingDate()}"/>
+                    <td th:text="${meeting.getMeetingTime()}"/>
+                    <td th:text="${meeting.getStaff().getName()}"/>
+                    <td th:text="${meeting.getCar().getName()}"/>
+                    <td><span class="status pending" th:text="${meeting.getStatus()}"/></td>
+                    <td>Cancel</td>
+                </tr>
+            </th:block>
             <!-- Add more rows for additional meeting history -->
             </tbody>
         </table>
-        </body>
 
     </section>
 

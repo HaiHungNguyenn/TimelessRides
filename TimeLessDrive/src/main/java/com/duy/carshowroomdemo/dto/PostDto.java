@@ -25,6 +25,7 @@ public class PostDto implements Serializable {
     private String description;
     private LocalDate postDate;
     private LocalTime postTime;
+    private String plan;
     private String status;
 
     public String getPostTime() {

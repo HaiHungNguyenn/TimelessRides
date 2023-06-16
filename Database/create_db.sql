@@ -101,6 +101,7 @@ CREATE TABLE post (
 	[description]			VARCHAR(2000),
 	post_date				DATE,
 	post_time				TIME,
+	post_plan				VARCHAR(100),
 	[status]				VARCHAR(50)
 )
 
