@@ -36,6 +36,8 @@ public class Service {
     private PostService postService;
     @Autowired
     private ShowroomService showroomService;
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     HttpSession session;

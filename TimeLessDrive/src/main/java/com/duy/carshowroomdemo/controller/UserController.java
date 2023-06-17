@@ -420,24 +420,18 @@ public ModelAndView postCar(){
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
-//    @RequestMapping("/bookmeeting")
-//    public ModelAndView book(@RequestParam("carID")String carID, @RequestParam("bookingDate") String date, @RequestParam("bookingTime") String time, @RequestParam("descrip") String descrip){
+//    @RequestMapping("/update-info")
+//    public ModelAndView update(@RequestParam("name") String name,
+//                               @RequestParam("phone") String phone,
+//                               @RequestParam("address") String address){
 //        ModelAndView modelAndView = new ModelAndView();
-//
-//        OffMeeting offMeeting = new OffMeeting();
-//        offMeeting.setClient((Client)session.getAttribute("client"));
-//        offMeeting.setMeetingDate(LocalDate.parse(date));
-//        offMeeting.setMeetingTime(LocalTime.parse(time));
-//        offMeeting.setCreateDate(LocalDate.now());
-//        offMeeting.setCreateTime(LocalTime.now());
-//        offMeeting.setDescription(descrip);
-//        offMeeting.setStatus(Status.PENDING);
-//
-//
-//        service.getOffMeetingService().save(offMeeting);
-//        modelAndView.setViewName("views/user/car");
+//        ClientDto client = (ClientDto)session.getAttribute("client");
+//        client.setName(name);
+//        client.setPhone(phone);
+//        client.setAddress(address);
+//        service.getClientService().save(mapperManager.getClientMapper().toEntity(client));
+//        modelAndView.setViewName("views/user/account");
 //        return modelAndView;
-//
 //    }
 
 }

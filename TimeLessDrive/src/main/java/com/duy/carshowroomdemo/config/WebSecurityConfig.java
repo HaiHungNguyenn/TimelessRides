@@ -1,4 +1,4 @@
-package com.duy.carshowroomdemo.controller;
+package com.duy.carshowroomdemo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
