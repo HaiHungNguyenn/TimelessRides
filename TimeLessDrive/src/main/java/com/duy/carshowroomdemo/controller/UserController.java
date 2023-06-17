@@ -319,6 +319,7 @@ public ModelAndView postCar(){
                                     @RequestParam("firstRegistration") String firstRegistration,
                                     @RequestParam("others") String others,
                                     @RequestParam("postDescription") String postDescription,
+                                    @RequestParam("plan") String plan,
                                     @PathVariable("clientId") String clientId){
 
         ModelAndView modelAndView = new ModelAndView();
@@ -380,6 +381,7 @@ public ModelAndView postCar(){
         post.setPostTime(LocalTime.now());
         post.setStatus(Status.PENDING);
         post.setDescription(postDescription);
+        post.setPlan(plan);
 
         service.getCarService().save(car);
         service.getPostService().save(post);

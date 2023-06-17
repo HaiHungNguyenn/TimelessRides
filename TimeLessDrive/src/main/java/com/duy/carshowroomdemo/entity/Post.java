@@ -33,6 +33,11 @@ public class Post {
 
     @Column(name = "post_time")
     private LocalTime postTime;
+    @Column(name = "post_plan")
+    private String plan;
+
+    @Column(name = "post_plan")
+    private String plan;
 
     private String status;
 

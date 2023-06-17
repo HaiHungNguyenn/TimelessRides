@@ -428,7 +428,7 @@
 
     </style>
     <div class="body">
-        <p th:if="${invoiceList.isEmpty()}" th:text="'You don\'t have any transactions'" class="text-center fs-md-5"/>
+        <p th:if="${invoiceList.isEmpty()}" th:text="'You don\'t have any transactions'" class="text-center mt-5"/>
         <th:block th:if="${!invoiceList.isEmpty()}">
             <div style="margin: 20px;">
                 <label for="datePicker">Select a Date:</label>
