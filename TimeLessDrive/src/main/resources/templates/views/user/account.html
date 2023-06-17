@@ -23,9 +23,11 @@
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/formstyle.css">
+    <link rel="stylesheet" href="../../user_assets/js/account-style.css">
 </head>
 
 <body>
+<div class="all-page">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -62,33 +64,33 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-<!--        <div class="header__top">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-7">-->
-<!--                        <ul class="header__top__widget">-->
-<!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
-<!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-5">-->
-<!--                        <div class="header__top__right">-->
-<!--                            <div class="header__top__phone">-->
-<!--                                <i class="fa fa-phone"></i>-->
-<!--                                <span>(+12) 345 678 910</span>-->
-<!--                            </div>-->
-<!--                            <div class="header__top__social">-->
-<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-google"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="container">
+        <!--        <div class="header__top">-->
+        <!--            <div class="container">-->
+        <!--                <div class="row">-->
+        <!--                    <div class="col-lg-7">-->
+        <!--                        <ul class="header__top__widget">-->
+        <!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
+        <!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
+        <!--                        </ul>-->
+        <!--                    </div>-->
+        <!--                    <div class="col-lg-5">-->
+        <!--                        <div class="header__top__right">-->
+        <!--                            <div class="header__top__phone">-->
+        <!--                                <i class="fa fa-phone"></i>-->
+        <!--                                <span>(+12) 345 678 910</span>-->
+        <!--                            </div>-->
+        <!--                            <div class="header__top__social">-->
+        <!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
+        <!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
+        <!--                                <a href="#"><i class="fa fa-google"></i></a>-->
+        <!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
@@ -98,7 +100,7 @@
                 </div>
                 <div class="col-lg-10">
                     <div class="header__nav">
-                        <nav class="header__menu" style="margin: -70px">
+                        <nav class="header__menu" style="width: 100%">
                             <ul>
                                 <li><a href="/">Home</a></li>
                                 <li><a href="/car">Car Inventory</a></li>
@@ -128,7 +130,7 @@
                 <span class="fa fa-bars"></span>
             </div>
         </div>
-    </header>    <!-- Header Section End -->
+    </header> <!-- Header Section End -->
 
     <!-- Breadcrumb End -->
     <div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
@@ -146,19 +148,24 @@
             </div>
         </div>
     </div>
-    <section style="width:100%;" >
+    <section style="width:100%;">
 
         <!-- code here -->
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-2 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold" th:text="${session.client.getName()}"/><span class="text-black-50" th:text="${session.client.getEmail()}"/></div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
+                            class="rounded-circle mt-5" width="150px"
+                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
+                            class="font-weight-bold" th:text="${session.client.getName()}" /><span
+                            class="text-black-50" th:text="${session.client.getEmail()}" /></div>
                 </div>
                 <div class="col-md-7 border-right">
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
+
                         <form action="/update-info">
                             <div class="row mt-2">
                                 <div class="col-md-6"><label class="labels">Full Name</label><input type="text" class="form-control" th:placeholder="${session.client.getName()}" th:value="${session.client.getName()}" name="name"></div>
@@ -174,21 +181,31 @@
                                 <input type="submit" value="Save Profile">
                             </div>
                         </form>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Current Password</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                       
-                        <div class="col-md-12"><label class="labels">New Password</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button mg25" type="button">Save Profile</button></div>
+
+
+
 
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change
+                        Password</button>
+                    <div class="change-password row mt-3">
+                        <div class="col-md-12"><label class="labels">Current Password</label><input type="text"
+                                                                                                    class="form-control" placeholder="enter phone number" value=""></div>
+                        <div class="col-md-12"><label class="labels">New Password</label><input type="text"
+                                                                                                class="form-control" placeholder="enter address line 2" value=""></div>
+                        <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="text"
+                                                                                                        class="form-control" placeholder="enter email id" value=""></div>
+                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button mg25"
+                                                              type="button">Save Profile</button></div>
+
+                    </div>
+
+                </div>
+
             </div>
-        </div>
-        </div>
         </div>
 
 
@@ -210,7 +227,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__option">
                             <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -219,10 +237,13 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="/"><img src="../../user_assets/img/white-car-logo.png"width="100"></a>
-                            <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless Ride</p>
+                            <a href="/"><img src="../../user_assets/img/white-car-logo.png" width="100"></a>
+                            <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless
+                                Ride
+                            </p>
                         </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
+                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or
+                            call us
                             on (+1) 96 123 8888</p>
                         <div class="footer__social">
                             <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
@@ -274,7 +295,12 @@
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
-                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                <p>Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                    is
+                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                                   target="_blank">Colorlib</a>
+                </p>
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -290,18 +316,39 @@
             </form>
         </div>
     </div>
-    <!-- Search End -->
+</div>
+<!-- Search End -->
+<!-- <div class="pop-up">
+    <form action="/car/bookmeeting">
+        <div role="main" class="form-all" style="background: white;">
+            <div class="header1">
+                <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
+                <div class="esc-button">&times;</div>
+            </div>
+            <p>We have sent an email to you to reset your password. Input the code sent to you to
+                the box below:</p>
+            <p>Code will be resent in <b id="countdown-reset-password" style="color: red;"></b> seconds <b>Or</b>
+                <input type="button" value="Resent now">
+            </p>
+            <input type="text" class="code-input">
+            <input type="submit" value="Submit"><span></span>
+        </div>
+    </form>
+</div> -->
 
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
+
+<!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../../user_assets/js/account-script.js"></script>
 </body>
 
 </html>
