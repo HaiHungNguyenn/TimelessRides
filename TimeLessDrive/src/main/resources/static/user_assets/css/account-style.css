@@ -1,0 +1,13 @@
+.change-password{
+    position: absolute;
+    top: -6%;
+    transition: top .5s ease-in-out 0s;
+    visibility: hidden;
+}
+
+.active{
+    position: absolute;
+    transition: top .5s ease-in-out 0s;
+    top: 5%;
+    visibility: visible;
+}
