@@ -83,8 +83,14 @@ p {
 	margin: 0 0 15px 0;
 }
 
-img {
+img{
 	max-width: 100%;
+}
+
+.header__logo img {
+	max-width: 100%;
+	width: 30%;
+	min-width: 120px;
 }
 
 input:focus,
@@ -388,7 +394,8 @@ ol {
 }
 
 .header__logo {
-	padding: 35px 0;
+	padding: 35px 0px;
+	padding-left: 39px;
 }
 
 .header__logo a {
@@ -406,7 +413,7 @@ ol {
 .header__menu ul li {
 	list-style: none;
 	display: inline-block;
-	margin-right: 60px;
+	margin-right: 7%;
 	position: relative;
 }
 
@@ -3124,9 +3131,6 @@ ol {
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
 	.header__menu ul li {
 		margin-right: 32px;
-	}
-	.header__menu ul{
-		margin: -70px;
 	}
 	.chooseus {
 		height: auto;

@@ -177,10 +177,6 @@ input[type="file"]{
     font-size: 60px;
 }
 
-.header{
-    padding: 0px;
-}
-
-.header__menu li {
-    margin-right: 18px;
+.header__menu ul li {
+    margin-right: 5.5%;
 }
