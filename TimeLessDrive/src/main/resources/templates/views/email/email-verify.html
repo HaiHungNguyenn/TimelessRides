@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TimelessRide - Code Verification</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    table {
+      width: 100%;
+      border: 0;
+      cellspacing: 0;
+      cellpadding: 0;
+    }
+    
+    td {
+      text-align: center;
+      vertical-align: top;
+    }
+    
+    .container {
+      padding: 40px 0;
+      background-color: #f4f4f4;
+    }
+    
+    .email-content {
+      width: 600px;
+      margin: 0 auto;
+      border: 1px solid #dddddd;
+      background-color: #ffffff;
+    }
+    
+    .logo {
+      padding-top: 20px;
+    }
+    
+    .logo img {
+      width: 200px;
+      height: auto;
+    }
+    
+    .heading {
+      font-size: 24px;
+      padding-bottom: 20px;
+    }
+    
+    .message {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 0 40px;
+    }
+    
+    .verification-code {
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px 0;
+    }
+    
+    .footer {
+      font-size: 14px;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <table class="container">
+    <tr>
+      <td>
+        <table class="email-content">
+          <tr>
+            <td class="logo">
+              <img src="/TimeLessDrive/src/main/resources/static/user_assets/img/white-car-logo.png" alt="TimelessRide Logo">
+            </td>
+          </tr>
+          <tr>
+            <td class="heading">
+              <strong>Code Verification</strong>
+            </td>
+          </tr>
+          <tr>
+            <td class="message">
+              <p>Hello,</p>
+              <p>Thank you for choosing TimelessRide. Please use the following verification code to proceed:</p>
+              <p class="verification-code">{{verificationCode}}</p>
+              <p>If you didn't request this verification, please ignore this email.</p>
+              <p>Regards,<br>
+              The TimelessRide Team</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="footer">
+              <p>&copy; 2023 TimelessRide. All rights reserved.</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
