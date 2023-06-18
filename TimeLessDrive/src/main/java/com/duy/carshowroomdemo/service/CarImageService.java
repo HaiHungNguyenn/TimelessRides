@@ -13,7 +13,7 @@ import java.util.Optional;
 public class CarImageService {
     @Autowired
     private CarImageRepository carImageRepository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     public CarImageDto findById(String id) {
         Optional<CarImage> image = carImageRepository.findById(id);

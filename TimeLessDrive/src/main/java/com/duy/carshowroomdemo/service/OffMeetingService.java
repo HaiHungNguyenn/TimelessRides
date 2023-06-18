@@ -24,8 +24,7 @@ public class OffMeetingService {
     @Autowired
     private OffMeetingRepository offMeetingRepository;
 
-    private final MapperManager mapperManager = new MapperManager();
-
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     public int countAllRequests(){
         return (int) offMeetingRepository.count();

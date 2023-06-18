@@ -15,7 +15,7 @@ import java.util.Optional;
 public class StaffService {
     @Autowired
     private StaffRepository repository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     public void save(StaffDto staff){
         repository.save(mapperManager.getStaffMapper().toEntity(staff));
@@ -26,7 +26,6 @@ public class StaffService {
     }
 
     public StaffDto login(String email, String pass){
-//        return mapperManager.getStaffMapper().toDto(repository.findAll().get(0));
         Optional<Staff> staff = repository.findByEmail(email);
         if(staff.isEmpty()){
             return null;

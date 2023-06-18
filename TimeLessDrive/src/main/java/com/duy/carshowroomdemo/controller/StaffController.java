@@ -1,8 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
-//import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
-import com.duy.carshowroomdemo.entity.ClientNotification;
 import com.duy.carshowroomdemo.entity.Invoice;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Post;
@@ -33,41 +31,10 @@ public class StaffController {
     private Service service;
     @Autowired
     private HttpSession session;
-    private final MapperManager mapperManager = new MapperManager();
-
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     public boolean isAuthenticated(){
         return (session.getAttribute("staff") != null);
-    }
-
-
-    @RequestMapping("/staff/")
-    public ModelAndView showLoginPage(){
-        ModelAndView modelAndView = new ModelAndView();
-
-        modelAndView.setViewName("views/staff/my-index");
-
-        return modelAndView;
-    }
-
-    @RequestMapping("/staff/profile")
-    public ModelAndView loginWithEmail(@RequestParam("email") String email,
-                                       @RequestParam("password") String password,
-                                       HttpSession session){
-        ModelAndView modelAndView = new ModelAndView();
-
-        StaffDto staff = service.getStaffService().login(email, password);
-        if(staff != null){
-            System.out.println("the staff is not null");
-        }
-        if(staff != null){
-            session.setAttribute("staff", staff);
-            modelAndView.setViewName("views/staff/profile");
-        }else{
-            modelAndView.setViewName("views/staff/my-index");
-        }
-
-        return modelAndView;
     }
 
     @RequestMapping("/home")
@@ -455,25 +422,27 @@ public class StaffController {
         String errorMsg = null;
         String successMsg = null;
 
-        if(!isAuthenticated()){
+        if (!isAuthenticated()){
             return modelAndView;
         }
 
         OffMeeting meeting = service.getOffMeetingService().findById(id);
 
-        if(meeting == null){
+        if (meeting == null){
             errorMsg = "An error occurred, cannot perform this action";
-        }else {
-            Invoice invoice = new Invoice();
-            invoice.setClient(meeting.getClient());
-            invoice.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
-            invoice.setCar(meeting.getCar());
-            invoice.setCreateDate(LocalDate.now());
-            invoice.setCreateTime(LocalTime.now());
-            invoice.setStatus(Status.PAID);
-            invoice.setTax(tax);
-            invoice.setTotal(Util.calculateTotal(meeting.getCar().getPrice(), invoice.getTax()));
-            invoice.setOtherInformation(notes);
+        } else {
+            Invoice invoice = Invoice.builder()
+                    .client(meeting.getClient())
+                    .staff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")))
+                    .car(meeting.getCar())
+                    .createDate(LocalDate.now())
+                    .createTime(LocalTime.now())
+                    .status(Status.PAID)
+                    .tax(tax)
+                    .total(Util.calculateTotal(meeting.getCar().getPrice(), tax))
+                    .otherInformation(notes)
+                    .build();
+
             meeting.getCar().setStatus(Status.BOUGHT);
             meeting.setStatus(Status.DONE);
             meeting.getCar().getPost().setStatus(Status.COMPLETED);

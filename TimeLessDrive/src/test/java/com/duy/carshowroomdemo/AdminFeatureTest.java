@@ -43,8 +43,6 @@ public class AdminFeatureTest {
     @Autowired
     private StaffRepository staffRepository;
 
-    MapperManager mapperManager = new MapperManager();
-    // dele
     @Test
     public void testDeleteClientByID(){
         try {

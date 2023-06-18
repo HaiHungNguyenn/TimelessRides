@@ -22,7 +22,7 @@ import java.util.Optional;
 public class ClientService {
     @Autowired
     private ClientRepository repository;
-    private final MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     private final ModelMapper modelMapper = new ModelMapper();
 
@@ -35,10 +35,7 @@ public class ClientService {
     }
 
 
-
     public ClientDto login(String email, String pass){
-
-
 
         Optional<Client> client = repository.findByEmail(email);
         if(client.isEmpty()){

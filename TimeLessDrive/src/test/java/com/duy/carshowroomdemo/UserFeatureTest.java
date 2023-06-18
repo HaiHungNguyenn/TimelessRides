@@ -63,7 +63,7 @@ public class UserFeatureTest {
 
 
     }
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
     @Test
     public void searchCar(){
         Car a = carRepository.findById("81a98b04-ec34-443f-b381-db23f87fa03f").get();

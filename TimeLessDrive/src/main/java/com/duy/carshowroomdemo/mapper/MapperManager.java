@@ -6,6 +6,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MapperManager {
+    private static MapperManager instance;
+    public static MapperManager getInstance(){
+        if(instance == null){
+            instance = new MapperManager();
+        }
+        return instance;
+    }
+    private MapperManager(){}
     private CarImageMapper carImageMapper = new CarImageMapper();
     private CarDescriptionMapper carDescriptionMapper = new CarDescriptionMapper();
     private CarMapper carMapper = new CarMapper();
