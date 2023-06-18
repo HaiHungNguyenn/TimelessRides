@@ -308,3 +308,7 @@ span:has(~ .back-button:hover){
 #resent-email:active{
     color: red;
 }
+
+.form-all .form-outline label{
+    left: 15%;
+}
