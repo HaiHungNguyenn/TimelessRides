@@ -232,12 +232,7 @@ public ModelAndView postCar(){
 
     }
 
-
-
-
-
-
-
+    
     @GetMapping ("/account")
     public ModelAndView account(){
         ModelAndView modelAndView = new ModelAndView();
@@ -413,6 +408,11 @@ public ModelAndView postCar(){
         if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId())){
             errorMsg = "You don't have permission to cancel this meeting";
             return meetingHistory(errorMsg, successMsg);
+        }
+
+        if(offMeeting.getStaff() != null){
+            String msg = "Your meeting with " + offMeeting.getClient() + " at " + offMeeting.getMeetingTime() + ", " + offMeeting.getMeetingDate() + " has been cancelled";
+            service.sendNotification(offMeeting.getStaff(), msg);
         }
 
         service.getOffMeetingService().delete(offMeeting);

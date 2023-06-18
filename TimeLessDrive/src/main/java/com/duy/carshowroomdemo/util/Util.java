@@ -1,6 +1,8 @@
 package com.duy.carshowroomdemo.util;
 
 import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.ClientNotification;
 import com.duy.carshowroomdemo.service.Service;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;

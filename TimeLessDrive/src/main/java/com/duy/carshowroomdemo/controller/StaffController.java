@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.controller;
 
 //import com.duy.carshowroomdemo.services.Service;
 import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.entity.ClientNotification;
 import com.duy.carshowroomdemo.entity.Invoice;
 import com.duy.carshowroomdemo.entity.OffMeeting;
 import com.duy.carshowroomdemo.entity.Post;
@@ -152,6 +153,8 @@ public class StaffController {
         }else if(action.equalsIgnoreCase("cancel")){
             offMeeting.setStatus(Status.PENDING);
             offMeeting.setStaff(null);
+            String msg = "Your meeting with " + ((StaffDto) session.getAttribute("staff")).getName() + " at " + offMeeting.getMeetingTime() + ", " + offMeeting.getMeetingDate() + " has been cancelled";
+            service.sendNotification(offMeeting.getClient(), msg);
             successMsg = "Cancelled meeting with " + offMeeting.getClient().getName();
         }
 
@@ -238,12 +241,17 @@ public class StaffController {
             offMeeting.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
             offMeeting.setStatus(action.equalsIgnoreCase("decline") ? Status.DECLINED : Status.APPROVED);
             if(offMeeting.getStatus().equalsIgnoreCase(Status.DECLINED)){
+                String msg = "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been declined";
+                service.sendNotification(offMeeting.getClient(), msg);
                 successMsg = "Declined meeting with " + offMeeting.getClient().getName();
             }else {
+                String msg =  "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been approved";
+                service.sendNotification(offMeeting.getClient(), msg);
                 successMsg = "Approved meeting with " + offMeeting.getClient().getName();
             }
-            service.getOffMeetingService().save(offMeeting);
         }
+
+        service.getOffMeetingService().save(offMeeting);
 
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
@@ -325,14 +333,18 @@ public class StaffController {
             if(action.equalsIgnoreCase("decline")){
                 post.setStatus(Status.DECLINED);
                 successMsg = "Declined post from " + post.getClient().getName();
+                String msg = "Your post request of " + post.getCar().getName() + " in " + post.getPostDate() + ", " + post.getPostTime() + " has been declined";
+                service.sendNotification(post.getClient(), msg);
             }else {
                 post.setStatus(Status.APPROVED);
                 successMsg = "Approved post from " + post.getClient().getName();
+                String msg = "Your post request of " + post.getCar().getName() + " in " + post.getPostDate() + ", " + post.getPostTime() + " has been approved";
+                service.sendNotification(post.getClient(), msg);
                 service.configSearchList();
             }
+            service.getPostService().save(post);
         }
 
-        service.getPostService().save(post);
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
 
