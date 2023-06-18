@@ -450,18 +450,20 @@ public ModelAndView postCar(){
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
-//    @RequestMapping("/update-info")
-//    public ModelAndView update(@RequestParam("name") String name,
-//                               @RequestParam("phone") String phone,
-//                               @RequestParam("address") String address){
-//        ModelAndView modelAndView = new ModelAndView();
-//        ClientDto client = (ClientDto)session.getAttribute("client");
-//        client.setName(name);
-//        client.setPhone(phone);
-//        client.setAddress(address);
-//        service.getClientService().save(mapperManager.getClientMapper().toEntity(client));
-//        modelAndView.setViewName("views/user/account");
-//        return modelAndView;
-//    }
+    @RequestMapping("/update-info")
+    public ModelAndView update(@RequestParam("name") String name,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("address") String address){
+        ModelAndView modelAndView = new ModelAndView();
+        ClientDto clientDto = (ClientDto)session.getAttribute("client");
+        Client client = mapperManager.getClientMapper().toEntity(clientDto);
+        client.setName(name);
+        client.setPhone(phone);
+        client.setAddress(address);
+        service.getClientService().save(client);
+        session.setAttribute("client",mapperManager.getClientMapper().toDto(client));
+        modelAndView.setViewName("views/user/account");
+        return modelAndView;
+    }
 
 }

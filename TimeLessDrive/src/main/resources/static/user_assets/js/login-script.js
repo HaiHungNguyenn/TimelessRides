@@ -66,12 +66,12 @@ function countDown() {
 
 function showMessage() {
     Swal.fire({
+        icon: 'success',
         title: 'Code Resent Successfully',
         text: 'A new code has been resent',
         confirmButtonText: 'Ok',
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire('Saved!', '', 'success')
             x = setInterval(countDown, 1000);
         }
     })
