@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo;
 
+import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.repository.*;
@@ -10,6 +11,7 @@ import com.thedeanda.lorem.LoremIpsum;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -490,6 +492,8 @@ public class DemoTest {
 
     @Test
     public void testDisplay(){
-        System.out.println(Util.formatPhone("1234567890"));
+        Optional<Client> byId = clientRepository.findById("0068edd8-dec4-469b-b4f2-f5fb7d804aef");
+
+        System.out.println(byId.orElse(new Client()).getOffMeetingList().size());
     }
 }

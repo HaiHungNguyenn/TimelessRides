@@ -239,4 +239,8 @@ public class PostService {
         }
         return postList;
     }
+
+    public void delete(Post post) {
+        postRepository.delete(post);
+    }
 }

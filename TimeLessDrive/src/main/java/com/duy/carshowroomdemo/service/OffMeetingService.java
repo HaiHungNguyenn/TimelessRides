@@ -39,7 +39,6 @@ public class OffMeetingService {
         return offMeetingList;
     }
 
-    @Cacheable("offMeetings")
     public List<OffMeetingDto> getOffMeetingsByClient(ClientDto clientDto, Pageable pageable){
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
         offMeetingRepository.findOffMeetingsByClient(mapperManager.getClientMapper().toEntity(clientDto),pageable).forEach(x -> {
@@ -102,5 +101,9 @@ public class OffMeetingService {
 
     public long getTotalOffMeetingsByClient(ClientDto client) {
         return offMeetingRepository.countByClient(mapperManager.getClientMapper().toEntity(client));
+    }
+
+    public void delete(OffMeeting offMeeting) {
+        offMeetingRepository.delete(offMeeting);
     }
 }
