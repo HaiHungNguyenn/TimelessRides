@@ -94,7 +94,7 @@
 
                             <div class="col-md-6 d-flex justify-content-end">
                                 <!-- Simple link -->
-                                <a id="forgot-password-button" class="form-link" href="#!">Forgot password?</a>
+                                <a id="forgot-password-button" class="form-link" href="/send-verifycode">Forgot password?</a>
                             </div>
                         </div>
 
@@ -170,8 +170,8 @@
         </div>
     </div>
 
-    <div class="pop-up">
-        <form action="">
+    <div class="pop-up" th:classappend="${popup} ? 'pop-up-active' : 'blur'">
+        <form th:action="@{/check-verifycode}" method="get">
             <div role="main" class="form-all" style="background: white;">
                 <div class="header1">
                     <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
@@ -179,11 +179,9 @@
                 </div>
                 <p>We have sent an email to you to reset your password. Input the code sent to you to
                     the box below:</p>
-                <p>Code will be resent in <b id="countdown-reset-password" style="color: red;"></b> seconds <b>Or</b>
-                    <a id="resent-email" href="#">Resent now</a>
-                </p>
-                <input type="text" class="code-input">
-                <input type="submit" value="Submit"><span></span>
+
+                <input type="text" class="code-input" name="code">
+                <input type="submit" value="Submit">
             </div>
         </form>
     </div>

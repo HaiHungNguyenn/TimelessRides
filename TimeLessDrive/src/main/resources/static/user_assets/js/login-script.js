@@ -45,6 +45,8 @@ document.querySelector("#forgot-password-button").addEventListener("click", func
     document.querySelector(".pop-up").className = "pop-up-active";
     document.querySelector(".all-page").classList.add("blur");
     x = setInterval(countDown, 1000);
+    var  linkToController = "/hello";
+    window.location.href=linkToController;
 });
 
 document.querySelector(".pop-up .esc-button").addEventListener("click", function () {

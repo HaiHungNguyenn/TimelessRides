@@ -71,7 +71,7 @@
         <table class="email-content">
           <tr>
             <td class="logo">
-              <img src="/TimeLessDrive/src/main/resources/static/user_assets/img/white-car-logo.png" alt="TimelessRide Logo">
+              <img src="../../user_assets/img/logo.png " alt="">
             </td>
           </tr>
           <tr>
@@ -83,7 +83,7 @@
             <td class="message">
               <p>Hello,</p>
               <p>Thank you for choosing TimelessRide. Please use the following verification code to proceed:</p>
-              <p class="verification-code">{{verificationCode}}</p>
+              <p class="verification-code" th:text="${verificationCode}"></p>
               <p>If you didn't request this verification, please ignore this email.</p>
               <p>Regards,<br>
               The TimelessRide Team</p>
