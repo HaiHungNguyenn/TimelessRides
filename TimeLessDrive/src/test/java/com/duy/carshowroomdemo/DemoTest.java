@@ -496,4 +496,8 @@ public class DemoTest {
 
         System.out.println(byId.orElse(new Client()).getOffMeetingList().size());
     }
+    @Test
+    public void testDel(){
+        clientRepository.deleteByEmail("client1@gmail.com");
+    }
 }

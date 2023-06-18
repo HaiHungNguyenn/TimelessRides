@@ -95,3 +95,17 @@ document.querySelector("#resent-email").addEventListener("click",  function () {
     timeRemain = duration;
     showMessage();
 });
+
+const newPasswordInput = document.getElementById("new-password");
+const repeatPasswordInput = document.getElementById("repeat-password");
+
+function checkPasswords() {
+    if (newPasswordInput.value !== repeatPasswordInput.value) {
+        repeatPasswordInput.setCustomValidity("Passwords do not match");
+    } else {
+        repeatPasswordInput.setCustomValidity("");
+    }
+}
+
+newPasswordInput.addEventListener("input", checkPasswords);
+repeatPasswordInput.addEventListener("input", checkPasswords);

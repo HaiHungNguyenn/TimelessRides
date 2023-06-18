@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="../../user_assets/css/login-style.css">
 </head>
 <body>
-    <div class="all-page">
+    <div class="all-page" >
         <form class="back-form">
             <span class="button-before"></span>
             <input class="back-button" type="button" value="Back" onclick="history.back()">
@@ -68,11 +68,11 @@
                             </div>
                         </div>
 
-                        <p class="text-center">or:</p>
+                        <p class="text-center" th:text="${loginMsg}"></p>
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
-                            <input type="email" id="loginName" class="form-control" placeholder=" " name="email"/>
+                            <input type="email" id="loginName" class="form-control" th:placeholder="${email}" name="email" th:value="${email}"/>
                             <label class="form-label" for="loginName">Email or username</label>
                         </div>
 
@@ -94,7 +94,7 @@
 
                             <div class="col-md-6 d-flex justify-content-end">
                                 <!-- Simple link -->
-                                <a id="forgot-password-button" class="form-link" href="/send-verifycode">Forgot password?</a>
+                                <a id="forgot-password-button" class="form-link"  th:href="@{/send-verifycode(email=${email})}">Forgot password?</a>
                             </div>
                         </div>
 
@@ -170,13 +170,15 @@
         </div>
     </div>
 
-    <div class="pop-ups">
-    <div class="pop-up" th:classappend="${popup} ? 'pop-up-active' : 'blur'">
+
+    <div class="pop-up" th:classappend="${popup_first} ? 'pop-up-active' : 'blur'">
         <form th:action="@{/check-verifycode}" method="get">
             <div role="main" class="form-all" style="background: white;">
                 <div class="header1">
                     <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
                     <div class="esc-button">&times;</div>
+                    <p th:text="${msg}"></p>
+
                 </div>
                 <p>We have sent an email to you to reset your password. Input the code sent to you to
                     the box below:</p>
@@ -186,26 +188,30 @@
             </div>
         </form>
     </div>
-    <div class="pop-up" th:classappend="${popup} ? 'pop-up-active' : 'blur'">
-        <form th:action="@{/check-verifycode}" method="get">
+
+    <div class="pop-up" th:classappend="${popup_second} ? 'pop-up-active' : 'blur'">
+        <form th:action="@{/renew-password}" method="get">
             <div role="main" class="form-all" style="background: white;">
                 <div class="header1">
-                    <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
+                    <h2 class="form-header" data-component="header">RESET PASSWORD</h2>
                     <div class="esc-button">&times;</div>
+                    <p th:text="${msg}"></p>
                 </div>
                 <div class="form-outline mb-4">
-                    <input type="password" id="new-password" class="form-control" placeholder=" " name="name"/>
+                    <input type="password" id="new-password" class="form-control" placeholder=" " name="newPassword"/>
                     <label class="form-label" for="new-password">New Password</label>
                 </div>
+
                 <div class="form-outline mb-4">
-                    <input type="password" id="repeat-password" class="form-control" placeholder=" " name="name"/>
-                    <label class="form-label" for="repeat-password">Repeat Password</label>
+                    <input type="password" id="repeat-password" class="form-control" placeholder=""/>
+                    <label class="form-label" for="repeat-password">Confirm Password</label>
                 </div>
+
                 <input type="submit" value="Submit">
             </div>
         </form>
     </div>
-    </div>
+
 
     <!-- Js Plugins -->
     <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>

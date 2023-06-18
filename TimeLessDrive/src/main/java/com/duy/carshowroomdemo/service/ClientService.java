@@ -93,7 +93,9 @@ public class ClientService {
 
     }
 
-//    public Boolean deletebyId(String id) {
-//        return repository.deleteById(id);
-//    }
+    public Client findEntityByEmail(String email) {
+        return repository.findByEmail(email).orElse(null);
+    }
+
+
 }

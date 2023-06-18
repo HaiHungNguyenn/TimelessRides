@@ -63,6 +63,8 @@ public class LogInController {
         }
 
         else {
+            modelAndView.addObject("email",email);
+            modelAndView.addObject("loginMsg","Wrong email or password");
             modelAndView.setViewName("views/user/login");
         }
 

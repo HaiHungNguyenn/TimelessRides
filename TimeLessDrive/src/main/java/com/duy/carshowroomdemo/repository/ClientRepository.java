@@ -19,10 +19,12 @@ public interface ClientRepository extends JpaRepository<Client, String> {
     @Override
     Optional<Client> findById(String s);
 
+
     Optional<Client> findByEmail(String email);
     boolean existsByEmail(String email);
     List<Client> findByJoinDateBetween(LocalDate startDate, LocalDate endDate);
 
     Client findByEmailAndNameAndPhone(String email, String name, String phone);
 
+    void deleteByEmail(String s);
 }

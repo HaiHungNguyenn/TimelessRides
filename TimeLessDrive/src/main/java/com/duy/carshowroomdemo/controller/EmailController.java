@@ -1,6 +1,7 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Email;
 import com.duy.carshowroomdemo.service.EmailService;
 import com.duy.carshowroomdemo.service.Service;
@@ -30,13 +31,21 @@ public class EmailController {
     @Value("${spring.mail.password}")
     private String password;
     @RequestMapping("/send-verifycode")
-    public ModelAndView sendCode() throws MessagingException {
-        System.out.println("hello");
+    public ModelAndView sendCode(@RequestParam("email") String userEmail) throws MessagingException {
+        Client client = service.getClientService().findEntityByEmail("userEmail");
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        modelAndView.addObject("popup",true);
+        if(client == null){
+            modelAndView.addObject("loginMsg","your email has not been registered");
+            return modelAndView;
+        }
+        modelAndView.addObject("popup_first",true);
+        modelAndView.addObject("email",userEmail);
+        session.setAttribute("email",userEmail);
         Email email = new Email();
         String code = Util.generateRandomString();
         email.setTo("hainhse173100@fpt.edu.vn");
+//        email.setTo(userEmail);
         email.setFrom("nguyenhai181911@gmail.com");
         email.setSubject("Email Verification Code");
         email.setTemplate("views/email/email-verify.html");
@@ -54,13 +63,33 @@ public class EmailController {
         String veriCode = (String) session.getAttribute("verificationCode");
         System.out.println(veriCode);
         System.out.println(code);
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(code.equalsIgnoreCase(veriCode)){
             System.out.println("Successfull");
+            modelAndView.addObject("popup_second",true);
+            modelAndView.addObject("msg","please enter your new password");
+
         }else {
-            System.out.println("fail");
+            System.out.println("Fail");
+            modelAndView.addObject("popup_first",true);
+            modelAndView.addObject("msg","wrong code");
         }
-        ModelAndView modelAndView = new ModelAndView("views/user/login");
         return modelAndView;
 
+    }
+
+    @RequestMapping("/renew-password")
+    public ModelAndView updatePassword(@RequestParam("newPassword") String newPassword){
+        System.out.println("renew here------");
+        ModelAndView modelAndView = new ModelAndView();
+        String userEmail = (String)session.getAttribute("email");
+        Client client = service.getClientService().findEntityByEmail(userEmail);
+        if(client != null){
+            client.setPassword(Util.encodePassword(newPassword));
+            service.getClientService().save(client);
+            modelAndView.addObject("loginMsg","new password has been updated");
+        }
+        modelAndView.setViewName("views/user/login");
+        return modelAndView;
     }
 }
