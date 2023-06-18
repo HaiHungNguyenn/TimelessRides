@@ -21,7 +21,7 @@ import java.util.List;
 public class PostService {
     @Autowired
     private PostRepository postRepository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     public List<PostDto> getAllPostRequest() {
         List<PostDto> postRequestList = new ArrayList<>();

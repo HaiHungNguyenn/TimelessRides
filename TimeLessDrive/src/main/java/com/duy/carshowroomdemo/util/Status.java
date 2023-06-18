@@ -11,4 +11,5 @@ public class Status {
     public static final String PAID = "Paid";
     public static final String BOUGHT = "Bought";
     public static final String COMPLETED = "Completed";
+    public static final String SENT = "Sent";
 }

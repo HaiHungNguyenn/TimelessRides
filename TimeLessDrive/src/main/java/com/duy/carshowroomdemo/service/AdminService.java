@@ -19,7 +19,8 @@ import java.util.Optional;
 public class AdminService {
     @Autowired
     private AdminRepository repository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
+
 
     public AdminDto login(String email, String pass){
         Optional<Admin> admin = repository.findByEmail(email);

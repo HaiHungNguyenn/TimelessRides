@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -44,4 +45,11 @@ public class Car {
 
     @OneToOne(mappedBy = "car")
     private Post post;
+
+    public List<CarImage> getCarImageList(){
+        if (carImageList == null){
+            carImageList = new ArrayList<>();
+        }
+        return carImageList;
+    }
 }

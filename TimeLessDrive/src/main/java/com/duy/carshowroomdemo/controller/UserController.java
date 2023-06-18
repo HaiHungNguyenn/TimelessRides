@@ -1,9 +1,11 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.InvoiceDto;
+import com.duy.carshowroomdemo.dto.OffMeetingDto;
+import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
-import com.duy.carshowroomdemo.service.OffMeetingService;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
@@ -11,18 +13,23 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Stack;
 
 @Controller
 
@@ -35,7 +42,8 @@ public class UserController {
     private HttpServletRequest request;
     public final Stack<String> stack = new Stack<>();
 
-    MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
+
     public boolean isAuthenticated(){
         return(session.getAttribute("client")!=null);
     }
@@ -202,17 +210,20 @@ public ModelAndView postCar(){
         }
         
         String[] parts = Util.splitDateTimeString(slot);
-        OffMeeting offMeeting = new OffMeeting();
-        offMeeting.setClient( mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")));
-        offMeeting.setMeetingDate(Util.parseLocalDate(parts[0]));
-        offMeeting.setMeetingTime(Util.parseLocalTime(parts[1]));
-        offMeeting.setPhone(phone);
-        offMeeting.setCreateDate(LocalDate.now());
-        offMeeting.setCreateTime(LocalTime.now());
-        offMeeting.setDescription(description);
-        offMeeting.setCar(service.getCarService().findCarEntityById(carId));
-        offMeeting.setStatus(Status.PENDING);
+        OffMeeting offMeeting = OffMeeting.builder()
+                .client(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")))
+                .meetingDate(Util.parseLocalDate(parts[0]))
+                .meetingTime(Util.parseLocalTime(parts[1]))
+                .phone(phone)
+                .createDate(LocalDate.now())
+                .createTime(LocalTime.now())
+                .description(description)
+                .car(service.getCarService().findCarEntityById(carId))
+                .status(Status.PENDING)
+                .build();
+
         service.getOffMeetingService().save(offMeeting);
+
         return carDetail(carId);
     }
     @RequestMapping("/testadd")
@@ -232,12 +243,7 @@ public ModelAndView postCar(){
 
     }
 
-
-
-
-
-
-
+    
     @GetMapping ("/account")
     public ModelAndView account(){
         ModelAndView modelAndView = new ModelAndView();
@@ -250,11 +256,11 @@ public ModelAndView postCar(){
         return modelAndView;
 
     }
+
     @GetMapping ("/transactions_history")
     public ModelAndView transactionsHistory(){
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
@@ -266,6 +272,7 @@ public ModelAndView postCar(){
 
         return modelAndView;
     }
+
     @GetMapping ("/meeting_history")
     public ModelAndView meetingHistory(String errorMsg, String successMsg){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
@@ -284,6 +291,7 @@ public ModelAndView postCar(){
 
         return modelAndView;
     }
+
     @GetMapping ("/car-detail/{id}")
     public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
@@ -324,32 +332,31 @@ public ModelAndView postCar(){
                                     @RequestParam("plan") String plan,
                                     @PathVariable("clientId") String clientId){
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("views/user/post-car");
+        ModelAndView modelAndView = new ModelAndView("views/user/post-car");
 
         Car car = new Car();
-        CarDescription carDescription = new CarDescription();
-        Post post = new Post();
         List<CarImage> carImageList = new ArrayList<>();
         List<Showroom> showroomList = service.getShowroomService().findAll();
         Client client = service.getClientService().findEntityById(clientId);
 
-        carDescription.setMake(make);
-        carDescription.setModel(model);
-        carDescription.setBodyColor(bodyColor);
-        carDescription.setInteriorColor(interiorColor);
-        carDescription.setInteriorMaterial(interiorMaterial);
-        carDescription.setBody(body);
-        carDescription.setLicensePlate(licensePlate);
-        carDescription.setFuelType(fuelType);
-        carDescription.setTransmission(transmission);
-        carDescription.setFirstRegistration(firstRegistration);
-        carDescription.setSeats((Objects.equals(seats, "")) ? 0 : Integer.parseInt(seats));
-        carDescription.setPower((Objects.equals(power, "")) ? 0 : Integer.parseInt(power));
-        carDescription.setEngineCapacity((Objects.equals(engineCapacity, "")) ? 0 : Integer.parseInt(engineCapacity));
-        carDescription.setCo2Emission((Objects.equals(co2Emission, "")) ? 0 : Integer.parseInt(co2Emission));
-        carDescription.setKmsDriven((Objects.equals(mileage, "")) ? 0 : Integer.parseInt(mileage));
-        carDescription.setOthers(others);
+        CarDescription carDescription = CarDescription.builder()
+                .make(make)
+                .model(model)
+                .bodyColor(bodyColor)
+                .interiorColor(interiorColor)
+                .interiorMaterial(interiorMaterial)
+                .body(body)
+                .licensePlate(licensePlate)
+                .fuelType(fuelType)
+                .transmission(transmission)
+                .firstRegistration(firstRegistration)
+                .seats((Objects.equals(seats, "")) ? 0 : Integer.parseInt(seats))
+                .power((Objects.equals(power, "")) ? 0 : Integer.parseInt(power))
+                .engineCapacity((Objects.equals(engineCapacity, "")) ? 0 : Integer.parseInt(engineCapacity))
+                .co2Emission((Objects.equals(co2Emission, "")) ? 0 : Integer.parseInt(co2Emission))
+                .kmsDriven((Objects.equals(mileage, "")) ? 0 : Integer.parseInt(mileage))
+                .others(others)
+                .build();
 
         if(files != null){
             for (MultipartFile file: files) {
@@ -365,10 +372,6 @@ public ModelAndView postCar(){
             }
         }
 
-        if(car.getCarImageList() == null){
-            car.setCarImageList(new ArrayList<>());
-        }
-
         car.getCarImageList().addAll(carImageList);
 
         car.setName(carName);
@@ -377,13 +380,15 @@ public ModelAndView postCar(){
         car.setCarDescription(carDescription);
         car.setShowroom(showroomList.get(0));
 
-        post.setCar(car);
-        post.setClient(client);
-        post.setPostDate(LocalDate.now());
-        post.setPostTime(LocalTime.now());
-        post.setStatus(Status.PENDING);
-        post.setDescription(postDescription);
-        post.setPlan(plan);
+        Post post = Post.builder()
+                .car(car)
+                .client(client)
+                .postDate(LocalDate.now())
+                .postTime(LocalTime.now())
+                .status(Status.PENDING)
+                .description(postDescription)
+                .plan(plan)
+                .build();
 
         service.getCarService().save(car);
         service.getPostService().save(post);
@@ -413,6 +418,11 @@ public ModelAndView postCar(){
         if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId())){
             errorMsg = "You don't have permission to cancel this meeting";
             return meetingHistory(errorMsg, successMsg);
+        }
+
+        if(offMeeting.getStaff() != null){
+            String msg = "Your meeting with " + offMeeting.getClient() + " at " + offMeeting.getMeetingTime() + ", " + offMeeting.getMeetingDate() + " has been cancelled";
+            service.sendNotification(offMeeting.getStaff(), msg);
         }
 
         service.getOffMeetingService().delete(offMeeting);

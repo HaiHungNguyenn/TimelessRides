@@ -1,11 +1,18 @@
 package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.CarDto;
+import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.ClientNotification;
+import com.duy.carshowroomdemo.entity.Staff;
+import com.duy.carshowroomdemo.entity.StaffNotification;
+import com.duy.carshowroomdemo.util.Status;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +45,32 @@ public class Service {
     private ShowroomService showroomService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private StaffNotificationService staffNotificationService;
+    @Autowired
+    private ClientNotificationService clientNotificationService;
+    public <T> void sendNotification(T receiver, String content){
+
+        if (receiver.getClass().equals(Client.class)) {
+            ClientNotification notification = ClientNotification.builder()
+                    .createDate(LocalDate.now())
+                    .createTime(LocalTime.now())
+                    .receiver((Client) receiver)
+                    .content(content)
+                    .status(Status.SENT)
+                    .build();
+            clientNotificationService.save(notification);
+        }else if (receiver.getClass().equals(Staff.class)){
+            StaffNotification notification = StaffNotification.builder()
+                    .createDate(LocalDate.now())
+                    .createTime(LocalTime.now())
+                    .receiver((Staff) receiver)
+                    .content(content)
+                    .status(Status.SENT)
+                    .build();
+            staffNotificationService.save(notification);
+        }
+    }
 
     @Autowired
     HttpSession session;

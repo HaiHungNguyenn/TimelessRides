@@ -26,9 +26,7 @@ public class CarService {
     @Autowired
     private CarRepository repository;
 
-
-    private final ModelMapper modelMapper = new ModelMapper();
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
 
     @Cacheable("cars")
     public List<CarDto> getCarList(){

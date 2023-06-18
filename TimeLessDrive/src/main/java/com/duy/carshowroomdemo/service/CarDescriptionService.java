@@ -18,7 +18,8 @@ import java.util.List;
 public class CarDescriptionService {
     @Autowired
     private CarDescriptionRepository carDescriptionRepository;
-    private MapperManager mapperManager = new MapperManager();
+    private final MapperManager mapperManager = MapperManager.getInstance();
+
 
     public List<CarDto> findCarByMake(String value, Pageable pageable) {
 
