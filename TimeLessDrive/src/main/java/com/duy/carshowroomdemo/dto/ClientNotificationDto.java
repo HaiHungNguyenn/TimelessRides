@@ -21,4 +21,6 @@ public class ClientNotificationDto implements Serializable {
     private String content;
     private LocalDate createDate;
     private LocalTime createTime;
+    private String status;
+
 }

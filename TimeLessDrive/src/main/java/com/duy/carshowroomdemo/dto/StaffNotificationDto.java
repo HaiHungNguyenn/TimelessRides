@@ -16,9 +16,11 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Data
 public class StaffNotificationDto implements Serializable {
-    String id;
-    StaffDto receiver;
-    String content;
-    LocalDate createDate;
-    LocalTime createTime;
+    private String id;
+    private StaffDto receiver;
+    private String content;
+    private LocalDate createDate;
+    private LocalTime createTime;
+    private String status;
+
 }

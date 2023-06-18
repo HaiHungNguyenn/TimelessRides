@@ -13,7 +13,8 @@ import java.time.LocalTime;
 @Table(name = "staff_notification")
 public class StaffNotification {
     @Id
-    @Column(name = "id", nullable = false, length = 100)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false)
     private String id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,4 +30,6 @@ public class StaffNotification {
     @Column(name = "create_time")
     private LocalTime createTime;
 
+    @Column(name = "status")
+    private String status;
 }
