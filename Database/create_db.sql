@@ -139,3 +139,18 @@ CREATE TABLE feedback (
 	[description]			NVARCHAR(2000)
 )
 
+CREATE TABLE client_notification (
+    id						VARCHAR(100) PRIMARY KEY,
+    receiver_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
+    content					VARCHAR(2000),
+    create_date				DATE,
+    create_time				TIME
+)
+
+CREATE TABLE staff_notification (
+    id						VARCHAR(100) PRIMARY KEY,
+    receiver_id				VARCHAR(100) FOREIGN KEY REFERENCES staff(id),
+    content					VARCHAR(2000),
+    create_date				DATE,
+    create_time				TIME
+)

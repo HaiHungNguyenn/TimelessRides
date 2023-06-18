@@ -56,4 +56,7 @@ public class Staff {
 
     @OneToMany(mappedBy = "staff")
     private List<OffMeeting> offMeetingList;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<StaffNotification> notificationList;
 }
