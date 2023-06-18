@@ -58,4 +58,7 @@ public class Client {
 
     @OneToMany(mappedBy = "client")
     private List<Invoice> invoiceList;
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    private List<ClientNotification> notificationList;
 }

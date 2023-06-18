@@ -267,10 +267,10 @@ public ModelAndView postCar(){
         return modelAndView;
     }
     @GetMapping ("/meeting_history")
-    public ModelAndView meetingHistory(){
-        ModelAndView modelAndView = new ModelAndView();
+    public ModelAndView meetingHistory(String errorMsg, String successMsg){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
         if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
 
@@ -279,6 +279,8 @@ public ModelAndView postCar(){
 
         modelAndView.setViewName("views/user/meeting-history");
         modelAndView.addObject("meetingList", meetingList);
+        modelAndView.addObject("errorMsg", errorMsg);
+        modelAndView.addObject("successMsg", successMsg);
 
         return modelAndView;
     }
@@ -389,6 +391,34 @@ public ModelAndView postCar(){
         modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
 
         return modelAndView;
+    }
+
+    @RequestMapping("/meeting-history/cancel")
+    public ModelAndView cancelMeeting(@RequestParam("id") String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+        String errorMsg = null;
+        String successMsg = null;
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        OffMeeting offMeeting = service.getOffMeetingService().findById(id);
+
+        if(offMeeting == null){
+            errorMsg = "An error occurred";
+            return meetingHistory(errorMsg, successMsg);
+        }
+
+        if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId())){
+            errorMsg = "You don't have permission to cancel this meeting";
+            return meetingHistory(errorMsg, successMsg);
+        }
+
+        service.getOffMeetingService().delete(offMeeting);
+        successMsg = "Your meeting has been cancelled";
+
+        return meetingHistory(errorMsg, successMsg);
     }
 
     @GetMapping ("/signin")
