@@ -159,3 +159,152 @@ span:has(~ .back-button:hover){
     border: 1px solid red;
     color: white;
 }
+
+/*start style for reset password*/
+.forgot-password {
+    display: none;
+}
+
+#forgot-password-button {
+    height: 100%;
+}
+
+.pop-up {
+    position: absolute;
+    top: -150%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0;
+    transition: top 0ms ease-in-out 200ms,
+    opacity 200ms ease-in-out 0ms,
+    transform 20ms ease-in-out 0ms;
+}
+
+.pop-up-active {
+    height: fit-content;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    transition: top 0ms ease-in-out 200ms,
+    opacity 200ms ease-in-out 0ms,
+    transform 20ms ease-in-out 0ms;
+    z-index: 1;
+}
+
+
+
+.blur {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
+
+.appointmentFieldRow.forSelectedDate {
+    background-color: red;
+}
+
+.form-all {
+    position: relative;
+    background: white;
+    width: 100%;
+    box-shadow: 2px 2px 12px 2px black;
+    border-radius: 10px;
+}
+
+.form-all input[type=submit] {
+    background-color: #fb2f30;
+    color: white;
+    width: 25%;
+    margin: auto;
+    border: none;
+    border-radius: 2px;
+    display: block;
+    padding: 15px;
+}
+
+.form-all input[type=submit] + span {
+    height: 30px;
+    content: "";
+    display: block;
+}
+
+.form-all input:hover {
+    border-color: red;
+}
+
+.form-all textarea:hover {
+    border-color: red;
+}
+
+.form-all input {
+    border: 1px solid;
+    padding: 10px;
+    width: 73%;
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.form-all p{
+    text-align: center;
+}
+
+.form-all textarea {
+    width: 100%;
+}
+
+.form-all h2 {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.esc-button {
+    background-color: gray;
+    border-radius: 90px;
+    display: inline-block;
+    padding: 7px;
+    color: white;
+    font-size: 17px;
+    width: 39px;
+    text-align: center;
+    position: absolute;
+    transform: translate(-50%);
+    top: 2%;
+    left: 93%;
+    cursor: pointer;
+}
+
+.form-all .form-submit-button {
+    color: #ffffff !important;
+    background: red;
+    box-shadow: none;
+    text-shadow: none;
+
+}
+
+.pop-up-active {
+    width: 52%;
+}
+
+.header1::after{
+    content: "";
+    border-bottom: 2px solid #cecece;
+    display: block;
+    width: 90%;
+    margin: auto;
+    margin: 20px 0;
+}
+
+#resent-email{
+    color: red
+}
+
+#resent-email:hover{
+    color: red;
+    opacity: 0.8;
+}
+
+#resent-email:active{
+    color: red;
+}

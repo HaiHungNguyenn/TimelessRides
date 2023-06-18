@@ -35,3 +35,50 @@ var check = function() {
         document.getElementById('message').innerHTML = 'Not Matched';
     }
 }
+
+// start function for reset password
+let x;
+const duration = 60;
+let timeRemain = duration;
+
+document.querySelector("#forgot-password-button").addEventListener("click", function () {
+    document.querySelector(".pop-up").className = "pop-up-active";
+    document.querySelector(".all-page").classList.add("blur");
+    x = setInterval(countDown, 1000);
+});
+
+document.querySelector(".pop-up .esc-button").addEventListener("click", function () {
+    document.querySelector(".pop-up-active").className = "pop-up";
+    document.querySelector(".all-page").classList.remove("blur");
+    document.getElementById("countdown-reset-password").innerHTML = duration;
+    clearInterval(x);
+    timeRemain = duration;
+});
+
+function countDown() {
+    if (timeRemain < 0) {
+        clearInterval(x);
+        timeRemain = duration;
+        showMessage();
+    }
+    else document.getElementById("countdown-reset-password").innerHTML = timeRemain--;
+}
+
+function showMessage() {
+    Swal.fire({
+        title: 'Code Resent Successfully',
+        text: 'A new code has been resent',
+        confirmButtonText: 'Ok',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire('Saved!', '', 'success')
+            x = setInterval(countDown, 1000);
+        }
+    })
+}
+
+document.querySelector("#resent-email").addEventListener("click", async function () {
+    clearInterval(x);
+    timeRemain = duration;
+    showMessage();
+});
