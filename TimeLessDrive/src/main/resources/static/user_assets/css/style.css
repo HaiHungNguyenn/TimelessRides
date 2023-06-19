@@ -1047,6 +1047,12 @@ ol {
 
 .car__item {
 	margin-bottom: 30px;
+	transition: all	.5s ease;
+	cursor: pointer;
+}
+
+.car__item:hover{
+	box-shadow: 5px 5px 10px black;
 }
 
 .car__item__pic__slider img {
@@ -2076,6 +2082,10 @@ ol {
 
 .car__details__tab .tab-content {
 	padding-top: 45px;
+}
+
+.tab-content .tab-pane{
+	transition: all .5s ease;
 }
 
 .car__details__tab__info {
@@ -3713,6 +3723,7 @@ ol {
 /* pagination option style */
 .pagination__option a:hover {
 	background-color: #f60000;
+	color: white;
 }
 .pagination__option ul{
 	margin: 0;
@@ -3758,4 +3769,32 @@ ol {
 	background-color: #ccc;
 	color: #333;
 	cursor: default;
+}
+
+.pagination__option li{
+	display: none;
+}
+
+.car__item__text__inner{
+	height: 174.7px;
+}
+
+@media screen and (max-width: 1200px){
+	.car__item__text__inner{
+		height: 198.8px;
+	}
+}
+
+.nav-link{
+	cursor: pointer;
+}
+
+.car__filter__option__item a{
+	color: #db2d2e;
+	opacity: 0.8;
+}
+
+.car__filter__option__item a:hover{
+	color: #db2d2e;
+	opacity: 1;
 }
