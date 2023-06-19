@@ -232,9 +232,10 @@
                             <div class="col-lg-6 col-md-6">
                                 <div class="car__filter__option__item car__filter__option__item--right">
                                     <h6>Sort By
-                                        <a th:href="@{/car/sorted-asc (property = ${property}, value = ${value})} " th:text="asc" />
+                                        <a th:href="@{/car/sorted-asc (property = ${property}, value = ${value})} " th:text="ASC" />
 <!--                                        <a href="#" th:text="asc" />-->
-                                        <a th:href="@{/car/sorted-desc (property = ${property}, value = ${value})}" th:text="desc" />
+                                        |
+                                        <a th:href="@{/car/sorted-desc (property = ${property}, value = ${value})}" th:text="DESC" />
 <!--                                        <a href="#" th:text="desc" />-->
                                     </h6>
 
