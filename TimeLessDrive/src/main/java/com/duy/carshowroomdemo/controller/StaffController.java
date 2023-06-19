@@ -1,13 +1,12 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.*;
-import com.duy.carshowroomdemo.entity.Invoice;
-import com.duy.carshowroomdemo.entity.OffMeeting;
-import com.duy.carshowroomdemo.entity.Post;
+import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/staff")
@@ -189,7 +190,7 @@ public class StaffController {
                                               @RequestParam("id") String meetingId,
                                               @RequestParam("property") String property,
                                               @RequestParam("direction") String direction,
-                                              @RequestParam("offset") Integer offset){
+                                              @RequestParam("offset") Integer offset) throws MessagingException {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
         String errorMsg = null;
         String successMsg = null;
@@ -199,7 +200,24 @@ public class StaffController {
         }
 
         OffMeeting offMeeting = service.getOffMeetingService().findById(meetingId);
+        Client buyer = offMeeting.getClient();
+        Client carOwner = offMeeting.getCar().getPost().getClient();
+        Email buyerEmail = new Email();
+        Email carOwnerEmail = new Email();
+        System.out.println("car owner: "+carOwner);
+        System.out.println("buyer:"+buyer);
 
+        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
+        buyerEmail.setFrom("nguyenhai181911@gmail.com");
+        buyerEmail.setSubject("Meeting Request Response");
+        buyerEmail.setTemplate("views/email/email-meeting.html");
+
+        carOwnerEmail.setTo("hainhse173100@fpt.edu.vn");
+        carOwnerEmail.setFrom("nguyenhai181911@gmail.com");
+        carOwnerEmail.setSubject("Car Delivery Request");
+        carOwnerEmail.setTemplate("views/email/email-delivery.html");
+        Map<String, Object> buyerEmailProperties = new HashMap<>();
+        Map<String, Object> carOwnerEmailProperties = new HashMap<>();
         if(offMeeting == null){
             errorMsg = "An error occurred, cannot perform this action";
         }else if(offMeeting.getStaff() != null){
@@ -211,10 +229,38 @@ public class StaffController {
                 String msg = "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been declined";
                 service.sendNotification(offMeeting.getClient(), msg);
                 successMsg = "Declined meeting with " + offMeeting.getClient().getName();
+                // mail
+                buyerEmailProperties.put("status","DECLINED");
+                buyerEmailProperties.put("clientName",buyer.getName());
+                buyerEmailProperties.put("meetingDate",offMeeting.getMeetingDate());
+                buyerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
+                buyerEmailProperties.put("meetingTime",offMeeting.getMeetingTime());
+                buyerEmail.setProperties(buyerEmailProperties);
+                service.getEmailService().sendHTMLMessage(buyerEmail);
+                System.out.println("emnail here: declined");
             }else {
                 String msg =  "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been approved";
                 service.sendNotification(offMeeting.getClient(), msg);
                 successMsg = "Approved meeting with " + offMeeting.getClient().getName();
+                // mail
+                buyerEmailProperties.put("status","APPROVED");
+                buyerEmailProperties.put("clientName",buyer.getName());
+                buyerEmailProperties.put("meetingDate",offMeeting.getMeetingDate());
+                buyerEmailProperties.put("meetingTime",offMeeting.getMeetingTime());
+                buyerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
+                buyerEmail.setProperties(buyerEmailProperties);
+                // mail
+                carOwnerEmailProperties.put("meetingDate",offMeeting.getMeetingDate());
+                carOwnerEmailProperties.put("clientName",buyer.getName());
+                carOwnerEmailProperties.put("meetingTime",offMeeting.getMeetingTime());
+                carOwnerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
+                carOwnerEmailProperties.put("carName",offMeeting.getCar().getName());
+                carOwnerEmailProperties.put("carModel",offMeeting.getCar().getCarDescription().getModel());
+                carOwnerEmail.setProperties(carOwnerEmailProperties);
+
+                service.getEmailService().sendHTMLMessage(carOwnerEmail);
+                service.getEmailService().sendHTMLMessage(buyerEmail);
+                System.out.println("emnail here: approved");
             }
         }
 

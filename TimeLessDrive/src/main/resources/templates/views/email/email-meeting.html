@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TimelessRide - Meeting Invitation</title>
+  <style>
+    .approval {
+      background-color: #eafbea;
+    }
+
+    .denial {
+      background-color: #fbeaea;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    table {
+      width: 100%;
+      border: 0;
+      cellspacing: 0;
+      cellpadding: 0;
+    }
+    
+    td {
+      text-align: left;
+      vertical-align: top;
+    }
+    
+    .container {
+      padding: 40px 0;
+      background-color: #f4f4f4;
+    }
+    
+    .email-content {
+      width: 600px;
+      margin: 0 auto;
+      border: 1px solid #dddddd;
+      background-color: #ffffff;
+    }
+    
+    .logo {
+      padding-top: 20px;
+      text-align: center;
+    }
+    
+    .logo img {
+      width: 200px;
+      height: auto;
+    }
+    
+    .heading {
+      font-size: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #dddddd;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .info-section {
+      padding: 0 40px;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+    
+    .info-label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .greeting {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .regards {
+      font-size: 16px;
+      font-style: italic;
+    }
+    
+    .footer {
+      font-size: 14px;
+      padding: 20px 0;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    
+    .footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <table class="container">
+    <tr>
+      <td>
+        <table class="email-content">
+          <tr>
+            <td class="logo">
+              <img src="/TimeLessDrive/src/main/resources/static/user_assets/img/white-car-logo.png" alt="TimelessRide Logo">
+            </td>
+          </tr>
+          <tr>
+            <td class="heading">
+              <h2 style="margin: 0;" th:text="${#strings.equalsIgnoreCase(status, 'APPROVED')} ? 'MEETING APPROVE' : 'MEETING DENIAL'"></h2>
+            </td>
+          </tr>
+          <tr>
+<!--            properties.put("status","DECLINED");-->
+<!--            properties.put("clientName",client.getName());-->
+<!--            properties.put("meetingDate",offMeeting.getMeetingDate());-->
+<!--            properties.put("meetingTime",offMeeting.getMeetingTime());-->
+            <td class="info-section">
+                <p class="info-label">Dear</p>
+                <p class="greeting" th:text="${clientName}"> </p>
+              <p class="info-label">Date:</p>
+              <p class="info-value" th:text="${meetingDate}"/>
+              <p class="info-label">Time:</p>
+              <p class="info-value" th:text="${meetingTime}"/>
+              <p class="info-label">Staff:</p>
+              <p class="info-value" th:text="${staffName}"/>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="info-section">
+              <p th:if="${status == 'APPROVED'}" class="approval-message">We are pleased to inform you that your meeting request has been approved. We look forward to meeting you on the scheduled date and time.</p>
+              <p th:if="${status == 'DECLINED'}" class="denial-message">We regret to inform you that we are unable to attend the meeting as requested. We apologize for any inconvenience this may cause.</p>
+              <p class="regards">Best regards,</p>
+              <p>The TimelessRide Team</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td class="footer">
+        <p>&copy; 2023 TimelessRide. All rights reserved.</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

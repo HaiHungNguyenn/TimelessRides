@@ -4,20 +4,33 @@
   <meta charset="UTF-8">
   <title>TimelessRide - Meeting Invitation</title>
   <style>
+    .approval {
+      background-color: #eafbea;
+    }
+
+    .denial {
+      background-color: #fbeaea;
+    }
+
     body {
       font-family: Arial, sans-serif;
     }
     
     table {
       width: 100%;
-      border: 0;
-      cellspacing: 0;
-      cellpadding: 0;
+      border-collapse: collapse;
+      margin-bottom: 20px;
     }
     
-    td {
+    th, td {
+      padding: 10px;
+      border: 1px solid #dddddd;
+    }
+    
+    th {
+      background-color: #f4f4f4;
+      font-weight: bold;
       text-align: left;
-      vertical-align: top;
     }
     
     .container {
@@ -100,27 +113,40 @@
           </tr>
           <tr>
             <td class="heading">
-              <h2 style="margin: 0;">Meeting Invitation</h2>
+              <h2 style="margin: 0;" th:class="${#strings.equalsIgnoreCase(status, 'APPROVED')} ? 'approval' : 'denial'">MEETING INVITATION</h2>
             </td>
           </tr>
           <tr>
             <td class="info-section">
-              <p class="greeting">Dear {{clientName}},</p>
+              <p class="info-label">Dear</p>
+              <p class="greeting" th:text="${clientName}"> </p>
               <p class="info-label">Date:</p>
-              <p class="info-value">{{meetingDate}}</p>
+              <p class="info-value" th:text="${meetingDate}"></p>
               <p class="info-label">Time:</p>
-              <p class="info-value">{{meetingTime}}</p>
-              <p class="info-label">Location:</p>
-              <p class="info-value">{{meetingLocation}}</p>
+              <p class="info-value" th:text="${meetingTime}"></p>
               <p class="info-label">Staff:</p>
-              <p class="info-value">{{staffName}}, {{staffPosition}}</p>
+              <p class="info-value" th:text="${staffName}"></p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Car Name</th>
+                    <th>Car Model</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td th:text="${carName}"></td>
+                    <td th:text="${carModel}"></td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
           </tr>
+
           <tr>
             <td class="info-section">
-              <p style="font-size: 16px; margin-bottom: 20px;">We look forward to meeting you on the scheduled date and time. If you have any questions or need further information, please feel free to contact us.</p>
-              <p style="font-size: 16px; margin-bottom: 20px;">Thank you!</p>
-              <p class="regards">Regards,</p>
+              <p>We are pleased to inform you that your car has been considered by someone. Please bring your car to our showroom on the scheduled date and time.</p>
+              <p class="regards">Best regards,</p>
               <p>The TimelessRide Team</p>
             </td>
           </tr>
