@@ -567,16 +567,18 @@
 <script src="../../user_assets/js/calendar-script.js"></script>
 <script>
     // Get the close icon element
-    const closeIcon = document.querySelector('.close_btn ion-icon');
+    const closeIcon = document.querySelectorAll('.close_btn ion-icon');
 
-    // Get the modal element
-    const modal = document.querySelector('.modal_item');
+    //Get the background
+    const background = document.querySelector(".modal_wrapper")
 
     // Add event listener to the close icon
-    closeIcon.addEventListener('click', () => {
+    closeIcon.forEach((close) => close.addEventListener('click', () => {
         // Hide the modal
+        const modal = close.parentElement.parentElement;
         modal.style.display = 'none';
-    });
+        background.classList.remove("active");
+    }));
 
 </script>
 </body>
