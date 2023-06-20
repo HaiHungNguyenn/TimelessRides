@@ -233,7 +233,7 @@
 
         <p th:if="${errorMsg != null}" th:text="${errorMsg}" class="text-danger fs-3 text-center"/>
         <p th:if="${successMsg != null}" th:text="${successMsg}" class="text-success fs-3 text-center"/>
-        <p th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="fs-3 text-center"/>
+        <h1 th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="fs-3 text-center"/>
 
         <table th:if="${!meetingList.isEmpty()}">
             <thead>

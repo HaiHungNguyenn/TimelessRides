@@ -20,7 +20,7 @@
 button{
     display: block;
     width: 160px;
-    border: 2px solid transparent;
+    border: 2px solid ;
     padding: 12px 15px;
     border-radius: 3px;
     color: var(--white);
@@ -190,4 +190,17 @@ button.error_btn:hover{
     width: 42%;
     border: 1px solid;
     border-radius: 10px;
+}
+.fade{
+    display: none;
+    opacity: 0;
+    transform: translateY(-250px);
+    transition: opacity 0.3s ease-in-out;
+    z-index: 1;
+}
+.show{
+    display: block;
+    transform: translateY(-250px);
+    opacity: 1;
+    z-index: 1;
 }

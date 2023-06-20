@@ -1,16 +1,26 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MappingController {
     @Autowired
     private HttpSession session;
+    @Autowired
+    private Service service;
 
     boolean isAuthenticated(){
         return (session.getAttribute("admin") != null);
@@ -36,11 +46,19 @@ public class MappingController {
         return modelAndView;
     }
     @RequestMapping("/admin/staff_list")
-    public ModelAndView staffList(){
+    public ModelAndView staffList(@Nullable @RequestParam("offset") Integer offset){
+
+        offset = (offset == null) ? 1: offset;
+
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
+        List<StaffDto> listStaff = new ArrayList<>();
+//        postDto = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9), direction);
+        listStaff = service.getStaffService().findAll( PageRequest.of(offset - 1, 9));
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("staffList", listStaff);
         modelAndView.setViewName("views/admin/staff-list");
         return modelAndView;
     }

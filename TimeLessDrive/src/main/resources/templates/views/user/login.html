@@ -66,7 +66,6 @@
                                         Login with Google
                                     </a>
                                 </div>
-                                <p th:text="${loginMess}"></p>
                             </div>
                         </div>
 
@@ -214,17 +213,17 @@
         </form>
     </div>
 
-    <div class="modal_item s_modal">
+    <div class="modal_item s_modal show" th:if="${status == 'success'}">
         <div class="close close_btn">
             <ion-icon name="close"></ion-icon>
         </div>
-        <div class="modal_body">
+        <div class="modal_body"  style="background-color: whitesmoke">
             <div class="s_icon">
                 <ion-icon name="checkmark"></ion-icon>
             </div>
             <div class="s_text">
                 <h2>SUCCESS</h2>
-                <p>The account was created successfully</p>
+                <p th:text="${loginMess}"></p>
             </div>
         </div>
         <div class="s_button">
@@ -232,17 +231,17 @@
         </div>
     </div>
 
-    <div class="modal_item e_modal">
+    <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
         <div class="close close_btn">
-            <ion-icon name="close"></ion-icon>
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
         </div>
-        <div class="modal_body">
+        <div class="modal_body" style="background-color:whitesmoke">
             <div class="s_icon">
                 <ion-icon name="help"></ion-icon>
             </div>
             <div class="s_text">
                 <h2>ERROR</h2>
-                <p>Something went wrong. Please try again!</p>
+                <p th:text="${loginMess}"></p>
             </div>
         </div>
         <div class="s_button">
@@ -266,7 +265,20 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../user_assets/js/login-script.js"></script>
-    <script src="../../user_assets/js/popup.js"></script>
+    <script>
+        // Get the close icon element
+        const closeIcon = document.querySelector('.close_btn ion-icon');
+
+        // Get the modal element
+        const modal = document.querySelector('.modal_item');
+
+        // Add event listener to the close icon
+        closeIcon.addEventListener('click', () => {
+            // Hide the modal
+            modal.style.display = 'none';
+        });
+
+    </script>
 </body>
 
 </html>
