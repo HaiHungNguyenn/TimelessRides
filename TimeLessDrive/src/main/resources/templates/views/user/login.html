@@ -26,145 +26,240 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="../../user_assets/css/login-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/popup.css">
 </head>
 <body>
-    <div class="all-page" >
-        <form class="back-form">
-            <span class="button-before"></span>
-            <input class="back-button" type="button" value="Back" onclick="history.back()">
-        </form>
-        <div class="container login-form">
-            <!-- Pills navs -->
-            <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab"
-                            aria-controls="pills-login" aria-selected="true">Login
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab"
-                            aria-controls="pills-register" aria-selected="false">Register
-                    </button>
-                </li>
-            </ul>
-            <!-- Pills navs -->
+<div class="all-page">
+    <form class="back-form">
+        <span class="button-before"></span>
+        <input class="back-button" type="button" value="Back" onclick="history.back()">
+    </form>
+    <div class="container login-form">
+        <!-- Pills navs -->
+        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-login" data-mdb-toggle="pill" role="tab"
+                        aria-controls="pills-login" aria-selected="true">Login
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-register" data-mdb-toggle="pill" role="tab"
+                        aria-controls="pills-register" aria-selected="false">Register
+                </button>
+            </li>
+        </ul>
+        <!-- Pills navs -->
 
-            <!-- Pills content -->
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form action="/login-form" method="post">
-                        <div class="text-center mb-3">
-                            <p>Sign in with:</p>
-                            <div class="google row">
-                                <div class="col-md-12">
-                                    <a class="btn btn-outline-dark" href="/users/googleauth" role="button"
-                                       style="text-transform:none">
-                                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
-                                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-                                        Login with Google
-                                    </a>
-                                </div>
-                                <p th:text="${loginMess}"></p>
+        <!-- Pills content -->
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <form action="/login-form" method="post">
+                    <div class="text-center mb-3">
+                        <p>Sign in with:</p>
+                        <div class="google row">
+                            <div class="col-md-12">
+                                <a class="btn btn-outline-dark" href="/users/googleauth" role="button"
+                                   style="text-transform:none">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                    Login with Google
+                                </a>
+                            </div>
+                            <p th:text="${loginMess}"></p>
+                        </div>
+                    </div>
+
+                    <p class="text-center" th:text="${loginMsg}"></p>
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="loginName" class="form-control" th:placeholder="${email}" name="email"
+                               th:value="${email}"/>
+                        <label class="form-label" for="loginName">Email or username</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="loginPassword" class="form-control" placeholder=" " name="password"/>
+                        <label class="form-label" for="loginPassword">Password</label>
+                    </div>
+
+                    <!-- 2 column grid layout -->
+                    <div class="row mb-4">
+                        <div class="col-md-6 d-flex justify-content-left">
+                            <!-- Checkbox -->
+                            <div class="form-check mb-3 mb-md-0">
+                                <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked/>
+                                <label class="form-check-label" for="loginCheck"> Remember me </label>
                             </div>
                         </div>
 
-                        <p class="text-center" th:text="${loginMsg}"></p>
-
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input type="email" id="loginName" class="form-control" th:placeholder="${email}" name="email" th:value="${email}"/>
-                            <label class="form-label" for="loginName">Email or username</label>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <!-- Simple link -->
+                            <a id="forgot-password-button" class="form-link"
+                               th:href="@{/send-verifycode(email=${email})}">Forgot password?</a>
                         </div>
+                    </div>
 
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="loginPassword" class="form-control" placeholder=" " name="password"/>
-                            <label class="form-label" for="loginPassword">Password</label>
-                        </div>
+                    <!-- Submit button -->
+                    <button type="submit" class="submit btn btn-primary btn-block mb-4">Sign in</button>
 
-                        <!-- 2 column grid layout -->
-                        <div class="row mb-4">
-                            <div class="col-md-6 d-flex justify-content-left">
-                                <!-- Checkbox -->
-                                <div class="form-check mb-3 mb-md-0">
-                                    <input class="form-check-input" type="checkbox" value="" id="loginCheck" checked/>
-                                    <label class="form-check-label" for="loginCheck"> Remember me </label>
-                                </div>
+                    <!-- Register buttons -->
+                    <div class="text-center">
+                        <p id="not-a-member">Not a member? <a class="form-link" onclick="switchRegister()">Register</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                <form action="/register-form" method="post">
+                    <div class="text-center mb-3">
+                        <p>Sign up with:</p>
+                        <div class="google row">
+                            <div class="col-md-12">
+                                <a class=" btn btn-outline-dark" href="/users/googleauth" role="button"
+                                   style="text-transform:none">
+                                    <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
+                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                                    Sign up with Google
+                                </a>
                             </div>
-
-                            <div class="col-md-6 d-flex justify-content-end">
-                                <!-- Simple link -->
-                                <a id="forgot-password-button" class="form-link"  th:href="@{/send-verifycode(email=${email})}">Forgot password?</a>
-                            </div>
                         </div>
+                    </div>
 
-                        <!-- Submit button -->
-                        <button type="submit" class="submit btn btn-primary btn-block mb-4">Sign in</button>
+                    <p class="text-center">or:</p>
 
-                        <!-- Register buttons -->
-                        <div class="text-center">
-                            <p>Not a member? <a class="form-link" onclick="switchRegister()">Register</a></p>
-                        </div>
-                    </form>
+                    <!-- Name input -->
+                    <div class="form-outline mb-4">
+                        <input type="text" id="registerName" class="form-control" placeholder=" " name="name"/>
+                        <label class="form-label" for="registerName">Name</label>
+                    </div>
+
+
+                    <!-- Email input -->
+                    <div class="form-outline mb-4">
+                        <input type="email" id="registerEmail" class="form-control" placeholder=" " name="email"/>
+                        <label class="form-label" for="registerEmail">Email</label>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();"
+                               class="form-control" placeholder=" " name="password"/>
+                        <label class="form-label" for="registerPassword">Password</label>
+                    </div>
+
+                    <!-- Repeat Password input -->
+                    <div class="form-outline mb-4">
+                        <input type="password" id="registerRepeatPassword" onkeyup='check();' onkeydown="check();"
+                               class="form-control" placeholder=" "/>
+                        <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                    </div>
+                    <div id="message" style="pointer-events: none; user-select: none"></div>
+
+                    <!-- Checkbox -->
+                    <div class="form-check d-flex justify-content-center mb-4">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                               aria-describedby="registerCheckHelpText" style="position: relative;"/>
+                        <label class="form-check-label" for="registerCheck">
+                            I have read and agree to the terms
+                        </label>
+                    </div>
+
+                    <!-- Submit button -->
+                    <button type="submit" class="submit btn btn-primary btn-block mb-3">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="pop-up" th:classappend="${popup_first} ? 'pop-up-active' : 'blur'">
+    <form th:action="@{/check-verifycode}" method="get">
+        <div role="main" class="form-all" style="background: white;">
+            <div class="header1">
+                <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
+                <div class="esc-button">&times;</div>
+                <p th:text="${msg}"></p>
+
+            </div>
+            <p>We have sent an email to you to reset your password. Input the code sent to you to
+                the box below:</p>
+
+            <input type="text" class="code-input" name="code">
+            <input id="code-submit-button" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+<div class="pop-up" th:classappend="${popup_second} ? 'pop-up-active' : 'blur'">
+    <form th:action="@{/renew-password}" method="get">
+        <div role="main" class="form-all" style="background: white;">
+            <div class="header1">
+                <h2 class="form-header" data-component="header">RESET PASSWORD</h2>
+                <div class="esc-button">&times;</div>
+                <p th:text="${msg}"></p>
+            </div>
+            <div class="form-outline mb-4">
+                <input type="password" id="new-password" class="form-control" placeholder=" " name="newPassword"/>
+                <label class="form-label" for="new-password">New Password</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" id="repeat-password" class="form-control" placeholder=" " name="repeatPassword"/>
+                <label class="form-label" for="repeat-password">Confirm Password</label>
+            </div>
+
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+<div class="wrapper">
+    <div class="modal_btns">
+        <button class="success_btn">Success Modal</button>
+        <button class="error_btn">Error Modal</button>
+    </div>
+
+    <div class="modal_wrapper" th:classappend="active">
+        <div class="shadow close_btn"></div>
+
+        <div class="modal">
+            <div class="modal_item s_modal" th:classappend="${correct} ? 'active' : ''">
+                <div class="close close_btn">
+                    <ion-icon name="close"></ion-icon>
                 </div>
-                <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                    <form action="/register-form" method="post">
-                        <div class="text-center mb-3">
-                            <p>Sign up with:</p>
-                            <div class="google row">
-                                <div class="col-md-12">
-                                    <a class=" btn btn-outline-dark" href="/users/googleauth" role="button"
-                                       style="text-transform:none">
-                                        <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
-                                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
-                                        Sign up with Google
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                <div class="modal_body">
+                    <div class="s_icon">
+                        <ion-icon name="checkmark"></ion-icon>
+                    </div>
+                    <div class="s_text">
+                        <h2>SUCCESS</h2>
+                        <p>The account was created successfully</p>
+                    </div>
+                </div>
+                <div class="s_button">
+                    <button class="success_btn">Continue</button>
+                </div>
+            </div>
 
-                        <p class="text-center">or:</p>
-
-                        <!-- Name input -->
-                        <div class="form-outline mb-4">
-                            <input type="text" id="registerName" class="form-control" placeholder=" " name="name"/>
-                            <label class="form-label" for="registerName">Name</label>
-                        </div>
-
-
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input type="email" id="registerEmail" class="form-control" placeholder=" " name="email"/>
-                            <label class="form-label" for="registerEmail">Email</label>
-                        </div>
-
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();"
-                                   class="form-control" placeholder=" " name="password"/>
-                            <label class="form-label" for="registerPassword">Password</label>
-                        </div>
-
-                        <!-- Repeat Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="registerRepeatPassword" onkeyup='check();' onkeydown="check();"
-                                   class="form-control" placeholder=" "/>
-                            <label class="form-label" for="registerRepeatPassword">Repeat password</label>
-                        </div>
-                        <div id="message" style="pointer-events: none; user-select: none"></div>
-
-                        <!-- Checkbox -->
-                        <div class="form-check d-flex justify-content-center mb-4">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-                                   aria-describedby="registerCheckHelpText" style="position: relative;"/>
-                            <label class="form-check-label" for="registerCheck">
-                                I have read and agree to the terms
-                            </label>
-                        </div>
-
-                        <!-- Submit button -->
-                        <button type="submit" class="submit btn btn-primary btn-block mb-3">Sign up</button>
-                    </form>
+            <div class="modal_item e_modal" th:classappend="${correct} ? '' : 'active'">
+                <div class="close close_btn">
+                    <ion-icon name="close"></ion-icon>
+                </div>
+                <div class="modal_body">
+                    <div class="s_icon">
+                        <ion-icon name="help"></ion-icon>
+                    </div>
+                    <div class="s_text">
+                        <h2>ERROR</h2>
+                        <p>Something went wrong. Please try again!</p>
+                    </div>
+                </div>
+                <div class="s_button">
+                    <button class="error_btn">Continue</button>
                 </div>
             </div>
         </div>
@@ -212,6 +307,42 @@
         </form>
     </div>
 
+    <div class="modal_item s_modal show" th:if="${status == 'success'}">
+        <div class="close close_btn">
+            <ion-icon name="close"></ion-icon>
+        </div>
+        <div class="modal_body"  style="background-color: whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="checkmark"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>SUCCESS</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="success_btn">Continue</button>
+        </div>
+    </div>
+
+    <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
+        <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+        </div>
+        <div class="modal_body" style="background-color:whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="help"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>ERROR</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="error_btn">Continue</button>
+        </div>
+    </div>
+
 
     <!-- Js Plugins -->
     <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
@@ -228,6 +359,20 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../user_assets/js/login-script.js"></script>
+    <script>
+        // Get the close icon element
+        const closeIcon = document.querySelector('.close_btn ion-icon');
+
+        // Get the modal element
+        const modal = document.querySelector('.modal_item');
+
+        // Add event listener to the close icon
+        closeIcon.addEventListener('click', () => {
+            // Hide the modal
+            modal.style.display = 'none';
+        });
+
+    </script>
 </body>
 
 </html>

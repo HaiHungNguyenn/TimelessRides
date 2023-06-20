@@ -31,435 +31,491 @@
     <link rel="stylesheet" href="../../user_assets/css/post-car-style.css">
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
 
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/popup.css">
 </head>
 
 <body style="font-family: 'Lato', 'sans-serif background-color';">
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__widget">
+        <a href="#"><i class="fa fa-cart-plus"></i></a>
+        <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
+        <a href="#" class="primary-btn">Add Car</a>
     </div>
-
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__widget">
-            <a href="#"><i class="fa fa-cart-plus"></i></a>
-            <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            <a href="#" class="primary-btn">Add Car</a>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <ul class="offcanvas__widget__add">
-            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
-        </ul>
-        <div class="offcanvas__phone__num">
-            <i class="fa fa-phone"></i>
-            <span>(+12) 345 678 910</span>
-        </div>
-        <div class="offcanvas__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-google"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
-        </div>
+    <div class="offcanvas__logo">
+        <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
     </div>
-    <!-- Offcanvas Menu End -->
+    <div id="mobile-menu-wrap"></div>
+    <ul class="offcanvas__widget__add">
+        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
+        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+    </ul>
+    <div class="offcanvas__phone__num">
+        <i class="fa fa-phone"></i>
+        <span>(+12) 345 678 910</span>
+    </div>
+    <div class="offcanvas__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-google"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
 
-    <!-- Header Section Begin -->
-    <header class="header" style="height: 178.73px; padding: 0">
-<!--        <div class="header__top">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-7">-->
-<!--                        <ul class="header__top__widget">-->
-<!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
-<!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-5">-->
-<!--                        <div class="header__top__right">-->
-<!--                            <div class="header__top__phone">-->
-<!--                                <i class="fa fa-phone"></i>-->
-<!--                                <span>(+12) 345 678 910</span>-->
-<!--                            </div>-->
-<!--                            <div class="header__top__social">-->
-<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-google"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2">
-                    <div class="header__logo">
-                        <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
-                        <p class="logo-text ms-2 d-none d-sm-block" style="font-size: 24px">Timeless Ride</p>
-                    </div>
-                </div>
-                <div class="col-lg-10">
-                    <div class="header__nav">
-                        <nav class="header__menu " style="width: 100%;">
-                            <ul style="font-family: Lato, sans-serif; margin: 0">
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/car">Car Inventory</a></li>
-                                <li><a href="/account">Account</a></li>
-                                <li><a href="#">History</a>
-                                    <ul class="dropdown">
-                                        <li><a href="/transactions_history">Transactions History</a></li>
-                                        <li><a href="/meeting_history">Meeting History</a></li>
-                                    </ul>
-                                </li>
-                                <li class="active"><a href="/post_car">Post Car</a></li>
-                                <li><a href="/customer_service">Customer Service</a></li>
-                                <li th:if="${session.client != null}">
-                                    <a href="/log-out">Log out</a>
-                                </li>
-                                <li th:if="${session.client == null}">
-                                    <a href="/signin">Login</a>
-                                </li>
-
-                            </ul>
-                        </nav>
-
-                    </div>
+<!-- Header Section Begin -->
+<header class="header" style="height: 178.73px; padding: 0">
+    <!--        <div class="header__top">-->
+    <!--            <div class="container">-->
+    <!--                <div class="row">-->
+    <!--                    <div class="col-lg-7">-->
+    <!--                        <ul class="header__top__widget">-->
+    <!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
+    <!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
+    <!--                        </ul>-->
+    <!--                    </div>-->
+    <!--                    <div class="col-lg-5">-->
+    <!--                        <div class="header__top__right">-->
+    <!--                            <div class="header__top__phone">-->
+    <!--                                <i class="fa fa-phone"></i>-->
+    <!--                                <span>(+12) 345 678 910</span>-->
+    <!--                            </div>-->
+    <!--                            <div class="header__top__social">-->
+    <!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
+    <!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
+    <!--                                <a href="#"><i class="fa fa-google"></i></a>-->
+    <!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                    <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+                    <p class="logo-text ms-2 d-none d-sm-block" style="font-size: 24px">Timeless Ride</p>
                 </div>
             </div>
-            <div class="canvas__open">
-                <span class="fa fa-bars"></span>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
+            <div class="col-lg-10">
+                <div class="header__nav">
+                    <nav class="header__menu " style="width: 100%;">
+                        <ul style="font-family: Lato, sans-serif; margin: 0">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/car">Car Inventory</a></li>
+                            <li><a href="/account">Account</a></li>
+                            <li><a href="#">History</a>
+                                <ul class="dropdown">
+                                    <li><a href="/transactions_history">Transactions History</a></li>
+                                    <li><a href="/meeting_history">Meeting History</a></li>
+                                </ul>
+                            </li>
+                            <li class="active"><a href="/post_car">Post Car</a></li>
+                            <li><a href="/customer_service">Customer Service</a></li>
+                            <li th:if="${session.client != null}">
+                                <a href="/log-out">Log out</a>
+                            </li>
+                            <li th:if="${session.client == null}">
+                                <a href="/signin">Login</a>
+                            </li>
 
-    <!-- Breadcrumb End -->
-    <div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>Post Car</h2>
-                        <div class="breadcrumb__links">
-                            <a href="/"><i class="fa fa-home"></i> Home</a>
-                            <span>Post Car</span>
-                        </div>
-                    </div>
+                        </ul>
+                    </nav>
+
                 </div>
             </div>
         </div>
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
+        </div>
     </div>
+</header>
+<!-- Header Section End -->
 
-    <form th:action="'/confirm-post/' + ${session.client.getId()}" id="myForm" enctype="multipart/form-data" method="post">
-        <ul class="container main-container">
-            <li class="row header main-header">
-                <h1>Car Show Entry Form</h1>
-                <p class="text-danger fs-5" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
-                <p class="text-success fs-5" th:if="${successMsg != null}" th:text="${successMsg}"/>
-            </li>
-            <li class="row">
-                <ul class="container">
-                    <li class="row header">
-                        <h3>Car information:</h3>
-                        <p>Please fill in the required fields (indicated by *).</p>
-                    </li>
-                    <li class="row">
-                        <div class="required-field">
-                            <h4>Car name</h4>
-                            <input type="text" name="carName" id="car-name" required>
-                            <label for="car-name"></label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6 required-field">
-                            <h4>Make</h4>
-                            <input type="text" name="make" id="make" required>
-                            <label for="make"></label>
-                        </div>
-                        <div class="col-sm-12 col-md-6 required-field">
-                            <h4>Model</h4>
-                            <input type="text" name="model" id="model" required>
-                            <label for="model"></label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Body</h4>
-                            <input type="text" name="body" id="body">
-                            <label for="body"></label>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Body color</h4>
-                            <input type="text" name="bodyColor" id="body-color">
-                            <label for="body-color"></label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Interior Material</h4>
-                            <div class="interior-material">
-                                <input type="text" name="interiorMaterial" id="interior-material">
-                                <label for="interior-material"></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Interior color</h4>
-                            <input type="text" name="interiorColor" id="interior-color">
-                            <label for="interior-color"></label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>License Plate</h4>
-                            <input type="text" name="licensePlate" id="license-plate" placeholder="ex: 12F-123.456">
-                            <label for="license-plate"></label>
-                        </div>
+<!-- Breadcrumb End -->
+<div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Post Car</h2>
+                    <div class="breadcrumb__links">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <span>Post Car</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Transmission</h4>
-                            <input type="text" name="transmission" id="transmission" placeholder="ex: Automatic Transmission">
-                            <label for="transmission"></label>
+<form th:action="'/confirm-post/' + ${session.client.getId()}" id="myForm" enctype="multipart/form-data" method="post">
+    <ul class="container main-container">
+        <li class="row header main-header">
+            <h1>Car Show Entry Form</h1>
+            <p class="text-danger fs-5" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+            <p class="text-success fs-5" th:if="${successMsg != null}" th:text="${successMsg}"/>
+        </li>
+        <li class="row">
+            <ul class="container">
+                <li class="row header">
+                    <h3>Car information:</h3>
+                    <p>Please fill in the required fields (indicated by *).</p>
+                </li>
+                <li class="row">
+                    <div class="required-field">
+                        <h4>Car name</h4>
+                        <input type="text" name="carName" id="car-name" required>
+                        <label for="car-name"></label>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6 required-field">
+                        <h4>Make</h4>
+                        <input type="text" name="make" id="make" required>
+                        <label for="make"></label>
+                    </div>
+                    <div class="col-sm-12 col-md-6 required-field">
+                        <h4>Model</h4>
+                        <input type="text" name="model" id="model" required>
+                        <label for="model"></label>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Body</h4>
+                        <input type="text" name="body" id="body">
+                        <label for="body"></label>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Body color</h4>
+                        <input type="text" name="bodyColor" id="body-color">
+                        <label for="body-color"></label>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Interior Material</h4>
+                        <div class="interior-material">
+                            <input type="text" name="interiorMaterial" id="interior-material">
+                            <label for="interior-material"></label>
                         </div>
-                    </li>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Interior color</h4>
+                        <input type="text" name="interiorColor" id="interior-color">
+                        <label for="interior-color"></label>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>License Plate</h4>
+                        <input type="text" name="licensePlate" id="license-plate" placeholder="ex: 12F-123.456">
+                        <label for="license-plate"></label>
+                    </div>
 
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Seats</h4>
-                            <div class="seats">
-                                <input type="number" name="seats" id="seats"
-                                       min="2"
-                                       max="11">
-                                <label for="seats"></label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Mileage</h4>
-                            <div>
-                                <input type="number" name="mileage" id="mileage"
-                                       min="0">
-                                <label for="mileage"></label>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Engine Capacity</h4>
-                            <div class="engine-capacity">
-                                <input type="number" name="engineCapacity" id="engine-capacity" min="0">
-                                <label for="engine-capacity">Calculation Unit: cc</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Power</h4>
-                            <div class="power">
-                                <input type="number" name="power" id="power" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                       maxlength="2" min="0">
-                                <label for="power">Calculation Unit: hp</label>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>CO2 Emission</h4>
-                            <input type="number" name="co2Emission" id="co2-emission" min="0">
-                            <label for="co2-emission"></label>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Fuel Type</h4>
-                            <input type="text" name="fuelType" id="fuel-type" placeholder="ex: Gasoline">
-                            <label for="fuel-type"></label>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <h4>First Registration</h4>
-                            <input type="month" id="first-registration" name="firstRegistration" pattern="[0-9]{2}/[0-9]{4}">
-                            <label for="first-registration"></label>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4>Price</h4>
-                            <input type="number" name="price" id="price" min="0">
-                            <label for="price"></label>
-                        </div>
-                    </li>
-                    <li class="row duy-container">
-                        <h4>Upload images of the car from all sides :</h4>
-                        <div class="car-images">
-                            <input type="file" id="car-image"
-                                   onchange="previewImages();" multiple
-                                   accept="image/png, image/gif, image/jpeg" name="files">
-                            <label for="car-image">
-                                <i class="fa fa-cloud-upload"></i><br>
-                                To select multiple files, hold down the CTRL or SHIFT key while
-                                selecting.</label>
-                            <div id="images">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Transmission</h4>
+                        <input type="text" name="transmission" id="transmission"
+                               placeholder="ex: Automatic Transmission">
+                        <label for="transmission"></label>
+                    </div>
+                </li>
 
-                            </div>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Seats</h4>
+                        <div class="seats">
+                            <input type="number" name="seats" id="seats"
+                                   min="2"
+                                   max="11">
+                            <label for="seats"></label>
                         </div>
-
-                    </li>
-                    <li class="row">
-                        <h4>Other information about the car</h4>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Mileage</h4>
                         <div>
-                            <textarea id="questions" name="others"></textarea>
-                            <label for="questions"></label>
-                        </div>
-
-                    </li>
-                    <li class="row">
-                        <h4>Write a description for your post</h4>
-                        <div>
-                            <textarea id="description" name="postDescription"></textarea>
-                            <label for="description"></label>
-                        </div>
-                    </li>
-                    <div class="pricing-table">
-                        <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')" style="width: 30% " >
-                            <h2>FOR 1 MONTH</h2>
-                            <p class="price">$9.99/month</p>
-                        </div>
-                        <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')" style="width: 30% " >
-                            <h2>FOR 6 MONTH</h2>
-                            <p class="price">$34.99/6 month</p>
-                        </div>
-                        <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')" style="width: 30% " >
-                            <h2>FOR 1 YEAR</h2>
-                            <p class="price">$69.99/year</p>
+                            <input type="number" name="mileage" id="mileage"
+                                   min="0">
+                            <label for="mileage"></label>
                         </div>
                     </div>
-                    <li class="row" style="margin:60px">
-                        <input type="submit" value="Submit" style="font-size:20px">
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-    </form>
-
-    <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
-        <div class="container">
-            <div class="footer__contact">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer__contact__title">
-                            <h2>Contact Us Now!</h2>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Engine Capacity</h4>
+                        <div class="engine-capacity">
+                            <input type="number" name="engineCapacity" id="engine-capacity" min="0">
+                            <label for="engine-capacity">Calculation Unit: cc</label>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="footer__contact__option">
-                            <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Power</h4>
+                        <div class="power">
+                            <input type="number" name="power" id="power"
+                                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                   maxlength="2" min="0">
+                            <label for="power">Calculation Unit: hp</label>
                         </div>
                     </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>CO2 Emission</h4>
+                        <input type="number" name="co2Emission" id="co2-emission" min="0">
+                        <label for="co2-emission"></label>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Fuel Type</h4>
+                        <input type="text" name="fuelType" id="fuel-type" placeholder="ex: Gasoline">
+                        <label for="fuel-type"></label>
+                    </div>
+                </li>
+                <li class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <h4>First Registration</h4>
+                        <input type="month" id="first-registration" name="firstRegistration"
+                               pattern="[0-9]{2}/[0-9]{4}">
+                        <label for="first-registration"></label>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <h4>Price</h4>
+                        <input type="number" name="price" id="price" min="0">
+                        <label for="price"></label>
+                    </div>
+                </li>
+                <li class="row duy-container">
+                    <h4>Upload images of the car from all sides :</h4>
+                    <div class="car-images">
+                        <input type="file" id="car-image"
+                               onchange="previewImages();" multiple
+                               accept="image/png, image/gif, image/jpeg" name="files">
+                        <label for="car-image">
+                            <i class="fa fa-cloud-upload"></i><br>
+                            To select multiple files, hold down the CTRL or SHIFT key while
+                            selecting.</label>
+                        <div id="images">
+
+                        </div>
+                    </div>
+
+                </li>
+                <li class="row">
+                    <h4>Other information about the car</h4>
+                    <div>
+                        <textarea id="questions" name="others"></textarea>
+                        <label for="questions"></label>
+                    </div>
+
+                </li>
+                <li class="row">
+                    <h4>Write a description for your post</h4>
+                    <div>
+                        <textarea id="description" name="postDescription"></textarea>
+                        <label for="description"></label>
+                    </div>
+                </li>
+                <div class="pricing-table">
+                    <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
+                         style="width: 30% ">
+                        <h2>FOR 1 MONTH</h2>
+                        <p class="price">$9.99/month</p>
+                    </div>
+                    <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
+                         style="width: 30% ">
+                        <h2>FOR 6 MONTH</h2>
+                        <p class="price">$34.99/6 month</p>
+                    </div>
+                    <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
+                         style="width: 30% ">
+                        <h2>FOR 1 YEAR</h2>
+                        <p class="price">$69.99/year</p>
+                    </div>
+                </div>
+                <li class="row" style="margin:60px">
+                    <input type="submit" value="Submit" style="font-size:20px">
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</form>
+<div class="wrapper">
+    <div class="modal_btns">
+        <button class="success_btn">Success Modal</button>
+        <button class="error_btn">Error Modal</button>
+    </div>
+
+    <div class="modal_wrapper" >
+        <div class="shadow close_btn"></div>
+
+        <div class="modal">
+            <div class="modal_item s_modal" >
+                <div class="close close_btn">
+                    <ion-icon name="close"></ion-icon>
+                </div>
+                <div class="modal_body">
+                    <div class="s_icon">
+                        <ion-icon name="checkmark"></ion-icon>
+                    </div>
+                    <div class="s_text">
+                        <h2>SUCCESS</h2>
+                        <p>The account was created successfully</p>
+                    </div>
+                </div>
+                <div class="s_button">
+                    <button class="success_btn">Continue</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <div class="footer__about">
-                        <div class="footer__logo">
-                            <a href="/"><img src="../../user_assets/img/white-car-logo.png"width="100"></a>
-                            <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless Ride</p>
-                        </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                            on (+1) 96 123 8888</p>
-                        <div class="footer__social">
-                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="google"><i class="fa fa-google"></i></a>
-                            <a href="#" class="skype"><i class="fa fa-skype"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 offset-lg-1 col-md-3">
-                    <div class="footer__widget">
-                        <h5>Information</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payment</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <div class="footer__widget">
-                        <h5>Information</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="footer__brand">
-                        <h5>Top Brand</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <div class="footer__copyright__text">
-                <p>Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
-                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                        target="_blank">Colorlib</a>
-                </p>
-            </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        </div>
-    </footer>
-    <!-- Footer Section End -->
 
-    <!-- Search Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+            <div class="modal_item e_modal">
+                <div class="close close_btn">
+                    <ion-icon name="close"></ion-icon>
+                </div>
+                <div class="modal_body">
+                    <div class="s_icon">
+                        <ion-icon name="help"></ion-icon>
+                    </div>
+                    <div class="s_text">
+                        <h2>ERROR</h2>
+                        <p>Something went wrong. Please try again!</p>
+                    </div>
+                </div>
+                <div class="s_button">
+                    <button class="error_btn">Continue</button>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Search End -->
+</div>
+
+<!-- Footer Section Begin -->
+<footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__title">
+                        <h2>Contact Us Now!</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__option">
+                        <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
+                        <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="/"><img src="../../user_assets/img/white-car-logo.png" width="100"></a>
+                        <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless Ride</p>
+                    </div>
+                    <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
+                        on (+1) 96 123 8888</p>
+                    <div class="footer__social">
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="google"><i class="fa fa-google"></i></a>
+                        <a href="#" class="skype"><i class="fa fa-skype"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3">
+                <div class="footer__widget">
+                    <h5>Information</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Payment</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <div class="footer__widget">
+                    <h5>Information</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer__brand">
+                    <h5>Top Brand</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="footer__copyright__text">
+            <p>Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is
+                made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                                                                               target="_blank">Colorlib</a>
+            </p>
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
 
 
+<!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
 
-
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-            crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="../../user_assets/js/post-car-script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="../../user_assets/js/post-car-script.js"></script>
+<script src="../../user_assets/js/popup.js"></script>
 </body>
 
 </html>

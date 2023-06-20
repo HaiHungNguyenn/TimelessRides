@@ -64,7 +64,8 @@ public class LogInController {
 
         else {
             modelAndView.addObject("email",email);
-            modelAndView.addObject("loginMsg","Wrong email or password");
+            modelAndView.addObject("loginMess","Wrong email or password");
+            modelAndView.addObject("status","fail");
             modelAndView.setViewName("views/user/login");
         }
 
@@ -78,7 +79,8 @@ public class LogInController {
 
             if(service.getClientService().isExist(email) ||service.getStaffService().isExist(email)||service.getAdminService().isExist(email)){
 
-                modelAndView.addObject("loginMess","This email is already registered");
+                modelAndView.addObject("loginMess","This email is already registered. Please registered with another account");
+                modelAndView.addObject("status","fail");
                 modelAndView.setViewName("views/user/login");
 
             }else {
@@ -88,7 +90,8 @@ public class LogInController {
                 client.setPassword(Util.encodePassword(password));
                 client.setJoinDate(LocalDate.now());
                 service.getClientService().save(client);
-                modelAndView.addObject("loginMess","Successfully registered");
+                modelAndView.addObject("loginMess","Successfully registered. Please log in");
+                modelAndView.addObject("status","success");
                 modelAndView.setViewName("views/user/login");
             }
             return modelAndView;

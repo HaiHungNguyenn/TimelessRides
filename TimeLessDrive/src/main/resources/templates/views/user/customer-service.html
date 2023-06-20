@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/popup.css">
 </head>
 
 <body style="margin: 0;">
@@ -234,6 +237,8 @@
                         .rating {
                             border: none;
                             float: left;
+                            padding-right: 71%;
+                            padding-left: 0px;
                         }
 
                         .rating > input { display: none; }
@@ -289,10 +294,58 @@
                     <button type="submit">Submit</button>
                 </form>
             </div>
-
-
         </div>
+
+
     </section>
+    <div class="wrapper">
+        <div class="modal_btns">
+            <button class="success_btn">Success Modal</button>
+            <button class="error_btn">Error Modal</button>
+        </div>
+
+        <div class="modal_wrapper" th:classappend="active">
+            <div class="shadow close_btn"></div>
+
+            <div class="modal">
+                <div class="modal_item s_modal" th:classappend="${correct} ? 'active' : ''">
+                    <div class="close close_btn">
+                        <ion-icon name="close"></ion-icon>
+                    </div>
+                    <div class="modal_body">
+                        <div class="s_icon">
+                            <ion-icon name="checkmark"></ion-icon>
+                        </div>
+                        <div class="s_text">
+                            <h2>SUCCESS</h2>
+                            <p>The account was created successfully</p>
+                        </div>
+                    </div>
+                    <div class="s_button">
+                        <button class="success_btn">Continue</button>
+                    </div>
+                </div>
+
+                <div class="modal_item e_modal" th:classappend="${correct} ? '' : 'active'">
+                    <div class="close close_btn">
+                        <ion-icon name="close"></ion-icon>
+                    </div>
+                    <div class="modal_body">
+                        <div class="s_icon">
+                            <ion-icon name="help"></ion-icon>
+                        </div>
+                        <div class="s_text">
+                            <h2>ERROR</h2>
+                            <p>Something went wrong. Please try again!</p>
+                        </div>
+                    </div>
+                    <div class="s_button">
+                        <button class="error_btn">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer Section Begin -->
     <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
@@ -399,6 +452,7 @@
     <script src="../../user_assets/js/jquery.slicknav.js"></script>
     <script src="../../user_assets/js/owl.carousel.min.js"></script>
     <script src="../../user_assets/js/main.js"></script>
+    <script src="../../user_assets/js/popup.js"></script>
 </body>
 
 </html>
