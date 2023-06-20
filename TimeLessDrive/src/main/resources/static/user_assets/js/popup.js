@@ -1,4 +1,4 @@
-var buttons = document.querySelectorAll("#forgot-password-button");
+var buttons = document.querySelectorAll(".modal_btns button");
 var close_btns = document.querySelectorAll(".close_btn");
 var modal_wrapper = document.querySelector(".modal_wrapper");
 var s_modal = document.querySelector(".s_modal");
