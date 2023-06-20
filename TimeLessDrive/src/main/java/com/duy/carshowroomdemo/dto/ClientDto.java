@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * DTO for {@link Client}

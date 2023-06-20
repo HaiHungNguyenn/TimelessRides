@@ -1,9 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.InvoiceDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.PostDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
@@ -16,10 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -478,6 +472,19 @@ public ModelAndView postCar(){
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;
+    }
+
+    @RequestMapping("/check-notification")
+    @ResponseBody
+    public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id){
+        ClientDto client = service.getClientService().findById(id);
+        List<ClientNotificationDto> notificationList = service.getClientNotificationService().findNotificationsByClient(mapperManager.getClientMapper().toEntity(client));
+
+        if (client == null){
+            return new ArrayList<>();
+        }
+
+        return notificationList;
     }
 
 }

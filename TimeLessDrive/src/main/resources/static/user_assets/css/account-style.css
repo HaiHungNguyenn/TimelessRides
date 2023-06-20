@@ -11,3 +11,31 @@
     top: 5%;
     visibility: visible;
 }
+
+.fa-bell {
+    font-size: 2rem;
+    cursor: pointer;
+    color: red;
+    margin: 1rem 1rem auto auto;
+}
+
+.notify-container {
+    width: 35%;
+    display: none;
+    right: 0;
+    position: absolute;
+    z-index: 2;
+}
+
+.notify-content {
+    padding: 0.5rem;
+    background-color: #bacbe6;
+}
+
+.content-end {
+    text-align: end;
+}
+
+.my-style {
+    display: block!important;
+}

@@ -96,5 +96,11 @@ public class TestController {
         return "views/BuyPackage";
 
     }
+
+    @RequestMapping("/test-notify")
+    public String showNotifyPage(){
+        return "views/notify-page";
+    }
+
 }
 
