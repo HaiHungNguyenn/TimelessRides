@@ -20,6 +20,7 @@ public class StaffService {
     public void save(StaffDto staff){
         repository.save(mapperManager.getStaffMapper().toEntity(staff));
     }
+    public void save(Staff staff) {repository.save(staff);}
 
     public StaffDto findById(String id) {
         return mapperManager.getStaffMapper().toDto(repository.findById(id).orElse(null));
@@ -52,4 +53,10 @@ public class StaffService {
         }
         return false;
     }
+
+    public StaffDto findByEmail(String email) {
+        return mapperManager.getStaffMapper().toDto(repository.findByEmail(email).orElse(null));
+    }
+
+
 }

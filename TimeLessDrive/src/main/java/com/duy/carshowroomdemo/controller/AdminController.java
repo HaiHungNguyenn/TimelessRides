@@ -3,7 +3,9 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,22 +63,32 @@ public class AdminController {
         List<CarDto> list = service.getCarService().getCarList();
         return list;
     }
-    @RequestMapping("/print_meeting")
-    public void form(@RequestParam("q24_selectAn[implementation]") String imple,
-                        @RequestParam("q24_selectAn[date]") String date,
-                        @RequestParam("q24_selectAn[duration]") String duration,
-                       @RequestParam("q24_selectAn[timezone]") String timezone,
-                       @RequestParam("q32_phoneNumber32[full]") String phone,
-                       @RequestParam("q31_otherRequirements") String others){
-        String a = "RequestParam{" +
-                "imple='" + imple + '\'' +
-                ", date='" + date + '\'' +
-                ", duration='" + duration + '\'' +
-                ", timezone='" + timezone + '\'' +
-                ", phone='" + phone + '\'' +
-                ", others='" + others + '\'' +
-                '}';
+    @RequestMapping("/add-new-staff")
+    public ModelAndView createNewStaff(@RequestParam("name") String name,
+                                       @RequestParam("email") String email,
+                                       @RequestParam("phone") String phone,
+                                       @RequestParam("address") String address,
+                                       @RequestParam("password") String password){
+        ModelAndView modelAndView = new ModelAndView("views/admin/add-new-staff");
 
-        System.out.println(a);
+        if(service.getStaffService().findByEmail(email) != null){
+            modelAndView.addObject("msg","This email has been registered already");
+            return modelAndView;
+        }
+
+
+        Staff staff = new Staff();
+        staff.setName(name);
+        staff.setEmail(email);
+        staff.setPhone(phone);
+        staff.setAddress(address);
+        staff.setPassword(Util.encodePassword(password));
+
+        service.getStaffService().save(staff);
+        modelAndView.addObject("msg","Successfully added");
+
+
+        return modelAndView;
     }
+
 }
