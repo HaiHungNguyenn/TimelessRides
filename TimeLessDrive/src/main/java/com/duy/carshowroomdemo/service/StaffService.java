@@ -7,8 +7,12 @@ import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.StaffRepository;
 import com.duy.carshowroomdemo.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,4 +63,9 @@ public class StaffService {
     }
 
 
+    public List<StaffDto> findAll(Pageable pageable) {
+        List<StaffDto> list = new ArrayList<>();
+        repository.findAll(pageable).forEach(x -> list.add(mapperManager.getStaffMapper().toDto(x)));
+        return list;
+    }
 }

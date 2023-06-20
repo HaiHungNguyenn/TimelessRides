@@ -83,7 +83,7 @@ public class AdminController {
         staff.setPhone(phone);
         staff.setAddress(address);
         staff.setPassword(Util.encodePassword(password));
-
+        staff.setRole("staff");
         service.getStaffService().save(staff);
         modelAndView.addObject("msg","Successfully added");
 

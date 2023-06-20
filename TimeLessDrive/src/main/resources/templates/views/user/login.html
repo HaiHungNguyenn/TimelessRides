@@ -264,7 +264,84 @@
             </div>
         </div>
     </div>
-</div>
+
+
+    <div class="pop-up" th:classappend="${popup_first} ? 'pop-up-active' : 'blur'">
+        <form th:action="@{/check-verifycode}" method="get">
+            <div role="main" class="form-all" style="background: white;">
+                <div class="header1">
+                    <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
+                    <div class="esc-button">&times;</div>
+                    <p th:text="${msg}"></p>
+
+                </div>
+                <p>We have sent an email to you to reset your password. Input the code sent to you to
+                    the box below:</p>
+
+                <input type="text" class="code-input" name="code">
+                <input id="code-submit-button" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <div class="pop-up" th:classappend="${popup_second} ? 'pop-up-active' : 'blur'">
+        <form th:action="@{/renew-password}" method="get">
+            <div role="main" class="form-all" style="background: white;">
+                <div class="header1">
+                    <h2 class="form-header" data-component="header">RESET PASSWORD</h2>
+                    <div class="esc-button">&times;</div>
+                    <p th:text="${msg}"></p>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="password" id="new-password" class="form-control" placeholder=" " name="newPassword"/>
+                    <label class="form-label" for="new-password">New Password</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <input type="password" id="repeat-password" class="form-control" placeholder=""/>
+                    <label class="form-label" for="repeat-password">Confirm Password</label>
+                </div>
+
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <div class="modal_item s_modal show" th:if="${status == 'success'}">
+        <div class="close close_btn">
+            <ion-icon name="close"></ion-icon>
+        </div>
+        <div class="modal_body"  style="background-color: whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="checkmark"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>SUCCESS</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="success_btn">Continue</button>
+        </div>
+    </div>
+
+    <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
+        <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+        </div>
+        <div class="modal_body" style="background-color:whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="help"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>ERROR</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="error_btn">Continue</button>
+        </div>
+    </div>
 
 
     <!-- Js Plugins -->
@@ -282,7 +359,20 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../user_assets/js/login-script.js"></script>
-    <script src="../../user_assets/js/popup.js"></script>
+    <script>
+        // Get the close icon element
+        const closeIcon = document.querySelector('.close_btn ion-icon');
+
+        // Get the modal element
+        const modal = document.querySelector('.modal_item');
+
+        // Add event listener to the close icon
+        closeIcon.addEventListener('click', () => {
+            // Hide the modal
+            modal.style.display = 'none';
+        });
+
+    </script>
 </body>
 
 </html>

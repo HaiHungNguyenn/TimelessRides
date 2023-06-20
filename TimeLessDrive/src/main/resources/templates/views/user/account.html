@@ -365,6 +365,41 @@
         </div>
     </div>
 </div>
+<div class="modal_item s_modal show" th:if="${status == 'success'}">
+    <div class="close close_btn">
+        <ion-icon name="close"></ion-icon>
+    </div>
+    <div class="modal_body"  style="background-color: whitesmoke">
+        <div class="s_icon">
+            <ion-icon name="checkmark"></ion-icon>
+        </div>
+        <div class="s_text">
+            <h2>SUCCESS</h2>
+            <p th:text="${message}"></p>
+        </div>
+    </div>
+    <div class="s_button">
+        <button class="success_btn">Continue</button>
+    </div>
+</div>
+
+<div class="modal_item e_modal show"  th:if="${status == 'fail'}">
+    <div class="close close_btn">
+        <ion-icon name="close" th:onclick="fade()"></ion-icon>
+    </div>
+    <div class="modal_body" style="background-color:whitesmoke">
+        <div class="s_icon">
+            <ion-icon name="help"></ion-icon>
+        </div>
+        <div class="s_text">
+            <h2>ERROR</h2>
+            <p th:text="${message}"></p>
+        </div>
+    </div>
+    <div class="s_button">
+        <button class="error_btn">Continue</button>
+    </div>
+</div>
 <!-- Search End -->
 <!-- <div class="pop-up">
     <form action="/car/bookmeeting">
@@ -397,7 +432,21 @@
 <script src="../../user_assets/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../user_assets/js/account-script.js"></script>
-<script src="../../user_assets/js/popup.js"></script>
+<script>
+    // Get the close icon element
+    const closeIcon = document.querySelector('.close_btn ion-icon');
+
+    // Get the modal element
+    const modal = document.querySelector('.modal_item');
+
+    // Add event listener to the close icon
+    closeIcon.addEventListener('click', () => {
+        // Hide the modal
+        modal.style.display = 'none';
+    });
+
+</script>
 </body>
+
 
 </html>

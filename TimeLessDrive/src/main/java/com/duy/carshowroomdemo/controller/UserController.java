@@ -223,7 +223,20 @@ public ModelAndView postCar(){
 
         service.getOffMeetingService().save(offMeeting);
 
-        return carDetail(carId);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("carDto",service.getCarService().findCarById(carId))
+                .setViewName("views/user/car-details");
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your meeting request has been sent. Please wait for respond");
+        return modelAndView;
+    }
+    @GetMapping ("/car-detail/{id}")
+    public ModelAndView carDetail(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("carDto",service.getCarService().findCarById(id))
+                .setViewName("views/user/car-details");
+
+        return modelAndView;
     }
 
     @RequestMapping("/testadd")
@@ -290,14 +303,6 @@ public ModelAndView postCar(){
         return modelAndView;
     }
 
-    @GetMapping ("/car-detail/{id}")
-    public ModelAndView carDetail(@PathVariable String id){
-        ModelAndView modelAndView = new ModelAndView();
-        System.out.println("cardto: "+service.getCarService().findCarById(id));
-        modelAndView.addObject("carDto",service.getCarService().findCarById(id))
-                .setViewName("views/user/car-details");
-        return modelAndView;
-    }
 
     @GetMapping ("/customer_service")
     public ModelAndView customerService(){
@@ -461,12 +466,16 @@ public ModelAndView postCar(){
                                @RequestParam("address") String address){
         ModelAndView modelAndView = new ModelAndView();
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
-        Client client = mapperManager.getClientMapper().toEntity(clientDto);
+        Client client = service.getClientService().findEntityById(clientDto.getId());
         client.setName(name);
         client.setPhone(phone);
         client.setAddress(address);
         service.getClientService().save(client);
         session.setAttribute("client",mapperManager.getClientMapper().toDto(client));
+
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your information has been updated successfully");
+
         modelAndView.setViewName("views/user/account");
         return modelAndView;
     }

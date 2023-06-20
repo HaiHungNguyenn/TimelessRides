@@ -499,5 +499,7 @@ public class DemoTest {
     @Test
     public void testDel(){
         clientRepository.deleteByEmail("client1@gmail.com");
+        clientRepository.deleteByEmail("hunghai@gmail.com");
+        clientRepository.deleteByEmail("tri@gmail.com");
     }
 }
