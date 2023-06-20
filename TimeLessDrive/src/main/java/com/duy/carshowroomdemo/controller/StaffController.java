@@ -66,20 +66,21 @@ public class StaffController {
         long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.APPROVED, 4);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.APPROVED);
 
-        modelAndView.addObject("meetingList", meetingList);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.addObject("totalMeetings", totalMeetings);
+        modelAndView.addObject("meetingList", meetingList)
+                .addObject("property", property)
+                .addObject("direction", direction)
+                .addObject("offset", offset)
+                .addObject("lastOffset", lastOffset)
+                .addObject("totalMeetings", totalMeetings)
+                .setViewName("views/staff/profile");
+
         if(successMsg != null){
             modelAndView.addObject("successMsg", successMsg);
         }
+
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
         }
-
-        modelAndView.setViewName("views/staff/profile");
 
         return modelAndView;
     }
@@ -161,13 +162,14 @@ public class StaffController {
         long totalOffMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus();
         long lastOffset = service.getOffMeetingService().getLastOffset(10);
 
-        modelAndView.addObject("offMeetingList", offMeetingList);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("totalOffMeetings", totalOffMeetings);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/meeting-req");
+        modelAndView.addObject("offMeetingList", offMeetingList)
+                .addObject("offset", offset)
+                .addObject("property", property)
+                .addObject("direction", direction)
+                .addObject("totalOffMeetings", totalOffMeetings)
+                .addObject("lastOffset", lastOffset)
+                .setViewName("views/staff/meeting-req");
+
         if(successMsg != null){
             modelAndView.addObject("successMsg", successMsg);
         }
@@ -298,13 +300,14 @@ public class StaffController {
         long totalPostRequests = service.getPostService().getTotalPostRequests();
         long lastOffset = service.getPostService().getLastOffset(10);
 
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("postRequestList", postRequestList);
-        modelAndView.addObject("totalPostRequests", totalPostRequests);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.setViewName("views/staff/post-req");
+        modelAndView.addObject("offset", offset)
+                .addObject("postRequestList", postRequestList)
+                .addObject("totalPostRequests", totalPostRequests)
+                .addObject("direction", direction)
+                .addObject("property", property)
+                .addObject("lastOffset", lastOffset)
+                .setViewName("views/staff/post-req");
+
         if(successMsg != null){
             modelAndView.addObject("successMsg", successMsg);
         }
@@ -384,16 +387,16 @@ public class StaffController {
         long lastPOffset = service.getPostService().getLastOffset(client, 3);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByClient(client);
         long totalPosts = service.getPostService().getTotalPostRequests(client);
-        modelAndView.addObject("client", client);
-        modelAndView.addObject("offMeetingList", offMeetingsByClient);
-        modelAndView.addObject("postList", postsByClient);
-        modelAndView.addObject("totalMeetings", totalMeetings);
-        modelAndView.addObject("totalPosts", totalPosts);
-        modelAndView.addObject("mOffset", mOffset);
-        modelAndView.addObject("pOffset", pOffset);
-        modelAndView.addObject("lastMOffset", lastMOffset);
-        modelAndView.addObject("lastPOffset", lastPOffset);
-        modelAndView.setViewName("views/staff/client-details");
+        modelAndView.addObject("client", client)
+                .addObject("offMeetingList", offMeetingsByClient)
+                .addObject("postList", postsByClient)
+                .addObject("totalMeetings", totalMeetings)
+                .addObject("totalPosts", totalPosts)
+                .addObject("mOffset", mOffset)
+                .addObject("pOffset", pOffset)
+                .addObject("lastMOffset", lastMOffset)
+                .addObject("lastPOffset", lastPOffset)
+                .setViewName("views/staff/client-details");
 
         return modelAndView;
     }
@@ -415,11 +418,11 @@ public class StaffController {
         long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.SUCCESS, 5);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.SUCCESS);
 
-        modelAndView.addObject("offMeetingList", offMeetingList);
-        modelAndView.addObject("lastOffset", lastOffset);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("totalMeetings", totalMeetings);
-        modelAndView.setViewName("views/staff/create-invoice");
+        modelAndView.addObject("offMeetingList", offMeetingList)
+                .addObject("lastOffset", lastOffset)
+                .addObject("offset", offset)
+                .addObject("totalMeetings", totalMeetings)
+                .setViewName("views/staff/create-invoice");
         if(successMsg != null){
             modelAndView.addObject("successMsg", successMsg);
         }
@@ -447,8 +450,8 @@ public class StaffController {
             errorMsg = "An error occurred, cannot perform this action";
         }else {
             if(action.equalsIgnoreCase("create")){
-                modelAndView.addObject("meeting", offMeeting);
-                modelAndView.setViewName("views/staff/invoice-details");
+                modelAndView.addObject("meeting", offMeeting)
+                        .setViewName("views/staff/invoice-details");
                 return modelAndView;
             }else if(action.equalsIgnoreCase("cancel")){
                 offMeeting.setStatus(Status.APPROVED);

@@ -169,13 +169,14 @@ public ModelAndView postCar(){
         }
         long lastOffSet = service.getCarService().getLastOffset(9);
 
-        modelAndView.addObject("postDto", postDto);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("property", property);
-        modelAndView.addObject("value", value);
-        modelAndView.addObject("direction", direction);
-        modelAndView.addObject("lastOffset", lastOffSet);
-        modelAndView.setViewName("views/user/car");
+        modelAndView.addObject("postDto", postDto)
+                .addObject("offset", offset)
+                .addObject("property", property)
+                .addObject("value", value)
+                .addObject("direction", direction)
+                .addObject("lastOffset", lastOffSet)
+                .setViewName("views/user/car");
+
         service.configSearchList();
         return modelAndView;
     }
@@ -204,9 +205,7 @@ public ModelAndView postCar(){
                                     @RequestParam("description") String description){
         
         if(!isAuthenticated()) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("views/user/login");
-            return modelAndView;
+            return new ModelAndView("views/user/login");
         }
         
         String[] parts = Util.splitDateTimeString(slot);
@@ -226,6 +225,7 @@ public ModelAndView postCar(){
 
         return carDetail(carId);
     }
+
     @RequestMapping("/testadd")
     public ModelAndView test(){
         OffMeeting offMeeting = new OffMeeting();
@@ -246,15 +246,13 @@ public ModelAndView postCar(){
     
     @GetMapping ("/account")
     public ModelAndView account(){
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(!isAuthenticated()) {
-            modelAndView.setViewName("views/user/login");
             return modelAndView;
         }
         modelAndView.setViewName("views/user/account");
         stack.push(request.getRequestURI());
         return modelAndView;
-
     }
 
     @GetMapping ("/transactions_history")
@@ -267,8 +265,8 @@ public ModelAndView postCar(){
         ClientDto client = (ClientDto) session.getAttribute("client");
         List<InvoiceDto> invoiceList = service.getInvoiceService().findByClient(mapperManager.getClientMapper().toEntity(client));
 
-        modelAndView.setViewName("views/user/transactions-history");
-        modelAndView.addObject("invoiceList", invoiceList);
+        modelAndView.addObject("invoiceList", invoiceList)
+                .setViewName("views/user/transactions-history");
 
         return modelAndView;
     }
@@ -284,10 +282,10 @@ public ModelAndView postCar(){
         ClientDto client = (ClientDto) session.getAttribute("client");
         List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0,5));
 
-        modelAndView.setViewName("views/user/meeting-history");
-        modelAndView.addObject("meetingList", meetingList);
-        modelAndView.addObject("errorMsg", errorMsg);
-        modelAndView.addObject("successMsg", successMsg);
+        modelAndView.addObject("meetingList", meetingList)
+                .addObject("errorMsg", errorMsg)
+                .addObject("successMsg", successMsg)
+                .setViewName("views/user/meeting-history");
 
         return modelAndView;
     }
@@ -296,16 +294,14 @@ public ModelAndView postCar(){
     public ModelAndView carDetail(@PathVariable String id){
         ModelAndView modelAndView = new ModelAndView();
         System.out.println("cardto: "+service.getCarService().findCarById(id));
-        modelAndView.addObject("carDto",service.getCarService().findCarById(id));
-        modelAndView.setViewName("views/user/car-details");
+        modelAndView.addObject("carDto",service.getCarService().findCarById(id))
+                .setViewName("views/user/car-details");
         return modelAndView;
     }
 
     @GetMapping ("/customer_service")
     public ModelAndView customerService(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("views/user/customer-service");
-        return modelAndView;
+        return new ModelAndView("views/user/customer-service");
     }
 
     @RequestMapping("/confirm-post/{clientId}")
@@ -373,7 +369,6 @@ public ModelAndView postCar(){
         }
 
         car.getCarImageList().addAll(carImageList);
-
         car.setName(carName);
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
         car.setStatus("Available on market");
