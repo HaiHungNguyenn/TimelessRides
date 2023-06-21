@@ -181,20 +181,32 @@
                 <li class="row">
                     <div class="col-sm-12 col-md-6 required-field">
                         <h4>Make</h4>
-                        <input type="text" name="make" id="make" required>
-                        <label for="make"></label>
+                        <input type="text" list="makes" name="make" required>
+                        <datalist id="makes">
+                            <th:block th:each="make : ${session.postMakes}">
+                                <option th:text="${make}"></option>
+                            </th:block>
+                        </datalist>
                     </div>
                     <div class="col-sm-12 col-md-6 required-field">
                         <h4>Model</h4>
-                        <input type="text" name="model" id="model" required>
-                        <label for="model"></label>
+                        <input type="text" name="model" id="model" list="models" required>
+                        <datalist id="models">
+                            <th:block th:each="model : ${session.postModels}">
+                                <option th:text="${model}"></option>
+                            </th:block>
+                        </datalist>
                     </div>
                 </li>
                 <li class="row">
                     <div class="col-sm-12 col-md-6">
                         <h4>Body</h4>
-                        <input type="text" name="body" id="body">
-                        <label for="body"></label>
+                        <input type="text" name="body" id="body" list="bodies">
+                        <datalist id="bodies">
+                            <th:block th:each="body : ${session.postBodies}">
+                                <option th:text="${body}"></option>
+                            </th:block>
+                        </datalist>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <h4>Body color</h4>
