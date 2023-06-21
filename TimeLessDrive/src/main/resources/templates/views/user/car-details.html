@@ -232,7 +232,7 @@
                                             <div class="car__details__tab__info__item">
                                                 <ul>
                                                     <li><i class="fa fa-check"></i> <b>Name:</b> <span th:text="${carDto.getName()}"/></li>
-                                                    <li><i class="fa fa-check"></i> <b>Price:</b> $<span th:text="${carDto.getPrice()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Price:</b> $<span th:text="${carDto.getFormattedPrice()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Status:</b> <span th:text="${carDto.getStatus()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Interior Color:</b> <span th:text="${carDto.getCarDescription().getInteriorColor()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Interior Material:</b> <span th:text="${carDto.getCarDescription().getInteriorMaterial()}"/></li>
