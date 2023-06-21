@@ -109,4 +109,23 @@ public class CarDescriptionService {
     }
 
 
+    public List<String> getMakeList() {
+        return carDescriptionRepository.findAllMakes();
+    }
+
+    public List<String> getModelList() {
+        return carDescriptionRepository.findAllModels();
+    }
+
+    public List<String> getBodyList() {
+        return carDescriptionRepository.findAllBodies();
+    }
+
+    public List<String> getTransList() {
+        return carDescriptionRepository.findAllTrans();
+    }
+
+    public List<String> getFuelList() {
+        return carDescriptionRepository.findAllFuels();
+    }
 }

@@ -6,6 +6,8 @@ import com.duy.carshowroomdemo.entity.ClientNotification;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.ClientNotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,10 +23,10 @@ public class ClientNotificationService {
         clientNotificationRepository.save(notification);
     }
 
-    public List<ClientNotificationDto> findNotificationsByClient(Client client) {
+    public List<ClientNotificationDto> findNotificationsByClient(Client client, Pageable pageable) {
         List<ClientNotificationDto> list = new ArrayList<>();
 
-        clientNotificationRepository.findByReceiver(client)
+        clientNotificationRepository.findAllByReceiver(client, pageable)
                 .forEach((x) -> list.add(mapperManager.getClientNotificationMapper().toDto(x)));
 
         return list;

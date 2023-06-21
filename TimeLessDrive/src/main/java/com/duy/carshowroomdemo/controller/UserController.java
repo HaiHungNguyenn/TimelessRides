@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -462,7 +463,7 @@ public ModelAndView postCar(){
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
         client.setName(name);
-        client.setPhone(phone);
+        client.setPhone(phone.replaceAll("\\D",""));
         client.setAddress(address);
         service.getClientService().save(client);
         session.setAttribute("client",mapperManager.getClientMapper().toDto(client));
@@ -476,9 +477,15 @@ public ModelAndView postCar(){
 
     @RequestMapping("/check-notification")
     @ResponseBody
-    public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id){
+    public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id,
+                                                         @Nullable @RequestParam("offset") Integer offset){
         ClientDto client = service.getClientService().findById(id);
-        List<ClientNotificationDto> notificationList = service.getClientNotificationService().findNotificationsByClient(mapperManager.getClientMapper().toEntity(client));
+
+        offset = (offset == null) ? 0 : offset;
+
+        List<ClientNotificationDto> notificationList = service
+                .getClientNotificationService()
+                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(offset, 10, Sort.by("createDate", "createTime")));
 
         if (client == null){
             return new ArrayList<>();
