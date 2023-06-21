@@ -25,6 +25,12 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/popup.css">
+    <!--    notification css-->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <script>let id = '[[${session.client.getId()}]]'</script>
+    <script src="../../user_assets/js/notification-js.js"></script>
 </head>
 
 <body style="margin: 0;">
@@ -32,6 +38,30 @@
     <div id="preloder">
         <div class="loader"></div>
     </div>
+
+    <!--    notification starts-->
+    <div class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+        <li>
+            <a class="bell_notification_clicker" href="#">
+                <div class="fa fa-bell"></div>
+                <!--                <span>2</span>-->
+            </a>
+
+            <div class="Menu_NOtification_Wrap">
+                <div class="notification_Header">
+                    <h4>Notifications</h4>
+                </div>
+                <div class="Notification_body">
+                </div>
+                <div class="nofity_footer">
+                    <div class="submit_button text-center pt_20">
+                        <a href="#" class="btn_1">See More</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </div>
+    <!--    notification ends-->
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -463,6 +493,9 @@
         }));
 
     </script>
+    <!-- notification js-->
+    <script src="../../admin_assets/js/metisMenu.js"></script>
+    <script src="../../admin_assets/js/custom.js"></script>
 </body>
 
 </html>
