@@ -459,15 +459,17 @@ public ModelAndView postCar(){
     public ModelAndView update(@RequestParam("name") String name,
                                @RequestParam("phone") String phone,
                                @RequestParam("address") String address){
+        System.out.println("update information");
         ModelAndView modelAndView = new ModelAndView();
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D",""));
         client.setAddress(address);
+        System.out.println(client.getPassword());
         service.getClientService().save(client);
-        session.setAttribute("client",mapperManager.getClientMapper().toDto(client));
-
+        session.setAttribute("client",service.getClientService().findById(clientDto.getId()));
+        System.out.println("can be here");
         modelAndView.addObject("status","success");
         modelAndView.addObject("message","Your information has been updated successfully");
 
