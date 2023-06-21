@@ -195,81 +195,12 @@
             </div>
         </div>
 
-        <div class="modal_item s_modal show" th:if="${status == 'success'}">
-            <div class="close close_btn">
-                <ion-icon name="close"></ion-icon>
-            </div>
-            <div class="modal_wrapper" th:classappend="active">
-                <div class="shadow close_btn"></div>
 
-                <div class="modal">
-                    <div class="modal_item s_modal" th:classappend="${correct} ? 'active' : ''">
-                        <div class="close close_btn">
-                            <ion-icon name="close"></ion-icon>
-                        </div>
-                        <div class="modal_body">
-                            <div class="s_icon">
-                                <ion-icon name="checkmark"></ion-icon>
-                            </div>
-                            <div class="s_text">
-                                <h2>SUCCESS</h2>
-                                <p>The account was created successfully</p>
-                            </div>
-                        </div>
-                        <div class="s_button">
-                            <button class="success_btn">Continue</button>
-                        </div>
-                    </div>
 
-                    <div class="modal_item e_modal" th:classappend="${correct} ? '' : 'active'" >
-                        <div class="close close_btn">
-                            <ion-icon name="close"></ion-icon>
-                        </div>
-                        <div class="modal_body">
-                            <div class="s_icon">
-                                <ion-icon name="help"></ion-icon>
-                            </div>
-                            <div class="s_text">
-                                <h2>ERROR</h2>
-                                <p>Something went wrong. Please try again!</p>
-                            </div>
-                        </div>
-                        <div class="s_button">
-                            <button class="error_btn">Continue</button>
-                        </div>
-                    </div>
-            <div class="modal_body"  style="background-color: whitesmoke">
-                <div class="s_icon">
-                    <ion-icon name="checkmark"></ion-icon>
-                </div>
-                <div class="s_text">
-                    <h2>SUCCESS</h2>
-                    <p th:text="${loginMess}"></p>
-                </div>
-            </div>
-            <div class="s_button">
-                <button class="success_btn">Continue</button>
-            </div>
-        </div>
 
-        <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
-            <div class="close close_btn">
-                <ion-icon name="close" th:onclick="fade()"></ion-icon>
-            </div>
-            <div class="modal_body" style="background-color:whitesmoke">
-                <div class="s_icon">
-                    <ion-icon name="help"></ion-icon>
-                </div>
-                <div class="s_text">
-                    <h2>ERROR</h2>
-                    <p th:text="${loginMess}"></p>
-                </div>
-            </div>
-            <div class="s_button">
-                <button class="error_btn">Continue</button>
-            </div>
-        </div>
-            </div></div>
+
+
+
     </section>
 
     <!-- Footer Section Begin -->
@@ -395,6 +326,41 @@
     </form>
 </div> -->
 
+    <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
+        <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+        </div>
+        <div class="modal_body"  style="background-color: whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="checkmark"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>SUCCESS</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="success_btn">Continue</button>
+        </div>
+    </div>
+
+    <div class="modal_item e_modal show"   th:if="${status == 'fail'}">
+        <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+        </div>
+        <div class="modal_body" style="background-color:whitesmoke">
+            <div class="s_icon">
+                <ion-icon name="help"></ion-icon>
+            </div>
+            <div class="s_text">
+                <h2>ERROR</h2>
+                <p th:text="${loginMess}"></p>
+            </div>
+        </div>
+        <div class="s_button">
+            <button class="error_btn">Continue</button>
+        </div>
+    </div>
 
 <!-- Js Plugins -->
 <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>

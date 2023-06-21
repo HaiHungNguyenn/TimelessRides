@@ -280,7 +280,7 @@
           <div class="row">
             <div class="col-12">
               <div
-                class="page_title_box d-flex flex-wrap align-items-center justify-content-between"
+                      class="page_title_box d-flex flex-wrap align-items-center justify-content-between"
               >
                 <div class="page_title_left d-flex align-items-center">
                   <h3 class="f_s_25 f_w_700 dark_text mr_30">Dashboard</h3>
@@ -291,7 +291,12 @@
                     <li class="breadcrumb-item active">Analytic</li>
                   </ol>
                 </div>
-
+                <div class="page_title_right">
+                  <div class="page_date_button d-flex align-items-center">
+                    <img src="../../admin_assets/img/icon/calender_icon.svg" alt />
+                    August 1, 2020 - August 31, 2020
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -301,15 +306,15 @@
                 <div class="white_card_body">
                   <div class="QA_section">
                     <div class="white_box_tittle list_header">
-                      <h4>Staff List</h4>
+                      <h4>User List</h4>
                       <div class="box_right d-flex lms_block">
                         <div class="serach_field_2">
                           <div class="search_inner">
                             <form active="#">
                               <div class="search_field">
                                 <input
-                                  type="text"
-                                  placeholder="Search content here..."
+                                        type="text"
+                                        placeholder="Search content here..."
                                 />
                               </div>
                               <button type="submit">
@@ -320,11 +325,11 @@
                         </div>
                         <div class="add_button ms-2">
                           <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#addcategory"
-                            class="btn_1"
-                            >search</a
+                                  href="#"
+                                  data-toggle="modal"
+                                  data-target="#addcategory"
+                                  class="btn_1"
+                          >search</a
                           >
                         </div>
                       </div>
@@ -332,42 +337,83 @@
                     <div class="QA_table mb_30">
                       <table class="table lms_table_active">
                         <thead>
-                          <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Email Address</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Phone</th>
-                            <th scope="col">Action</th>
-                          </tr>
+                        <tr>
+                          <th scope="col">id</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Email Address</th>
+                          <th scope="col">Role</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col">Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                          <tr th:each="staff:${staffList}">
-                            <th scope="row">
-                              <a href="#" class="question_content"> 1 </a>
-                            </th>
-                            <td><a href="/admin/staff-detail"  th:text="${staff.getName()}">Hayden</a></td>
-                            <td><a href="#" th:text="${staff.getEmail()}">email</a></td>
-                            <td><a href="#" th:text="${staff.getRole()}">Staff</a></td>
-                            <td><a href="#" th:text="${staff.getPhone()}">0112</a></td>
-                            <td>
-                              <div class="action_btns d-flex">
-                                <a href="#" class="action_btn mr_10">
-                                  <i class="far fa-edit"></i>
-                                </a>
-                                <a href="#" class="action_btn">
-                                  <i class="fas fa-trash"></i>
-                                </a>
-                              </div>
-                            </td>
-                          </tr>
+                        <tr th:each="staff,i:${staffList}">
+                          <th scope="row">
+                            <a href="#" class="question_content" th:text="${(offset -1)*10+i.count}" >  </a>
+                          </th>
+                          <td><a href="/admin/staff-detail"  th:text="${staff.getName()}">Hayden</a></td>
+                          <td><a href="user-profile.html">Hayden</a></td>
+                          <td><a href="#" th:text="${staff.getEmail()}">email</a></td>
+                          <td><a href="#" th:text="${staff.getRole()}">Staff</a></td>
+                          <td><a href="#" th:text="${staff.getPhone()}">0112</a></td>
+                          <td>
+                            <div class="action_btns d-flex">
+                              <a href="#" class="action_btn mr_10">
+                                <i class="far fa-edit"></i>
+                              </a>
+                              <a href="#" class="action_btn">
+                                <i class="fas fa-trash"></i>
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
                         </tbody>
                       </table>
+                      <style>
+                        .container {
+                          display: flex;
+                          justify-content: right;
+                          align-items: center;
+                        }
+
+                        .button {
+                          padding: 10px 20px;
+                          margin: 0 10px;
+                          font-size: 16px;
+                          border: none;
+                          border-radius: 4px;
+                          color: black;
+                          cursor: pointer;
+                          background-color: white;
+                        }
+                        .button:hover {
+                          color: whitesmoke;
+                          background-color: #884ffb;
+                          transition: background-color 0.5s ease;
+                        }
+
+                        .button:active {
+                          background-color: white;
+                          transition: background-color 0.5s ease;
+
+                        }
+                        .act{
+                          background-color: #884ffb;
+                          color: whitesmoke;
+
+                        }
+                      </style>
+                      <div class="container">
+                        <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i class="fas fa-arrow-left"></i></a></button>
+                        <button class="button act"   th:text="${offset}"></button>
+                        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i class="fas fa-arrow-right"></i></a></button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

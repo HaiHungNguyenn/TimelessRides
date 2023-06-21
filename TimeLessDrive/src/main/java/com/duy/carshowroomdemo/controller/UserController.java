@@ -468,7 +468,7 @@ public ModelAndView postCar(){
         client.setAddress(address);
         System.out.println(client.getPassword());
         service.getClientService().save(client);
-//        session.setAttribute("client",service.getClientService().findById(clientDto.getId()));
+        session.setAttribute("client",service.getClientService().findById(clientDto.getId()));
         System.out.println("can be here");
         modelAndView.addObject("status","success");
         modelAndView.addObject("message","Your information has been updated successfully");

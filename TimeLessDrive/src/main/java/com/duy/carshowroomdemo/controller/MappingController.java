@@ -56,7 +56,7 @@ public class MappingController {
         }
         List<StaffDto> listStaff = new ArrayList<>();
 //        postDto = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9), direction);
-        listStaff = service.getStaffService().findAll( PageRequest.of(offset - 1, 9));
+        listStaff = service.getStaffService().findAll( PageRequest.of(offset - 1, 10));
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("staffList", listStaff);
         modelAndView.setViewName("views/admin/staff-list");

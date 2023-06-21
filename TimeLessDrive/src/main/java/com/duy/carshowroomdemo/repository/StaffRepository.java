@@ -12,4 +12,6 @@ public interface StaffRepository extends JpaRepository<Staff, String> {
     Optional<Staff> findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    void deleteAllByEmail(String mail);
 }
