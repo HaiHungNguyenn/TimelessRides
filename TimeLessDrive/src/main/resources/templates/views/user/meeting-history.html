@@ -71,32 +71,6 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-<!--        <div class="header__top">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-7">-->
-<!--                        <ul class="header__top__widget">-->
-<!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
-<!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-5">-->
-<!--                        <div class="header__top__right">-->
-<!--                            <div class="header__top__phone">-->
-<!--                                <i class="fa fa-phone"></i>-->
-<!--                                <span>(+12) 345 678 910</span>-->
-<!--                            </div>-->
-<!--                            <div class="header__top__social">-->
-<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-google"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2">
@@ -244,7 +218,7 @@
                 <th>Staff name</th>
                 <th>Car model</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th colspan="2" style="text-align: center">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -253,12 +227,20 @@
                     <td th:text="${iStat.count}"/>
                     <td th:text="${meeting.getMeetingDate()}"/>
                     <td th:text="${meeting.getMeetingTime()}"/>
-                    <td th:with="staffName=(${meeting.getStaff() == null} ? 'No participant' : ${meeting.getStaff().getName()})" th:text="${staffName}"/>
+                    <td th:with="staffName=(${meeting.getStaff() == null} ? 'No participant' : ${meeting.getStaff().getName()})"
+                        th:classappend="${staffName == 'No participant'} ? 'text-danger' : 'text-success'"
+                        th:text="${staffName}"/>
                     <td th:text="${meeting.getCar().getName()}"/>
                     <td><span class="status pending" th:text="${meeting.getStatus()}"/></td>
                     <td>
                         <a th:href="@{/meeting-history/cancel (id = ${meeting.getId()})}">
                             <button class="btn btn-secondary hover-text-600 fs--1">Cancel</button>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:if="${meeting.getStatus().equals('Pending')}" th:href="@{/meeting-history/edit (id = ${meeting.getId()})}">
+<!--                        <a th:if="${meeting.getStatus().equals('Pending')}">-->
+                            <button id="show-booking" class="btn btn-secondary hover-text-600 fs--1">Edit</button>
                         </a>
                     </td>
                 </tr>
@@ -268,6 +250,7 @@
         </table>
 
     </section>
+
 
     <!-- Footer Section Begin -->
     <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
@@ -309,7 +292,7 @@
                         <h5>Infomation</h5>
                         <ul>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Payment</a></li>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
                         </ul>
