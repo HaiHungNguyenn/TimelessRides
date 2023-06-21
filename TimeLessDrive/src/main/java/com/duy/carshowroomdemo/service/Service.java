@@ -6,6 +6,7 @@ import com.duy.carshowroomdemo.entity.ClientNotification;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.entity.StaffNotification;
 import com.duy.carshowroomdemo.util.Status;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -118,11 +120,27 @@ public class Service {
         List<String> trans = carDescriptionService.getTransList();
         List<String> fuels = carDescriptionService.getFuelList();
 
+        List<String> postMakes = Util.getMakeList();
+        postMakes.addAll(makes);
+        postMakes = new HashSet<>(postMakes).stream().toList();
+
+        List<String> postModels = Util.getModelList();
+        postModels.addAll(models);
+        postModels = new HashSet<>(postModels).stream().toList();
+
+        List<String> bodyTypes = Util.getBodyTypes();
+        bodyTypes.addAll(bodies);
+        bodyTypes = new HashSet<>(bodyTypes).stream().toList();
+
         session.setAttribute("makeList",makes);
         session.setAttribute("modelList",models);
         session.setAttribute("bodyList",bodies);
         session.setAttribute("tranmissionList",trans);
         session.setAttribute("fuelList",fuels);
+        session.setAttribute("postMakes",postMakes);
+        session.setAttribute("postModels",postModels);
+        session.setAttribute("postBodies",bodyTypes);
+
 
     }
 }

@@ -64,11 +64,12 @@ public class UserController {
 //    }
 @GetMapping("/post_car")
 public ModelAndView postCar(){
-    ModelAndView modelAndView = new ModelAndView();
+    ModelAndView modelAndView = new ModelAndView("views/user/login");
     if(!isAuthenticated()) {
-        modelAndView.setViewName("views/user/login");
         return modelAndView;
     }
+
+
     modelAndView.setViewName("views/user/post-car");
     return modelAndView;
 }

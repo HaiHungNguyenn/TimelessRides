@@ -289,4 +289,177 @@ public class Util {
 
         return sb.toString();
     }
+
+    public static List<String> getMakeList(){
+        String defaultText = """
+                Acura,
+                Alfa Romeo,
+                Aston Martin,
+                Audi,
+                Bentley,
+                BMW,
+                Bugatti,
+                Buick,
+                Cadillac,
+                Chevrolet,
+                Chrysler,
+                Citroen,
+                Dodge,
+                Ferrari,
+                Fiat,
+                Ford,
+                GMC,
+                Honda,
+                Hyundai,
+                Infiniti,
+                Jaguar,
+                Jeep,
+                Kia,
+                Lamborghini,
+                Land Rover,
+                Lexus,
+                Lincoln,
+                Maserati,
+                Mazda,
+                McLaren,
+                Mercedes-Benz,
+                Mini,
+                Mitsubishi,
+                Nissan,
+                Porsche,
+                Ram,
+                Rolls-Royce,
+                Subaru,
+                Tesla,
+                Toyota,
+                Volkswagen,
+                Volvo.""";
+
+        List<String> result = new ArrayList<>();
+        String[] brands = defaultText.split(",");
+        Arrays.stream(brands).toList().forEach(x -> result.add(x.trim().replaceAll("\\W", "")));
+        return result;
+    }
+
+    public static List<String> getModelList() {
+        String defaultText = """
+                21. Toyota RAV4
+                22. Honda CR-V
+                23. Ford Explorer
+                24. Chevrolet Equinox
+                25. BMW X5
+                26. Audi A3
+                27. Mercedes-Benz GLC
+                28. Nissan Sentra
+                29. Jeep Cherokee
+                30. Subaru Impreza
+                31. Volkswagen Passat
+                32. Hyundai Tucson
+                33. Kia Sorento
+                34. Mazda CX-9
+                35. Tesla Model X
+                36. Porsche Macan
+                37. Land Rover Defender
+                38. Lexus NX
+                39. Volvo S60
+                40. Jaguar XF
+                41. Toyota Highlander
+                42. Honda Pilot
+                43. Ford Escape
+                44. Chevrolet Traverse
+                45. BMW X3
+                46. Audi Q7
+                47. Mercedes-Benz GLE
+                48. Nissan Maxima
+                49. Jeep Renegade
+                50. Subaru Legacy
+                51. Volkswagen Tiguan
+                52. Hyundai Santa Fe
+                53. Kia Soul
+                54. Mazda MX-5 Miata
+                55. Tesla Model Y
+                56. Porsche Panamera
+                57. Land Rover Discovery Sport
+                58. Lexus GX
+                59. Volvo V60
+                60. Jaguar F-Type
+                61. Toyota Tacoma
+                62. Honda HR-V
+                63. Ford Edge
+                64. Chevrolet Tahoe
+                65. BMW 7 Series
+                66. Audi A5
+                67. Mercedes-Benz GLA
+                68. Nissan Murano
+                69. Jeep Compass
+                70. Subaru Crosstrek
+                71. Volkswagen Atlas
+                72. Hyundai Kona
+                73. Kia Forte
+                74. Mazda CX-30
+                75. Tesla Cybertruck
+                76. Porsche 718 Cayman
+                77. Land Rover Range Rover Sport
+                78. Lexus IS
+                79. Volvo XC40
+                80. Jaguar I-PACE
+                81. Toyota 4Runner
+                82. Honda Odyssey
+                83. Ford Expedition
+                84. Chevrolet Suburban
+                85. BMW X6
+                86. Audi Q3
+                87. Mercedes-Benz GLB
+                88. Nissan Pathfinder
+                89. Jeep Gladiator
+                90. Subaru Ascent
+                91. Volkswagen Arteon
+                92. Hyundai Palisade
+                93. Kia Stinger
+                94. Mazda6
+                95. Tesla Roadster
+                96. Porsche Cayman
+                97. Land Rover Range Rover Evoque
+                98. Lexus LS
+                99. Volvo S90
+                100. Jaguar XJ
+                """;
+        List<String> result = new ArrayList<>();
+        String[] split = defaultText.split("[\\d]{2,3}.");
+        Arrays.stream(split).toList().forEach(x -> result.add(x.trim()));
+        return result;
+    }
+
+    public static List<String> getBodyTypes() {
+        String defaultText = """
+                1. Sedan
+                2. Hatchback
+                3. Coupe
+                4. Convertible
+                5. Station Wagon
+                6. SUV (Sport Utility Vehicle)
+                7. Crossover
+                8. Minivan
+                9. Pickup Truck
+                10. Van
+                11. MPV (Multi-Purpose Vehicle)
+                12. Estate
+                13. Roadster
+                14. Sports Car
+                15. Supercar
+                16. Limousine
+                17. Cabriolet
+                18. Compact
+                19. Microcar
+                20. Off-Road Vehicle
+                22. Electric Vehicle (EV)
+                23. Hybrid
+                24. Plug-in Hybrid (PHEV)
+                25. Hydrogen Fuel Cell Vehicle
+                """;
+        List<String> result = new ArrayList<>();
+        String[] bodyTypes = defaultText.split("\\d{1,2}.");
+        Arrays.stream(bodyTypes).toList().forEach(x -> result.add(x.trim()));
+        return result;
+    }
 }

@@ -503,7 +503,41 @@ public class DemoTest {
         clientRepository.deleteByEmail("tri@gmail.com");
     }
     @Test
-    public void testDelStaff(){
+    public void testDelStaff() {
         staffRepository.deleteAllByEmail("haistaff@gmail.com");
+    }
+    @Test
+    public void testReadFile(){
+        String defaultText = """
+                1. Sedan
+                2. Hatchback
+                3. Coupe
+                4. Convertible
+                5. Station Wagon
+                6. SUV (Sport Utility Vehicle)
+                7. Crossover
+                8. Minivan
+                9. Pickup Truck
+                10. Van
+                11. MPV (Multi-Purpose Vehicle)
+                12. Estate
+                13. Roadster
+                14. Sports Car
+                15. Supercar
+                16. Limousine
+                17. Cabriolet
+                18. Compact
+                19. Microcar
+                20. Off-Road Vehicle
+                22. Electric Vehicle (EV)
+                23. Hybrid
+                24. Plug-in Hybrid (PHEV)
+                25. Hydrogen Fuel Cell Vehicle
+                """;
+        List<String> result = new ArrayList<>();
+        String[] bodyTypes = defaultText.split("\\d{1,2}.");
+        Arrays.stream(bodyTypes).toList().forEach(x -> result.add(x.trim()));
+        result.forEach(System.out::println);
+
     }
 }
