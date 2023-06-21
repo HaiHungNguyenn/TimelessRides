@@ -11,6 +11,8 @@ import com.duy.carshowroomdemo.repository.ClientRepository;
 import com.duy.carshowroomdemo.util.Util;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -95,4 +97,9 @@ public class ClientService {
     }
 
 
+    public List<ClientDto> findAll(Pageable pageable) {
+        List<ClientDto> list = new ArrayList<>();
+        repository.findAll(pageable).forEach(x -> list.add(mapperManager.getClientMapper().toDto(x)));
+        return list;
+    }
 }

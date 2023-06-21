@@ -51,6 +51,11 @@
 
     <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
     <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS" />
+    <style>
+      .dataTables_paginate, .dataTables_info{
+        display:none!important;
+      }
+    </style>
   </head>
   <body class="crm_body_bg">
   <nav class="sidebar">
@@ -343,6 +348,7 @@
                           <th scope="col">Email Address</th>
                           <th scope="col">Role</th>
                           <th scope="col">Phone</th>
+                          <th scope="col">Join Date</th>
                           <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -351,11 +357,11 @@
                           <th scope="row">
                             <a href="#" class="question_content" th:text="${(offset -1)*10+i.count}" >  </a>
                           </th>
-                          <td><a href="/admin/staff-detail"  th:text="${staff.getName()}">Hayden</a></td>
-                          <td><a href="user-profile.html">Hayden</a></td>
-                          <td><a href="#" th:text="${staff.getEmail()}">email</a></td>
+                          <td><a th:href="'/admin/staff-detail/'+${staff.getId()}"  th:text="${staff.getName()}"></a></td>
+                          <td><a href="#" th:text="${staff.getEmail()}"></a></td>
                           <td><a href="#" th:text="${staff.getRole()}">Staff</a></td>
-                          <td><a href="#" th:text="${staff.getPhone()}">0112</a></td>
+                          <td><a href="#" th:text="${staff.getPhone()}"></a></td>
+                          <td><a href="#" th:text="${staff.getJoinDate()}"></a></td>
                           <td>
                             <div class="action_btns d-flex">
                               <a href="#" class="action_btn mr_10">

@@ -1,5 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
+import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,7 +57,6 @@ public class MappingController {
             modelAndView.setViewName("views/user/login");
         }
         List<StaffDto> listStaff = new ArrayList<>();
-//        postDto = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9), direction);
         listStaff = service.getStaffService().findAll( PageRequest.of(offset - 1, 10));
         modelAndView.addObject("offset", offset);
         modelAndView.addObject("staffList", listStaff);
@@ -73,12 +74,21 @@ public class MappingController {
     }
 
     @RequestMapping("/admin/user-list")
-    public ModelAndView userList(){
+    public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset){
+
+        offset = (offset == null) ? 1: offset;
+
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
+
+        List<ClientDto> clientList = new ArrayList<>();
+        clientList = service.getClientService().findAll( PageRequest.of(offset - 1, 10));
+
         modelAndView.setViewName("views/admin/user-list");
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("clientList", clientList);
         return modelAndView;
     }
 
@@ -114,22 +124,27 @@ public class MappingController {
 
 
 
-    @RequestMapping("/admin/staff-detail")
-    public ModelAndView staffDetail(){
+    @RequestMapping("/admin/staff-detail/{staffID}")
+    public ModelAndView staffDetail(@PathVariable("staffID") String staffID){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/staff-profile");
+        StaffDto staff = service.getStaffService().findById(staffID);
+        modelAndView.addObject("staff",staff);
         return modelAndView;
     }
-    @RequestMapping("/admin/client-detail")
-    public ModelAndView clientDetail(){
+    @RequestMapping("/admin/client-detail/{clientID}")
+    public ModelAndView clientDetail(@PathVariable("clientID") String clientID){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/user-profile");
+        ClientDto client = service.getClientService().findById(clientID);
+        modelAndView.addObject("client",client);
+
         return modelAndView;
     }
     @RequestMapping("/admin/logout")
