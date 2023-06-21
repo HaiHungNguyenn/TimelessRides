@@ -25,4 +25,5 @@ public class MapperManager {
     private PostMapper postMapper = new PostMapper();
     private ShowroomMapper showroomMapper = new ShowroomMapper();
     private StaffMapper staffMapper = new StaffMapper();
+    private ClientNotificationMapper clientNotificationMapper = new ClientNotificationMapper();
 }

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+<!--  <link rel="stylesheet" href="/style.css">-->
+<!--  <script src="/script.js"></script>-->
+  <title>Notification page</title>
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ececec;
+    }
+
+    .notification_wrap {
+      width: 500px;
+      margin: 120px auto 0;
+    }
+
+    .notification_wrap .notification_icon {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      font-size: 32px;
+      margin: 0 auto;
+      text-align: center;
+      color: #605dff;
+    }
+
+    .notification_wrap .notification_icon .fa-bell {
+      cursor: pointer;
+    }
+
+    .notification_wrap .dropdown {
+      width: 350px;
+      height: auto;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.125);
+      margin: 15px auto 0;
+      padding: 15px;
+      position: relative;
+      display: none;
+    }
+
+    .notification_wrap .dropdown .notify_item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 10px solid #dbdaff;
+    }
+
+    .notification_wrap .dropdown .notify_item:last-child {
+      border-bottom: 0;
+    }
+
+    .notification_wrap .dropdown .notify_item .notify_img {
+      margin-right: 15px;
+    }
+
+    .notification_wrap .dropdown .notify_item .notify_info p span {
+      color: #605dff;
+    }
+
+    .notification_wrap .dropdown .notify_item .notify_time {
+      color: #c5c5a6;
+      font-size: 12px;
+    }
+
+    .notification_wrap .dropdown:before {
+      content: "";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 15px solid;
+      border-color: transparent transparent #fff   transparent;
+    }
+
+    .notification_wrap .dropdown.active {
+      display: block;
+    }
+
+    .not_read {
+      opacity: 0.5;
+    }
+
+    .read {
+      opacity: 1;
+    }
+  </style>
+
+  <script>
+    function updateData(){
+      let url = '/check-notification?id=' + '[[${session.client.getId()}]]';
+      var dataBody = $("#notify-container");
+      $.get(url, function (response){
+        if(response.length > dataBody.children().length){
+          dataBody.empty();
+          for (let i = 0; i < response.length; i++) {
+            console.log(response[i].receiver.name);
+            var notifyItem = document.createElement("div");
+            notifyItem.classList.add("notify_item");
+            if (response[i].status.toString() !== "seen"){
+              notifyItem.classList.add("not_read");
+            }
+            var notifyImage = document.createElement("div");
+            notifyImage.classList.add("notify_img");
+            var image = document.createElement("img");
+            image.alt = "profile_picture";
+            image.src = "https://img.freepik.com/premium-photo/image-colorful-galaxy-sky-generative-ai_791316-9864.jpg?w=2000";
+            image.width = 50;
+            var notifyInfo = document.createElement("div");
+            notifyInfo.classList.add("notify_info");
+            var pChild = document.createElement("p");
+            pChild.innerText = response[i].content;
+            var spanChild = document.createElement("span");
+            spanChild.innerText = "Timeline Share";
+            var notifyTime = document.createElement("span");
+            notifyTime.classList.add("notify_time");
+            notifyTime.innerText = "10 minutes ago";
+            pChild.appendChild(spanChild);
+            notifyInfo.appendChild(pChild);
+            notifyInfo.appendChild(notifyTime);
+            notifyImage.appendChild(image);
+            notifyItem.appendChild(notifyImage);
+            notifyItem.appendChild(notifyInfo);
+            document.getElementById("notify-container").appendChild(notifyItem);
+          }
+        }
+      }, "json");
+    }
+
+    $(document).ready(function (){
+      $(".notification_icon .fa-bell").click(function (){
+        $(".dropdown").toggleClass("active");
+      });
+      setInterval(function (){
+        updateData();
+      }, 3000);
+    });
+
+
+  </script>
+
+</head>
+<body>
+<div class="wrapper">
+  <div class="notification_wrap">
+    <div class="notification_icon">
+      <div class="fa fa-bell"></div>
+    </div>
+    <div class="dropdown" id="notify-container">
+    </div>
+  </div>
+</div>
+</body>
+</html>

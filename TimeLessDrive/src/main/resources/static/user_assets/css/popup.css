@@ -17,7 +17,7 @@
     width: 350px;
 }
 
-button{
+.wrapper button{
     display: block;
     width: 160px;
     border: 2px solid ;
@@ -78,6 +78,7 @@ button.error_btn:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
 }
 
 .modal_wrapper .modal .modal_item{

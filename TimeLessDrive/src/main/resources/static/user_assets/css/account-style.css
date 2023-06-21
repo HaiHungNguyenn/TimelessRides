@@ -11,3 +11,41 @@
     top: 5%;
     visibility: visible;
 }
+
+.fa-bell {
+    font-size: 2rem;
+    cursor: pointer;
+    color: red;
+    margin: 1rem 1rem auto auto;
+}
+
+.notify-container {
+    width: 35%;
+    display: none;
+    right: 0;
+    position: absolute;
+    z-index: 2;
+}
+
+.notify-content {
+    padding: 0.5rem;
+    background-color: #bacbe6;
+}
+
+.content-end {
+    text-align: end;
+}
+
+.my-style {
+    display: block!important;
+}
+
+.my-arrow {
+    background-color: white;
+    width: 0;
+    height: 0;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+    border-bottom: 1.5rem solid #bacbe6;
+    margin-left: auto;
+}

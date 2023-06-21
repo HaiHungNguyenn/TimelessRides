@@ -227,6 +227,7 @@ public class StaffController {
         }else {
             offMeeting.setStaff(mapperManager.getStaffMapper().toEntity((StaffDto) session.getAttribute("staff")));
             offMeeting.setStatus(action.equalsIgnoreCase("decline") ? Status.DECLINED : Status.APPROVED);
+            Runnable runnable;
             if(offMeeting.getStatus().equalsIgnoreCase(Status.DECLINED)){
                 String msg = "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been declined";
                 service.sendNotification(offMeeting.getClient(), msg);
@@ -238,7 +239,14 @@ public class StaffController {
                 buyerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
                 buyerEmailProperties.put("meetingTime",offMeeting.getMeetingTime());
                 buyerEmail.setProperties(buyerEmailProperties);
-                service.getEmailService().sendHTMLMessage(buyerEmail);
+                runnable = () -> {
+                    try {
+                        service.getEmailService().sendHTMLMessage(buyerEmail);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                };
                 System.out.println("emnail here: declined");
             }else {
                 String msg =  "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been approved";
@@ -260,10 +268,17 @@ public class StaffController {
                 carOwnerEmailProperties.put("carModel",offMeeting.getCar().getCarDescription().getModel());
                 carOwnerEmail.setProperties(carOwnerEmailProperties);
 
-                service.getEmailService().sendHTMLMessage(carOwnerEmail);
-                service.getEmailService().sendHTMLMessage(buyerEmail);
+                runnable = () -> {
+                    try {
+                        service.getEmailService().sendHTMLMessage(carOwnerEmail);
+                        service.getEmailService().sendHTMLMessage(buyerEmail);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                };
                 System.out.println("emnail here: approved");
             }
+            new Thread(runnable).start();
         }
 
         service.getOffMeetingService().save(offMeeting);

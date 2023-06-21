@@ -1,9 +1,6 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.InvoiceDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.PostDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
@@ -13,13 +10,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -469,7 +464,7 @@ public ModelAndView postCar(){
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
         client.setName(name);
-        client.setPhone(phone);
+        client.setPhone(phone.replaceAll("\\D",""));
         client.setAddress(address);
         System.out.println(client.getPassword());
         service.getClientService().save(client);
@@ -480,6 +475,25 @@ public ModelAndView postCar(){
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;
+    }
+
+    @RequestMapping("/check-notification")
+    @ResponseBody
+    public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id,
+                                                         @Nullable @RequestParam("offset") Integer offset){
+        ClientDto client = service.getClientService().findById(id);
+
+        offset = (offset == null) ? 0 : offset;
+
+        List<ClientNotificationDto> notificationList = service
+                .getClientNotificationService()
+                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(offset, 10, Sort.by("createDate", "createTime")));
+
+        if (client == null){
+            return new ArrayList<>();
+        }
+
+        return notificationList;
     }
 
 }

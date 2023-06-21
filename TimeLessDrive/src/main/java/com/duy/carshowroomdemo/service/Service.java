@@ -76,42 +76,51 @@ public class Service {
     HttpSession session;
 
     public void configSearchList(){
-        List<CarDto> carList = getCarService().getCarList();
+//        List<CarDto> carList = getCarService().getCarList();
 //      make
-        List<String> makes = new ArrayList<>();
-        carList.forEach(x -> {makes.add(x.getCarDescription().getMake());});
-        HashSet<String> makeList = new HashSet<>(makes);
-        makes.clear();
-        makes.addAll(makeList);
-//        model
-        List<String> models = new ArrayList<>();
-        carList.forEach(x -> {models.add(x.getCarDescription().getModel());});
-        HashSet<String> modelList = new HashSet<>(models);
-        models.clear();
-        models.addAll(modelList);
-//        body
-        List<String> bodys = new ArrayList<>();
-        carList.forEach(x -> {bodys.add(x.getCarDescription().getBody());});
-        HashSet<String> bodyList = new HashSet<>(bodys);
-        bodys.clear();
-        bodys.addAll(bodyList);
-//        tranmission
-        List<String> trans = new ArrayList<>();
-        carList.forEach(x -> {trans.add(x.getCarDescription().getTransmission());});
-        HashSet<String> transList = new HashSet<>(trans);
-        trans.clear();
-        trans.addAll(transList);
-//        fuel style
-        List<String> fuels = new ArrayList<>();
-        carList.forEach(x -> {fuels.add(x.getCarDescription().getFuelType());});
-        HashSet<String> fuelList = new HashSet<>(fuels);
-        fuels.clear();
-        fuels.addAll(fuelList);
+//        List<String> makes = new ArrayList<>();
+//        carList.forEach(x -> {makes.add(x.getCarDescription().getMake());});
+//        HashSet<String> makeList = new HashSet<>(makes);
+//        makes.clear();
+//        makes.addAll(makeList);
 
+//        model
+//        List<String> models = new ArrayList<>();
+//        carList.forEach(x -> {models.add(x.getCarDescription().getModel());});
+//        HashSet<String> modelList = new HashSet<>(models);
+//        models.clear();
+//        models.addAll(modelList);
+
+//        body
+//        List<String> bodys = new ArrayList<>();
+//        carList.forEach(x -> {bodys.add(x.getCarDescription().getBody());});
+//        HashSet<String> bodyList = new HashSet<>(bodys);
+//        bodys.clear();
+//        bodys.addAll(bodyList);
+
+//        tranmission
+//        List<String> trans = new ArrayList<>();
+//        carList.forEach(x -> {trans.add(x.getCarDescription().getTransmission());});
+//        HashSet<String> transList = new HashSet<>(trans);
+//        trans.clear();
+//        trans.addAll(transList);
+
+//        fuel style
+//        List<String> fuels = new ArrayList<>();
+//        carList.forEach(x -> {fuels.add(x.getCarDescription().getFuelType());});
+//        HashSet<String> fuelList = new HashSet<>(fuels);
+//        fuels.clear();
+//        fuels.addAll(fuelList);
+
+        List<String> makes = carDescriptionService.getMakeList();
+        List<String> models = carDescriptionService.getModelList();
+        List<String> bodies = carDescriptionService.getBodyList();
+        List<String> trans = carDescriptionService.getTransList();
+        List<String> fuels = carDescriptionService.getFuelList();
 
         session.setAttribute("makeList",makes);
         session.setAttribute("modelList",models);
-        session.setAttribute("bodyList",bodys);
+        session.setAttribute("bodyList",bodies);
         session.setAttribute("tranmissionList",trans);
         session.setAttribute("fuelList",fuels);
 

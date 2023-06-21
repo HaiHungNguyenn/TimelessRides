@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.cache.annotation.Cacheable;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 /**
  * DTO for {@link CarDescription}
@@ -33,6 +34,9 @@ public class CarDescriptionDto implements Serializable {
     private String others;
 
     public String getLicensePlate() {
-        return licensePlate.substring(0,3) + "-" + licensePlate.substring(3,6) + "." + licensePlate.substring(6,8);
+        if (licensePlate == null || licensePlate.isEmpty()){
+            return "";
+        }
+        return licensePlate.substring(0, 3) + "-" + licensePlate.substring(3, 6) + "." + licensePlate.substring(6, 8);
     }
 }
