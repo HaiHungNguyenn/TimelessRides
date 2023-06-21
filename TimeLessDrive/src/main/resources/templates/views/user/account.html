@@ -23,6 +23,14 @@
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/formstyle.css">
+    <link rel="stylesheet" href="../../user_assets/css/show-pass.css">
+    <style>
+        .show-pass-button{
+            position: absolute;
+            top: 44px;
+            left: 86%;
+        }
+    </style>
     <link rel="stylesheet" href="../../user_assets/css/account-style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/popup.css">
@@ -77,11 +85,11 @@
                 </div>
             </div>
             <div class="notify-container" id="notify-container">
-<!--                <div class="notify-content my-arrow"></div>-->
-<!--                <div class="notify-content">-->
-<!--                    <span>some message here</span>-->
-<!--                    <div class="content-end">10 minutes ago</div>-->
-<!--                </div>-->
+                <!--                <div class="notify-content my-arrow"></div>-->
+                <!--                <div class="notify-content">-->
+                <!--                    <span>some message here</span>-->
+                <!--                    <div class="content-end">10 minutes ago</div>-->
+                <!--                </div>-->
             </div>
             <div class="row">
                 <div class="col-lg-2">
@@ -147,8 +155,8 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
                             class="rounded-circle mt-5" width="150px"
                             src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                            class="font-weight-bold" th:text="${session.client.getName()}" /><span
-                            class="text-black-50" th:text="${session.client.getEmail()}" /></div>
+                            class="font-weight-bold" th:text="${session.client.getName()}"/><span
+                            class="text-black-50" th:text="${session.client.getEmail()}"/></div>
                 </div>
                 <div class="col-md-7 border-right">
                     <div class="p-3 py-5">
@@ -158,17 +166,42 @@
 
                         <form action="/update-info">
                             <div class="row mt-2">
-                                <div class="col-md-6"><label class="labels">Full Name</label><input type="text" class="form-control" th:placeholder="${session.client.getName()}" th:value="${session.client.getName()}" name="name"></div>
-                                <div class="col-md-6"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:placeholder="${session.client.getPhone()}" th:value="${session.client.getPhone()}" name="phone"></div>
+                                <div class="col-md-6">
+                                    <label class="labels">Full Name</label>
+                                    <input type="text" class="form-control"
+                                           th:placeholder="${session.client.getName()}"
+                                           th:value="${session.client.getName()}"
+                                           name="name">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Mobile Number</label>
+                                    <input type="text" class="form-control"
+                                           th:placeholder="${session.client.getPhone()}"
+                                           th:value="${session.client.getPhone()}"
+                                           name="phone">
+                                </div>
                             </div>
                             <div class="row mt-2">
 
-                                <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" th:placeholder="${session.client.getAddress()}" th:value="${session.client.getAddress()}" name="address"></div>
-                                <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" th:placeholder="${session.client.getEmail()}" th:value="${session.client.getEmail()}" disabled></div>
+                                <div class="col-md-12">
+                                    <label class="labels">Address</label>
+                                    <input type="text" class="form-control"
+                                           th:placeholder="${session.client.getAddress()}"
+                                           th:value="${session.client.getAddress()}"
+                                           name="address">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="labels">Email</label>
+                                    <input type="text" class="form-control"
+                                           th:placeholder="${session.client.getEmail()}"
+                                           th:value="${session.client.getEmail()}"
+                                           disabled>
+                                </div>
                             </div>
 
-                            <div class="mt-5 text-center" >
-                                <input style="background-color: red; color: white;margin: 20px 10px" type="submit" value="Save Profile">
+                            <div class="mt-5 text-center">
+                                <input style="background-color: red; color: white;margin: 20px 10px" type="submit"
+                                       value="Save Profile">
                             </div>
                         </form>
 
@@ -177,16 +210,29 @@
 
                 <div class="col-md-3">
                     <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change
-                        Password</button>
+                        Password
+                    </button>
                     <div class="change-password row mt-3">
-                        <div class="col-md-12"><label class="labels">Current Password</label><input type="text"
-                                                                                                    class="form-control" placeholder="enter phone number" value=""></div>
-                        <div class="col-md-12"><label class="labels">New Password</label><input type="text"
-                                                                                                class="form-control" placeholder="enter address line 2" value=""></div>
-                        <div class="col-md-12"><label class="labels">Confirm New Password</label><input type="text"
-                                                                                                        class="form-control" placeholder="enter email id" value=""></div>
-                        <div class="mt-5 text-center"><button class="btn btn-primary profile-button mg25"
-                                                              type="button">Save Profile</button></div>
+                        <div class="col-md-12">
+                            <label class="labels">Current Password</label>
+                            <input type="password" class="form-control" placeholder="enter current password" value="">
+                            <i></i><i class="show-pass-button fa fa-eye"></i>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">New Password</label>
+                            <input type="password" class="form-control" placeholder="enter new password" value="">
+                            <i></i><i class="show-pass-button fa fa-eye"></i>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Confirm New Password</label>
+                            <input type="password" class="form-control" placeholder="repeat new password" value="">
+                            <i></i><i class="show-pass-button fa fa-eye"></i>
+                        </div>
+                        <div class="mt-5 text-center">
+                            <button class="btn btn-primary profile-button mg25"
+                                    type="button">Save Profile
+                            </button>
+                        </div>
 
                     </div>
 
@@ -322,7 +368,8 @@
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
                 <p>Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                    <script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template
                     is
                     made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
                                                                                    target="_blank">Colorlib</a>
@@ -363,41 +410,41 @@
     </form>
 </div> -->
 
-    <div class="modal_item e_modal show"  th:if="${status == 'fail'}">
-        <div class="close close_btn">
-            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+<div class="modal_item e_modal show" th:if="${status == 'fail'}">
+    <div class="close close_btn">
+        <ion-icon name="close" th:onclick="fade()"></ion-icon>
+    </div>
+    <div class="modal_body" style="background-color: whitesmoke">
+        <div class="s_icon">
+            <ion-icon name="checkmark"></ion-icon>
         </div>
-        <div class="modal_body"  style="background-color: whitesmoke">
-            <div class="s_icon">
-                <ion-icon name="checkmark"></ion-icon>
-            </div>
-            <div class="s_text">
-                <h2>SUCCESS</h2>
-                <p th:text="${loginMess}"></p>
-            </div>
-        </div>
-        <div class="s_button">
-            <button class="success_btn">Continue</button>
+        <div class="s_text">
+            <h2>SUCCESS</h2>
+            <p th:text="${loginMess}"></p>
         </div>
     </div>
+    <div class="s_button">
+        <button class="success_btn">Continue</button>
+    </div>
+</div>
 
-    <div class="modal_item e_modal show"   th:if="${status == 'fail'}">
-        <div class="close close_btn">
-            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+<div class="modal_item e_modal show" th:if="${status == 'fail'}">
+    <div class="close close_btn">
+        <ion-icon name="close" th:onclick="fade()"></ion-icon>
+    </div>
+    <div class="modal_body" style="background-color:whitesmoke">
+        <div class="s_icon">
+            <ion-icon name="help"></ion-icon>
         </div>
-        <div class="modal_body" style="background-color:whitesmoke">
-            <div class="s_icon">
-                <ion-icon name="help"></ion-icon>
-            </div>
-            <div class="s_text">
-                <h2>ERROR</h2>
-                <p th:text="${loginMess}"></p>
-            </div>
-        </div>
-        <div class="s_button">
-            <button class="error_btn">Continue</button>
+        <div class="s_text">
+            <h2>ERROR</h2>
+            <p th:text="${loginMess}"></p>
         </div>
     </div>
+    <div class="s_button">
+        <button class="error_btn">Continue</button>
+    </div>
+</div>
 
 <!-- Js Plugins -->
 <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
@@ -411,6 +458,7 @@
 <script src="../../user_assets/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../user_assets/js/account-script.js"></script>
+<script src="../../user_assets/js/show-pass.js"></script>
 <script>
     // Get the close icon element
     const closeIcon = document.querySelectorAll('.close_btn ion-icon');

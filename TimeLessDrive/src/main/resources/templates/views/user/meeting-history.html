@@ -22,19 +22,90 @@
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
-    <!-- Libs CSS -->
-    <link href="css/feather.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet" />
-    <link href="css/materialdesignicons.min.css" rel="stylesheet" />
-    <link href="css/simplebar.min.css" rel="stylesheet">
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="css/theme.min.css">
-<!--    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">-->
 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        td:nth-child(2) {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .status {
+            text-transform: capitalize;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .pending {
+            /* background-color: #ffc107; */
+            color: #000000;
+        }
+
+        .approved {
+            /* background-color: #28a745; */
+            color: #09ff00;
+        }
+
+        .rejected {
+            /* background-color: #dc3545; */
+            color: #ff0000;
+        }
+
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+        }
+    </style>
+
+    <!--    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">-->
+    <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
+    <link rel="stylesheet" href="../../user_assets/css/calendar-style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet" />
 
 </head>
 
 <body style="padding: 0">
+<div class="all-page">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -130,79 +201,10 @@
             </div>
         </div>
     </div>
-    <section style="width:100%;height:80vh" >
+    <section style="width:100%;height:80vh">
 
         <!-- code here -->
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 20px;
-                background-color: #f2f2f2;
-            }
 
-            h1 {
-                color: #333;
-                text-align: center;
-                margin-bottom: 30px;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-                background-color: #fff;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            th, td {
-                padding: 10px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-
-            th {
-                background-color: #f5f5f5;
-                font-weight: bold;
-            }
-
-            tr:hover {
-                background-color: #f9f9f9;
-            }
-
-            td:nth-child(2) {
-                font-weight: bold;
-                color: #555;
-            }
-
-            .status {
-                text-transform: capitalize;
-                font-weight: bold;
-                padding: 5px 10px;
-                border-radius: 4px;
-            }
-
-            .pending {
-                /* background-color: #ffc107; */
-                color: #000000;
-            }
-
-            .approved {
-                /* background-color: #28a745; */
-                color: #09ff00;
-            }
-
-            .rejected {
-                /* background-color: #dc3545; */
-                color: #ff0000;
-            }
-
-            @media (max-width: 600px) {
-                table {
-                    font-size: 14px;
-                }
-            }
-        </style>
 
 
         <p th:if="${errorMsg != null}" th:text="${errorMsg}" class="text-danger fs-3 text-center"/>
@@ -238,10 +240,8 @@
                         </a>
                     </td>
                     <td>
-                        <a th:if="${meeting.getStatus().equals('Pending')}" th:href="@{/meeting-history/edit (id = ${meeting.getId()})}">
-<!--                        <a th:if="${meeting.getStatus().equals('Pending')}">-->
-                            <button id="show-booking" class="btn btn-secondary hover-text-600 fs--1">Edit</button>
-                        </a>
+                            <!--                        <a th:if="${meeting.getStatus().equals('Pending')}">-->
+                            <button class="show-booking btn btn-secondary hover-text-600 fs--1">Edit</button>
                     </td>
                 </tr>
             </th:block>
@@ -274,8 +274,9 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="/"><img src="../../user_assets/img/white-car-logo.png"width="100"></a>
-                            <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless Ride</p>
+                            <a href="/"><img src="../../user_assets/img/white-car-logo.png" width="100"></a>
+                            <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px;">Timeless
+                                Ride</p>
                         </div>
                         <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
                             on (+1) 96 123 8888</p>
@@ -329,7 +330,9 @@
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
-                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
+                    <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -345,18 +348,100 @@
             </form>
         </div>
     </div>
-    <!-- Search End -->
+</div>
 
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
+<div class="pop-up">
+    <form action="/car/bookmeeting">
+        <div role="main" class="form-all" style="background: white;">
+            <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
+            <div class="esc-button">&times;</div>
+            <ul>
+                <li class="form-line">
+                    <label class="form-label form-label-top">
+                        Select an Appointment Date
+                    </label>
+                    <div class="row">
+                        <div class="calendar col-sm-12 col-md-6">
+                            <div class="month">
+                                <i class="fas fa-angle-left prev"></i>
+                                <div class="date">
+                                    <h1></h1>
+                                    <p></p>
+                                </div>
+                                <i class="fas fa-angle-right next"></i>
+                            </div>
+                            <div class="weekdays">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div class="days"></div>
+                        </div>
+                        <div class="slots col-sm-12 col-md-5" id="slots">
+
+                        </div>
+                    </div>
+                </li>
+                <li class="form-line">
+                    <label class="form-label form-label-top" for="phone-number">
+                        Phone Number
+                    </label>
+                    <input type="text" id="phone-number"  name="phone">
+                </li>
+                <li class="form-line">
+                    <label class="form-label form-label-top" for="other">
+                        Other
+                    </label>
+                    <textarea type="text" id="other" name="description"></textarea>
+                </li>
+                <input type="hidden" name="carId" th:value="${meetingList.get(0).getCar().getId()}">
+                <li class="form-line">
+                    <input type="submit" value="Submit">
+                </li>
+                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+<script>
+    let popUpActivateButtons =  document.querySelectorAll(".show-booking");
+
+    popUpActivateButtons.forEach((button) => {
+        button.addEventListener("click",function(){
+            document.querySelector(".pop-up").className="pop-up-active";
+            document.querySelector(".all-page").classList.add("blur");
+        });
+    })
+
+    let escButtons = document.querySelectorAll(".pop-up .esc-button");
+
+    escButtons.forEach((button) =>{
+        button.addEventListener("click",function(){
+            document.querySelector(".pop-up-active").className="pop-up";
+            document.querySelector(".all-page").classList.remove("blur");
+        });
+    });
+</script>
+<script src="../../user_assets/js/calendar-script.js"></script>
+
 </body>
 
 </html>

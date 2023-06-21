@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="../../user_assets/css/login-style.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/popup.css">
+    <link rel="stylesheet" href="../../user_assets/css/show-pass.css">
 </head>
 <body>
 <div class="all-page">
@@ -83,6 +84,7 @@
                     <div class="form-outline mb-4">
                         <input type="password" id="loginPassword" class="form-control" placeholder=" " name="password"/>
                         <label class="form-label" for="loginPassword">Password</label>
+                        <i class="show-pass-button fa fa-eye"></i>
                     </div>
 
                     <!-- 2 column grid layout -->
@@ -148,6 +150,7 @@
                         <input type="password" id="registerPassword" onkeyup='check();' onkeydown="check();"
                                class="form-control" placeholder=" " name="password"/>
                         <label class="form-label" for="registerPassword">Password</label>
+                        <i class="show-pass-button fa fa-eye"></i>
                     </div>
 
                     <!-- Repeat Password input -->
@@ -155,6 +158,7 @@
                         <input type="password" id="registerRepeatPassword" onkeyup='check();' onkeydown="check();"
                                class="form-control" placeholder=" "/>
                         <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                        <i class="show-pass-button fa fa-eye"></i>
                     </div>
                     <div id="message" style="pointer-events: none; user-select: none"></div>
 
@@ -205,15 +209,13 @@
             <div class="form-outline mb-4">
                 <input type="password" id="new-password" class="form-control" placeholder=" " name="newPassword"/>
                 <label class="form-label" for="new-password">New Password</label>
-                <input id="show-pass-1" type="checkbox" onclick="showPass()">
-                <label for="show-pass-1"></label>
+                <i class="show-pass-button fa fa-eye"></i>
             </div>
 
             <div class="form-outline mb-4">
                 <input type="password" id="repeat-password" class="form-control" placeholder=" " name="repeatPassword"/>
                 <label class="form-label" for="repeat-password">Confirm Password</label>
-                <input id="show-pass-2" class="show-pass" type="checkbox" onclick="showPass()">
-                <label for="show-pass-2"></label>
+                <i class="show-pass-button fa fa-eye"></i>
             </div>
 
             <input type="submit" value="Submit">
@@ -281,6 +283,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../user_assets/js/login-script.js"></script>
+<script src="../../user_assets/js/show-pass.js"></script>
 <script>
     // Get the close icon element
     const closeIcon = document.querySelectorAll('.close_btn ion-icon');

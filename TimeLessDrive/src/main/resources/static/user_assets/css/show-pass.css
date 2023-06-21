@@ -1,0 +1,12 @@
+.show-pass-button {
+    cursor: pointer;
+    position: absolute;
+    top: 14px;
+    left: 94%;
+    font-size: 15px;
+}
+
+.show-pass-button:hover{
+    cursor: pointer;
+    color: #db2d2e;
+}
