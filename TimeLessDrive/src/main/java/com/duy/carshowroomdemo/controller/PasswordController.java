@@ -1,6 +1,5 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Email;
 import com.duy.carshowroomdemo.service.EmailService;
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class EmailController {
+public class PasswordController {
     @Autowired
     private Service service;
     @Autowired
@@ -32,8 +31,9 @@ public class EmailController {
     private String password;
     @RequestMapping("/send-verifycode")
     public ModelAndView sendCode(@RequestParam("email") String userEmail) throws MessagingException {
-        Client client = service.getClientService().findEntityByEmail("userEmail");
-
+        Client client = service.getClientService().findEntityByEmail(userEmail);
+        System.out.println(userEmail);
+        System.out.println(client);
         ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(client == null){
             modelAndView.addObject("loginMsg","your email has not been registered");
@@ -53,7 +53,15 @@ public class EmailController {
         properties.put("verificationCode", code);
         email.setProperties(properties);
         System.out.println(email.getProperties());
-        emailService.sendHTMLMessage(email);
+        Runnable runnable = () -> {
+            try {
+                service.getEmailService().sendHTMLMessage(email);
+            } catch (MessagingException e) {
+                throw new RuntimeException(e);
+            }
+
+        };
+        new Thread(runnable).start();
         session.setAttribute("verificationCode",code);
         return modelAndView;
     }
