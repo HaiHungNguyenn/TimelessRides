@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="../../user_assets/css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="../../user_assets/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
@@ -27,8 +26,12 @@
     <style>
         .show-pass-button{
             position: absolute;
-            top: 44px;
+            top: 38px;
             left: 86%;
+        }
+
+        #phone-comment{
+            color: #db2d2e;
         }
     </style>
     <link rel="stylesheet" href="../../user_assets/css/account-style.css">
@@ -191,9 +194,25 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="labels">Mobile Number</label>
-                                    <input type="text" class="form-control"
+                                    <input id="phone-number" type="text" class="form-control"
                                            th:placeholder="${session.client.getPhone()}"
                                            th:value="${session.client.getPhone()}"
+                                           onclick="toPhoneNum('091-444-8994')"
+                                           name="phone">
+                                    <p id="phone-comment"></p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="labels">Gender</label>
+                                    <select class="second-row-input" id="gender" name="gender">
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="labels">Date of birth</label>
+                                    <input class="second-row-input" id="dob" type="date"
                                            name="phone">
                                 </div>
                             </div>
@@ -216,7 +235,7 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                <input style="background-color: red; color: white;margin: 20px 10px" type="submit"
+                                <input class="btn btn-primary profile-button mg25" type="submit"
                                        value="Save Profile">
                             </div>
                         </form>
@@ -413,7 +432,6 @@
 <!-- Js Plugins -->
 <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
 <script src="../../user_assets/js/bootstrap.min.js"></script>
-<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
 <script src="../../user_assets/js/jquery-ui.min.js"></script>
 <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
 <script src="../../user_assets/js/mixitup.min.js"></script>
@@ -423,6 +441,28 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../user_assets/js/account-script.js"></script>
 <script src="../../user_assets/js/show-pass.js"></script>
+<script>
+    const newPasswordInput = document.getElementById("new-password");
+    const repeatPasswordInput = document.getElementById("repeat-password");
+    const message = document.getElementById("message");
+
+    function checkRepeatPassword(){
+        if(newPasswordInput.value == repeatPasswordInput.value){
+            message.innerHTML = "Matched"
+            message.style.color = "green";
+        }else{
+            message.innerHTML = "Not Matched";
+            message.style.color = "red";
+        }
+    }
+
+    document.getElementById("new-password").addEventListener("keyup",() => checkRepeatPassword());
+    document.getElementById("new-password").addEventListener("keydown", () => checkRepeatPassword());
+    document.getElementById("repeat-password").addEventListener("keyup", () => checkRepeatPassword());
+    document.getElementById("repeat-password").addEventListener("keydown", () => checkRepeatPassword());
+
+</script>
+<script src="../../user_assets/js/check-phone-number.js"></script>
 <script>
     // Get the close icon element
     const closeIcon = document.querySelectorAll('.close_btn ion-icon');

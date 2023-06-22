@@ -413,7 +413,7 @@
 <!-- Search End -->
 <!-- Start pop up form -->
 <div class="pop-up">
-    <form action="/car/bookmeeting">
+    <form id="booking-form" action="/car/bookmeeting" onsubmit="return checkSubmit();">
         <div role="main" class="form-all" style="background: white;">
             <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
             <div class="esc-button">&times;</div>
@@ -453,6 +453,7 @@
                         Phone Number
                     </label>
                     <input type="text" id="phone-number"  name="phone">
+                    <p id="phone-comment"></p>
                 </li>
                 <li class="form-line">
                     <label class="form-label form-label-top" for="other">
@@ -525,6 +526,7 @@
 <script src="../../user_assets/js/splide.min.js"></script>
 <script src="../../user_assets/js/main.js"></script>
 <script src="../../user_assets/js/booking-show.js"></script>
+<script src="../../user_assets/js/check-phone-number.js"></script>
 <script src="../../user_assets/js/calendar-script.js"></script>
 <script>
     // Get the close icon element
