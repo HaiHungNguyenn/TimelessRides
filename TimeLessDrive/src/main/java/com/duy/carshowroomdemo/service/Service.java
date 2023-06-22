@@ -140,7 +140,5 @@ public class Service {
         session.setAttribute("postMakes",postMakes);
         session.setAttribute("postModels",postModels);
         session.setAttribute("postBodies",bodyTypes);
-
-
     }
 }

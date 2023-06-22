@@ -102,5 +102,15 @@ public class TestController {
         return "views/notify-page";
     }
 
+    @RequestMapping("/show-popup")
+    public String showPopup(){
+        return "views/user/my-pop-up";
+    }
+
+    @RequestMapping("/reset-password")
+    public String resetPassword(){
+        return "views/staff/reset-password";
+    }
+
 }
 

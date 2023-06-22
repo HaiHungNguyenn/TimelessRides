@@ -26,7 +26,9 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
-    <script>let id = '[[${session.client.getId()}]]'</script>
+    <th:block th:if="${session.client != null}">
+        <script>let id = '[[${session.client.getId()}]]'</script>
+    </th:block>
     <script src="../../user_assets/js/notification-js.js"></script>
 </head>
 
@@ -37,7 +39,7 @@
     </div>
 
     <!--    notification starts-->
-    <div class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+    <div th:if="${session.client != null}" class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
         <li>
             <a class="bell_notification_clicker" href="#">
                 <div class="fa fa-bell"></div>

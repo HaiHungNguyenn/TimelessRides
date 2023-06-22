@@ -94,14 +94,21 @@ CREATE TABLE car_image (
 	content					VARBINARY(MAX)
 )
 
+CREATE TABLE combo (
+   id                      VARCHAR(100) PRIMARY KEY,
+   name                    VARCHAR(100),
+   price                   BIGINT,
+   duration                INT
+)
+
 CREATE TABLE post (
 	id						VARCHAR(100) PRIMARY KEY,
 	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id) UNIQUE,
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
+    combo_id                VARCHAR(100) FOREIGN KEY REFERENCES combo(id),
 	[description]			VARCHAR(2000),
 	post_date				DATE,
 	post_time				TIME,
-	post_plan				VARCHAR(100),
 	[status]				VARCHAR(50)
 )
 
@@ -156,3 +163,5 @@ CREATE TABLE staff_notification (
     create_time				TIME,
 	[status]				VARCHAR(50)
 )
+
+
