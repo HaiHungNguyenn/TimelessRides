@@ -70,7 +70,7 @@ public class DemoTest {
         addStaff();
         addClients();
         addCarAndCarDescription(cars);
-        addCarImages();
+//        addCarImages();
         addPosts();
 //        addInvoices();
         addOffMeetings();

@@ -32,7 +32,7 @@ public class Post {
     @Column(name = "description", length = 2000)
     private String description;
 
-    @Column(name = "plan", length = 100)
+    @Column(name = "[plan]", length = 100)
     private String plan;
 
     @Column(name = "expire_date")
