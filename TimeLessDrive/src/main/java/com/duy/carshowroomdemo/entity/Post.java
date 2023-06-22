@@ -35,9 +35,11 @@ public class Post {
 
     @Column(name = "post_time")
     private LocalTime postTime;
-    @Column(name = "post_plan")
-    private String plan;
 
     private String status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "combo_id")
+    private Combo combo;
 
 }
