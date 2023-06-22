@@ -60,7 +60,7 @@
                         <p>Sign in with:</p>
                         <div class="google row">
                             <div class="col-md-12">
-                                <a class="btn btn-outline-dark" href="/users/googleauth" role="button"
+                                <a class="btn btn-outline-dark" href="/oauth2/authorization/google" role="button"
                                    style="text-transform:none">
                                     <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in"
                                          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
@@ -298,6 +298,25 @@
         modal.style.display = 'none';
         background.classList.remove("active");
     }));
+    // Get the "Continue" buttons
+    var successButton = document.querySelector('.success_btn');
+    var errorButton = document.querySelector('.error_btn');
+
+    // Get the modals
+    var successModal = document.querySelector('.s_modal');
+    var errorModal = document.querySelector('.e_modal');
+
+    // Add click event listener to the success button
+    successButton.addEventListener('click', function() {
+        // Hide the success modal by setting display to "none"
+        successModal.style.display = 'none';
+    });
+
+    // Add click event listener to the error button
+    errorButton.addEventListener('click', function() {
+        // Hide the error modal by setting display to "none"
+        errorModal.style.display = 'none';
+    });
 
 </script>
 </body>

@@ -99,9 +99,10 @@ CREATE TABLE post (
 	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id) UNIQUE,
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
 	[description]			VARCHAR(2000),
+	[plan]                   VARCHAR(100),
+	expire_date             DATE,
 	post_date				DATE,
 	post_time				TIME,
-	post_plan				VARCHAR(100),
 	[status]				VARCHAR(50)
 )
 
@@ -156,3 +157,5 @@ CREATE TABLE staff_notification (
     create_time				TIME,
 	[status]				VARCHAR(50)
 )
+
+

@@ -427,6 +427,44 @@ public ModelAndView postCar(){
         return meetingHistory(errorMsg, successMsg);
     }
 
+    @RequestMapping("/meeting-history/edit")
+    public ModelAndView editMeeting(@RequestParam("offMeetingId") String meetingId,
+                                    @RequestParam("phone") String phone,
+                                    @RequestParam("description") String description,
+                                    @RequestParam("slot") String slot){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        String[] parts = Util.splitDateTimeString(slot);
+
+        OffMeeting meeting = service.getOffMeetingService().findById(meetingId);
+
+        if (meeting == null){
+            String errorMsg = "An error occurred, can't perform this action";
+            return meetingHistory(errorMsg, null);
+        }
+
+        meeting.setMeetingDate(Util.parseLocalDate(parts[0]));
+        meeting.setMeetingTime(Util.parseLocalTime(parts[1]));
+
+        if (!phone.isEmpty()){
+            meeting.setPhone(phone);
+        }
+
+        if (!description.isEmpty()){
+            meeting.setPhone(description);
+        }
+
+        service.getOffMeetingService().save(meeting);
+
+        String successMsg = "Meeting's information has been changed";
+
+        return meetingHistory(null,successMsg);
+    }
+
     @GetMapping ("/signin")
     public ModelAndView signIn(OAuth2AuthenticationToken token){
         if(token != null){
@@ -441,19 +479,53 @@ public ModelAndView postCar(){
     @RequestMapping("/google-handler")
     public ModelAndView googleHandler(OAuth2AuthenticationToken token){
 
-            System.out.println(token.getPrincipal().getAttribute("email").toString());
-            token.getPrincipal().getAttributes().forEach((key, value) -> {
-                System.out.println(key + ": " + value);
-            });
+        ModelAndView modelAndView = new ModelAndView("views/user/index");
 
+        String email = token.getPrincipal().getAttribute("email");
 
-        return home();
+        Client client = service.getClientService().findEntityByEmail(email);
+
+        if (client == null){
+            client = Client.builder()
+                    .email(email)
+                    .name(token.getPrincipal().getAttribute("name"))
+                    .avatar(token.getPrincipal().getAttribute("picture"))
+                    .role("client")
+                    .joinDate(LocalDate.now())
+                    .build();
+            service.getClientService().save(client);
+        }
+
+        session.setAttribute("client", client);
+        return modelAndView;
     }
     @RequestMapping("/log-out")
     public ModelAndView logout(){
         ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("client");
         modelAndView.setViewName("views/user/index");
+        return modelAndView;
+    }
+    @RequestMapping("/change-password")
+    public ModelAndView changePassword(@RequestParam("oldPass") String oldPass,
+                                       @RequestParam("newPass") String newPass){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+
+        Client client = mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client"));
+        if(service.getClientService().changePassword(client.getId(), oldPass,newPass)){
+            modelAndView.addObject("status","success");
+            modelAndView.addObject("message","Successfully updated password");
+        }else{
+            modelAndView.addObject("status","fail");
+            modelAndView.addObject("message","Your current password is invalid");
+        }
+
+        modelAndView.setViewName("views/user/account");
         return modelAndView;
     }
     @RequestMapping("/update-info")

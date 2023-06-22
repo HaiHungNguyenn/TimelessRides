@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,14 +32,22 @@ public class Post {
     @Column(name = "description", length = 2000)
     private String description;
 
+    @Column(name = "[plan]", length = 100)
+    private String plan;
+
+    @Column(name = "expire_date")
+    private LocalDate expireDate;
+
     @Column(name = "post_date")
     private LocalDate postDate;
 
     @Column(name = "post_time")
     private LocalTime postTime;
-    @Column(name = "post_plan")
-    private String plan;
 
     private String status;
+
+    public List<String> getPlanList(){
+        return Arrays.asList(plan.split(","));
+    }
 
 }

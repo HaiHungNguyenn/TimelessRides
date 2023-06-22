@@ -4,6 +4,7 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import com.thedeanda.lorem.Lorem;
@@ -63,15 +64,15 @@ public class DemoTest {
 
 
 
-        Util.setupImageGallery(cars);
-        addAdmin();
-        addShowrooms();
+//        Util.setupImageGallery(cars);
+//        addAdmin();
+//        addShowrooms();
         addStaff();
         addClients();
         addCarAndCarDescription(cars);
-        addCarImages();
+//        addCarImages();
         addPosts();
-        addInvoices();
+//        addInvoices();
         addOffMeetings();
         addFeedbacks();
     }
@@ -133,7 +134,7 @@ public class DemoTest {
     @Test
     public void addAdmin(){
         Admin admin = new Admin();
-        admin.setEmail("hai@gmail.com");
+        admin.setEmail("nguyenhai@gmail.com");
         admin.setAvatar(AVATAR_URL);
         admin.setRole("admin");
         admin.setPassword(Util.encodePassword("123"));
@@ -316,7 +317,7 @@ public class DemoTest {
             post.setStatus("Pending");
             post.setPostDate(Util.getRandDate(LocalDate.of(2019,1,1), LocalDate.of(2021,12,31)));
             post.setPostTime(LocalTime.now());
-            post.setPlan("plan " + Util.getRandInt(1,3));
+            post.setPlan("Plan " + Util.getRandInt(1,3));
             Post save = postRepository.save(post);
 
             Assertions.assertThat(save).isNotNull();
@@ -507,6 +508,10 @@ public class DemoTest {
         staffRepository.deleteAllByEmail("haistaff@gmail.com");
     }
     @Test
+    public void testDelAdmin(){
+        adminRepository.deleteById("762bf836-7ce3-47af-804f-81aa17ed1044");
+    }
+    @Test
     public void testReadFile(){
         String defaultText = """
                 1. Sedan
@@ -539,5 +544,10 @@ public class DemoTest {
         Arrays.stream(bodyTypes).toList().forEach(x -> result.add(x.trim()));
         result.forEach(System.out::println);
 
+    }
+
+    @Test
+    public void testPlan(){
+        System.out.println(Plan.getPrice(Plan.plan1));
     }
 }

@@ -51,6 +51,9 @@
 
   <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
   <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS" />
+  <link rel="stylesheet" href="../../user_assets/css/popup.css">
+
+
 </head>
 <body class="crm_body_bg">
 <nav class="sidebar">
@@ -167,94 +170,7 @@
               </form>
             </div>
           </div>
-          <div
-                  class="header_right d-flex justify-content-between align-items-center"
-          >
-            <div class="header_notification_warp d-flex align-items-center">
-              <li>
-                <a class="bell_notification_clicker" href="#">
-                  <img src="../../admin_assets/img/icon/bell.svg" alt />
-                  <span>2</span>
-                </a>
-
-                <div class="Menu_NOtification_Wrap">
-                  <div class="notification_Header">
-                    <h4>Notifications</h4>
-                  </div>
-                  <div class="Notification_body">
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/2.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>Cool Marketing</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/4.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>Awesome packages</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/3.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>what a packages</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/2.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>Cool Marketing</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/4.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>Awesome packages</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-
-                    <div class="single_notify d-flex align-items-center">
-                      <div class="notify_thumb">
-                        <a href="#"><img src="../../admin_assets/img/staf/3.png" alt /></a>
-                      </div>
-                      <div class="notify_content">
-                        <a href="#"><h5>what a packages</h5></a>
-                        <p>Lorem ipsum dolor sit amet</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="nofity_footer">
-                    <div class="submit_button text-center pt_20">
-                      <a href="#" class="btn_1">See More</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <a class="CHATBOX_open" href="#">
-                  <img src="../../admin_assets/img/icon/msg.svg" alt /> <span>2</span>
-                </a>
-              </li>
-            </div>
+          <div class="header_right d-flex justify-content-between align-items-center">
             <div class="profile_info">
               <img src="../../admin_assets/img/client_img.png" alt="#" />
               <div class="profile_info_iner">
@@ -275,6 +191,42 @@
     </div>
   </div>
 
+        <div class="modal_item s_modal active tly" th:if="${status == 'success'}">
+          <div class="close close_btn">
+            <ion-icon name="close"></ion-icon>
+          </div>
+          <div class="modal_body" style="background-color: whitesmoke">
+            <div class="s_icon">
+              <ion-icon name="checkmark"></ion-icon>
+            </div>
+            <div class="s_text">
+              <h2>SUCCESS</h2>
+              <p  th:text="${message}" ></p>
+            </div>
+          </div>
+          <div class="s_button">
+            <button class="success_btn">Continue</button>
+          </div>
+        </div>
+
+        <div class="modal_item e_modal active tly" th:if="${status == 'fail'}">
+          <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+          </div>
+          <div class="modal_body" style="background-color:whitesmoke">
+            <div class="s_icon">
+              <ion-icon name="help"></ion-icon>
+            </div>
+            <div class="s_text">
+              <h2>ERROR</h2>
+              <p th:text="${message}"></p>
+            </div>
+          </div>
+          <div class="s_button">
+            <button class="error_btn">Continue</button>
+          </div>
+        </div>
+
   <div class="main_content_iner overly_inner">
     <div class="container-fluid p-0">
       <div class="row">
@@ -286,7 +238,7 @@
               <h3 class="f_s_25 f_w_700 dark_text mr_30">Add Staff</h3>
               <ol class="breadcrumb page_bradcam mb-0">
                 <li class="breadcrumb-item">
-                  <a href="javascript:void(0);">Home</a>
+                  <a href="#">Home</a>
                 </li>
                 <li class="breadcrumb-item active">Analytic</li>
               </ol>
@@ -301,8 +253,7 @@
             <div class="white_card_header">
               <div class="box_header m-0">
                 <div class="main-title">
-                  <h3 class="m-0">Add New Admin</h3>
-                  <h5 th:if="${msg != null}" th:text="${msg}" style="color: red"></h5>
+                  <h3 class="m-0">Add New Staff</h3>
                 </div>
               </div>
             </div>
@@ -335,7 +286,7 @@
                     </div>
                   </div>
                   <div class="col-12" style="text-align: center">
-                      <input type="submit" class="btn_1 radius_btn d-block text-center" value="Add Admin">
+                      <input type="submit" class="btn_1 radius_btn d-block text-center" value="Add Staff">
                   </div>
                 </div>
               </div>
@@ -346,21 +297,7 @@
     </div>
   </div>
 
-  <div class="footer_part">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="footer_iner text-center">
-            <p>
-              2020 © Influence - Designed by
-              <a href="#"> <i class="ti-heart"></i> </a
-              ><a href="#"> Dashboard</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+
 </section>
 
 
@@ -411,6 +348,43 @@
 
 <script src="../../admin_assets/vendors/text_editor/summernote-bs4.js"></script>
 <script src="../../admin_assets/js/custom.js"></script>
+<script>
+  // Get the close icon element
+  const closeIcon = document.querySelectorAll('.close_btn ion-icon');
+
+  //Get the background
+  const background = document.querySelector(".modal_wrapper")
+
+  // Add event listener to the close icon
+  closeIcon.forEach((close) => close.addEventListener('click', () => {
+    // Hide the modal
+    const modal = close.parentElement.parentElement;
+    modal.style.display = 'none';
+    background.classList.remove("active");
+  }));
+  // Get the "Continue" buttons
+  var successButton = document.querySelector('.success_btn');
+  var errorButton = document.querySelector('.error_btn');
+
+  // Get the modals
+  var successModal = document.querySelector('.s_modal');
+  var errorModal = document.querySelector('.e_modal');
+
+  // Add click event listener to the success button
+  successButton.addEventListener('click', function() {
+    // Hide the success modal by setting display to "none"
+    successModal.style.display = 'none';
+  });
+
+  // Add click event listener to the error button
+  errorButton.addEventListener('click', function() {
+    // Hide the error modal by setting display to "none"
+    errorModal.style.display = 'none';
+  });
+
+
+
+</script>
 </body>
 
 </html>
