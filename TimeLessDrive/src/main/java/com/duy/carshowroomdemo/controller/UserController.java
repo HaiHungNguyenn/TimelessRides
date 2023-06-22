@@ -456,6 +456,28 @@ public ModelAndView postCar(){
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
+    @RequestMapping("/change-password")
+    public ModelAndView changePassword(@RequestParam("oldPass") String oldPass,
+                                       @RequestParam("newPass") String newPass){
+        ModelAndView modelAndView = new ModelAndView();
+
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+            return modelAndView;
+        }
+
+        Client client = mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client"));
+        if(service.getClientService().changePassword(client.getId(), oldPass,newPass)){
+            modelAndView.addObject("status","success");
+            modelAndView.addObject("message","Successfully updated password");
+        }else{
+            modelAndView.addObject("status","fail");
+            modelAndView.addObject("message","Your current password is invalid");
+        }
+
+        modelAndView.setViewName("views/user/account");
+        return modelAndView;
+    }
     @RequestMapping("/update-info")
     public ModelAndView update(@RequestParam("name") String name,
                                @RequestParam("phone") String phone,

@@ -105,21 +105,7 @@
     <!-- Header Section Begin -->
     <header class="header">
         <div class="container-fluid">
-<!--<<<<<<< Updated upstream-->
-<!--            <div class="row justify-content-end">-->
-<!--                <div class="notify-icon">-->
-<!--                    <div class="fa fa-bell"></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="notify-container" id="notify-container">-->
-<!--                &lt;!&ndash;                <div class="notify-content my-arrow"></div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                <div class="notify-content">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <span>some message here</span>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <div class="content-end">10 minutes ago</div>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
-<!--            </div>-->
-<!--=======-->
-<!--&gt;>>>>>> Stashed changes-->
+
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
@@ -241,29 +227,29 @@
                     <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change
                         Password
                     </button>
-                    <div class="change-password row mt-3">
-                        <div class="col-md-12">
-                            <label class="labels">Current Password</label>
-                            <input type="password" class="form-control" placeholder="enter current password" value="">
-                            <i></i><i class="show-pass-button fa fa-eye"></i>
+                    <form action="/change-password">
+                        <div class="change-password row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">Current Password</label>
+                                <input type="password" class="form-control" placeholder="enter current password" name="oldPass">
+                                <i></i><i class="show-pass-button fa fa-eye"></i>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">New Password</label>
+                                <input id="newPass" type="password" class="form-control" placeholder="enter new password" name="newPass">
+                                <i></i><i class="show-pass-button fa fa-eye"></i>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="labels">Confirm New Password</label>
+                                <input id="confirmNewPass"type="password" class="form-control" placeholder="repeat new password">
+                                <i></i><i class="show-pass-button fa fa-eye"></i>
+                            </div>
+                            <span id="passwordMatchResult" style="font-size: 10px; color: red"></span>
+                            <div class="mt-5 text-center">
+                                <input type="submit" value="Save Password">
+                            </div>
                         </div>
-                        <div class="col-md-12">
-                            <label class="labels">New Password</label>
-                            <input type="password" class="form-control" placeholder="enter new password" value="">
-                            <i></i><i class="show-pass-button fa fa-eye"></i>
-                        </div>
-                        <div class="col-md-12">
-                            <label class="labels">Confirm New Password</label>
-                            <input type="password" class="form-control" placeholder="repeat new password" value="">
-                            <i></i><i class="show-pass-button fa fa-eye"></i>
-                        </div>
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button mg25"
-                                    type="button">Save Profile
-                            </button>
-                        </div>
-
-                    </div>
+                    </form>
 
                 </div>
 
@@ -285,7 +271,7 @@
                             </div>
                             <div class="s_text">
                                 <h2>SUCCESS</h2>
-                                <p th:text="${loginMess}"></p>
+                                <p  th:text="${message}" ></p>
                             </div>
                         </div>
                         <div class="s_button">
@@ -303,7 +289,7 @@
                             </div>
                             <div class="s_text">
                                 <h2>ERROR</h2>
-                                <p th:text="${loginMess}"></p>
+                                <p th:text="${message}"></p>
                             </div>
                         </div>
                         <div class="s_button">
@@ -420,60 +406,8 @@
     </div>
 </div>
 
-<!-- Search End -->
-<!-- <div class="pop-up">
-    <form action="/car/bookmeeting">
-        <div role="main" class="form-all" style="background: white;">
-            <div class="header1">
-                <h2 id="header_23" class="form-header" data-component="header">RESET PASSWORD</h2>
-                <div class="esc-button">&times;</div>
-            </div>
-            <p>We have sent an email to you to reset your password. Input the code sent to you to
-                the box below:</p>
-            <p>Code will be resent in <b id="countdown-reset-password" style="color: red;"></b> seconds <b>Or</b>
-                <input type="button" value="Resent now">
-            </p>
-            <input type="text" class="code-input">
-            <input type="submit" value="Submit"><span></span>
-        </div>
-    </form>
-</div> -->
 
-<div class="modal_item e_modal show" th:if="${status == 'fail'}">
-    <div class="close close_btn">
-        <ion-icon name="close" th:onclick="fade()"></ion-icon>
-    </div>
-    <div class="modal_body" style="background-color: whitesmoke">
-        <div class="s_icon">
-            <ion-icon name="checkmark"></ion-icon>
-        </div>
-        <div class="s_text">
-            <h2>SUCCESS</h2>
-            <p th:text="${loginMess}"></p>
-        </div>
-    </div>
-    <div class="s_button">
-        <button class="success_btn">Continue</button>
-    </div>
-</div>
 
-<div class="modal_item e_modal show" th:if="${status == 'fail'}">
-    <div class="close close_btn">
-        <ion-icon name="close" th:onclick="fade()"></ion-icon>
-    </div>
-    <div class="modal_body" style="background-color:whitesmoke">
-        <div class="s_icon">
-            <ion-icon name="help"></ion-icon>
-        </div>
-        <div class="s_text">
-            <h2>ERROR</h2>
-            <p th:text="${loginMess}"></p>
-        </div>
-    </div>
-    <div class="s_button">
-        <button class="error_btn">Continue</button>
-    </div>
-</div>
 
 <!-- Js Plugins -->
 <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
@@ -502,6 +436,7 @@
         modal.style.display = 'none';
         background.classList.remove("active");
     }));
+
 
 </script>
 <!-- notification js-->
