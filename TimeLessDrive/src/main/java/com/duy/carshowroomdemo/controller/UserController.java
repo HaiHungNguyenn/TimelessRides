@@ -496,7 +496,7 @@ public ModelAndView postCar(){
             service.getClientService().save(client);
         }
 
-        session.setAttribute("client", client);
+        session.setAttribute("client", mapperManager.getClientMapper().toDto(client));
         return modelAndView;
     }
     @RequestMapping("/log-out")
