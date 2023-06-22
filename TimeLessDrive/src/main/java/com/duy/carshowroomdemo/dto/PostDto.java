@@ -23,6 +23,7 @@ public class PostDto implements Serializable {
     private CarDto car;
     private ClientDto client;
     private String description;
+    private LocalDate expireDate;
     private LocalDate postDate;
     private LocalTime postTime;
     private String plan;
