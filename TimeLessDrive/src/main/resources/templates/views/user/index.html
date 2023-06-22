@@ -39,7 +39,7 @@
     </div>
 
     <!--    notification starts-->
-    <div class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+    <div th:if="${session.client != null}" class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
         <li>
             <a class="bell_notification_clicker" href="#">
                 <div class="fa fa-bell"></div>
