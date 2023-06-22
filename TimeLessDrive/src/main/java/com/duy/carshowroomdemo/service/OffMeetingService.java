@@ -105,4 +105,10 @@ public class OffMeetingService {
     public void delete(OffMeeting offMeeting) {
         offMeetingRepository.delete(offMeeting);
     }
+
+    public List<OffMeetingDto> findByStaffId(String staffID,Pageable pageable) {
+        List<OffMeetingDto> list = new ArrayList<>();
+        offMeetingRepository.findByStaffId(staffID ,pageable).forEach(x -> list.add(mapperManager.getOffMeetingMapper().toDto(x)));
+        return list;
+    }
 }

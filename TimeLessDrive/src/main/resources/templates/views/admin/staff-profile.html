@@ -370,6 +370,38 @@
               </section>
             </div>
           </div>
+          <div class="row">
+            <div class="col">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th>Staff Name</th>
+                  <th>Client Name</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+                </thead>
+                <tbody th:each="meeting:${offMeetingList}">
+                <tr>
+                  <td th:text="${meeting.staff.getName()}"></td>
+                  <td th:text="${meeting.getClient().getName()}">ABC Company</td>
+                  <td th:text="${meeting.getCreateDate()}">June 25, 2023</td>
+                  <td th:text="${meeting.getMeetingTime()}">10:00 AM</td>
+                  <td th:text="${(meeting.getStatus() == 'Done') ? 'Done' : 'UpComming'}">Confirmed</td>
+                </tr>
+
+                </tbody>
+              </table>
+<!--              <div class="container">-->
+<!--                <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff-detail/'+${session.staff.getId()}+'?offset=' + (offset - 1)}"><i class="fas fa-arrow-left"></i></a></button>-->
+<!--                <button class="button act"   th:text="${offset}"></button>-->
+<!--                <button class="button"><a th:href="${(offset == 1) ? '#' : '/admin/staff-detail/'+${session.staff.getId()}+'?offset=' + (offset + 1)}"><i class="fas fa-arrow-right"></i></a></button>-->
+<!--              </div>-->
+            </div>
+          </div>
+
+
         </div>
       </div>
 

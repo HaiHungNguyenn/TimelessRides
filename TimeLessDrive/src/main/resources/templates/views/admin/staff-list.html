@@ -410,6 +410,7 @@
                         }
                       </style>
                       <div class="container">
+<!--                        /admin/staff-detail/{staffID}-->
                         <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i class="fas fa-arrow-left"></i></a></button>
                         <button class="button act"   th:text="${offset}"></button>
                         <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i class="fas fa-arrow-right"></i></a></button>

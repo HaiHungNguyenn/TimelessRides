@@ -18,33 +18,33 @@ public interface PostRepository extends JpaRepository<Post, String>{
     Page<Post> findPostsByClient(Client client, Pageable pageable);
 
     List<Post> findAllByStatusIs(String status);
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value order by p.postDate")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value and p.expireDate > CURRENT_DATE order by p.postDate")
     Page<Post> findAllByStatusIsAndCarMake(@Param("value") String value, Pageable pageable );
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value order by p.car.price asc")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value and p.expireDate > CURRENT_DATE order by p.car.price asc")
     Page<Post> findAllByStatusIsAndCarMakeWithPriceASC(String value, Pageable pageable);
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value order by p.car.price desc")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.make = :value and p.expireDate > CURRENT_DATE order by p.car.price desc")
     Page<Post> findAllByStatusIsAndCarMakeWithPriceDESC(String value, Pageable pageable);
 
 
 
 
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value order by p.postDate")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value and p.expireDate > CURRENT_DATE order by p.postDate")
     Page<Post> findAllByStatusIsAndCarModel(@Param("value") String value, Pageable pageable );
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value order by p.car.price asc")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value and p.expireDate > CURRENT_DATE order by p.car.price asc")
     Page<Post> findAllByStatusIsAndCarModelWithPriceASC(String value, Pageable pageable);
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value order by p.car.price desc")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.model = :value and p.expireDate > CURRENT_DATE order by p.car.price desc")
     Page<Post> findAllByStatusIsAndCarModelWithPriceDESC(String value, Pageable pageable);
 
 
 
 
 
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value order by p.postDate")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value and p.expireDate > CURRENT_DATE order by p.postDate")
     Page<Post> findAllByStatusIsAndCarBody(@Param("value") String value, Pageable pageable );
 
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value order by p.car.price asc")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value and p.expireDate > CURRENT_DATE order by p.car.price asc")
     Page<Post> findAllByStatusIsAndCarBodyWithPriceASC(String value, Pageable pageable);
-    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value order by p.car.price desc ")
+    @Query(" select p from Post p where p.status='Approved' and p.car.carDescription.body = :value and p.expireDate > CURRENT_DATE order by p.car.price desc ")
     Page<Post> findAllByStatusIsAndCarBodyWithPriceDESC(String value, Pageable pageable);
 
 

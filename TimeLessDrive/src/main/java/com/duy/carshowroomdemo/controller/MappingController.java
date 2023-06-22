@@ -1,6 +1,7 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
@@ -125,14 +126,21 @@ public class MappingController {
 
 
     @RequestMapping("/admin/staff-detail/{staffID}")
-    public ModelAndView staffDetail(@PathVariable("staffID") String staffID){
+    public ModelAndView staffDetail(@PathVariable("staffID") String staffID,
+                                    @Nullable @RequestParam("offset") Integer offset){
+        offset = (offset == null) ? 1: offset;
+
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/staff-profile");
         StaffDto staff = service.getStaffService().findById(staffID);
+        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(staffID,PageRequest.of(offset -1,4));
         modelAndView.addObject("staff",staff);
+        modelAndView.addObject("offset", offset);
+        modelAndView.addObject("offMeetingList",list);
+
         return modelAndView;
     }
     @RequestMapping("/admin/client-detail/{clientID}")
