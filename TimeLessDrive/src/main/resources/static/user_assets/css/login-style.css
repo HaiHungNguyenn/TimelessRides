@@ -136,14 +136,14 @@
 
 .button-before{
     content: "";
-    width: 32px;
-    height: 32px;
+    width: 27px;
+    height: 27px;
     display: inline-block;
     border: 1px solid black;
     transform: rotate(45deg);
     position: relative;
     top: 9px;
-    left: 22px;
+    left: 17px;
     z-index: -1;
     transition: 0.5s ease;
 }

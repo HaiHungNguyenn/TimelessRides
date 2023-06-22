@@ -213,7 +213,7 @@
                                 <div class="col-md-6">
                                     <label class="labels">Date of birth</label>
                                     <input class="second-row-input" id="dob" type="date"
-                                           name="phone">
+                                           name="dob">
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -235,7 +235,7 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                <input class="btn btn-primary profile-button mg25" type="submit"
+                                <input  class="btn btn-primary profile-button mg25" type="submit"
                                        value="Save Profile">
                             </div>
                         </form>
@@ -251,7 +251,7 @@
                         <div class="change-password row mt-3">
                             <div class="col-md-12">
                                 <label class="labels">Current Password</label>
-                                <input type="password" class="form-control" placeholder="enter current password" name="oldPass">
+                                <input id="currentPassword" type="password" class="form-control" placeholder="enter current password" name="oldPass">
                                 <i></i><i class="show-pass-button fa fa-eye"></i>
                             </div>
                             <div class="col-md-12">
@@ -265,8 +265,11 @@
                                 <i></i><i class="show-pass-button fa fa-eye"></i>
                             </div>
                             <span id="passwordMatchResult" style="font-size: 10px; color: red"></span>
-                            <div class="mt-5 text-center">
-                                <input type="submit" value="Save Password">
+                            <p id="message" style="pointer-events: none; user-select: none"></p>
+                            <div class="text-center">
+                                <button onclick="return checkChangePasswordSubmit()" class="btn btn-primary profile-button"
+                                        type="button">Save Profile
+                                </button>
                             </div>
                         </div>
                     </form>
@@ -442,8 +445,9 @@
 <script src="../../user_assets/js/account-script.js"></script>
 <script src="../../user_assets/js/show-pass.js"></script>
 <script>
-    const newPasswordInput = document.getElementById("new-password");
-    const repeatPasswordInput = document.getElementById("repeat-password");
+    const currentPasswordInput = document.getElementById("currentPassword");
+    const newPasswordInput = document.getElementById("newPass");
+    const repeatPasswordInput = document.getElementById("confirmNewPass");
     const message = document.getElementById("message");
 
     function checkRepeatPassword(){
@@ -456,11 +460,35 @@
         }
     }
 
-    document.getElementById("new-password").addEventListener("keyup",() => checkRepeatPassword());
-    document.getElementById("new-password").addEventListener("keydown", () => checkRepeatPassword());
-    document.getElementById("repeat-password").addEventListener("keyup", () => checkRepeatPassword());
-    document.getElementById("repeat-password").addEventListener("keydown", () => checkRepeatPassword());
+    newPasswordInput.addEventListener("keyup",() => checkRepeatPassword());
+    newPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
+    repeatPasswordInput.addEventListener("keyup", () => checkRepeatPassword());
+    repeatPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
 
+    function checkChangePasswordSubmit(){
+        if(currentPasswordInput.value == ""){
+            alert("Please enter current password");
+            return false;
+        }
+        else if(newPasswordInput.value == ""){
+            alert("Please enter new password");
+            return false;
+        }
+        else if(repeatPasswordInput.value == ""){
+            alert("Please repeat new password");
+            return false;
+        }
+        else if(message.innerHTML == "Matched"){
+            return true;
+        }
+        else if(message.innerHTML == "Not Matched") {
+            alert("Password doesn't match");
+            return false;
+        }else {
+            alert("Please enter new password");
+            return false;
+        }
+    }
 </script>
 <script src="../../user_assets/js/check-phone-number.js"></script>
 <script>
