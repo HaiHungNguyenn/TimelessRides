@@ -479,13 +479,25 @@ public ModelAndView postCar(){
     @RequestMapping("/google-handler")
     public ModelAndView googleHandler(OAuth2AuthenticationToken token){
 
-            System.out.println(token.getPrincipal().getAttribute("email").toString());
-            token.getPrincipal().getAttributes().forEach((key, value) -> {
-                System.out.println(key + ": " + value);
-            });
+        ModelAndView modelAndView = new ModelAndView("views/user/index");
 
+        String email = token.getPrincipal().getAttribute("email");
 
-        return home();
+        Client client = service.getClientService().findEntityByEmail(email);
+
+        if (client == null){
+            client = Client.builder()
+                    .email(email)
+                    .name(token.getPrincipal().getAttribute("name"))
+                    .avatar(token.getPrincipal().getAttribute("picture"))
+                    .role("client")
+                    .joinDate(LocalDate.now())
+                    .build();
+            service.getClientService().save(client);
+        }
+
+        session.setAttribute("client", client);
+        return modelAndView;
     }
     @RequestMapping("/log-out")
     public ModelAndView logout(){
