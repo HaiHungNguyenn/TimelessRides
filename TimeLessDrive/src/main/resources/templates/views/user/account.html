@@ -381,17 +381,17 @@
                     </div>
                 </div>
             </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            <div class="footer__copyright__text">
-                <p>Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | This template
-                    is
-                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                                   target="_blank">Colorlib</a>
-                </p>
-            </div>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+<!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+<!--            <div class="footer__copyright__text">-->
+<!--                <p>Copyright &copy;-->
+<!--                    <script>document.write(new Date().getFullYear());</script>-->
+<!--                    All rights reserved | This template-->
+<!--                    is-->
+<!--                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"-->
+<!--                                                                                   target="_blank">Colorlib</a>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
         </div>
     </footer>
     <!-- Footer Section End -->
@@ -437,6 +437,25 @@
         modal.style.display = 'none';
         background.classList.remove("active");
     }));
+    // Get the "Continue" buttons
+    var successButton = document.querySelector('.success_btn');
+    var errorButton = document.querySelector('.error_btn');
+
+    // Get the modals
+    var successModal = document.querySelector('.s_modal');
+    var errorModal = document.querySelector('.e_modal');
+
+    // Add click event listener to the success button
+    successButton.addEventListener('click', function() {
+        // Hide the success modal by setting display to "none"
+        successModal.style.display = 'none';
+    });
+
+    // Add click event listener to the error button
+    errorButton.addEventListener('click', function() {
+        // Hide the error modal by setting display to "none"
+        errorModal.style.display = 'none';
+    });
 
 
 </script>

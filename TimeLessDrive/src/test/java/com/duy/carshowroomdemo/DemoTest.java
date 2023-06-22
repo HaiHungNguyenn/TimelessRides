@@ -133,7 +133,7 @@ public class DemoTest {
     @Test
     public void addAdmin(){
         Admin admin = new Admin();
-        admin.setEmail("hai@gmail.com");
+        admin.setEmail("nguyenhai@gmail.com");
         admin.setAvatar(AVATAR_URL);
         admin.setRole("admin");
         admin.setPassword(Util.encodePassword("123"));
@@ -505,6 +505,10 @@ public class DemoTest {
     @Test
     public void testDelStaff() {
         staffRepository.deleteAllByEmail("haistaff@gmail.com");
+    }
+    @Test
+    public void testDelAdmin(){
+        adminRepository.deleteById("762bf836-7ce3-47af-804f-81aa17ed1044");
     }
     @Test
     public void testReadFile(){

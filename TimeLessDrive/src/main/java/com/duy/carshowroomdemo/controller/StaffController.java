@@ -206,8 +206,6 @@ public class StaffController {
         Client carOwner = offMeeting.getCar().getPost().getClient();
         Email buyerEmail = new Email();
         Email carOwnerEmail = new Email();
-        System.out.println("car owner: "+carOwner);
-        System.out.println("buyer:"+buyer);
 
         buyerEmail.setTo("hainhse173100@fpt.edu.vn");
         buyerEmail.setFrom("nguyenhai181911@gmail.com");
@@ -433,6 +431,16 @@ public class StaffController {
         long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.SUCCESS, 5);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.SUCCESS);
 
+//        Client buyer = offMeeting.getClient();
+//        Client carOwner = offMeeting.getCar().getPost().getClient();
+//        Email buyerEmail = new Email();
+//        Email carOwnerEmail = new Email();
+//
+//        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
+//        buyerEmail.setFrom("nguyenhai181911@gmail.com");
+//        buyerEmail.setSubject("Meeting Request Response");
+//        buyerEmail.setTemplate("views/email/email-meeting.html");
+
         modelAndView.addObject("offMeetingList", offMeetingList)
                 .addObject("lastOffset", lastOffset)
                 .addObject("offset", offset)
@@ -440,6 +448,10 @@ public class StaffController {
                 .setViewName("views/staff/create-invoice");
         if(successMsg != null){
             modelAndView.addObject("successMsg", successMsg);
+
+
+
+
         }
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
