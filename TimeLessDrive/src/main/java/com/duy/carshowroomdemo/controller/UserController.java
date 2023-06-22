@@ -531,6 +531,8 @@ public ModelAndView postCar(){
     @RequestMapping("/update-info")
     public ModelAndView update(@RequestParam("name") String name,
                                @RequestParam("phone") String phone,
+                               @RequestParam("gender") String gender,
+                               @RequestParam("dob") String dob,
                                @RequestParam("address") String address){
         System.out.println("update information");
         ModelAndView modelAndView = new ModelAndView();
@@ -538,6 +540,8 @@ public ModelAndView postCar(){
         Client client = service.getClientService().findEntityById(clientDto.getId());
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D",""));
+        client.setGender(gender);
+        client.setDob(LocalDate.parse(dob));
         client.setAddress(address);
         System.out.println(client.getPassword());
         service.getClientService().save(client);
