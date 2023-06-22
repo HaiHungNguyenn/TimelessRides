@@ -20,4 +20,18 @@ public class Plan {
        }
        return 0;
    }
+   public static long getDuration(String plan){
+       switch (plan){
+           case plan1 -> {
+               return 30;
+           }
+           case plan2 -> {
+               return 180;
+           }
+           case plan3 -> {
+               return 365;
+           }
+       }
+       return 0;
+   }
 }

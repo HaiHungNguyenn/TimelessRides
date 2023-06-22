@@ -120,12 +120,13 @@
           </tr>
           <tr>
             <td class="info-section">
-              <p class="info-label">Invoice Number:</p>
-              <p class="info-value">{{invoiceNumber}}</p>
-              <p class="info-label">Date:</p>
-              <p class="info-value">{{invoiceDate}}</p>
+
               <p class="info-label">Client:</p>
-              <p class="info-value">{{clientName}}</p>
+              <p class="info-value" th:text="${clientName}"></p>
+              <p class="info-label">Date:</p>
+              <p class="info-value" th:text="${invoiceDate}"></p>
+              <p class="info-label">Staff:</p>
+              <p class="info-value" th:text="${staffName}"></p>
             </td>
           </tr>
           <tr>
@@ -142,22 +143,22 @@
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>{{carMake}} {{carModel}}</td>
-                    <td>{{carPrice}}</td>
-                    <td>{{carDescription}}</td>
+                    <td th:text="${carDetail}"></td>
+                    <td th:text="${carPrice}"></td>
+                    <td th:text="${carDes}"></td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="2" class="invoice-total">Total:</td>
-                    <td>{{invoiceTotal}}</td>
-                    <td></td>
-                  </tr>
-                  <tr>
                     <td colspan="4" class="info-section">
                       <p class="info-label">Tax:</p>
-                      <p class="info-value">{{taxAmount}}</p>
+                      <p class="info-value" th:text="${tax}"></p>
                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="invoice-total">Total:</td>
+                    <td th:text="${total}"></td>
+                    <td></td>
                   </tr>
                 </tfoot>
               </table>

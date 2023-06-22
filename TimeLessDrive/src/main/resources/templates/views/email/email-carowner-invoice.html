@@ -120,12 +120,12 @@
           </tr>
           <tr>
             <td class="info-section">
-              <p class="info-label">Invoice Number:</p>
-              <p class="info-value">{{invoiceNumber}}</p>
-              <p class="info-label">Date:</p>
-              <p class="info-value">{{invoiceDate}}</p>
               <p class="info-label">Client:</p>
-              <p class="info-value">{{clientName}}</p>
+              <p class="info-value" th:text="${clientName}"></p>
+              <p class="info-label">Date:</p>
+              <p class="info-value" th:text="${invoiceDate}"></p>
+              <p class="info-label">Staff:</p>
+              <p class="info-value" th:text="${staffName}"></p>
             </td>
           </tr>
           <tr>
@@ -141,10 +141,10 @@
                 </thead>
                 <tbody>
                 <tr>
-                  <td>Car 1</td>
-                  <td>Model 1</td>
-                  <td>Make 1</td>
-                  <td>Price 1</td>
+                  <td th:text="${carName}"></td>
+                  <td th:text="${carModel}"></td>
+                  <td th:text="${carMake}"></td>
+                  <td th:text="${carPrice}"></td>
                 </tr>
                 </tbody>
               </table>
@@ -164,22 +164,16 @@
                 <tbody>
                   <tr>
                     <td>1</td>
-                    <td>{{carMake}} {{carModel}}</td>
-                    <td>{{carPrice}}</td>
-                    <td>{{carDescription}}</td>
+                    <td th:text="${planName}"></td>
+                    <td th:text="${planPrice}"></td>
+                    <td></td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="2" class="invoice-total">Total:</td>
-                    <td>{{invoiceTotal}}</td>
+                    <td th:text="${planPrice}"></td>
                     <td></td>
-                  </tr>
-                  <tr>
-                    <td colspan="4" class="info-section">
-                      <p class="info-label">Tax:</p>
-                      <p class="info-value">{{taxAmount}}</p>
-                    </td>
                   </tr>
                 </tfoot>
               </table>

@@ -4,6 +4,7 @@ import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.mail.MessagingException;
@@ -259,7 +260,7 @@ public class StaffController {
                 buyerEmail.setProperties(buyerEmailProperties);
                 // mail
                 carOwnerEmailProperties.put("meetingDate",offMeeting.getMeetingDate());
-                carOwnerEmailProperties.put("clientName",buyer.getName());
+                carOwnerEmailProperties.put("clientName",carOwner.getName());
                 carOwnerEmailProperties.put("meetingTime",offMeeting.getMeetingTime());
                 carOwnerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
                 carOwnerEmailProperties.put("carName",offMeeting.getCar().getName());
@@ -366,6 +367,7 @@ public class StaffController {
                 service.sendNotification(post.getClient(), msg);
             }else {
                 post.setStatus(Status.APPROVED);
+                post.setExpireDate(LocalDate.now().plusDays(Plan.getDuration(post.getPlan())));
                 successMsg = "Approved post from " + post.getClient().getName();
                 String msg = "Your post request of " + post.getCar().getName() + " in " + post.getPostDate() + ", " + post.getPostTime() + " has been approved";
                 service.sendNotification(post.getClient(), msg);
@@ -431,15 +433,7 @@ public class StaffController {
         long lastOffset = service.getOffMeetingService().getLastOffset(staff, Status.SUCCESS, 5);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staff, Status.SUCCESS);
 
-//        Client buyer = offMeeting.getClient();
-//        Client carOwner = offMeeting.getCar().getPost().getClient();
-//        Email buyerEmail = new Email();
-//        Email carOwnerEmail = new Email();
-//
-//        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
-//        buyerEmail.setFrom("nguyenhai181911@gmail.com");
-//        buyerEmail.setSubject("Meeting Request Response");
-//        buyerEmail.setTemplate("views/email/email-meeting.html");
+
 
         modelAndView.addObject("offMeetingList", offMeetingList)
                 .addObject("lastOffset", lastOffset)
@@ -503,6 +497,24 @@ public class StaffController {
         }
 
         OffMeeting meeting = service.getOffMeetingService().findById(id);
+        Client buyer = meeting.getClient();
+//        Client carOwner = meeting.getCar().getPost().getClient();
+        Email buyerEmail = new Email();
+        Email carOwnerEmail = new Email();
+
+        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
+        buyerEmail.setFrom("nguyenhai181911@gmail.com");
+        buyerEmail.setSubject("Purchase Invoice");
+        buyerEmail.setTemplate("views/email/email-buyer-invoice.html");
+
+//        carOwnerEmail.setTo("hainhse173100@fpt.edu.vn");
+//        carOwnerEmail.setFrom("nguyenhai181911@gmail.com");
+//        carOwnerEmail.setSubject("Car Delivery Request");
+//        carOwnerEmail.setTemplate("views/email/email-carowner-invoice.html");
+
+        Map<String, Object> buyerEmailProperties = new HashMap<>();
+//        Map<String, Object> carOwnerEmailProperties = new HashMap<>();
+
 
         if (meeting == null){
             errorMsg = "An error occurred, cannot perform this action";
@@ -525,9 +537,44 @@ public class StaffController {
 
             service.getInvoiceService().save(invoice);
             service.getOffMeetingService().save(meeting);
-            successMsg = "Invoice has been created";
-        }
 
+
+            //purchase-mail
+            buyerEmailProperties.put("clientName",buyer.getName());
+            buyerEmailProperties.put("invoiceDate",LocalDate.now());
+            buyerEmailProperties.put("carDetail",meeting.getCar().getName()+","+meeting.getCar().getCarDescription().getModel());
+            buyerEmailProperties.put("carPrice",meeting.getCar().getPrice());
+            buyerEmailProperties.put("carDes",meeting.getCar().getCarDescription().getOthers());
+            buyerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
+            buyerEmailProperties.put("tax",tax);
+            buyerEmailProperties.put("total",meeting.getCar().getPrice()+meeting.getCar().getPrice()*Integer.parseInt(tax));
+            buyerEmail.setProperties(buyerEmailProperties);
+
+
+            // carowner-mail
+//            carOwnerEmailProperties.put("invoiceDate",LocalDate.now());
+//            carOwnerEmailProperties.put("clientName",carOwner.getName());
+//            carOwnerEmailProperties.put("staffName",((StaffDto) session.getAttribute("staff")).getName());
+//            carOwnerEmailProperties.put("carName",meeting.getCar().getName());
+//            carOwnerEmailProperties.put("carModel",meeting.getCar().getCarDescription().getModel());
+//            carOwnerEmailProperties.put("carMake",meeting.getCar().getCarDescription().getMake());
+//            carOwnerEmailProperties.put("carPrice",meeting.getCar().getPrice());
+//            carOwnerEmailProperties.put("planName",meeting.getCar().getPost().getPlanList());
+//            carOwnerEmailProperties.put("planPrice",Plan.getPrice(meeting.getCar().getPost().getPlan()));
+
+//            carOwnerEmail.setProperties(carOwnerEmailProperties);
+
+            Runnable runnable = () -> {
+                try {
+//                    service.getEmailService().sendHTMLMessage(carOwnerEmail);
+                    service.getEmailService().sendHTMLMessage(buyerEmail);
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+            };
+            successMsg = "Invoice has been created";
+        new Thread(runnable).start();
+        }
         return showCreateInvoicePage(null, successMsg, errorMsg);
     }
 
