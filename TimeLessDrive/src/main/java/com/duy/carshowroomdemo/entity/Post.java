@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,5 +46,8 @@ public class Post {
 
     private String status;
 
+    public List<String> getPlanList(){
+        return Arrays.asList(plan.split(","));
+    }
 
 }
