@@ -240,8 +240,6 @@
 
         <!-- code here -->
 
-
-
         <p th:if="${errorMsg != null}" th:text="${errorMsg}" class="text-danger fs-3 text-center"/>
         <p th:if="${successMsg != null}" th:text="${successMsg}" class="text-success fs-3 text-center"/>
         <h1 th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="fs-3 text-center"/>
@@ -275,8 +273,7 @@
                         </a>
                     </td>
                     <td>
-                            <!--                        <a th:if="${meeting.getStatus().equals('Pending')}">-->
-                            <button class="show-booking btn btn-secondary hover-text-600 fs--1">Edit</button>
+                        <button th:if="${meeting.getStatus().equals('Pending')}" th:id="${meeting.getId()}" class="show-booking btn btn-secondary hover-text-600 fs--1">Edit</button>
                     </td>
                 </tr>
             </th:block>
@@ -386,7 +383,7 @@
 </div>
 
 <div class="pop-up">
-    <form action="/car/bookmeeting">
+    <form action="/meeting-history/edit" method="post">
         <div role="main" class="form-all" style="background: white;">
             <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
             <div class="esc-button">&times;</div>
@@ -417,7 +414,6 @@
                             <div class="days"></div>
                         </div>
                         <div class="slots col-sm-12 col-md-5" id="slots">
-
                         </div>
                     </div>
                 </li>
@@ -433,7 +429,7 @@
                     </label>
                     <textarea type="text" id="other" name="description"></textarea>
                 </li>
-                <input type="hidden" name="carId" th:value="${meetingList.get(0).getCar().getId()}">
+                <input type="hidden" name="offMeetingId" id="offMeetingId">
                 <li class="form-line">
                     <input type="submit" value="Submit">
                 </li>
@@ -463,6 +459,7 @@
         button.addEventListener("click",function(){
             document.querySelector(".pop-up").className="pop-up-active";
             document.querySelector(".all-page").classList.add("blur");
+            document.querySelector("#offMeetingId").value = button.id;
         });
     })
 
@@ -477,8 +474,6 @@
 </script>
 <script src="../../user_assets/js/calendar-script.js"></script>
 
-<<<<<<< Updated upstream
-=======
     <!-- Js Plugins -->
     <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
     <script src="../../user_assets/js/bootstrap.min.js"></script>
@@ -492,7 +487,6 @@
     <!-- notification js-->
     <script src="../../admin_assets/js/metisMenu.js"></script>
     <script src="../../admin_assets/js/custom.js"></script>
->>>>>>> Stashed changes
 </body>
 
 </html>

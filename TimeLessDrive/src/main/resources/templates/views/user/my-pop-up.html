@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Popup</title>
+</head>
+<body>
+  <div class="pop-up">
+    <form action="/car/bookmeeting">
+      <div role="main" class="form-all" style="background: white;">
+        <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
+        <div class="esc-button">&times;</div>
+        <ul>
+          <li class="form-line">
+            <label class="form-label form-label-top">
+              Select an Appointment Date
+            </label>
+            <div class="row">
+              <div class="calendar col-sm-12 col-md-6">
+                <div class="month">
+                  <i class="fas fa-angle-left prev"></i>
+                  <div class="date">
+                    <h1></h1>
+                    <p></p>
+                  </div>
+                  <i class="fas fa-angle-right next"></i>
+                </div>
+                <div class="weekdays">
+                  <div>Sun</div>
+                  <div>Mon</div>
+                  <div>Tue</div>
+                  <div>Wed</div>
+                  <div>Thu</div>
+                  <div>Fri</div>
+                  <div>Sat</div>
+                </div>
+                <div class="days"></div>
+              </div>
+              <div class="slots col-sm-12 col-md-5" id="slots">
+
+              </div>
+            </div>
+          </li>
+          <li class="form-line">
+            <label class="form-label form-label-top" for="phone-number">
+              Phone Number
+            </label>
+            <input type="text" id="phone-number"  name="phone">
+          </li>
+          <li class="form-line">
+            <label class="form-label form-label-top" for="other">
+              Other
+            </label>
+            <textarea type="text" id="other" name="description"></textarea>
+          </li>
+          <input type="hidden" name="carId" th:value="${meetingList.get(0).getCar().getId()}">
+          <li class="form-line">
+            <input type="submit" value="Submit">
+          </li>
+          <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+        </ul>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

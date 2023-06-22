@@ -427,6 +427,44 @@ public ModelAndView postCar(){
         return meetingHistory(errorMsg, successMsg);
     }
 
+    @RequestMapping("/meeting-history/edit")
+    public ModelAndView editMeeting(@RequestParam("offMeetingId") String meetingId,
+                                    @RequestParam("phone") String phone,
+                                    @RequestParam("description") String description,
+                                    @RequestParam("slot") String slot){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        String[] parts = Util.splitDateTimeString(slot);
+
+        OffMeeting meeting = service.getOffMeetingService().findById(meetingId);
+
+        if (meeting == null){
+            String errorMsg = "An error occurred, can't perform this action";
+            return meetingHistory(errorMsg, null);
+        }
+
+        meeting.setMeetingDate(Util.parseLocalDate(parts[0]));
+        meeting.setMeetingTime(Util.parseLocalTime(parts[1]));
+
+        if (!phone.isEmpty()){
+            meeting.setPhone(phone);
+        }
+
+        if (!description.isEmpty()){
+            meeting.setPhone(description);
+        }
+
+        service.getOffMeetingService().save(meeting);
+
+        String successMsg = "Meeting's information has been changed";
+
+        return meetingHistory(null,successMsg);
+    }
+
     @GetMapping ("/signin")
     public ModelAndView signIn(OAuth2AuthenticationToken token){
         if(token != null){
