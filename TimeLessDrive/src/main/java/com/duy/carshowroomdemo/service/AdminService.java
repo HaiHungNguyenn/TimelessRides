@@ -38,8 +38,7 @@ public class AdminService {
     }
 
 
-
-
-
-
+    public AdminDto findByEmail(String email) {
+        return mapperManager.getAdminMapper().toDto(repository.findByEmail(email).orElse(null));
+    }
 }

@@ -129,28 +129,51 @@
             </td>
           </tr>
           <tr>
+            <td>
+              <table>
+                <thead>
+                <tr>
+                  <th>Car Name</th>
+                  <th>Model</th>
+                  <th>Make</th>
+                  <th>Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>Car 1</td>
+                  <td>Model 1</td>
+                  <td>Make 1</td>
+                  <td>Price 1</td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
             <td class="info-section">
               <table class="invoice-table">
                 <thead>
                   <tr>
-                    <th>Make</th>
-                    <th>Model</th>
+                    <th>No</th>
+                    <th>Item</th>
                     <th>Price</th>
                     <th>Description</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{{carMake}} {{carModel}}</td>
                     <td>1</td>
+                    <td>{{carMake}} {{carModel}}</td>
                     <td>{{carPrice}}</td>
-                    <td>{{carPrice}}</td>
+                    <td>{{carDescription}}</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="3" class="invoice-total">Total:</td>
+                    <td colspan="2" class="invoice-total">Total:</td>
                     <td>{{invoiceTotal}}</td>
+                    <td></td>
                   </tr>
                   <tr>
                     <td colspan="4" class="info-section">
@@ -164,7 +187,7 @@
           </tr>
           <tr>
             <td class="info-section">
-              <p style="font-size: 16px; margin-bottom: 20px;">Thank you for your purchase. Please remit payment by the due date specified on the invoice.</p>
+              <p style="font-size: 16px; margin-bottom: 20px;">Thank you for choosing our showroom. Your payment has been received and your car has been successfully bought by someone. Please make arrangements for delivery or pickup as per our agreement.</p>
               <p class="regards">Regards,</p>
               <p>The TimelessRide Team</p>
             </td>

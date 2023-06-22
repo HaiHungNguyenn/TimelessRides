@@ -102,4 +102,8 @@ public class ClientService {
         repository.findAll(pageable).forEach(x -> list.add(mapperManager.getClientMapper().toDto(x)));
         return list;
     }
+
+    public ClientDto findByEmail(String email) {
+        return mapperManager.getClientMapper().toDto(repository.findByEmail(email).orElse(null));
+    }
 }

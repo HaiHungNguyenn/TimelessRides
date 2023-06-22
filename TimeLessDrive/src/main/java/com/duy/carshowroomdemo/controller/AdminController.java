@@ -46,10 +46,7 @@ public class AdminController {
     public ClientDto findClientByID(@RequestParam("id") String id){
         return service.getClientService().findById(id);
     }
-//    @RequestMapping("/zzz")
-//    public Boolean deleteClientById(@RequestParam("id") String id){
-//        return service.getClientService().deletebyId(id);
-//    }
+
     @RequestMapping("/aaa")
     public boolean changeClientPassword(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
         return service.getClientService().changePassword(id,oldPass,newPass);
@@ -71,8 +68,11 @@ public class AdminController {
                                        @RequestParam("password") String password){
         ModelAndView modelAndView = new ModelAndView("views/admin/add-new-staff");
 
-        if(service.getStaffService().findByEmail(email) != null){
-            modelAndView.addObject("msg","This email has been registered already");
+        if(service.getStaffService().findByEmail(email) != null
+                || service.getClientService().findByEmail(email) != null
+                || service.getAdminService().findByEmail(email) != null) {
+            modelAndView.addObject("message","This email has been registered already");
+            modelAndView.addObject("status","fail");
             return modelAndView;
         }
 
@@ -86,7 +86,9 @@ public class AdminController {
         staff.setRole("staff");
         staff.setJoinDate(LocalDate.now());
         service.getStaffService().save(staff);
-        modelAndView.addObject("msg","Successfully added");
+
+        modelAndView.addObject("message","Successfully added");
+        modelAndView.addObject("status","success");
 
 
         return modelAndView;
