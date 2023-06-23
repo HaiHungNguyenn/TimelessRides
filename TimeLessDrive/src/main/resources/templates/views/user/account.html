@@ -517,12 +517,16 @@
     successButton.addEventListener('click', function() {
         // Hide the success modal by setting display to "none"
         successModal.style.display = 'none';
+        background.classList.remove("active");
+
     });
 
     // Add click event listener to the error button
     errorButton.addEventListener('click', function() {
         // Hide the error modal by setting display to "none"
         errorModal.style.display = 'none';
+        background.classList.remove("active");
+
     });
 
 

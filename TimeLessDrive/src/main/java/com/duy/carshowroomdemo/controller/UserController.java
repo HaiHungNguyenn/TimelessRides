@@ -482,6 +482,26 @@ public ModelAndView postCar(){
         ModelAndView modelAndView = new ModelAndView("views/user/index");
 
         String email = token.getPrincipal().getAttribute("email");
+        System.out.println("email ne: "+email);
+
+        StaffDto staffDto = service.getStaffService().findByEmail(email);
+        if(staffDto!= null){
+            System.out.println("chinh la staff");
+            modelAndView.setViewName("views/staff/profile");
+            session.setAttribute("staff",staffDto);
+            List<OffMeetingDto> meetingList;
+
+            meetingList = service.getOffMeetingService().findOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED, PageRequest.of(0, 4));
+            long lastOffset = service.getOffMeetingService().getLastOffset(staffDto, Status.APPROVED, 4);
+            long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED);
+            modelAndView.addObject("meetingList", meetingList);
+            modelAndView.addObject("property", null);
+            modelAndView.addObject("direction", null);
+            modelAndView.addObject("offset", 1);
+            modelAndView.addObject("lastOffset", lastOffset);
+            modelAndView.addObject("totalMeetings", totalMeetings);
+            return modelAndView;
+        }
 
         Client client = service.getClientService().findEntityByEmail(email);
 
