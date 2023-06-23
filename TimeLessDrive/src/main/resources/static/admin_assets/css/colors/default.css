@@ -1,0 +1,17 @@
+.page-select{
+    margin: auto;
+    width: 16%;
+}
+
+.page-select a{
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin-right: 5px;
+    color: black;
+}
+
+
+.page-select a:hover{
+    background-color: #f45b0f;
+    color: white;
+}
