@@ -206,14 +206,14 @@
                                 <div class="col-md-6">
                                     <label class="labels">Gender</label>
                                     <select class="second-row-input" id="gender" name="gender">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="male" th:selected="${session.client.getGender()=='male'}">Male</option>
+                                        <option value="female" th:selected="${session.client.getGender()=='female'}">Female</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="labels">Date of birth</label>
                                     <input class="second-row-input" id="dob" type="date"
-                                           name="dob">
+                                           name="dob" th:value="${session.client.getDob()}">
                                 </div>
                             </div>
                             <div class="row mt-2">
