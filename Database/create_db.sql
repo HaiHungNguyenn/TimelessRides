@@ -1,6 +1,7 @@
 USE master
 GO
 
+
 IF EXISTS(SELECT NAME FROM master.dbo.sysdatabases WHERE NAME = 'OldCarShowroom')
 	ALTER DATABASE OldCarShowroom SET OFFLINE WITH ROLLBACK IMMEDIATE
 	ALTER DATABASE OldCarShowroom SET ONLINE
@@ -91,7 +92,7 @@ CREATE TABLE car (
 CREATE TABLE car_image (
 	id						VARCHAR(100) PRIMARY KEY,
 	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id),
-	content					VARBINARY(MAX)
+	content					VARCHAR(200)
 )
 
 CREATE TABLE post (

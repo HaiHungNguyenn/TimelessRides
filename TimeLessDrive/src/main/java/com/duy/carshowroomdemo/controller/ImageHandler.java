@@ -15,14 +15,14 @@ import java.io.IOException;
 public class ImageHandler {
     @Autowired
     private Service service;
-
-    @RequestMapping("/image-resolver/{id}")
-    public void resolveImage(@PathVariable String id, HttpServletResponse response) throws IOException {
-
-        CarImageDto image = service.getCarImageService().findById(id);
-
-        response.setContentType("image/jpg");
-        response.getOutputStream().write(image.getContent());
-        response.getOutputStream().close();
-    }
+//
+//    @RequestMapping("/image-resolver/{id}")
+//    public void resolveImage(@PathVariable String id, HttpServletResponse response) throws IOException {
+//
+//        CarImageDto image = service.getCarImageService().findById(id);
+//
+//        response.setContentType("image/jpg");
+//        response.getOutputStream().write(image.getContent());
+//        response.getOutputStream().close();
+//    }
 }

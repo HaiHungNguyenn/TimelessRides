@@ -13,6 +13,6 @@ import java.io.Serializable;
 @Data
 public class CarImageDto implements Serializable {
     private String id;
-    private byte[] content;
+    private String content;
 
 }

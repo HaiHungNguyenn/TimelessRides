@@ -51,6 +51,9 @@ public class Service {
     private StaffNotificationService staffNotificationService;
     @Autowired
     private ClientNotificationService clientNotificationService;
+    @Autowired
+    private StorageService storageService;
+
     public <T> void sendNotification(T receiver, String content){
 
         if (receiver.getClass().equals(Client.class)) {

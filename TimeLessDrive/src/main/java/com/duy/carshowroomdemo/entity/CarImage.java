@@ -19,8 +19,7 @@ public class CarImage {
     @ManyToOne
     private Car car;
 
-    @Lob
-    @Column(name = "content", length = Integer.MAX_VALUE)
-    private byte[] content;
+    @Column(name = "content")
+    private String content;
 
 }

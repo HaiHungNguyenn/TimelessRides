@@ -28,24 +28,24 @@ public class TestController {
         return "views/car-form";
     }
 
-    @RequestMapping("/post")
-    public String testPostCar(@RequestParam("myFile") MultipartFile file){
-        Car car = service.getCarService().findCarByName("Car for testing");
-        CarImage carImage = new CarImage();
-        try {
-            carImage.setContent(file.getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        carImage.setCar(car);
-
-        car.getCarImageList().add(carImage);
-        service.getCarService().save(car);
-
-//        service.getImageService().save(image);
-
-        return showCarForm();
-    }
+//    @RequestMapping("/post")
+//    public String testPostCar(@RequestParam("myFile") MultipartFile file){
+//        Car car = service.getCarService().findCarByName("Car for testing");
+//        CarImage carImage = new CarImage();
+//        try {
+//            carImage.setContent(file.getBytes());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        carImage.setCar(car);
+//
+//        car.getCarImageList().add(carImage);
+//        service.getCarService().save(car);
+//
+////        service.getImageService().save(image);
+//
+//        return showCarForm();
+//    }
 
     @RequestMapping(value = "/see", produces = MediaType.IMAGE_JPEG_VALUE)
     public String showImage(Model model){
@@ -77,13 +77,13 @@ public class TestController {
 
     }
 
-    @GetMapping("/display-image")
-    public void displayImage(HttpServletResponse response) throws IOException {
-        CarImageDto image = service.getCarImageService().findById("1");
-        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
-        response.getOutputStream().write(image.getContent());
-        response.getOutputStream().close();
-    }
+//    @GetMapping("/display-image")
+//    public void displayImage(HttpServletResponse response) throws IOException {
+//        CarImageDto image = service.getCarImageService().findById("1");
+//        response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
+//        response.getOutputStream().write(image.getContent());
+//        response.getOutputStream().close();
+//    }
 
 
     @RequestMapping("/car-details")

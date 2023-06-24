@@ -358,12 +358,13 @@ public ModelAndView postCar(){
         if(files != null){
             for (MultipartFile file: files) {
                 CarImage carImage = new CarImage();
-                try {
-                    carImage.setContent(file.getBytes());
-                } catch (IOException e) {
-                    modelAndView.addObject("errorMsg", "An error occurred");
-                    return modelAndView;
-                }
+//                try {
+//                    carImage.setContent(file.getBytes());
+//                } catch (IOException e) {
+//                    modelAndView.addObject("errorMsg", "An error occurred");
+//                    return modelAndView;
+//                }
+                carImage.setContent(service.getStorageService().uploadFile(file));
                 carImage.setCar(car);
                 carImageList.add(carImage);
             }

@@ -289,7 +289,7 @@ public class DemoTest {
                     try(FileInputStream fileInputStream = new FileInputStream(subDirectory + "\\" + image)) {
                         CarImage carImage = new CarImage();
                         carImage.setCar(car);
-                        carImage.setContent(fileInputStream.readAllBytes());
+//                        carImage.setContent(fileInputStream.readAllBytes());
                         carImageList.add(carImage);
                     } catch (IOException e) {
                         throw new RuntimeException(e);

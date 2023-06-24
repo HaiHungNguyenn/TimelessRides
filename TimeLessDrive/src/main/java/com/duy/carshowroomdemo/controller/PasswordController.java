@@ -44,8 +44,8 @@ public class PasswordController {
         session.setAttribute("email",userEmail);
         Email email = new Email();
         String code = Util.generateRandomString();
-        email.setTo("hainhse173100@fpt.edu.vn");
-//        email.setTo(userEmail);
+//        email.setTo("hainhse173100@fpt.edu.vn");
+        email.setTo(userEmail);
         email.setFrom("nguyenhai181911@gmail.com");
         email.setSubject("Email Verification Code");
         email.setTemplate("views/email/email-verify.html");

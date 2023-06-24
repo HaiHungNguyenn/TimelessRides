@@ -208,12 +208,12 @@ public class StaffController {
         Email buyerEmail = new Email();
         Email carOwnerEmail = new Email();
 
-        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
+        buyerEmail.setTo(buyer.getEmail());
         buyerEmail.setFrom("nguyenhai181911@gmail.com");
         buyerEmail.setSubject("Meeting Request Response");
         buyerEmail.setTemplate("views/email/email-meeting.html");
 
-        carOwnerEmail.setTo("hainhse173100@fpt.edu.vn");
+        carOwnerEmail.setTo(carOwner.getEmail());
         carOwnerEmail.setFrom("nguyenhai181911@gmail.com");
         carOwnerEmail.setSubject("Car Delivery Request");
         carOwnerEmail.setTemplate("views/email/email-delivery.html");
@@ -502,12 +502,12 @@ public class StaffController {
         Email buyerEmail = new Email();
         Email carOwnerEmail = new Email();
 
-        buyerEmail.setTo("hainhse173100@fpt.edu.vn");
+        buyerEmail.setTo(buyer.getEmail());
         buyerEmail.setFrom("nguyenhai181911@gmail.com");
         buyerEmail.setSubject("Purchase Invoice");
         buyerEmail.setTemplate("views/email/email-buyer-invoice.html");
 
-//        carOwnerEmail.setTo("hainhse173100@fpt.edu.vn");
+//        carOwnerEmail.setTo(carOwner.getEmail());
 //        carOwnerEmail.setFrom("nguyenhai181911@gmail.com");
 //        carOwnerEmail.setSubject("Car Delivery Request");
 //        carOwnerEmail.setTemplate("views/email/email-carowner-invoice.html");
