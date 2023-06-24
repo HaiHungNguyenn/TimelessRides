@@ -605,9 +605,23 @@ public class StaffController {
 
 
     // change password
-    @RequestMapping("/bb")
-    public boolean changeStaffPassword1(@RequestParam("id") String id,@RequestParam("oldPassword") String oldPass,@RequestParam("newPassword") String newPass){
-        return service.getStaffService().changePassword(id,oldPass,newPass);
+    @RequestMapping("/change-password")
+    public ModelAndView changeStaffPassword(@RequestParam("id") String id,
+                                        @RequestParam("oldPassword") String oldPass,
+                                        @RequestParam("newPassword") String newPass){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        boolean success = service.getStaffService().changePassword(id,oldPass,newPass);
+
+        if(success) {
+            return showHomePage(null, null, "Password changed successfully", null, null);
+        }else {
+            return showHomePage(null, null, null, "An error occurred", null);
+        }
     }
 
 }

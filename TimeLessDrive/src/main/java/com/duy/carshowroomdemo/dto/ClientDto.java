@@ -18,7 +18,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Cacheable("client")
 public class ClientDto implements Serializable {
     private String id;
     private String role;

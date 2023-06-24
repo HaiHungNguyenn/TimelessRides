@@ -21,7 +21,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Cacheable("staff")
 public class StaffDto implements Serializable {
     private String id;
     private String role;

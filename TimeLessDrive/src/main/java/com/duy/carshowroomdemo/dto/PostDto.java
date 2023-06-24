@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Cacheable("post")
 public class PostDto implements Serializable {
     private String id;
     private CarDto car;

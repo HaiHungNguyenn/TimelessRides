@@ -9,6 +9,8 @@ import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
 import lombok.SneakyThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -547,7 +549,7 @@ public class DemoTest {
     }
 
     @Test
-    public void testPlan(){
-        System.out.println(Plan.getPrice(Plan.plan1));
+    public void testPlan() {
+
     }
 }

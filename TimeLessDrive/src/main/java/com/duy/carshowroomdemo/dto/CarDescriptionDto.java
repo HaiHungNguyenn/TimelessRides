@@ -13,7 +13,6 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Cacheable("carDescription")
 public class CarDescriptionDto implements Serializable {
     private String id;
     private String make;
