@@ -96,16 +96,7 @@
           </div>
           <div class="row g-0 g-md-4 g-xl-6">
             <div class="col-md-5 col-lg-5 col-xl-6">
-<!--<<<<<<< HEAD-->
-<!--                <div class="slider" style="object-fit: cover">-->
-<!--=======-->
-
-
-
-
-
                 <div class="slideshow-container">
-<!--&gt;>>>>>> e6aefa698b0dfddeed194d9c1bbe4ad08e4b15e1-->
                     <th:block th:if="${car.getCarImageList() != null}" th:each="image, iStat : ${car.getCarImageList()}">
                         <div class="mySlides">
                             <img th:src="'/image-resolver/' + ${image.getId()}" style="width:100%">

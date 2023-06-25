@@ -12,7 +12,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Cacheable("showroom")
 public class ShowroomDto implements Serializable {
     private String id;
     private String name;

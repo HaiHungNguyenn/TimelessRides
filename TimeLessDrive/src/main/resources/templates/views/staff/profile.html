@@ -114,14 +114,14 @@
                                         </a>
                                         <div class="text-center mb-6">
                                             <h4 class="text-1000">Reset your password</h4>
-                                            <form class="mt-5">
+                                            <form th:action="@{/staff/change-password (id = ${session.staff.getId()})}" class="mt-5" method="post">
                                                 <input class="form-control mb-2" id="currenPassword" type="password"
-                                                       placeholder="Your current password"/>
+                                                       name="oldPassword" placeholder="Your current password"/>
                                                 <input class="form-control mb-2" id="password" type="password"
-                                                       placeholder="Type new password"/>
+                                                       name="newPassword" placeholder="Type new password"/>
                                                 <input class="form-control mb-4" id="confirmPassword"
                                                        type="password"
-                                                       placeholder="Cofirm new password"/>
+                                                       placeholder="Confirm new password"/>
                                                 <button class="btn btn-primary w-100" type="submit">Confirm</button>
                                             </form>
                                         </div>

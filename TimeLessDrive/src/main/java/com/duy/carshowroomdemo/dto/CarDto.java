@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Cacheable("car")
 public class CarDto implements Serializable {
     private String id;
     private String name;

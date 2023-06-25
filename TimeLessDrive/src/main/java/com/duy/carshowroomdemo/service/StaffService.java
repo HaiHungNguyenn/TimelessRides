@@ -45,16 +45,17 @@ public class StaffService {
     }
 
     public boolean changePassword(String id, String oldPass, String newPass) {
-        Staff staff = repository.findById(id).get();
-        try {
-            if(Util.isValidPW(oldPass,staff.getPassword())){
-                staff.setPassword(newPass);
-                repository.save(staff);
-                return true;
-            }
-        }catch(Exception e){
-            System.out.println(e);
+        Staff staff = repository.findById(id).orElse(null);
+        if (staff == null){
+            return false;
         }
+
+        if(Util.isValidPW(oldPass,staff.getPassword())) {
+            staff.setPassword(newPass);
+            repository.save(staff);
+            return true;
+        }
+
         return false;
     }
 

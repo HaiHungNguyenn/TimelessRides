@@ -16,7 +16,6 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Cacheable("invoice")
 public class InvoiceDto implements Serializable {
     private String id;
     private CarDto car;
