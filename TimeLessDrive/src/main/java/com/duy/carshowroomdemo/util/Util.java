@@ -462,4 +462,8 @@ public class Util {
         Arrays.stream(bodyTypes).toList().forEach(x -> result.add(x.trim()));
         return result;
     }
+
+    public static String formatUSDPrice(Long price) {
+        return NumberFormat.getCurrencyInstance(Locale.US).format(price);
+    }
 }

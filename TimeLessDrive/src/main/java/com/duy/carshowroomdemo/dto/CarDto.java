@@ -29,7 +29,7 @@ public class CarDto implements Serializable {
 
 
     public String getFormattedPrice() {
-        return Util.formatVndPrice(price);
+        return Util.formatUSDPrice(price);
     }
 
     public List<CarImageDto> getCarImageList() {

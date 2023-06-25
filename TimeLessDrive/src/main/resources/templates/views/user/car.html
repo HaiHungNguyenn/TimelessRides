@@ -257,21 +257,21 @@
                                 <div class="car__item__pic__slider owl-carousel" th:each="carImageUrl: ${post.getCar().getCarImageList()}">
 <!--                                    <div th:if="${post.getCar() != null}" th:each="image,i : ${post.getCar().getCarImageList()}">-->
 <!--                                        &lt;!&ndash; Access the image at the current index &ndash;&gt;-->
-<!--                                        <img th:if="${i.count < 5} "th:src="'/image-resolver/' + ${car.getCarImageList().get(i).getId()}" alt="">-->
+<!--                                        <img th:if="${i.count < 5} "th:src="${car.getCarImageList().get(i).getId()}" alt="">-->
 
 <!--                                    </div>-->
-                                    <img th:if="${carImageUrl.getContent() != null}" th:src="${carImageUrl.getContent()}">
-                                    <img th:if="${carImageUrl.getContent() == null}" src="../../user_assets/img/cars/car-1.jpg" alt="">
-                                    <img th:if="${carImageUrl.getContent() == null}" src="../../user_assets/img/cars/car-8.jpg" alt="">
-                                    <img th:if="${carImageUrl.getContent() == null}" src="../../user_assets/img/cars/car-6.jpg" alt="">
-                                    <img th:if="${carImageUrl.getContent() == null}" src="../../user_assets/img/cars/car-3.jpg" alt="">
+                                        <img th:src="${carImageUrl.getContent()}" alt="">
+<!--                                    <img  src="../../user_assets/img/cars/car-1.jpg" alt="">-->
+<!--                                    <img  src="../../user_assets/img/cars/car-8.jpg" alt="">-->
+<!--                                    <img  src="../../user_assets/img/cars/car-6.jpg" alt="">-->
+<!--                                    <img  src="../../user_assets/img/cars/car-3.jpg" alt="">-->
 
                                 </div>
 
                                 <div class="car__item__text">
                                     <div class="car__item__text__inner">
                                         <div class="label-date" th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
-                                        <h5><a th:href="'/car-detail/'+${post.getCar().getId()}" th:text="${post.getCar().getName()}"></a></h5>
+                                        <h5><a th:href="'/car-detail/'+${post.getCar().getId()}" th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a></h5>
                                         <ul>
                                             <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi</li>
                                             <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>

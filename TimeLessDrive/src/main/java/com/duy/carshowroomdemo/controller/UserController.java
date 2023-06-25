@@ -354,8 +354,9 @@ public ModelAndView postCar(){
                 .kmsDriven((Objects.equals(mileage, "")) ? 0 : Integer.parseInt(mileage))
                 .others(others)
                 .build();
-
+        int i = 0;
         if(files != null){
+            System.out.println(files);
             for (MultipartFile file: files) {
                 CarImage carImage = new CarImage();
 //                try {
@@ -364,9 +365,11 @@ public ModelAndView postCar(){
 //                    modelAndView.addObject("errorMsg", "An error occurred");
 //                    return modelAndView;
 //                }
+                System.out.println(i);
                 carImage.setContent(service.getStorageService().uploadFile(file));
                 carImage.setCar(car);
                 carImageList.add(carImage);
+                i++;
             }
         }
 
@@ -375,7 +378,7 @@ public ModelAndView postCar(){
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
         car.setStatus("Available on market");
         car.setCarDescription(carDescription);
-        car.setShowroom(showroomList.get(0));
+//        car.setShowroom(showroomList.get(0));
 
         Post post = Post.builder()
                 .car(car)
