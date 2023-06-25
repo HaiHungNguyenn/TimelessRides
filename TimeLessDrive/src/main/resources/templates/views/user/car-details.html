@@ -173,20 +173,8 @@
                         <div id="main-slider" class="splide col-sm-12">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    <li class="splide__slide">
-                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-1.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-2.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-3.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-4.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img class="car-big-img" src="../../user_assets/img/cars/details/sm-5.jpg">
+                                    <li class="splide__slide" th:each="carImageUrl: ${carDto.getCarImageList()}">
+                                        <img class="car-big-img" th:src="${carImageUrl.getContent()}">
                                     </li>
                                 </ul>
                             </div>
@@ -195,20 +183,8 @@
                         <div id="thumbnail-slider" class="splide">
                             <div class="splide__track">
                                 <ul class="splide__list">
-                                    <li class="splide__slide">
-                                        <img src="../../user_assets/img/cars/details/sm-1.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="../../user_assets/img/cars/details/sm-2.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="../../user_assets/img/cars/details/sm-3.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="../../user_assets/img/cars/details/sm-4.jpg">
-                                    </li>
-                                    <li class="splide__slide">
-                                        <img src="../../user_assets/img/cars/details/sm-5.jpg">
+                                    <li class="splide__slide" th:each="carImageUrl: ${carDto.getCarImageList()}">
+                                        <img class="car-big-img" th:src="${carImageUrl.getContent()}">
                                     </li>
                                 </ul>
                             </div>
