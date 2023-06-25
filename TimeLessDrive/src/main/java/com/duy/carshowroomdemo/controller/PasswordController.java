@@ -2,6 +2,7 @@ package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Email;
+import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.EmailService;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Util;
@@ -32,10 +33,11 @@ public class PasswordController {
     @RequestMapping("/send-verifycode")
     public ModelAndView sendCode(@RequestParam("email") String userEmail) throws MessagingException {
         Client client = service.getClientService().findEntityByEmail(userEmail);
+        Staff staff = service.getStaffService().findEntityByEmail(userEmail);
         System.out.println(userEmail);
         System.out.println(client);
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        if(client == null){
+        if(client == null && staff == null){
             modelAndView.addObject("loginMsg","your email has not been registered");
             return modelAndView;
         }
@@ -92,9 +94,14 @@ public class PasswordController {
         ModelAndView modelAndView = new ModelAndView();
         String userEmail = (String)session.getAttribute("email");
         Client client = service.getClientService().findEntityByEmail(userEmail);
+        Staff staff = service.getStaffService().findEntityByEmail(userEmail);
         if(client != null){
             client.setPassword(Util.encodePassword(newPassword));
             service.getClientService().save(client);
+            modelAndView.addObject("loginMsg","new password has been updated");
+        }else if (staff != null) {
+            staff.setPassword(Util.encodePassword(newPassword));
+            service.getStaffService().save(staff);
             modelAndView.addObject("loginMsg","new password has been updated");
         }
         modelAndView.setViewName("views/user/login");

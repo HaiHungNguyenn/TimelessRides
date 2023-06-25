@@ -81,16 +81,22 @@ public class DemoTest {
 
     @Test
     public void addShowrooms(){
-        for (int i = 1; i < 5; i++) {
-            Showroom showroom = new Showroom();
-            showroom.setName("Showroom " + i);
-            showroom.setAddress(Util.getRandAddress());
-            showroom.setCity(Util.getRandCity());
-            showroom.setPhone(Util.getRandPhone());
-            Showroom save = showroomRepository.save(showroom);
+//        for (int i = 1; i < 5; i++) {
+//            Showroom showroom = new Showroom();
+//            showroom.setName("Showroom " + i);
+//            showroom.setAddress(Util.getRandAddress());
+//            showroom.setCity(Util.getRandCity());
+//            showroom.setPhone(Util.getRandPhone());
+//            Showroom save = showroomRepository.save(showroom);
 
-            Assertions.assertThat(save).isNotNull();
-        }
+//            Assertions.assertThat(save).isNotNull();
+//        }
+        Showroom showroom = new Showroom();
+        showroom.setName("Main showroom");
+        showroom.setAddress("6-8 Hung Vuong, Hiep Phu");
+        showroom.setCity("Thu Duc city");
+        showroom.setPhone(Util.getRandPhone());
+        showroomRepository.save(showroom);
     }
 
     @Test

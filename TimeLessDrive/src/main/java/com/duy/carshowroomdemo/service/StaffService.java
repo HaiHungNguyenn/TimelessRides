@@ -51,7 +51,7 @@ public class StaffService {
         }
 
         if(Util.isValidPW(oldPass,staff.getPassword())) {
-            staff.setPassword(newPass);
+            staff.setPassword(Util.encodePassword(newPass));
             repository.save(staff);
             return true;
         }
@@ -71,4 +71,7 @@ public class StaffService {
     }
 
 
+    public Staff findEntityByEmail(String userEmail) {
+        return repository.findByEmail(userEmail).orElse(null);
+    }
 }

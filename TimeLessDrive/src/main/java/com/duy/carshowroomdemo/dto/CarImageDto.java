@@ -14,5 +14,4 @@ import java.io.Serializable;
 public class CarImageDto implements Serializable {
     private String id;
     private String content;
-
 }

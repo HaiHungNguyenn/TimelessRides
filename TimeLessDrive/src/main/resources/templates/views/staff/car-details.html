@@ -99,7 +99,7 @@
                 <div class="slideshow-container">
                     <th:block th:if="${car.getCarImageList() != null}" th:each="image, iStat : ${car.getCarImageList()}">
                         <div class="mySlides">
-                            <img th:src="'/image-resolver/' + ${image.getId()}" style="width:100%">
+                            <img th:src="${image.getContent()}" style="width:100%">
                         </div>
                     </th:block>
 
