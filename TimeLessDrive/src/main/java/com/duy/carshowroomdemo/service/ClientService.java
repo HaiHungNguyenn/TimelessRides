@@ -106,4 +106,8 @@ public class ClientService {
     public ClientDto findByEmail(String email) {
         return mapperManager.getClientMapper().toDto(repository.findByEmail(email).orElse(null));
     }
+
+    public void delete(Client client) {
+        repository.delete(client);
+    }
 }

@@ -334,7 +334,6 @@ public ModelAndView postCar(){
 
         Car car = new Car();
         List<CarImage> carImageList = new ArrayList<>();
-        List<Showroom> showroomList = service.getShowroomService().findAll();
         Client client = service.getClientService().findEntityById(clientId);
 
         CarDescription carDescription = CarDescription.builder()
@@ -357,7 +356,6 @@ public ModelAndView postCar(){
                 .build();
         int i = 0;
         if(files != null){
-            System.out.println(files);
             for (MultipartFile file: files) {
                 CarImage carImage = new CarImage();
 //                try {

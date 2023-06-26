@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class MappingController {
     @Autowired
     private HttpSession session;
@@ -29,7 +31,7 @@ public class MappingController {
         return (session.getAttribute("admin") != null);
     }
 
-    @RequestMapping("/admin/home")
+    @RequestMapping("/home")
     public ModelAndView home(){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -39,7 +41,7 @@ public class MappingController {
         return modelAndView;
     }
 
-    @RequestMapping("/admin/mailbox")
+    @RequestMapping("/mailbox")
     public ModelAndView mailBox(){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -48,7 +50,7 @@ public class MappingController {
         modelAndView.setViewName("views/admin/mail-box");
         return modelAndView;
     }
-    @RequestMapping("/admin/staff_list")
+    @RequestMapping("/staff_list")
     public ModelAndView staffList(@Nullable @RequestParam("offset") Integer offset){
 
         offset = (offset == null) ? 1: offset;
@@ -64,7 +66,7 @@ public class MappingController {
         modelAndView.setViewName("views/admin/staff-list");
         return modelAndView;
     }
-    @RequestMapping("/admin/add_new_staff")
+    @RequestMapping("/add_new_staff")
     public ModelAndView addStaff(){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -74,7 +76,7 @@ public class MappingController {
         return modelAndView;
     }
 
-    @RequestMapping("/admin/user-list")
+    @RequestMapping("/user-list")
     public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset){
 
         offset = (offset == null) ? 1: offset;
@@ -102,7 +104,7 @@ public class MappingController {
         modelAndView.setViewName("views/admin/car-management");
         return modelAndView;
     }
-    @RequestMapping("/admin/schedule")
+    @RequestMapping("/schedule")
     public ModelAndView scheduleManagement(){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -112,7 +114,7 @@ public class MappingController {
         return modelAndView;
     }
 
-    @RequestMapping("/admin/showroom-list")
+    @RequestMapping("/showroom-list")
     public ModelAndView showroomManagement(){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -122,10 +124,29 @@ public class MappingController {
         return modelAndView;
     }
 
+    @RequestMapping("/delete-user/{id}")
+    public ModelAndView deleteUser(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Client client = service.getClientService().findEntityById(id);
+
+        if (client == null){
+            return userList(null);
+        }
+
+        service.getClientService().delete(client);
+
+        return userList(null);
+    }
 
 
 
-    @RequestMapping("/admin/staff-detail/{staffID}")
+
+    @RequestMapping("/staff-detail/{staffID}")
     public ModelAndView staffDetail(@PathVariable("staffID") String staffID,
                                     @Nullable @RequestParam("offset") Integer offset){
         offset = (offset == null) ? 1: offset;
@@ -143,7 +164,7 @@ public class MappingController {
 
         return modelAndView;
     }
-    @RequestMapping("/admin/client-detail/{clientID}")
+    @RequestMapping("/client-detail/{clientID}")
     public ModelAndView clientDetail(@PathVariable("clientID") String clientID){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
@@ -155,7 +176,7 @@ public class MappingController {
 
         return modelAndView;
     }
-    @RequestMapping("/admin/logout")
+    @RequestMapping("/logout")
     public ModelAndView logout(){
         ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("admin");
