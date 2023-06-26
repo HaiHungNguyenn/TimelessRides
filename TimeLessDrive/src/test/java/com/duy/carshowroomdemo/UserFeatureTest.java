@@ -74,15 +74,33 @@ public class UserFeatureTest {
     }
     @Test
     public void testLoadOrderBy(){
+        LocalDate date = LocalDate.now();
+
         List<Post> postList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarMakeWithPriceASC("honda", PageRequest.of(0, 9)).forEach(x->{postList.add(x);});
+        postRepository.findAllByStatusIsAndCarMakeWithPriceASC("honda", PageRequest.of(0, 9),date).forEach(x->{postList.add(x);});
         postList.forEach(x->{
             System.out.println(x.getCar().getName()+", price:"+x.getCar().getPrice());
         });
         List<Post> postList1 = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarMakeWithPriceDESC("honda", PageRequest.of(0, 9)).forEach(x->{postList1.add(x);});
+        postRepository.findAllByStatusIsAndCarMakeWithPriceDESC("honda", PageRequest.of(0, 9),date).forEach(x->{postList1.add(x);});
         postList1.forEach(x->{
             System.out.println(x.getCar().getName()+", price:"+x.getCar().getPrice());
         });
+    }
+    @Test
+    public void loadCarByMake(){
+        String value = "Lamborghini";
+        List<Post> list = new ArrayList<>() ;
+        System.out.println("suize");
+        LocalDate date = LocalDate.now();
+        postRepository.findAllByStatusIsAndCarMake(value, PageRequest.of(0, 9),date).forEach( x -> {list.add(x);});
+        list.forEach(x->{
+            System.out.println(x);
+        });
+        System.out.println(list.size());
+    }
+    @Test
+    public void testUpdateExpiredDate(){
+
     }
 }

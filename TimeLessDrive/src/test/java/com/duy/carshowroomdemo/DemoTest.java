@@ -490,14 +490,14 @@ public class DemoTest {
         clientRepository.save(client);
     }
 
-    @Test
-    public void test(){
-        List<Post> postDtoList = new ArrayList<>();
-         postRepository.findAllByStatusIsAndCarMake("Peugeot", PageRequest.of(0,10)).forEach(x->{
-             System.out.println(x.getCar());
-         });
-
-    }
+//    @Test
+//    public void test(){
+//        List<Post> postDtoList = new ArrayList<>();
+//         postRepository.findAllByStatusIsAndCarMake("Peugeot", PageRequest.of(0,10)).forEach(x->{
+//             System.out.println(x.getCar());
+//         });
+//
+//    }
 
     @Test
     public void testDisplay(){

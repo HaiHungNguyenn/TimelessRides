@@ -367,6 +367,8 @@ public class StaffController {
                 service.sendNotification(post.getClient(), msg);
             }else {
                 post.setStatus(Status.APPROVED);
+                System.out.println("DURATION DAY: "+Plan.getDuration(post.getPlan()));
+                System.out.println("EXPIRED DAY:"+LocalDate.now().plusDays(Plan.getDuration(post.getPlan())));
                 post.setExpireDate(LocalDate.now().plusDays(Plan.getDuration(post.getPlan())));
                 successMsg = "Approved post from " + post.getClient().getName();
                 String msg = "Your post request of " + post.getCar().getName() + " in " + post.getPostDate() + ", " + post.getPostTime() + " has been approved";

@@ -3,9 +3,9 @@ package com.duy.carshowroomdemo.util;
 import lombok.Data;
 
 public class Plan {
-   public static final String plan1 = "Plan 1";
-   public static final String plan2 = "Plan 2";
-   public static final String plan3 = "Plan 3";
+   public static final String plan1 = "plan 1";
+   public static final String plan2 = "plan 2";
+   public static final String plan3 = "plan 3";
    public static long getPrice(String plan){
        switch (plan){
            case plan1 -> {

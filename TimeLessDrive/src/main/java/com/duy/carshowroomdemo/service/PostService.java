@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
     private final MapperManager mapperManager = MapperManager.getInstance();
+    private final LocalDate CURRENT_DAY = LocalDate.now();
 
     public List<PostDto> getAllPostRequest() {
         List<PostDto> postRequestList = new ArrayList<>();
@@ -72,15 +74,15 @@ public class PostService {
     public long getLastOffset(String value, String property, int size) {
         switch (property){
             case"make":
-                return postRepository.findAllByStatusIsAndCarMake(value,PageRequest.of(0, size)).getTotalPages();
+                return postRepository.findAllByStatusIsAndCarMake(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
             case"body":
-                return postRepository.findAllByStatusIsAndCarBody(value,PageRequest.of(0, size)).getTotalPages();
+                return postRepository.findAllByStatusIsAndCarBody(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
             case"model":
-                return postRepository.findAllByStatusIsAndCarModel(value,PageRequest.of(0, size)).getTotalPages();
+                return postRepository.findAllByStatusIsAndCarModel(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
             case"tranmision":
-                return postRepository.findAllByStatusIsAndCarTran(value,PageRequest.of(0, size)).getTotalPages();
+                return postRepository.findAllByStatusIsAndCarTran(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
             case"fuel":
-                return postRepository.findAllByStatusIsAndCarFuel(value,PageRequest.of(0, size)).getTotalPages();
+                return postRepository.findAllByStatusIsAndCarFuel(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
         }
         return  0 ;
     }
@@ -125,11 +127,11 @@ public class PostService {
         List<PostDto> postDtoList = new ArrayList<>();
         if(property.equalsIgnoreCase("price")) {
             if(direction.equalsIgnoreCase("asc")){
-                postRepository.findAllByStatusWithPriceASC(pageable).forEach(x -> {
+                postRepository.findAllByStatusWithPriceASC(pageable,CURRENT_DAY).forEach(x -> {
                     postDtoList.add(mapperManager.getPostMapper().toDto(x));
                 });
             }else{
-                postRepository.findAllByStatusWithPriceDESC(pageable).forEach(x -> {
+                postRepository.findAllByStatusWithPriceDESC(pageable,CURRENT_DAY).forEach(x -> {
                     postDtoList.add(mapperManager.getPostMapper().toDto(x));
                 });
             }
@@ -140,7 +142,7 @@ public class PostService {
 
     public List<PostDto> searchApprovedCarByMake(String value, Pageable pageable) {
         List<PostDto>postDtoList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarMake(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarMake(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
     public List<PostDto> searchOrderedApprovedCarByMake(String value, Pageable pageable,String direction) {
@@ -152,11 +154,11 @@ public class PostService {
         System.out.println(direction);
         if(direction.equalsIgnoreCase("asc")){
             System.out.println(" ascending sort");
-        postRepository.findAllByStatusIsAndCarMakeWithPriceASC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarMakeWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }else{
             System.out.println(" descending sort");
 
-            postRepository.findAllByStatusIsAndCarMakeWithPriceDESC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarMakeWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
 
         }
         return postDtoList;
@@ -164,30 +166,30 @@ public class PostService {
 
     public List<PostDto> searchApprovedCarByModel(String value, Pageable pageable) {
         List<PostDto>postDtoList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarModel(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarModel(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
     public List<PostDto> searchOrderedApprovedCarByModel(String value, Pageable pageable, String direction) {
         List<PostDto>postDtoList = new ArrayList<>();
         if(direction.equalsIgnoreCase("asc")){
-            postRepository.findAllByStatusIsAndCarModelWithPriceASC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarModelWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         } else{
-            postRepository.findAllByStatusIsAndCarModelWithPriceDESC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarModelWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postDtoList;
     }
 
     public List<PostDto> searchApprovedCarByBody(String value, Pageable pageable) {
         List<PostDto>postDtoList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarBody(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarBody(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
     public List<PostDto> searchOrderedApprovedCarByBody(String value, Pageable pageable, String direction) {
         List<PostDto>postDtoList = new ArrayList<>();
         if(direction.equalsIgnoreCase("asc")){
-            postRepository.findAllByStatusIsAndCarBodyWithPriceASC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarBodyWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }else{
-            postRepository.findAllByStatusIsAndCarBodyWithPriceDESC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarBodyWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postDtoList;
 
@@ -195,16 +197,16 @@ public class PostService {
 
     public List<PostDto> searchApprovedCarByTran(String value, Pageable pageable) {
         List<PostDto>postDtoList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarTran(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarTran(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
     public List<PostDto> searchOrderedApprovedCarByTran(String value, Pageable pageable, String direction) {
         List<PostDto>postDtoList = new ArrayList<>();
         if(direction.equalsIgnoreCase("asc")){
 
-            postRepository.findAllByStatusIsAndCarTranWithPriceASC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarTranWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }else{
-            postRepository.findAllByStatusIsAndCarTranWithPriceDESC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarTranWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postDtoList;
     }
@@ -213,7 +215,7 @@ public class PostService {
 
     public List<PostDto> searchApprovedCarByFuel(String value, Pageable pageable) {
         List<PostDto>postDtoList = new ArrayList<>();
-        postRepository.findAllByStatusIsAndCarFuel(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+        postRepository.findAllByStatusIsAndCarFuel(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         return postDtoList;
     }
 
@@ -221,11 +223,11 @@ public class PostService {
     public List<PostDto> searchOrderedApprovedCarByFuel(String value, Pageable pageable, String direction) {
         List<PostDto>postDtoList = new ArrayList<>();
         if(direction.equalsIgnoreCase("asc")){
-            postRepository.findAllByStatusIsAndCarFuelWithPriceASC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarFuelWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
 
         }else{
 
-            postRepository.findAllByStatusIsAndCarFuelWithPriceDESC(value,pageable).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusIsAndCarFuelWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postDtoList;
     }
@@ -233,9 +235,9 @@ public class PostService {
     public List<PostDto> findSortedApprovedPosts(Pageable pageable, String direction){
         List<PostDto> postList = new ArrayList<>();
         if(direction.equalsIgnoreCase("asc")){
-            postRepository.findAllByStatusWithPriceASC(pageable).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusWithPriceASC(pageable,CURRENT_DAY).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
         }else{
-            postRepository.findAllByStatusWithPriceDESC(pageable).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
+            postRepository.findAllByStatusWithPriceDESC(pageable,CURRENT_DAY).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postList;
     }
