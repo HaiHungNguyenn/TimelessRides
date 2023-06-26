@@ -417,8 +417,8 @@ public ModelAndView postCar(){
             return meetingHistory(errorMsg, successMsg);
         }
 
-        if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId())){
-            errorMsg = "You don't have permission to cancel this meeting";
+        if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId()) || !offMeeting.getStatus().equals(Status.PENDING)){
+            errorMsg = "You can't to cancel this meeting";
             return meetingHistory(errorMsg, successMsg);
         }
 
@@ -590,7 +590,7 @@ public ModelAndView postCar(){
 
         List<ClientNotificationDto> notificationList = service
                 .getClientNotificationService()
-                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(offset, 10, Sort.by("createDate", "createTime")));
+                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(offset, 10, Sort.by("createDate", "createTime").descending()));
 
         if (client == null){
             return new ArrayList<>();
