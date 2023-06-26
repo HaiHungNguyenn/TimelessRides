@@ -5,6 +5,16 @@ document.querySelector("#change-password-button").addEventListener("click",funct
         document.getElementsByClassName("change-password active")[0].classList.remove("active");
 });
 
+document.getElementById("avatar").addEventListener("change",(evt) => {
+    const avatar = evt.target.files[0];
+    const preview = document.getElementById("avatar-wrapper");
+    const reader = new FileReader();
+    reader.onloadend = function () {
+        preview.style.setProperty('--avatar-image', "url('"+reader.result+"')");
+    }
+    reader.readAsDataURL(avatar);
+})
+
 // function updateData(){
 //     let url = '/check-notification?id=' + id;
 //     let notification = $(".Notification_body");

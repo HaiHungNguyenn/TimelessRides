@@ -24,13 +24,13 @@
     <link rel="stylesheet" href="../../user_assets/css/formstyle.css">
     <link rel="stylesheet" href="../../user_assets/css/show-pass.css">
     <style>
-        .show-pass-button{
+        .show-pass-button {
             position: absolute;
             top: 38px;
             left: 86%;
         }
 
-        #phone-comment{
+        #phone-comment {
             color: #db2d2e;
         }
     </style>
@@ -38,10 +38,10 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/popup.css">
 
-<!--    notification css-->
+    <!--    notification css-->
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -55,8 +55,10 @@
         <div class="loader"></div>
     </div>
 
-<!--    notification starts-->
-    <div th:if="${session.client != null}" class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+    <!--    notification starts-->
+    <div th:if="${session.client != null}"
+         class="header_notification_warp d-flex align-items-center justify-content-center"
+         style="z-index: 3; position: absolute; right: 2rem;">
         <li>
             <a class="bell_notification_clicker" href="#">
                 <div class="fa fa-bell"></div>
@@ -76,7 +78,7 @@
             </div>
         </li>
     </div>
-<!--    notification ends-->
+    <!--    notification ends-->
 
     <!-- Offcanvas Menu Begin -->
     <div class="offcanvas-menu-overlay"></div>
@@ -171,11 +173,16 @@
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
                 <div class="col-md-2 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                            class="rounded-circle mt-5" width="150px"
-                            src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                            class="font-weight-bold" th:text="${session.client.getName()}"/><span
-                            class="text-black-50" th:text="${session.client.getEmail()}"/></div>
+                    <div id="avatar-wrapper" class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <input type="file" id="avatar" name="avatar">
+                        <label for="avatar" class="mt-5">
+                            <div id="avatar-image" class="avatar-image rounded-circle">
+                                <i class="fa fa-edit"></i>
+                            </div>
+                        </label>
+                        <span class="font-weight-bold" th:text="${session.client.getName()}"/>
+                        <span class="text-black-50" th:text="${session.client.getEmail()}"/>
+                    </div>
                 </div>
                 <div class="col-md-7 border-right">
                     <div class="p-3 py-5">
@@ -206,8 +213,11 @@
                                 <div class="col-md-6">
                                     <label class="labels">Gender</label>
                                     <select class="second-row-input" id="gender" name="gender">
-                                        <option value="male" th:selected="${session.client.getGender()=='male'}">Male</option>
-                                        <option value="female" th:selected="${session.client.getGender()=='female'}">Female</option>
+                                        <option value="male" th:selected="${session.client.getGender()=='male'}">Male
+                                        </option>
+                                        <option value="female" th:selected="${session.client.getGender()=='female'}">
+                                            Female
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -235,7 +245,7 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                <input  class="btn btn-primary profile-button mg25" type="submit"
+                                <input class="btn btn-primary profile-button mg25" type="submit"
                                        value="Save Profile">
                             </div>
                         </form>
@@ -251,23 +261,27 @@
                         <div class="change-password row mt-3">
                             <div class="col-md-12">
                                 <label class="labels">Current Password</label>
-                                <input id="currentPassword" type="password" class="form-control" placeholder="enter current password" name="oldPass">
+                                <input id="currentPassword" type="password" class="form-control"
+                                       placeholder="enter current password" name="oldPass">
                                 <i></i><i class="show-pass-button fa fa-eye"></i>
                             </div>
                             <div class="col-md-12">
                                 <label class="labels">New Password</label>
-                                <input id="newPass" type="password" class="form-control" placeholder="enter new password" name="newPass">
+                                <input id="newPass" type="password" class="form-control"
+                                       placeholder="enter new password" name="newPass">
                                 <i></i><i class="show-pass-button fa fa-eye"></i>
                             </div>
                             <div class="col-md-12">
                                 <label class="labels">Confirm New Password</label>
-                                <input id="confirmNewPass"type="password" class="form-control" placeholder="repeat new password">
+                                <input id="confirmNewPass" type="password" class="form-control"
+                                       placeholder="repeat new password">
                                 <i></i><i class="show-pass-button fa fa-eye"></i>
                             </div>
                             <span id="passwordMatchResult" style="font-size: 10px; color: red"></span>
                             <p id="message" style="pointer-events: none; user-select: none"></p>
                             <div class="text-center">
-                                <button onclick="return checkChangePasswordSubmit()" class="btn btn-primary profile-button"
+                                <button onclick="return checkChangePasswordSubmit()"
+                                        class="btn btn-primary profile-button"
                                         type="button">Save Profile
                                 </button>
                             </div>
@@ -294,7 +308,7 @@
                             </div>
                             <div class="s_text">
                                 <h2>SUCCESS</h2>
-                                <p  th:text="${message}" ></p>
+                                <p th:text="${message}"></p>
                             </div>
                         </div>
                         <div class="s_button">
@@ -403,17 +417,17 @@
                     </div>
                 </div>
             </div>
-<!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
-<!--            <div class="footer__copyright__text">-->
-<!--                <p>Copyright &copy;-->
-<!--                    <script>document.write(new Date().getFullYear());</script>-->
-<!--                    All rights reserved | This template-->
-<!--                    is-->
-<!--                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"-->
-<!--                                                                                   target="_blank">Colorlib</a>-->
-<!--                </p>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+            <!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
+            <!--            <div class="footer__copyright__text">-->
+            <!--                <p>Copyright &copy;-->
+            <!--                    <script>document.write(new Date().getFullYear());</script>-->
+            <!--                    All rights reserved | This template-->
+            <!--                    is-->
+            <!--                    made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"-->
+            <!--                                                                                   target="_blank">Colorlib</a>-->
+            <!--                </p>-->
+            <!--            </div>-->
+            <!--            &lt;!&ndash; Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. &ndash;&gt;-->
         </div>
     </footer>
     <!-- Footer Section End -->
@@ -428,8 +442,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!-- Js Plugins -->
@@ -450,41 +462,37 @@
     const repeatPasswordInput = document.getElementById("confirmNewPass");
     const message = document.getElementById("message");
 
-    function checkRepeatPassword(){
-        if(newPasswordInput.value == repeatPasswordInput.value){
+    function checkRepeatPassword() {
+        if (newPasswordInput.value == repeatPasswordInput.value) {
             message.innerHTML = "Matched"
             message.style.color = "green";
-        }else{
+        } else {
             message.innerHTML = "Not Matched";
             message.style.color = "red";
         }
     }
 
-    newPasswordInput.addEventListener("keyup",() => checkRepeatPassword());
+    newPasswordInput.addEventListener("keyup", () => checkRepeatPassword());
     newPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
     repeatPasswordInput.addEventListener("keyup", () => checkRepeatPassword());
     repeatPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
 
-    function checkChangePasswordSubmit(){
-        if(currentPasswordInput.value == ""){
+    function checkChangePasswordSubmit() {
+        if (currentPasswordInput.value == "") {
             alert("Please enter current password");
             return false;
-        }
-        else if(newPasswordInput.value == ""){
+        } else if (newPasswordInput.value == "") {
             alert("Please enter new password");
             return false;
-        }
-        else if(repeatPasswordInput.value == ""){
+        } else if (repeatPasswordInput.value == "") {
             alert("Please repeat new password");
             return false;
-        }
-        else if(message.innerHTML == "Matched"){
+        } else if (message.innerHTML == "Matched") {
             return true;
-        }
-        else if(message.innerHTML == "Not Matched") {
+        } else if (message.innerHTML == "Not Matched") {
             alert("Password doesn't match");
             return false;
-        }else {
+        } else {
             alert("Please enter new password");
             return false;
         }
@@ -514,7 +522,7 @@
     var errorModal = document.querySelector('.e_modal');
 
     // Add click event listener to the success button
-    successButton.addEventListener('click', function() {
+    successButton.addEventListener('click', function () {
         // Hide the success modal by setting display to "none"
         successModal.style.display = 'none';
         background.classList.remove("active");
@@ -522,7 +530,7 @@
     });
 
     // Add click event listener to the error button
-    errorButton.addEventListener('click', function() {
+    errorButton.addEventListener('click', function () {
         // Hide the error modal by setting display to "none"
         errorModal.style.display = 'none';
         background.classList.remove("active");
