@@ -1,6 +1,7 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.ClientDto;
+import com.duy.carshowroomdemo.dto.FeedbackDto;
 import com.duy.carshowroomdemo.dto.OffMeetingDto;
 import com.duy.carshowroomdemo.dto.StaffDto;
 import com.duy.carshowroomdemo.entity.Client;
@@ -143,9 +144,6 @@ public class MappingController {
         return userList(null);
     }
 
-
-
-
     @RequestMapping("/staff-detail/{staffID}")
     public ModelAndView staffDetail(@PathVariable("staffID") String staffID,
                                     @Nullable @RequestParam("offset") Integer offset){
@@ -176,6 +174,25 @@ public class MappingController {
 
         return modelAndView;
     }
+
+    @RequestMapping("/feedbacks")
+    public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        offset = (offset == null) ? 1 : offset;
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        List<FeedbackDto> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+
+        modelAndView.addObject("feedbackList", feedbackList)
+                .addObject("offset", offset)
+                .setViewName("views/admin/feed-back");
+        return modelAndView;
+    }
+
     @RequestMapping("/logout")
     public ModelAndView logout(){
         ModelAndView modelAndView = new ModelAndView();
