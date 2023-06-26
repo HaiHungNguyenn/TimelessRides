@@ -148,18 +148,11 @@ public class PostService {
     public List<PostDto> searchOrderedApprovedCarByMake(String value, Pageable pageable,String direction) {
 
         List<PostDto>postDtoList = new ArrayList<>();
-        System.out.println("___ in service");
-        System.out.println("make");
-        System.out.println(value);
-        System.out.println(direction);
+
         if(direction.equalsIgnoreCase("asc")){
-            System.out.println(" ascending sort");
         postRepository.findAllByStatusIsAndCarMakeWithPriceASC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
         }else{
-            System.out.println(" descending sort");
-
             postRepository.findAllByStatusIsAndCarMakeWithPriceDESC(value,pageable,CURRENT_DAY).forEach(x-> postDtoList.add(mapperManager.getPostMapper().toDto(x)));
-
         }
         return postDtoList;
     }

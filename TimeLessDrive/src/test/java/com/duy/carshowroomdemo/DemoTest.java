@@ -4,6 +4,7 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.repository.*;
+import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
@@ -19,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
 import java.io.*;
@@ -556,6 +559,11 @@ public class DemoTest {
 
     @Test
     public void testPlan() {
+//        List<PostDto> postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(0, 9, Sort.by("priority").descending()));
+        List<PostDto> postDtoList = new ArrayList<>();
 
+        Pageable pageable = PageRequest.of(0, 9, Sort.by("priority").descending());
+
+        postRepository.findAllByStatus(Status.APPROVED, pageable).forEach(x -> System.out.println(x.getCar().getPrice()));
     }
 }

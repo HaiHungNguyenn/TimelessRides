@@ -44,6 +44,9 @@ public class Post {
     @Column(name = "post_time")
     private LocalTime postTime;
 
+    @Column(name = "priority")
+    private int priority;
+
     private String status;
 
     public List<String> getPlanList(){

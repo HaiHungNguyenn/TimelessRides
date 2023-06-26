@@ -270,7 +270,7 @@
                     <td th:text="${meeting.getCar().getName()}"/>
                     <td><span class="status pending" th:text="${meeting.getStatus()}"/></td>
                     <td>
-                        <a th:href="@{/meeting-history/cancel (id = ${meeting.getId()})}">
+                        <a th:if="${meeting.getStatus().equals('Pending')}" th:href="@{/meeting-history/cancel (id = ${meeting.getId()})}">
                             <button class="btn btn-secondary hover-text-600 fs--1">Cancel</button>
                         </a>
                     </td>

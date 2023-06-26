@@ -4,6 +4,7 @@ import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
@@ -117,55 +118,55 @@ public ModelAndView postCar(){
             }
         }
 
-        List<PostDto> postDto = new ArrayList<>();
+        List<PostDto> postList = new ArrayList<>();
 
         if(property != null && value != null){
             switch (property) {
                 case "make" -> {
                     if (direction != null) {
-                        postDto = service.getPostService().searchOrderedApprovedCarByMake(value, PageRequest.of(offset - 1, 9), direction);
+                        postList = service.getPostService().searchOrderedApprovedCarByMake(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
                     } else {
-                        postDto = service.getPostService().searchApprovedCarByMake(value, PageRequest.of(offset - 1, 9));
+                        postList = service.getPostService().searchApprovedCarByMake(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
                     }
                 }
                 case "model" -> {
                     if (direction != null) {
-                        postDto = service.getPostService().searchOrderedApprovedCarByModel(value, PageRequest.of(offset - 1, 9), direction);
+                        postList = service.getPostService().searchOrderedApprovedCarByModel(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
                     } else {
-                        postDto = service.getPostService().searchApprovedCarByModel(value, PageRequest.of(offset - 1, 9));
+                        postList = service.getPostService().searchApprovedCarByModel(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
                     }
                 }
                 case "body" -> {
                     if (direction != null) {
-                        postDto = service.getPostService().searchOrderedApprovedCarByBody(value, PageRequest.of(offset - 1, 9), direction);
+                        postList = service.getPostService().searchOrderedApprovedCarByBody(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
                     } else {
-                        postDto = service.getPostService().searchApprovedCarByBody(value, PageRequest.of(offset - 1, 9));
+                        postList = service.getPostService().searchApprovedCarByBody(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
                     }
                 }
                 case "tranmision" -> {
                     if (direction != null) {
-                        postDto = service.getPostService().searchOrderedApprovedCarByTran(value, PageRequest.of(offset - 1, 9), direction);
+                        postList = service.getPostService().searchOrderedApprovedCarByTran(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
                     } else {
-                        postDto = service.getPostService().searchApprovedCarByTran(value, PageRequest.of(offset - 1, 9));
+                        postList = service.getPostService().searchApprovedCarByTran(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
                     }
                 }
                 case "fuel" -> {
                     if (direction != null) {
-                        postDto = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9), direction);
+                        postList = service.getPostService().searchOrderedApprovedCarByFuel(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
                     } else {
-                        postDto = service.getPostService().searchApprovedCarByFuel(value, PageRequest.of(offset - 1, 9));
+                        postList = service.getPostService().searchApprovedCarByFuel(value, PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
                     }
                 }
             }
 
         }else if(direction != null){
-            postDto = service.getPostService().findSortedApprovedPosts(PageRequest.of(offset - 1, 9), direction);
+            postList = service.getPostService().findSortedApprovedPosts(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
         }else{
-            postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9));
+            postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
         }
         long lastOffSet = service.getCarService().getLastOffset(9);
 
-        modelAndView.addObject("postDto", postDto)
+        modelAndView.addObject("postDto", postList)
                 .addObject("offset", offset)
                 .addObject("property", property)
                 .addObject("value", value)
@@ -388,6 +389,7 @@ public ModelAndView postCar(){
                 .status(Status.PENDING)
                 .description(postDescription)
                 .plan(plan)
+                .priority(Plan.getPriority(plan))
                 .build();
 
         service.getCarService().save(car);
