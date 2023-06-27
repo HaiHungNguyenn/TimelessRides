@@ -174,7 +174,7 @@
         <!-- code here -->
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
-                <form action="/update-info" enctype="multipart/form-data" method="post" class="col-md-9">
+                <form id="update-form" action="/update-info" enctype="multipart/form-data" method="post" class="col-md-9">
                     <div class="row">
                         <div class="col-md-4 border-right">
                     <div id="avatar-wrapper" class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -222,7 +222,7 @@
                                         <option value="female" th:selected="${session.client.getGender()=='female'}">
                                             Female
                                         </option>
-                                        <option value="female" th:selected="${session.client.getGender()=='other'}">
+                                        <option value="other" th:selected="${session.client.getGender()=='other'}">
                                             Other
                                         </option>
                                     </select>
@@ -252,7 +252,7 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                <input class="btn btn-primary profile-button mg25" type="submit"
+                                <input id="save-profile-btn" class="btn btn-primary profile-button mg25" type="submit"
                                        value="Save Profile">
                             </div>
 

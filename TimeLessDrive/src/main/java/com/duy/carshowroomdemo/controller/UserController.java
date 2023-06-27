@@ -563,8 +563,12 @@ public ModelAndView postCar(){
         ModelAndView modelAndView = new ModelAndView();
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
-        String avatar = service.getStorageService().uploadFile(file);
-        client.setAvatar(avatar);
+        System.out.println(file);
+        if(file == null);
+        else{
+            String avatar = service.getStorageService().uploadFile(file);
+            client.setAvatar(avatar);
+        }
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D",""));
         client.setGender(gender);
