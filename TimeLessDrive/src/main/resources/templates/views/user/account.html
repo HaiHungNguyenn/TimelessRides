@@ -43,7 +43,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
     <th:block th:if="${session.client != null}">
-        <script>let id = '[[${session.client.getId()}]]'</script>
+        <script>let id = '[[${session.client.getId()}]]';
+        const avatar = '[[${session.client.getAvatar()}]]';
+        </script>
     </th:block>
     <script src="../../user_assets/js/notification-js.js"></script>
 </head>
@@ -172,7 +174,9 @@
         <!-- code here -->
         <div class="container rounded bg-white mt-5 mb-5">
             <div class="row">
-                <div class="col-md-2 border-right">
+                <form action="/update-info" enctype="multipart/form-data" method="post" class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-4 border-right">
                     <div id="avatar-wrapper" class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <input type="file" id="avatar" name="avatar">
                         <label for="avatar" class="mt-5">
@@ -184,13 +188,13 @@
                         <span class="text-black-50" th:text="${session.client.getEmail()}"/>
                     </div>
                 </div>
-                <div class="col-md-7 border-right">
+                        <div class="col-md-8 border-right">
                     <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
 
-                        <form action="/update-info">
+
                             <div class="row mt-2">
                                 <div class="col-md-6">
                                     <label class="labels">Full Name</label>
@@ -217,6 +221,9 @@
                                         </option>
                                         <option value="female" th:selected="${session.client.getGender()=='female'}">
                                             Female
+                                        </option>
+                                        <option value="female" th:selected="${session.client.getGender()=='other'}">
+                                            Other
                                         </option>
                                     </select>
                                 </div>
@@ -248,10 +255,11 @@
                                 <input class="btn btn-primary profile-button mg25" type="submit"
                                        value="Save Profile">
                             </div>
-                        </form>
 
                     </div>
                 </div>
+                    </div>
+                </form>
 
                 <div class="col-md-3">
                     <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change
@@ -456,48 +464,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../user_assets/js/account-script.js"></script>
 <script src="../../user_assets/js/show-pass.js"></script>
-<script>
-    const currentPasswordInput = document.getElementById("currentPassword");
-    const newPasswordInput = document.getElementById("newPass");
-    const repeatPasswordInput = document.getElementById("confirmNewPass");
-    const message = document.getElementById("message");
-
-    function checkRepeatPassword() {
-        if (newPasswordInput.value == repeatPasswordInput.value) {
-            message.innerHTML = "Matched"
-            message.style.color = "green";
-        } else {
-            message.innerHTML = "Not Matched";
-            message.style.color = "red";
-        }
-    }
-
-    newPasswordInput.addEventListener("keyup", () => checkRepeatPassword());
-    newPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
-    repeatPasswordInput.addEventListener("keyup", () => checkRepeatPassword());
-    repeatPasswordInput.addEventListener("keydown", () => checkRepeatPassword());
-
-    function checkChangePasswordSubmit() {
-        if (currentPasswordInput.value == "") {
-            alert("Please enter current password");
-            return false;
-        } else if (newPasswordInput.value == "") {
-            alert("Please enter new password");
-            return false;
-        } else if (repeatPasswordInput.value == "") {
-            alert("Please repeat new password");
-            return false;
-        } else if (message.innerHTML == "Matched") {
-            return true;
-        } else if (message.innerHTML == "Not Matched") {
-            alert("Password doesn't match");
-            return false;
-        } else {
-            alert("Please enter new password");
-            return false;
-        }
-    }
-</script>
 <script src="../../user_assets/js/check-phone-number.js"></script>
 <script>
     // Get the close icon element

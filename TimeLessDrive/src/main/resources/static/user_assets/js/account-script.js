@@ -5,6 +5,16 @@ document.querySelector("#change-password-button").addEventListener("click",funct
         document.getElementsByClassName("change-password active")[0].classList.remove("active");
 });
 
+const defaultAvatar = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+
+window.addEventListener("load",() => {
+    const preview = document.getElementById("avatar-wrapper");
+    if(avatar == defaultAvatar) return;
+    else{
+        preview.style.setProperty('--avatar-image', "url('"+avatar+"')");
+    }
+})
+
 document.getElementById("avatar").addEventListener("change",(evt) => {
     const avatar = evt.target.files[0];
     const preview = document.getElementById("avatar-wrapper");
@@ -14,6 +24,9 @@ document.getElementById("avatar").addEventListener("change",(evt) => {
     }
     reader.readAsDataURL(avatar);
 })
+
+
+
 
 // function updateData(){
 //     let url = '/check-notification?id=' + id;

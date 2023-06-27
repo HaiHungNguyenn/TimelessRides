@@ -553,7 +553,8 @@ public ModelAndView postCar(){
         return modelAndView;
     }
     @RequestMapping("/update-info")
-    public ModelAndView update(@RequestParam("name") String name,
+    public ModelAndView update(@Nullable @RequestParam("avatar") MultipartFile file,
+                               @RequestParam("name") String name,
                                @RequestParam("phone") String phone,
                                @RequestParam("gender") String gender,
                                @RequestParam("dob") String dob,
@@ -562,6 +563,8 @@ public ModelAndView postCar(){
         ModelAndView modelAndView = new ModelAndView();
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
+        String avatar = service.getStorageService().uploadFile(file);
+        client.setAvatar(avatar);
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D",""));
         client.setGender(gender);
