@@ -29,7 +29,7 @@ function checkSubmit(){
     if(phone.value.length == 10)
         return true;
     else{
-        alert("Wrong");
+        alert("Phone number should have 10 number");
         return false;
     }
 }
