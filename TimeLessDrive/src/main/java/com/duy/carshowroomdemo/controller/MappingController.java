@@ -1,14 +1,12 @@
 package com.duy.carshowroomdemo.controller;
 
-import com.duy.carshowroomdemo.dto.ClientDto;
-import com.duy.carshowroomdemo.dto.FeedbackDto;
-import com.duy.carshowroomdemo.dto.OffMeetingDto;
-import com.duy.carshowroomdemo.dto.StaffDto;
+import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,12 +94,17 @@ public class MappingController {
         return modelAndView;
     }
 
-    @RequestMapping("/admim/carmanagement")
-    public ModelAndView carManagement(){
+    @RequestMapping("/carmanagement")
+    public ModelAndView carManagement(@Nullable @RequestParam("offset") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
         }
+        offset = (offset == null) ? 1 : offset;
+
+        List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
+        modelAndView.addObject("postDto",postDto);
+        modelAndView.addObject("offset",offset);
         modelAndView.setViewName("views/admin/car-management");
         return modelAndView;
     }

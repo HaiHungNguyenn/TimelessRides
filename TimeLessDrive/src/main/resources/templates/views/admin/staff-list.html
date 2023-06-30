@@ -18,10 +18,9 @@
 
     <link rel="stylesheet" href="../../admin_assets/vendors/owl_carousel/css/owl.carousel.css" />
 
-
     <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css" />
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
     <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css" />
@@ -76,7 +75,7 @@
         </ul>
       </li>
       <li class>
-        <a href="/admim/carmanagement" aria-expanded="false">
+        <a href="/admin/carmanagement" aria-expanded="false">
           <div class="nav_icon_small">
             <img src="../../admin_assets/img/menu-icon/9.svg" alt />
           </div>
@@ -308,10 +307,10 @@
                           <td>
                             <div class="action_btns d-flex">
                               <a href="#" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
+                                <i class="fa fa-edit"></i>
                               </a>
                               <a href="#" class="action_btn">
-                                <i class="fas fa-trash"></i>
+                                <i class="fa fa-trash"></i>
                               </a>
                             </div>
                           </td>
@@ -354,9 +353,9 @@
                       </style>
                       <div class="container">
 <!--                        /admin/staff-detail/{staffID}-->
-                        <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i class="fas fa-arrow-left"></i></a></button>
+                        <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i class="fa fa-arrow-left"></i></a></button>
                         <button class="button act"   th:text="${offset}"></button>
-                        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i class="fas fa-arrow-right"></i></a></button>
+                        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i class="fa fa-arrow-right"></i></a></button>
                       </div>
                     </div>
                   </div>

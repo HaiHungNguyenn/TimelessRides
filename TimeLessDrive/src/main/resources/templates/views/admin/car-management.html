@@ -1,611 +1,291 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <title>Board</title>
-    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png" />
+    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png"/>
 
-    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css" />
+    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
+    <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
 
-    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
-  </head>
-  <body class="crm_body_bg">
-  <nav class="sidebar">
+    <link rel="stylesheet" href="../../admin_assets/css/style1.css"/>
+
+    <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
+
+    <link rel="stylesheet" href="../../admin_assets/css/car-management.css">
+</head>
+<body class="crm_body_bg">
+<nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-      <a class="large_logo" href="/admin/home"
-      ><img src="../../admin_assets/img/logo.png" alt
-      /></a>
-      <a class="small_logo" href="/admin/home"
-      ><img src="../../admin_assets/img/mini_logo.png" alt
-      /></a>
-      <div class="sidebar_close_icon d-lg-none">
-        <i class="ti-close"></i>
-      </div>
+        <a class="large_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/logo.png" alt
+        /></a>
+        <a class="small_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/mini_logo.png" alt
+        /></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
     </div>
     <ul id="sidebar_menu">
 
-      <li class>
-        <a class="has-arrow" href="#" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/4.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Staff</span>
-          </div>
-        </a>
-        <ul>
-          <li><a href="/admin/staff_list">Staff List</a></li>
-          <li><a href="/admin/add_new_staff">Add New Staff</a></li>
-        </ul>
-      </li>
-      <li class>
-        <a class="has-arrow" href="#" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/5.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Users</span>
-          </div>
-        </a>
-        <ul>
-          <li><a href="/admin/user-list">Users List</a></li>
-        </ul>
-      </li>
-      <li class>
-        <a href="/admim/carmanagement" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/9.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Car Management</span>
-          </div>
-        </a>
-      </li>
-      <li class>
-        <a href="/admin/schedule" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/10.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Calander</span>
-          </div>
-        </a>
-      </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/4.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Staff</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/staff_list">Staff List</a></li>
+                <li><a href="/admin/add_new_staff">Add New Staff</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/5.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Users</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/user-list">Users List</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a href="/admim/carmanagement" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/9.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Car Management</span>
+                </div>
+            </a>
+        </li>
+        <li class>
+            <a href="/admin/schedule" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/10.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Calander</span>
+                </div>
+            </a>
+        </li>
 
     </ul>
-  </nav>
+</nav>
 
-    <section class="main_content dashboard_part large_header_bg">
-      <div class="container-fluid g-0">
+<section class="main_content dashboard_part large_header_bg">
+    <div class="container-fluid g-0">
         <div class="row">
-          <div class="col-lg-12 p-0">
-            <div class="header_iner d-flex justify-content-between align-items-center">
-              <div class="sidebar_icon d-lg-none">
-                <i class="ti-menu"></i>
-              </div>
-              <div class="line_icon open_miniSide d-none d-lg-block">
-                <img src="../../admin_assets/img/line_img.png" alt />
-              </div>
-              <div class="serach_field-area d-flex align-items-center">
-                <div class="search_inner">
-                  <form action="#">
-                    <div class="search_field">
-                      <input type="text" placeholder="Search" />
+            <div class="col-lg-12 p-0">
+                <div class="header_iner d-flex justify-content-between align-items-center">
+                    <div class="sidebar_icon d-lg-none">
+                        <i class="ti-menu"></i>
                     </div>
-                    <button type="submit">
-                      <img src="../../admin_assets/img/icon/icon_search.svg" alt />
-                    </button>
-                  </form>
-                </div>
-              </div>
-              <div class="header_right d-flex justify-content-between align-items-center">
-                <div class="header_notification_warp d-flex align-items-center">
-                  <li>
-                    <a class="bell_notification_clicker" href="#">
-                      <img src="../../admin_assets/img/icon/bell.svg" alt />
-                      <span>2</span>
-                    </a>
-
-                    <div class="Menu_NOtification_Wrap">
-                      <div class="notification_Header">
-                        <h4>Notifications</h4>
-                      </div>
-                      <div class="Notification_body">
-                        <div class="single_notify d-flex align-items-center">
-                          <div class="notify_thumb">
-                            <a href="#"><img src="../../admin_assets/img/staf/2.png" alt /></a>
-                          </div>
-                          <div class="notify_content">
-                            <a href="#"><h5>Cool Marketing</h5></a>
-                            <p>Lorem ipsum dolor sit amet</p>
-                          </div>
+                    <div class="line_icon open_miniSide d-none d-lg-block">
+                        <img src="../../admin_assets/img/line_img.png" alt/>
+                    </div>
+                    <div class="serach_field-area d-flex align-items-center">
+                        <div class="search_inner">
+                            <form action="#">
+                                <div class="search_field">
+                                    <input type="text" placeholder="Search"/>
+                                </div>
+                                <button type="submit">
+                                    <img src="../../admin_assets/img/icon/icon_search.svg" alt/>
+                                </button>
+                            </form>
                         </div>
-                      </div>
-                      <div class="nofity_footer">
-                        <div class="submit_button text-center pt_20">
-                          <a href="#" class="btn_1">See More</a>
-                        </div>
-                      </div>
                     </div>
-                  </li>
+                    <div class="header_right d-flex justify-content-between align-items-center">
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a class="bell_notification_clicker" href="#">
+                                    <img src="../../admin_assets/img/icon/bell.svg" alt/>
+                                    <span>2</span>
+                                </a>
 
-                </div>
-                <div class="profile_info">
-                  <img src="../../admin_assets/img/client_img.png" alt="#" />
-                  <div class="profile_info_iner">
-                    <div class="profile_author_name">
-                      <p>Neurologist</p>
-                      <h5>Dr. Robar Smith</h5>
+                                <div class="Menu_NOtification_Wrap">
+                                    <div class="notification_Header">
+                                        <h4>Notifications</h4>
+                                    </div>
+                                    <div class="Notification_body">
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/2.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Cool Marketing</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nofity_footer">
+                                        <div class="submit_button text-center pt_20">
+                                            <a href="#" class="btn_1">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </div>
+                        <div class="profile_info">
+                            <img src="../../admin_assets/img/client_img.png" alt="#"/>
+                            <div class="profile_info_iner">
+                                <div class="profile_author_name">
+                                    <p>Neurologist</p>
+                                    <h5>Dr. Robar Smith</h5>
+                                </div>
+                                <div class="profile_info_details">
+                                    <a href="#">My Profile </a>
+                                    <a href="#">Settings</a>
+                                    <a href="/admin/logout">Log Out </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="profile_info_details">
-                      <a href="#">My Profile </a>
-                      <a href="#">Settings</a>
-                      <a href="/admin/logout">Log Out </a>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      <div class="main_content_iner overly_inner">
+    <div class="main_content_iner overly_inner">
         <div class="container-fluid p-0">
-          <div class="row">
-            <div class="col-12">
-              <div
-                class="page_title_box d-flex align-items-center justify-content-between"
-              >
-                <div class="page_title_left">
-                  <h3 class="f_s_30 f_w_700 dark_text">Dashboard</h3>
-                  <ol class="breadcrumb page_bradcam mb-0">
-                    <li class="breadcrumb-item">
-                      <a href="javascript:void(0);">Salessa </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                      <a href="javascript:void(0);">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active">Board</li>
-                  </ol>
+            <div class="row">
+                <div class="col-12">
+                    <div
+                            class="page_title_box d-flex align-items-center justify-content-between"
+                    >
+                        <div class="page_title_left">
+                            <h3 class="f_s_30 f_w_700 dark_text">Dashboard</h3>
+                            <ol class="breadcrumb page_bradcam mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0);">Salessa </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="javascript:void(0);">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active">Board</li>
+                            </ol>
+                        </div>
+                        <a href="#" class="white_btn3">Create Report</a>
+                    </div>
                 </div>
-                <a href="#" class="white_btn3">Create Report</a>
-              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="white_card">
-                <div class="card-body">
-                  <div class="board_wrapper">
-                    <div class="single_board">
-                      <div class="main_board_card">
-                        <div class="white_card_header ps-0 pe-0 pt-0">
-                          <div class="box_header m-0">
-                            <div class="main-title">
-                              <h3 class="m-0">To Do</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="white_card">
+                        <div class="card-body">
+                            <div class="board_wrapper">
+
+
                             </div>
-                            <div class="header_more_tool">
-                              <div class="dropdown">
-                                <span
-                                  class="dropdown-toggle"
-                                  id="dropdownMenuButton"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <i class="ti-more-alt"></i>
-                                </span>
-                                <div
-                                  class="dropdown-menu dropdown-menu-right"
-                                  aria-labelledby="dropdownMenuButton"
-                                  x-placement="bottom-end"
-                                  style="
-                                    position: absolute;
-                                    transform: translate3d(-148px, 20px, 0px);
-                                    top: 0px;
-                                    left: 0px;
-                                    will-change: transform;
-                                  "
-                                >
-                                  <a class="dropdown-item" href="#">
-                                    <i class="ti-eye"></i> Action</a
-                                  >
-                                  <a class="dropdown-item" href="#">
-                                    <i class="ti-trash"></i> Delete</a
-                                  >
-                                  <a class="dropdown-item" href="#">
-                                    <i class="fas fa-edit"></i> Edit</a
-                                  >
-                                  <a class="dropdown-item" href="#">
-                                    <i class="ti-printer"></i> Print</a
-                                  >
-                                  <a class="dropdown-item" href="#">
-                                    <i class="fa fa-download"></i> Download</a
-                                  >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                         </div>
-                        <div class="board_card_list">
-                          <div class="card border-0">
-                            <div class="card-body">
-                              <div
-                                class="card_head d-flex justify-content-between align-items-center"
-                              >
-                                <i
-                                  class="far fa-circle f_s_14 text_color_4"
-                                ></i>
-                                <div class="header_more_tool">
-                                  <div class="dropdown">
-                                    <span
-                                      class="dropdown-toggle"
-                                      id="dropdownMenuButton"
-                                      data-bs-toggle="dropdown"
-                                      aria-expanded="false"
-                                    >
-                                      <i class="ti-more-alt"></i>
-                                    </span>
-                                    <div
-                                      class="dropdown-menu dropdown-menu-right"
-                                      aria-labelledby="dropdownMenuButton"
-                                      x-placement="bottom-end"
-                                      style="
-                                        position: absolute;
-                                        transform: translate3d(
-                                          -148px,
-                                          20px,
-                                          0px
-                                        );
-                                        top: 0px;
-                                        left: 0px;
-                                        will-change: transform;
-                                      "
-                                    >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-eye"></i> Action</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-trash"></i> Delete</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fas fa-edit"></i> Edit</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-printer"></i> Print</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fa fa-download"></i>
-                                        Download</a
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <h5 class="f_s_16 f_w_500 mb-0">
-                                Mobile Account Setting
-                              </h5>
-                              <p class="text-muted mb-2">Mobile App</p>
-                              <div
-                                class="row justify-content-center align-items-center"
-                              >
-                                <div class="col-6 align-self-center">
-                                  <ul
-                                    class="list-inline mb-0 d-flex align-items-center"
-                                  >
-                                    <li class="list-item d-inline-block me-2">
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-menu-alt text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >0/5</span
-                                        >
-                                      </a>
-                                    </li>
-                                    <li
-                                      class="list-item d-inline-block d-flex align-items-center"
-                                    >
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-comment text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >3</span
-                                        >
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
+                    </div>
+                </div>
+            </div>
+            <div class="" th:each="post :${postDto}">
+                <div class="row car__item">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="car__item__pic__slider owl-carousel">
+                            <!--                                    <div th:if="${post.getCar() != null}" th:each="image,i : ${post.getCar().getCarImageList()}">-->
+                            <!--                                        &lt;!&ndash; Access the image at the current index &ndash;&gt;-->
+                            <!--                                        <img th:if="${i.count < 5} "th:src="${car.getCarImageList().get(i).getId()}" alt="">-->
 
-                                <div class="col-6 align-self-center">
-                                  <a class="float-end" href="#">
-                                    <div class="thumb_34 ms-1 mt-0">
-                                      <img
-                                        class="img-fluid radius_50"
-                                        src="../../admin_assets/img/customers/1.png"
-                                        alt
-                                      />
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card border-0">
-                            <div class="card-body">
-                              <div
-                                class="card_head d-flex justify-content-between align-items-center"
-                              >
-                                <i
-                                  class="far fa-circle f_s_14 text_color_4"
-                                ></i>
-                                <div class="header_more_tool">
-                                  <div class="dropdown">
-                                    <span
-                                      class="dropdown-toggle"
-                                      id="dropdownMenuButton"
-                                      data-bs-toggle="dropdown"
-                                      aria-expanded="false"
-                                    >
-                                      <i class="ti-more-alt"></i>
-                                    </span>
-                                    <div
-                                      class="dropdown-menu dropdown-menu-right"
-                                      aria-labelledby="dropdownMenuButton"
-                                      x-placement="bottom-end"
-                                      style="
-                                        position: absolute;
-                                        transform: translate3d(
-                                          -148px,
-                                          20px,
-                                          0px
-                                        );
-                                        top: 0px;
-                                        left: 0px;
-                                        will-change: transform;
-                                      "
-                                    >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-eye"></i> Action</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-trash"></i> Delete</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fas fa-edit"></i> Edit</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-printer"></i> Print</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fa fa-download"></i>
-                                        Download</a
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <h5 class="f_s_16 f_w_500 mb-0">
-                                Mobile Account Setting
-                              </h5>
-                              <p class="text-muted mb-2">Mobile App</p>
-                              <div
-                                class="row justify-content-center align-items-center"
-                              >
-                                <div class="col-6 align-self-center">
-                                  <ul
-                                    class="list-inline mb-0 d-flex align-items-center"
-                                  >
-                                    <li class="list-item d-inline-block me-2">
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-menu-alt text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >0/5</span
-                                        >
-                                      </a>
-                                    </li>
-                                    <li
-                                      class="list-item d-inline-block d-flex align-items-center"
-                                    >
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-comment text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >3</span
-                                        >
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
+                            <!--                                    </div>-->
+                            <img th:src="${carImageUrl.getContent()}"
+                                 th:each="carImageUrl: ${post.getCar().getCarImageList()}">
+                            <!--                                    <img  src="../../user_assets/img/cars/car-1.jpg" alt="">-->
+                            <!--                                    <img  src="../../user_assets/img/cars/car-8.jpg" alt="">-->
+                            <!--                                    <img  src="../../user_assets/img/cars/car-6.jpg" alt="">-->
+                            <!--                                    <img  src="../../user_assets/img/cars/car-3.jpg" alt="">-->
 
-                                <div class="col-6 align-self-center">
-                                  <a class="float-end" href="#">
-                                    <div class="thumb_34 ms-1 mt-0">
-                                      <img
-                                        class="img-fluid radius_50"
-                                        src="../../admin_assets/img/customers/1.png"
-                                        alt
-                                      />
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="card border-0">
-                            <div class="card-body">
-                              <div
-                                class="card_head d-flex justify-content-between align-items-center"
-                              >
-                                <i
-                                  class="far fa-circle f_s_14 text_color_4"
-                                ></i>
-                                <div class="header_more_tool">
-                                  <div class="dropdown">
-                                    <span
-                                      class="dropdown-toggle"
-                                      id="dropdownMenuButton"
-                                      data-bs-toggle="dropdown"
-                                      aria-expanded="false"
-                                    >
-                                      <i class="ti-more-alt"></i>
-                                    </span>
-                                    <div
-                                      class="dropdown-menu dropdown-menu-right"
-                                      aria-labelledby="dropdownMenuButton"
-                                      x-placement="bottom-end"
-                                      style="
-                                        position: absolute;
-                                        transform: translate3d(
-                                          -148px,
-                                          20px,
-                                          0px
-                                        );
-                                        top: 0px;
-                                        left: 0px;
-                                        will-change: transform;
-                                      "
-                                    >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-eye"></i> Action</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-trash"></i> Delete</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fas fa-edit"></i> Edit</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="ti-printer"></i> Print</a
-                                      >
-                                      <a class="dropdown-item" href="#">
-                                        <i class="fa fa-download"></i>
-                                        Download</a
-                                      >
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <h5 class="f_s_16 f_w_500 mb-0">
-                                Mobile Account Setting
-                              </h5>
-                              <p class="text-muted mb-2">Mobile App</p>
-                              <div
-                                class="row justify-content-center align-items-center"
-                              >
-                                <div class="col-6 align-self-center">
-                                  <ul
-                                    class="list-inline mb-0 d-flex align-items-center"
-                                  >
-                                    <li class="list-item d-inline-block me-2">
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-menu-alt text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >0/5</span
-                                        >
-                                      </a>
-                                    </li>
-                                    <li
-                                      class="list-item d-inline-block d-flex align-items-center"
-                                    >
-                                      <a
-                                        class="d-flex align-items-center"
-                                        href="#"
-                                      >
-                                        <i
-                                          class="ti-comment text-muted ms-1 me-1"
-                                        ></i>
-                                        <span class="text-muted fw-bold"
-                                          >3</span
-                                        >
-                                      </a>
-                                    </li>
-                                  </ul>
-                                </div>
-
-                                <div class="col-6 align-self-center">
-                                  <a class="float-end" href="#">
-                                    <div class="thumb_34 ms-1 mt-0">
-                                      <img
-                                        class="img-fluid radius_50"
-                                        src="../../admin_assets/img/customers/1.png"
-                                        alt
-                                      />
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <button class="badge_btn_8 border-0 w-100">
-                            Add Task
-                          </button>
                         </div>
-                      </div>
                     </div>
 
-
-
-
-
-
-                  </div>
+                    <div class="car__item__text col-md-8">
+                        <div class="car__item__text__inner">
+                            <div class="label-date"
+                                 th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <h5><a th:href="'/car-detail/'+${post.getCar().getId()}"
+                                           th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a>
+                                    </h5>
+                                    <ul>
+                                        <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi
+                                        </li>
+                                        <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>
+                                        <li><span th:text="${post.getCar().getCarDescription().getPower()}"/> hp</li>
+                                        <li><span th:text="${post.getPostDate()}"/></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <a href="#" class="action_btn mr_10">
+                                        <i class="fa fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="action_btn">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="car__item__price">
+                            <span class="car-option">Price</span>
+                            <h6 th:text=" ${post.getCar().getFormattedPrice()}"></h6>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+    <div class="container">
+        <!--                        /admin/staff-detail/{staffID}-->
+        <button class="button"><a th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i
+                class="fa fa-arrow-left"></i></a></button>
+        <button class="button act" th:text="${offset}"></button>
+        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i
+                class="fa fa-arrow-right"></i></a></button>
+    </div>
+    </div>
+    </div>
 
 
-    </section>
+</section>
 
 
+<script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
 
+<script src="../../admin_assets/js/popper1.min.js"></script>
 
+<script src="../../admin_assets/js/bootstrap1.min.js"></script>
 
-    <script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+<script src="../../admin_assets/js/metisMenu.js"></script>
 
-    <script src="../../admin_assets/js/popper1.min.js"></script>
+<script src="../../admin_assets/js/custom.js"></script>
 
-    <script src="../../admin_assets/js/bootstrap1.min.js"></script>
-
-    <script src="../../admin_assets/js/metisMenu.js"></script>
-
-
-
-    <script src="../../admin_assets/js/custom.js"></script>
-  </body>
+<!--  show image script-->
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+<!-- notification js-->
+<script src="../../admin_assets/js/metisMenu.js"></script>
+<script src="../../admin_assets/js/custom.js"></script>
+</body>
 
 </html>

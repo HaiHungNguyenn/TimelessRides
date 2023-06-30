@@ -25,6 +25,12 @@ document.getElementById("avatar").addEventListener("change",(evt) => {
     reader.readAsDataURL(avatar);
 })
 
+document.getElementById("save-profile-btn").addEventListener("click", (e) =>{
+    const avatar = document.getElementById("avatar");
+    if(avatar.value == ""){
+        avatar.remove();
+    }
+})
 
 
 

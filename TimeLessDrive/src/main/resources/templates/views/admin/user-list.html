@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="../../admin_assets/vendors/gijgo/gijgo.min.css" />
 
     <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="../../admin_assets/vendors/tagsinput/tagsinput.css" />
 
     <link rel="stylesheet" href="../../admin_assets/vendors/datepicker/date-picker.css" />
@@ -100,7 +103,7 @@
         </ul>
       </li>
       <li class>
-        <a href="/admim/carmanagement" aria-expanded="false">
+        <a href="/admin/carmanagement" aria-expanded="false">
           <div class="nav_icon_small">
             <img src="../../admin_assets/img/menu-icon/9.svg" alt />
           </div>
@@ -328,11 +331,11 @@
                           <td><a href="#" th:text="${client.getGender()}"></a></td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a href="#" class="action_btn mr_10">
-                                <i class="far fa-edit"></i>
+                              <a th:href="'/admin/client-detail/'+${client.getId()}" class="action_btn mr_10">
+                                <i class="fa fa-edit"></i>
                               </a>
                               <a th:href="@{'/admin/delete-user/' + ${client.getId()}}" class="action_btn">
-                                <i class="fas fa-trash"></i>
+                                <i class="fa fa-trash"></i>
                               </a>
                             </div>
                           </td>
@@ -374,9 +377,9 @@
                         }
                       </style>
                       <div class="container">
-                        <a th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><button class="button"><i class="fas fa-arrow-left"></i></button></a>
+                        <a th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
                         <button class="button act"   th:text="${offset}"></button>
-                        <a th:href="@{/admin/staff_list(offset=${offset + 1})}"><button class="button"><i class="fas fa-arrow-right"></i></button></a>
+                        <a th:href="@{/admin/staff_list(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
                       </div>
                     </div>
                   </div>

@@ -100,7 +100,7 @@ CREATE TABLE post (
 	car_id					VARCHAR(100) FOREIGN KEY REFERENCES car(id) UNIQUE,
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
 	[description]			VARCHAR(2000),
-	[plan]                   VARCHAR(100),
+	[plan]                  VARCHAR(100),
 	expire_date             DATE,
 	post_date				DATE,
 	post_time				TIME,
@@ -138,7 +138,8 @@ CREATE TABLE feedback (
 	id						VARCHAR(100) PRIMARY KEY,
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
 	created_at				DATE,
-	[description]			NVARCHAR(2000)
+	[description]			NVARCHAR(2000),
+	rating                  DECIMAL
 )
 
 CREATE TABLE client_notification (
@@ -158,5 +159,4 @@ CREATE TABLE staff_notification (
     create_time				TIME,
 	[status]				VARCHAR(50)
 )
-
 

@@ -28,4 +28,6 @@ public class Feedback {
     @Column(name = "description", length = 2000)
     private String description;
 
+    @Column(name = "rating")
+    private long rating;
 }
