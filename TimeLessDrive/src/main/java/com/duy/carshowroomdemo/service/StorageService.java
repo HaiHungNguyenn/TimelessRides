@@ -34,7 +34,7 @@ public class StorageService {
         /// get the image url
         String imageUrl = s3Client.getUrl(bucketName,fileName).toString();
         System.out.println(imageUrl);
-
+        System.out.println("upload on s3");
         fileObject.delete();
         return imageUrl;
     }
