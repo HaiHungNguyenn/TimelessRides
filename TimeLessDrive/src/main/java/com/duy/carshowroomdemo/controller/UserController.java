@@ -560,22 +560,33 @@ public ModelAndView postCar(){
                                @RequestParam("dob") String dob,
                                @RequestParam("address") String address){
         System.out.println("update information");
+        System.out.println(gender);
+        System.out.println(dob);
+        System.out.println(file);
+        System.out.println(name);
         ModelAndView modelAndView = new ModelAndView();
         ClientDto clientDto = (ClientDto)session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
-        String avatar = service.getStorageService().uploadFile(file);
+        String avatar = client.getAvatar();
+        System.out.println("null or not"+avatar);
+        if(file != null){
+         avatar = service.getStorageService().uploadFile(file);
+        }
+        System.out.println("after -- null or not"+avatar);
         client.setAvatar(avatar);
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D",""));
-        client.setGender(gender);
-        client.setDob(LocalDate.parse(dob));
+//        client.setGender(gender);
+//        client.setDob(LocalDate.parse(dob));
+//
         client.setAddress(address);
-        System.out.println(client.getPassword());
+//        System.out.println(client.getPassword());
+
         service.getClientService().save(client);
         session.setAttribute("client",service.getClientService().findById(clientDto.getId()));
         System.out.println("can be here");
-        modelAndView.addObject("status","success");
-        modelAndView.addObject("message","Your information has been updated successfully");
+//        modelAndView.addObject("status","success");
+//        modelAndView.addObject("message","Your information has been updated successfully");
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;
