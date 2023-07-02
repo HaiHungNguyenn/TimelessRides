@@ -21,9 +21,9 @@ function updateData(){
                 notifyContent.classList.add("notify_content");
                 notifyContent.appendChild(h5);
                 notifyContent.appendChild(p);
-                let image = document.createElement("img");
-                image.src = "../../admin_assets/img/staf/2.png";
-                image.alt = "staff_image";
+                let image = document.createElement("div");
+                // image.src = "../../admin_assets/img/staf/2.png";
+                // image.alt = "staff_image";
                 let notifyThumb = document.createElement("div");
                 notifyThumb.classList.add("notify_thumb");
                 notifyThumb.appendChild(image);
