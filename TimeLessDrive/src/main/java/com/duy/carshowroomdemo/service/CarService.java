@@ -65,7 +65,7 @@ public class CarService {
     }
 
     public CarDto findCarById(String id) {
-        return mapperManager.getCarMapper().toDto(repository.findById(id).get());
+        return mapperManager.getCarMapper().toDto(repository.findById(id).orElse(null));
     }
 
     public List<CarDto> getCarPerPage(Pageable pageable){
