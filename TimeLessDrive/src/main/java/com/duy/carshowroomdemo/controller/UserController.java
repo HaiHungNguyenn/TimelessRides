@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.Objects;
 import java.util.Stack;
 
 @Controller
-
 public class UserController {
     @Autowired
     private Service service;
@@ -39,79 +37,44 @@ public class UserController {
 
     private final MapperManager mapperManager = MapperManager.getInstance();
 
-    public boolean isAuthenticated(){
-        return(session.getAttribute("client")!=null);
+    public boolean isAuthenticated() {
+        return (session.getAttribute("client") != null);
     }
 
-    @GetMapping ("/")
-    public ModelAndView home(){
+    @GetMapping("/")
+    public ModelAndView home() {
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("views/user/index");
+
         service.configSearchList();
+
+        modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
 
+    @GetMapping("/post_car")
+    public ModelAndView showCarPostingPage() {
 
-    //    @GetMapping ("/car")
-//    public ModelAndView car(){
-//        ModelAndView modelAndView = new ModelAndView();
-//        Car carByName = service.getCarService().findCarByName("Renault Scenic TCe 140 EDC GPF 103 kW");
-//        modelAndView.addObject("car", carByName);
-//        modelAndView.setViewName("views/user/car");
-////        session.setAttribute("carList",service.getCarService().getCarList());
-//        modelAndView.addObject("carList",service.getCarService().getCarList());
-//        return modelAndView;
-//    }
-@GetMapping("/post_car")
-public ModelAndView postCar(){
-    ModelAndView modelAndView = new ModelAndView("views/user/login");
-    if(!isAuthenticated()) {
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()) {
+            return modelAndView;
+        }
+        modelAndView.setViewName("views/user/post-car");
         return modelAndView;
     }
 
-
-    modelAndView.setViewName("views/user/post-car");
-    return modelAndView;
-}
-//    @RequestMapping("/car2")
-//    public ModelAndView showCar2List(String direction,
-//                                    String property,
-//                                    @Nullable @RequestParam("page") Integer offset ){
-//        ModelAndView modelAndView = new ModelAndView();
-//
-//
-//        offset = (offset == null) ? 1: offset;
-//
-//        List<CarDto> carList;
-//
-//        if(property != null && direction != null){
-//            Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-//            carList = service.getCarService().getCarSortedPerPage(PageRequest.of(offset -1, 9,Sort.by(sortDirection,property)));
-//
-//        }else{
-//            carList = service.getCarService().getCarPerPage(PageRequest.of(offset - 1, 9));
-//        }
-//        long lastOffSet = service.getCarService().getLastOffset(9);
-//
-//        modelAndView.addObject("carlist",carList);
-////        session.setAttribute("staticList",carList);
-//        modelAndView.addObject("offset", offset);
-//        modelAndView.addObject("property", property);
-//        modelAndView.addObject("direction", direction);
-//        modelAndView.addObject("lastOffset", lastOffSet);
-//        modelAndView.setViewName("views/user/car");
-//        return modelAndView;
-//    }
     @RequestMapping("/car")
-    public ModelAndView showCarList(String direction,
-                                    String property,
-                                    String value,
-                                    @Nullable @RequestParam("offset") Integer offset ){
+    public ModelAndView showCarInventory(String direction,
+                                         String property,
+                                         String value,
+                                         @Nullable @RequestParam("offset") Integer offset) {
+
         ModelAndView modelAndView = new ModelAndView();
 
-        offset = (offset == null) ? 1: offset;
-        if(property != null){
-            if (property.isBlank()){
+        offset = (offset == null) ? 1 : offset;
+        if (property != null) {
+            if (property.isBlank()) {
                 property = null;
                 value = null;
             }
@@ -119,7 +82,7 @@ public ModelAndView postCar(){
 
         List<PostDto> postList = new ArrayList<>();
 
-        if(property != null && value != null){
+        if (property != null && value != null) {
             switch (property) {
                 case "make" -> {
                     if (direction != null) {
@@ -157,9 +120,9 @@ public ModelAndView postCar(){
                     }
                 }
             }
-        }else if(direction != null){
+        } else if (direction != null) {
             postList = service.getPostService().findSortedApprovedPosts(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
-        }else{
+        } else {
             postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
         }
 
@@ -178,35 +141,37 @@ public ModelAndView postCar(){
     }
 
     @RequestMapping("/car/sorted-{direction}")
-    public ModelAndView showCarSortedPerPage(@PathVariable String direction,
-                                             @Nullable @RequestParam("property") String property,
-                                             @Nullable @RequestParam("value") String value,
-                                             @Nullable @RequestParam("offset") Integer offset){
-        return showCarList(direction, property, value, offset);
+    public ModelAndView showSortedCarList(@PathVariable String direction,
+                                          @Nullable @RequestParam("property") String property,
+                                          @Nullable @RequestParam("value") String value,
+                                          @Nullable @RequestParam("offset") Integer offset) {
+        return showCarInventory(direction, property, value, offset);
     }
 
     @RequestMapping("/car/searchCarBy-{property}-{value}")
     public ModelAndView searchCarByProperties(@PathVariable String property,
                                               @PathVariable String value,
                                               @Nullable @RequestParam("direction") String direction,
-                                              @Nullable @RequestParam("offset") Integer offset){
-        return showCarList(direction,property,value,offset);
+                                              @Nullable @RequestParam("offset") Integer offset) {
+        return showCarInventory(direction, property, value, offset);
     }
 
 
-    @GetMapping("/car/bookmeeting")
+    @GetMapping("/car/book-meeting")
     public ModelAndView bookMeeting(@RequestParam("slot") String slot,
                                     @RequestParam("phone") String phone,
                                     @RequestParam("carId") String carId,
-                                    @RequestParam("description") String description){
+                                    @RequestParam("description") String description) {
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        if(!isAuthenticated()) {
+
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         Car car = service.getCarService().findCarEntityById(carId);
 
-        if (!(car != null && car.getStatus().equals(Status.AVAILABLE))){
+        if (!(car != null && car.getStatus().equals(Status.AVAILABLE))) {
             modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                     .setViewName("views/user/car-details");
             return modelAndView;
@@ -230,50 +195,38 @@ public ModelAndView postCar(){
         service.getOffMeetingService().save(offMeeting);
 
         modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
-                .addObject("status","success")
-                .addObject("message","Your meeting request has been sent. Please wait for respond")
+                .addObject("status", "success")
+                .addObject("message", "Your meeting request has been sent. Please wait for respond")
                 .setViewName("views/user/car-details");
         return modelAndView;
     }
-    @GetMapping ("/car-detail/{id}")
-    public ModelAndView carDetail(@PathVariable String id){
+
+    @GetMapping("/car-detail/{id}")
+    public ModelAndView showCarDetails(@PathVariable String id) {
         return new ModelAndView("views/user/car-details")
                 .addObject("carDto", service.getCarService().findCarById(id));
     }
 
-    @RequestMapping("/testadd")
-    public ModelAndView test(){
-        OffMeeting offMeeting = new OffMeeting();
-        offMeeting.setClient( mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")));
-        offMeeting.setMeetingDate(LocalDate.of(2023,6,5));
-        offMeeting.setMeetingTime(LocalTime.of(22,39));
-        offMeeting.setPhone("0988763136");
-        offMeeting.setCreateDate(LocalDate.now());
-        offMeeting.setCreateTime(LocalTime.now());
-        offMeeting.setDescription("hello 123 abgh em");
-        offMeeting.setCar(service.getCarService().findCarEntityById("0ee0327a-3254-4b84-b169-7b0dda68372b"));
-        offMeeting.setStatus(Status.PENDING);
-        service.getOffMeetingService().save(offMeeting);
-        ModelAndView modelAndView = new ModelAndView("views/user/index");return modelAndView;
+    @GetMapping("/account")
+    public ModelAndView showAccountInfoPage() {
 
-    }
-
-    
-    @GetMapping ("/account")
-    public ModelAndView account(){
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        if(!isAuthenticated()) {
+
+        if (!isAuthenticated()) {
             return modelAndView;
         }
-        modelAndView.setViewName("views/user/account");
+
         stack.push(request.getRequestURI());
+        modelAndView.setViewName("views/user/account");
         return modelAndView;
     }
 
-    @GetMapping ("/transactions_history")
-    public ModelAndView transactionsHistory(){
+    @GetMapping("/transactions_history")
+    public ModelAndView showTransactionsHistoryPage() {
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        if(!isAuthenticated()) {
+
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
@@ -286,54 +239,65 @@ public ModelAndView postCar(){
         return modelAndView;
     }
 
-    @GetMapping ("/meeting_history")
-    public ModelAndView meetingHistory(String errorMsg, String successMsg){
+    @GetMapping("/meeting_history")
+    public ModelAndView showMeetingHistoryPage(String errorMsg, String successMsg) {
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if(!isAuthenticated()) {
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         ClientDto client = (ClientDto) session.getAttribute("client");
-        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0,10));
+        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0, 10));
 
         modelAndView.addObject("meetingList", meetingList)
                 .addObject("errorMsg", errorMsg)
                 .addObject("successMsg", successMsg)
                 .setViewName("views/user/meeting-history");
-
         return modelAndView;
     }
 
+    @RequestMapping("/post-history")
+    public ModelAndView showPostHistory() {
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-    @GetMapping ("/customer_service")
-    public ModelAndView customerService(){
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        modelAndView.setViewName("views/user/post-history");
+        return modelAndView;
+    }
+
+    @GetMapping("/customer_service")
+    public ModelAndView showCustomerServicePage() {
         return new ModelAndView("views/user/customer-service");
     }
 
     @RequestMapping("/confirm-post/{clientId}")
-    public ModelAndView confirmPost(@PathVariable("clientId") String clientId,
-                                    @RequestParam("carName") String carName,
-                                    @RequestParam("price") String price,
-                                    @RequestParam("make") String make,
-                                    @RequestParam("model") String model,
-                                    @RequestParam("plan") String plan,
-                                    @Nullable @RequestParam("files") MultipartFile[] files,
-                                    @Nullable @RequestParam("bodyColor") String bodyColor,
-                                    @Nullable @RequestParam("interiorColor") String interiorColor,
-                                    @Nullable @RequestParam("interiorMaterial") String interiorMaterial,
-                                    @Nullable @RequestParam("body") String body,
-                                    @Nullable @RequestParam("licensePlate") String licensePlate,
-                                    @Nullable @RequestParam("transmission") String transmission,
-                                    @Nullable @RequestParam("seats") String seats,
-                                    @Nullable @RequestParam("mileage") String mileage,
-                                    @Nullable @RequestParam("engineCapacity") String engineCapacity,
-                                    @Nullable @RequestParam("power") String power,
-                                    @Nullable @RequestParam("co2Emission") String co2Emission,
-                                    @Nullable @RequestParam("fuelType") String fuelType,
-                                    @Nullable @RequestParam("firstRegistration") String firstRegistration,
-                                    @Nullable @RequestParam("others") String others,
-                                    @Nullable @RequestParam("postDescription") String postDescription){
+    public ModelAndView postCar(@PathVariable("clientId") String clientId,
+                                @RequestParam("carName") String carName,
+                                @RequestParam("price") String price,
+                                @RequestParam("make") String make,
+                                @RequestParam("model") String model,
+                                @RequestParam("plan") String plan,
+                                @Nullable @RequestParam("files") MultipartFile[] files,
+                                @Nullable @RequestParam("bodyColor") String bodyColor,
+                                @Nullable @RequestParam("interiorColor") String interiorColor,
+                                @Nullable @RequestParam("interiorMaterial") String interiorMaterial,
+                                @Nullable @RequestParam("body") String body,
+                                @Nullable @RequestParam("licensePlate") String licensePlate,
+                                @Nullable @RequestParam("transmission") String transmission,
+                                @Nullable @RequestParam("seats") String seats,
+                                @Nullable @RequestParam("mileage") String mileage,
+                                @Nullable @RequestParam("engineCapacity") String engineCapacity,
+                                @Nullable @RequestParam("power") String power,
+                                @Nullable @RequestParam("co2Emission") String co2Emission,
+                                @Nullable @RequestParam("fuelType") String fuelType,
+                                @Nullable @RequestParam("firstRegistration") String firstRegistration,
+                                @Nullable @RequestParam("others") String others,
+                                @Nullable @RequestParam("postDescription") String postDescription) {
 
         ModelAndView modelAndView = new ModelAndView("views/user/post-car");
 
@@ -352,30 +316,20 @@ public ModelAndView postCar(){
                 .fuelType(fuelType)
                 .transmission(transmission)
                 .firstRegistration(firstRegistration)
-                .seats((Objects.equals(seats, "")) ? 0 : Integer.parseInt(seats))
-                .power((Objects.equals(power, "")) ? 0 : Integer.parseInt(power))
-                .engineCapacity((Objects.equals(engineCapacity, "")) ? 0 : Integer.parseInt(engineCapacity))
-                .co2Emission((Objects.equals(co2Emission, "")) ? 0 : Integer.parseInt(co2Emission))
-                .kmsDriven((Objects.equals(mileage, "")) ? 0 : Integer.parseInt(mileage))
+                .seats((Objects.equals(seats, "") || seats == null) ? 0 : Integer.parseInt(seats))
+                .power((Objects.equals(power, "") || power == null) ? 0 : Integer.parseInt(power))
+                .engineCapacity((Objects.equals(engineCapacity, "") || engineCapacity == null) ? 0 : Integer.parseInt(engineCapacity))
+                .co2Emission((Objects.equals(co2Emission, "") || co2Emission == null) ? 0 : Integer.parseInt(co2Emission))
+                .kmsDriven((Objects.equals(mileage, "") || mileage == null) ? 0 : Integer.parseInt(mileage))
                 .others(others)
                 .build();
-        int i = 0;
-        if(files != null){
-            for (MultipartFile file: files) {
+
+        if (files != null) {
+            for (MultipartFile file : files) {
                 CarImage carImage = new CarImage();
-//                try {
-//                    carImage.setContent(file.getBytes());
-//                } catch (IOException e) {
-//                    modelAndView.addObject("errorMsg", "An error occurred");
-//                    return modelAndView;
-//                }
-                System.out.println("File name is: " + files[0].getOriginalFilename());
-                System.out.println("File length is:" + files.length);
-                System.out.println(i);
                 carImage.setContent(service.getStorageService().uploadFile(file));
                 carImage.setCar(car);
                 carImageList.add(carImage);
-                i++;
             }
         }
 
@@ -384,7 +338,6 @@ public ModelAndView postCar(){
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
         car.setStatus(Status.AVAILABLE);
         car.setCarDescription(carDescription);
-//        car.setShowroom(showroomList.get(0));
 
         Post post = Post.builder()
                 .car(car)
@@ -401,33 +354,34 @@ public ModelAndView postCar(){
         service.getPostService().save(post);
 
         modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
-
         return modelAndView;
     }
 
     @RequestMapping("/meeting-history/cancel")
-    public ModelAndView cancelMeeting(@RequestParam("id") String id){
+    public ModelAndView cancelMeeting(@RequestParam("id") String id) {
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
+
         String errorMsg = null;
         String successMsg = null;
 
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         OffMeeting offMeeting = service.getOffMeetingService().findById(id);
 
-        if(offMeeting == null){
+        if (offMeeting == null) {
             errorMsg = "An error occurred";
-            return meetingHistory(errorMsg, successMsg);
+            return showMeetingHistoryPage(errorMsg, successMsg);
         }
 
-        if(!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId()) || !offMeeting.getStatus().equals(Status.PENDING)){
+        if (!offMeeting.getClient().getId().equals(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")).getId()) || !offMeeting.getStatus().equals(Status.PENDING)) {
             errorMsg = "You can't to cancel this meeting";
-            return meetingHistory(errorMsg, successMsg);
+            return showMeetingHistoryPage(errorMsg, successMsg);
         }
 
-        if(offMeeting.getStaff() != null){
+        if (offMeeting.getStaff() != null) {
             String msg = "Your meeting with " + offMeeting.getClient() + " at " + offMeeting.getMeetingTime() + ", " + offMeeting.getMeetingDate() + " has been cancelled";
             service.sendNotification(offMeeting.getStaff(), msg);
         }
@@ -435,17 +389,18 @@ public ModelAndView postCar(){
         service.getOffMeetingService().delete(offMeeting);
         successMsg = "Your meeting has been cancelled";
 
-        return meetingHistory(errorMsg, successMsg);
+        return showMeetingHistoryPage(errorMsg, successMsg);
     }
 
     @RequestMapping("/meeting-history/edit")
     public ModelAndView editMeeting(@RequestParam("offMeetingId") String meetingId,
                                     @RequestParam("phone") String phone,
                                     @RequestParam("description") String description,
-                                    @RequestParam("slot") String slot){
+                                    @RequestParam("slot") String slot) {
+
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
@@ -453,32 +408,32 @@ public ModelAndView postCar(){
 
         OffMeeting meeting = service.getOffMeetingService().findById(meetingId);
 
-        if (meeting == null){
+        if (meeting == null) {
             String errorMsg = "An error occurred, can't perform this action";
-            return meetingHistory(errorMsg, null);
+            return showMeetingHistoryPage(errorMsg, null);
         }
 
         meeting.setMeetingDate(Util.parseLocalDate(parts[0]));
         meeting.setMeetingTime(Util.parseLocalTime(parts[1]));
 
-        if (!phone.isEmpty()){
+        if (!phone.isEmpty()) {
             meeting.setPhone(phone);
         }
 
-        if (!description.isEmpty()){
-            meeting.setPhone(description);
+        if (!description.isEmpty()) {
+            meeting.setDescription(description);
         }
 
         service.getOffMeetingService().save(meeting);
 
         String successMsg = "Meeting's information has been changed";
 
-        return meetingHistory(null,successMsg);
+        return showMeetingHistoryPage(null, successMsg);
     }
 
-    @GetMapping ("/signin")
-    public ModelAndView signIn(OAuth2AuthenticationToken token){
-        if(token != null){
+    @GetMapping("/signin")
+    public ModelAndView signIn(OAuth2AuthenticationToken token) {
+        if (token != null) {
             System.out.println(Objects.requireNonNull(token.getPrincipal().getAttribute("email")).toString());
         }
 
@@ -488,35 +443,35 @@ public ModelAndView postCar(){
     }
 
     @RequestMapping("/google-handler")
-    public ModelAndView googleHandler(OAuth2AuthenticationToken token){
+    public ModelAndView googleHandler(OAuth2AuthenticationToken token) {
 
         ModelAndView modelAndView = new ModelAndView("views/user/index");
 
         String email = token.getPrincipal().getAttribute("email");
-        System.out.println("email ne: "+email);
 
         StaffDto staffDto = service.getStaffService().findByEmail(email);
-        if(staffDto != null){
-            System.out.println("chinh la staff");
-            modelAndView.setViewName("views/staff/profile");
-            session.setAttribute("staff",staffDto);
-            List<OffMeetingDto> meetingList;
 
-            meetingList = service.getOffMeetingService().findOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED, PageRequest.of(0, 4));
+        if (staffDto != null) {
+            session.setAttribute("staff", staffDto);
+            List<OffMeetingDto> meetingList = service
+                    .getOffMeetingService()
+                    .findOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED, PageRequest.of(0, 4));
             long lastOffset = service.getOffMeetingService().getLastOffset(staffDto, Status.APPROVED, 4);
             long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByStaffAndStatus(staffDto, Status.APPROVED);
-            modelAndView.addObject("meetingList", meetingList);
-            modelAndView.addObject("property", null);
-            modelAndView.addObject("direction", null);
-            modelAndView.addObject("offset", 1);
-            modelAndView.addObject("lastOffset", lastOffset);
-            modelAndView.addObject("totalMeetings", totalMeetings);
+
+            modelAndView.addObject("meetingList", meetingList)
+                    .addObject("property", null)
+                    .addObject("direction", null)
+                    .addObject("offset", 1)
+                    .addObject("lastOffset", lastOffset)
+                    .addObject("totalMeetings", totalMeetings)
+                    .setViewName("views/staff/profile");
             return modelAndView;
         }
 
         Client client = service.getClientService().findEntityByEmail(email);
 
-        if (client == null){
+        if (client == null) {
             client = Client.builder()
                     .email(email)
                     .name(token.getPrincipal().getAttribute("name"))
@@ -530,77 +485,68 @@ public ModelAndView postCar(){
         session.setAttribute("client", mapperManager.getClientMapper().toDto(client));
         return modelAndView;
     }
+
     @RequestMapping("/log-out")
-    public ModelAndView logout(){
+    public ModelAndView logout() {
         ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("client");
         modelAndView.setViewName("views/user/index");
         return modelAndView;
     }
+
     @RequestMapping("/change-password")
     public ModelAndView changePassword(@RequestParam("oldPass") String oldPass,
-                                       @RequestParam("newPass") String newPass){
-        ModelAndView modelAndView = new ModelAndView();
+                                       @RequestParam("newPass") String newPass) {
 
-        if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         Client client = mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client"));
-        if(service.getClientService().changePassword(client.getId(), oldPass,newPass)){
-            modelAndView.addObject("status","success");
-            modelAndView.addObject("message","Successfully updated password");
-        }else{
-            modelAndView.addObject("status","fail");
-            modelAndView.addObject("message","Your current password is invalid");
+
+        if (service.getClientService().changePassword(client.getId(), oldPass, newPass)) {
+            modelAndView.addObject("status", "success");
+            modelAndView.addObject("message", "Successfully updated password");
+        } else {
+            modelAndView.addObject("status", "fail");
+            modelAndView.addObject("message", "Your current password is invalid");
         }
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;
     }
+
     @RequestMapping("/update-info")
-    public ModelAndView update(@Nullable @RequestParam("avatar") MultipartFile file,
-                               @RequestParam("name") String name,
-                               @RequestParam("phone") String phone,
-                               @RequestParam("gender") String gender,
-                               @RequestParam("dob") String dob,
-                               @RequestParam("address") String address){
-        System.out.println("update information");
-        System.out.println(gender);
-        System.out.println(dob);
-        System.out.println(file);
-        System.out.println(name);
+    public ModelAndView updateAccountInfo(@Nullable @RequestParam("avatar") MultipartFile file,
+                                          @RequestParam("name") String name,
+                                          @RequestParam("phone") String phone,
+                                          @RequestParam("gender") String gender,
+                                          @RequestParam("dob") String dob,
+                                          @RequestParam("address") String address) {
+
         ModelAndView modelAndView = new ModelAndView();
-        ClientDto clientDto = (ClientDto)session.getAttribute("client");
+
+        ClientDto clientDto = (ClientDto) session.getAttribute("client");
         Client client = service.getClientService().findEntityById(clientDto.getId());
 
-        String avatar = client.getAvatar();
-        System.out.println("null or not"+avatar);
-        if(file != null){
-         avatar = service.getStorageService().uploadFile(file);
-        }
-        System.out.println("after -- null or not"+avatar);
-        client.setAvatar(avatar);
+        String avatar;
 
-        System.out.println(file);
-        if(file == null);
-        else{
+        if (file != null) {
             avatar = service.getStorageService().uploadFile(file);
             client.setAvatar(avatar);
         }
 
         client.setName(name);
-        client.setPhone(phone.replaceAll("\\D",""));
+        client.setPhone(phone.replaceAll("\\D", ""));
 //        client.setGender(gender);
 //        client.setDob(LocalDate.parse(dob));
-//
         client.setAddress(address);
-//        System.out.println(client.getPassword());
 
         service.getClientService().save(client);
-        session.setAttribute("client",service.getClientService().findById(clientDto.getId()));
-        System.out.println("can be here");
+        session.setAttribute("client", service.getClientService().findById(clientDto.getId()));
+
 //        modelAndView.addObject("status","success");
 //        modelAndView.addObject("message","Your information has been updated successfully");
 
@@ -611,7 +557,7 @@ public ModelAndView postCar(){
     @RequestMapping("/check-notification")
     @ResponseBody
     public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id,
-                                                         @Nullable @RequestParam("pages") Integer pages){
+                                                         @Nullable @RequestParam("pages") Integer pages) {
 
         ClientDto client = service.getClientService().findById(id);
 
@@ -619,25 +565,13 @@ public ModelAndView postCar(){
 
         List<ClientNotificationDto> notificationList = service
                 .getClientNotificationService()
-                .findNotificationsByClient(
-                        mapperManager.getClientMapper().toEntity(client),
-                        PageRequest.of(
-                                0,
-                                pages * 10,
-                                Sort.by("createDate", "createTime").descending()
-                        )
-                );
+                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(0, pages * 10, Sort.by("createDate", "createTime").descending()));
 
-        if (client == null){
-            return new ArrayList<>();
+        if (client == null) {
+            notificationList = new ArrayList<>();
         }
 
         return notificationList;
-    }
-
-    @RequestMapping("/post-history")
-    public ModelAndView  checkNotification(){
-       return new ModelAndView("views/user/post-history");
     }
 
 }
