@@ -619,5 +619,10 @@ public ModelAndView postCar(){
 
         return notificationList;
     }
+    @RequestMapping("/post-history")
+
+    public ModelAndView  checkNotification(){
+       return new ModelAndView("views/user/post-history");
+    }
 
 }
