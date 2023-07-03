@@ -71,7 +71,7 @@ $(document).on('click', '.close', function () {
 
     for (let i = 0; i < fileInput.files.length; i++) {
 
-        if (i != parentID) {
+        if (i !== parentID) {
             fileBuffer.items.add(fileInput.files[i]);
         }
     }
@@ -90,26 +90,21 @@ function uploadField() {
             uploadField.value = "";
         }
     }
-    ;
-};
+}
 
 function selectPackage(packageId) {
-    var selectedPackage = document.getElementById(packageId);
-    var isSelected = selectedPackage.classList.contains("selected");
+    const selectedPackage = document.getElementById(packageId);
+    const isSelected = selectedPackage.classList.contains("selected");
 
-    var packages = document.getElementsByClassName("pricing-card");
-    for (var i = 0; i < packages.length; i++) {
+    const packages = document.getElementsByClassName("pricing-card");
+    const plan = document.getElementById("plan");
+    for (let i = 0; i < packages.length; i++) {
         packages[i].classList.remove("selected");
+        plan.value = '';
     }
 
     if (!isSelected) {
         selectedPackage.classList.add("selected");
-        var plans = document.getElementsByName("plan");
-        plans.forEach(function(element){
-           element.remove();
-        });
-        var plan = document.createElement("input");
-        plan.name = "plan";
         switch (packageId) {
             case "pricing-card-1":
                 plan.value = "plan 1";
@@ -121,8 +116,26 @@ function selectPackage(packageId) {
                 plan.value = "plan 3";
                 break;
         }
-        plan.classList.add("d-none");
-        var parent = document.getElementById(packageId);
-        parent.appendChild(plan);
+        // const plans = document.getElementsByName("plan");
+        // plans.forEach(function(element){
+        //    element.remove();
+        // });
+        // const plan = document.createElement("input");
+        // plan.required = true;
+        // plan.name = "plan";
+        // switch (packageId) {
+        //     case "pricing-card-1":
+        //         plan.value = "plan 1";
+        //         break;
+        //     case "pricing-card-2":
+        //         plan.value = "plan 2";
+        //         break;
+        //     case "pricing-card-3":
+        //         plan.value = "plan 3";
+        //         break;
+        // }
+        // plan.classList.add("d-none");
+        // const parent = document.getElementById(packageId);
+        // parent.appendChild(plan);
     }
 }

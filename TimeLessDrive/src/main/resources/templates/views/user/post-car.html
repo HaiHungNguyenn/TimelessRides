@@ -344,7 +344,7 @@
                     <div class="car-images">
                         <input type="file" id="car-image"
                                onchange="previewImages();" multiple
-                               accept="image/png, image/gif, image/jpeg" name="files">
+                               accept="image/png, image/gif, image/jpeg" name="files" required>
                         <label for="car-image">
                             <i class="fa fa-cloud-upload"></i><br>
                             To select multiple files, hold down the CTRL or SHIFT key while
@@ -370,23 +370,26 @@
                         <label for="description"></label>
                     </div>
                 </li>
-                <div class="pricing-table">
-                    <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
-                         style="width: 30% ">
-                        <h2>FOR 1 MONTH</h2>
-                        <p class="price">$9.99/month</p>
+                <li>
+                    <div class="pricing-table">
+                        <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
+                             style="width: 30% ">
+                            <h2>FOR 1 MONTH</h2>
+                            <p class="price">$9.99/month</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
+                             style="width: 30% ">
+                            <h2>FOR 6 MONTH</h2>
+                            <p class="price">$34.99/6 month</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
+                             style="width: 30% ">
+                            <h2>FOR 1 YEAR</h2>
+                            <p class="price">$69.99/year</p>
+                        </div>
                     </div>
-                    <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
-                         style="width: 30% ">
-                        <h2>FOR 6 MONTH</h2>
-                        <p class="price">$34.99/6 month</p>
-                    </div>
-                    <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
-                         style="width: 30% ">
-                        <h2>FOR 1 YEAR</h2>
-                        <p class="price">$69.99/year</p>
-                    </div>
-                </div>
+                    <input type="text" class="d-none" name="plan" id="plan" required>
+                </li>
                 <li class="row" style="margin:60px">
                     <input type="submit" value="Submit" style="font-size:20px">
                 </li>

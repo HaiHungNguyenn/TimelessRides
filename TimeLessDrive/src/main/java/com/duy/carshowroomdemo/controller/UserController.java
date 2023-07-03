@@ -312,28 +312,28 @@ public ModelAndView postCar(){
     }
 
     @RequestMapping("/confirm-post/{clientId}")
-    public ModelAndView confirmPost(@Nullable @RequestParam("files") MultipartFile[] files,
+    public ModelAndView confirmPost(@PathVariable("clientId") String clientId,
                                     @RequestParam("carName") String carName,
                                     @RequestParam("price") String price,
                                     @RequestParam("make") String make,
                                     @RequestParam("model") String model,
-                                    @RequestParam("bodyColor") String bodyColor,
-                                    @RequestParam("interiorColor") String interiorColor,
-                                    @RequestParam("interiorMaterial") String interiorMaterial,
-                                    @RequestParam("body") String body,
-                                    @RequestParam("licensePlate") String licensePlate,
-                                    @RequestParam("transmission") String transmission,
-                                    @RequestParam("seats") String seats,
-                                    @RequestParam("mileage") String mileage,
-                                    @RequestParam("engineCapacity") String engineCapacity,
-                                    @RequestParam("power") String power,
-                                    @RequestParam("co2Emission") String co2Emission,
-                                    @RequestParam("fuelType") String fuelType,
-                                    @RequestParam("firstRegistration") String firstRegistration,
-                                    @RequestParam("others") String others,
-                                    @RequestParam("postDescription") String postDescription,
                                     @RequestParam("plan") String plan,
-                                    @PathVariable("clientId") String clientId){
+                                    @Nullable @RequestParam("files") MultipartFile[] files,
+                                    @Nullable @RequestParam("bodyColor") String bodyColor,
+                                    @Nullable @RequestParam("interiorColor") String interiorColor,
+                                    @Nullable @RequestParam("interiorMaterial") String interiorMaterial,
+                                    @Nullable @RequestParam("body") String body,
+                                    @Nullable @RequestParam("licensePlate") String licensePlate,
+                                    @Nullable @RequestParam("transmission") String transmission,
+                                    @Nullable @RequestParam("seats") String seats,
+                                    @Nullable @RequestParam("mileage") String mileage,
+                                    @Nullable @RequestParam("engineCapacity") String engineCapacity,
+                                    @Nullable @RequestParam("power") String power,
+                                    @Nullable @RequestParam("co2Emission") String co2Emission,
+                                    @Nullable @RequestParam("fuelType") String fuelType,
+                                    @Nullable @RequestParam("firstRegistration") String firstRegistration,
+                                    @Nullable @RequestParam("others") String others,
+                                    @Nullable @RequestParam("postDescription") String postDescription){
 
         ModelAndView modelAndView = new ModelAndView("views/user/post-car");
 
@@ -369,6 +369,8 @@ public ModelAndView postCar(){
 //                    modelAndView.addObject("errorMsg", "An error occurred");
 //                    return modelAndView;
 //                }
+                System.out.println("File name is: " + files[0].getOriginalFilename());
+                System.out.println("File length is:" + files.length);
                 System.out.println(i);
                 carImage.setContent(service.getStorageService().uploadFile(file));
                 carImage.setCar(car);

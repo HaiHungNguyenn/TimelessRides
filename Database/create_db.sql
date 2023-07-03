@@ -159,4 +159,3 @@ CREATE TABLE staff_notification (
     create_time				TIME,
 	[status]				VARCHAR(50)
 )
-

@@ -84,7 +84,7 @@ function formatTime(time){
     let now = new Date();
     const timeDiff = Math.abs(now - time);
     const day = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hour = Math.floor(timeDiff / (1000 * 60 * 60));
+    const hour = Math.floor(timeDiff / (1000 * 60 * 60) % 24);
     const minute = Math.floor((timeDiff / (1000 * 60)) % 60);
     const second = Math.floor((timeDiff / 1000) % 60);
     if (day > 0){
