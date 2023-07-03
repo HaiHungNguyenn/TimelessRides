@@ -85,4 +85,6 @@ public interface PostRepository extends JpaRepository<Post, String>{
     @Query(" select p from Post p where p.status='Approved' and p.expireDate > :date order by p.car.price desc")
     Page<Post> findAllByStatusWithPriceDESC(Pageable pageable,LocalDate date);
 
+    @Query("select p from Post p where p.car.id = :Id and p.status='Approved' and p.expireDate > :date")
+    List<Post> findPostByCarId(@Param("Id") String CarId, LocalDate date);
 }

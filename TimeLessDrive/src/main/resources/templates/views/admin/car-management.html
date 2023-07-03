@@ -239,7 +239,7 @@
                                     <a href="#" class="action_btn mr_10">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="#" class="action_btn">
+                                    <a th:href="@{/admin/delete-car/{id}(id=${post.getCar().getId()})}" class="action_btn">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
@@ -256,10 +256,10 @@
     </div>
     <div class="container">
         <!--                        /admin/staff-detail/{staffID}-->
-        <button class="button"><a th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i
+        <button class="button"><a th:href="${(offset == 1) ? '#' : '/admin/carmanagement?offset=' + (offset - 1)}"><i
                 class="fa fa-arrow-left"></i></a></button>
         <button class="button act" th:text="${offset}"></button>
-        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i
+        <button class="button"><a th:href="@{/admin/carmanagement(offset=${offset + 1})}"><i
                 class="fa fa-arrow-right"></i></a></button>
     </div>
     </div>

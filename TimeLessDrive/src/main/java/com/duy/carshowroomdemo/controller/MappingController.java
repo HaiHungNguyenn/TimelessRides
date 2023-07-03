@@ -1,7 +1,10 @@
 package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.*;
+import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.Post;
+import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,7 +98,7 @@ public class MappingController {
     }
 
     @RequestMapping("/carmanagement")
-    public ModelAndView carManagement(@Nullable @RequestParam("offset") Integer offset ){
+    public ModelAndView carList(@Nullable @RequestParam("offset") Integer offset ){
         ModelAndView modelAndView = new ModelAndView();
         if(!isAuthenticated()){
             modelAndView.setViewName("views/user/login");
@@ -108,6 +111,32 @@ public class MappingController {
         modelAndView.setViewName("views/admin/car-management");
         return modelAndView;
     }
+
+    @RequestMapping("/delete-car/{id}")
+    public ModelAndView deleteCar(@PathVariable String id ) {
+        ModelAndView modelAndView = new ModelAndView();
+        if(!isAuthenticated()){
+            modelAndView.setViewName("views/user/login");
+        }
+
+        Car car = service.getCarService().findCarEntityById(id);
+        Post post = service.getPostService().findPostByCarId(id);
+
+        if (car == null){
+            return carList(null);
+        }
+
+        if(post == null){
+            return carList(null);
+        }
+
+        service.getPostService().delete(post);
+
+        service.getCarService().delete(car);
+
+        return carList(null);
+    }
+
     @RequestMapping("/schedule")
     public ModelAndView scheduleManagement(){
         ModelAndView modelAndView = new ModelAndView();

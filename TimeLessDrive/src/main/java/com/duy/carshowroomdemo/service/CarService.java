@@ -95,4 +95,8 @@ public class CarService {
     public Car findCarEntityById(String carId) {
         return repository.findById(carId).get();
     }
+    public void delete(Car car) {
+        if(car.getStatus() != "Available") return;
+        repository.delete(car);
+    }
 }

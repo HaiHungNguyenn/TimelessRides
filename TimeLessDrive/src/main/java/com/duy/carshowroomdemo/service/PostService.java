@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -233,6 +234,10 @@ public class PostService {
             postRepository.findAllByStatusWithPriceDESC(pageable,CURRENT_DAY).forEach(x -> postList.add(mapperManager.getPostMapper().toDto(x)));
         }
         return postList;
+    }
+
+    public Post findPostByCarId(String CarId){
+        return postRepository.findPostByCarId(CarId, LocalDate.now()).get(0);
     }
 
     public void delete(Post post) {
