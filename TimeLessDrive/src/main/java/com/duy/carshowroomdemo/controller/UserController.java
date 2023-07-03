@@ -610,13 +610,21 @@ public ModelAndView postCar(){
     @ResponseBody
     public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id,
                                                          @Nullable @RequestParam("pages") Integer pages){
+
         ClientDto client = service.getClientService().findById(id);
 
         pages = (pages == null) ? 1 : pages;
 
         List<ClientNotificationDto> notificationList = service
                 .getClientNotificationService()
-                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(0, pages * 10, Sort.by("createDate", "createTime").descending()));
+                .findNotificationsByClient(
+                        mapperManager.getClientMapper().toEntity(client),
+                        PageRequest.of(
+                                0,
+                                pages * 10,
+                                Sort.by("createDate", "createTime").descending()
+                        )
+                );
 
         if (client == null){
             return new ArrayList<>();
@@ -624,8 +632,8 @@ public ModelAndView postCar(){
 
         return notificationList;
     }
-    @RequestMapping("/post-history")
 
+    @RequestMapping("/post-history")
     public ModelAndView  checkNotification(){
        return new ModelAndView("views/user/post-history");
     }

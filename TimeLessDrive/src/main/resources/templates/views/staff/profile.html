@@ -122,6 +122,7 @@
                                                 <input class="form-control mb-4" id="confirmPassword"
                                                        type="password"
                                                        placeholder="Confirm new password"/>
+                                                <p id="message" style="pointer-events: none; user-select: none"></p>
                                                 <button class="btn btn-primary w-100" type="submit">Confirm</button>
                                             </form>
                                         </div>
@@ -138,7 +139,7 @@
                                 <div class="border-dashed border-300 pb-4">
                                     <div class="row align-items-center g-3 g-sm-5 text-center text-sm-start">
                                         <div class="col-12 col-sm-auto"><input class="d-none" id="avatarFile"
-                                                                               type="file"/><label
+                                                                               /><label
                                                 class="cursor-pointer avatar avatar-5xl" for="avatarFile"><img
                                                 class="rounded-circle" th:src="${session.staff.getAvatar()}"
                                                 alt=""/></label></div>

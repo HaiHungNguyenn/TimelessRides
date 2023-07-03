@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+<!-- Mirrored from demo.dashboardpack.com/user-management-html/empty_page.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>User Profile</title>
+    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png"/>
+
+    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/niceselect/css/nice-select.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/owl_carousel/css/owl.carousel.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/gijgo/gijgo.min.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/tagsinput/tagsinput.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/datepicker/date-picker.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/vectormap-home/vectormap-2.0.2.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/scroll/scrollable.css"/>
+
+    <link
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/jquery.dataTables.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/responsive.dataTables.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/buttons.dataTables.min.css"
+    />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/text_editor/summernote-bs4.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/morris/morris.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/material_icon/material-icons.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/css/style1.css"/>
+    <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS"/>
+    <style>
+        input {
+            border: none;
+        }
+    </style>
+</head>
+<body class="crm_body_bg">
+<nav class="sidebar">
+    <div class="logo d-flex justify-content-between">
+        <a class="large_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/logo.png" alt
+        /></a>
+        <a class="small_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/mini_logo.png" alt
+        /></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
+    </div>
+    <ul id="sidebar_menu">
+
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/4.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Staff</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/staff_list">Staff List</a></li>
+                <li><a href="/admin/add_new_staff">Add New Staff</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/5.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Users</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/user-list">Users List</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a href="/admin/carmanagement" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/9.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Car Management</span>
+                </div>
+            </a>
+        </li>
+        <li class>
+            <a href="/admin/schedule" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/10.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Calander</span>
+                </div>
+            </a>
+        </li>
+
+    </ul>
+</nav>
+<section class="main_content dashboard_part large_header_bg">
+    <div class="container-fluid g-0">
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <div
+                        class="header_iner d-flex justify-content-between align-items-center"
+                >
+                    <div class="sidebar_icon d-lg-none">
+                        <i class="ti-menu"></i>
+                    </div>
+                    <div class="line_icon open_miniSide d-none d-lg-block">
+                        <img src="../../admin_assets/img/line_img.png" alt/>
+                    </div>
+                    <div class="serach_field-area d-flex align-items-center">
+                        <div class="search_inner">
+                            <form action="#">
+                                <div class="search_field">
+                                    <input type="text" placeholder="Search"/>
+                                </div>
+                                <button type="submit">
+                                    <img src="../../admin_assets/img/icon/icon_search.svg" alt/>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div
+                            class="header_right d-flex justify-content-between align-items-center"
+                    >
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a class="bell_notification_clicker" href="#">
+                                    <img src="../../admin_assets/img/icon/bell.svg" alt/>
+                                    <span>2</span>
+                                </a>
+
+                                <div class="Menu_NOtification_Wrap">
+                                    <div class="notification_Header">
+                                        <h4>Notifications</h4>
+                                    </div>
+                                    <div class="Notification_body">
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/2.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Cool Marketing</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/4.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Awesome packages</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/3.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>what a packages</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/2.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Cool Marketing</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/4.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Awesome packages</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/3.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>what a packages</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="nofity_footer">
+                                        <div class="submit_button text-center pt_20">
+                                            <a href="#" class="btn_1">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </div>
+                        <div class="profile_info">
+                            <img src="../../admin_assets/img/client_img.png" alt="#"/>
+                            <div class="profile_info_iner">
+                                <div class="profile_author_name">
+                                    <p>Neurologist</p>
+                                    <h5>Dr. Robar Smith</h5>
+                                </div>
+                                <div class="profile_info_details">
+                                    <a href="#">My Profile </a>
+                                    <a href="#">Settings</a>
+                                    <a href="/admin/logout">Log Out </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main_content_iner overly_inner">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-12">
+                    <section style="background-color: #eee">
+                        <div class="container py-5">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="card mb-4">
+                                        <div class="card-body text-center">
+                                            <img
+                                                    th:src="${client.getAvatar()}"
+                                                    alt="avatar"
+                                                    class="rounded-circle img-fluid"
+                                                    style="width: 150px"
+                                            />
+                                            <h5 class="my-3" th:text="${client.getName()}"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <form th:action="@{/admin/confirm-edit-user}" method="post">
+                                        <input type="text" name="id" th:value="${client.getId()}" hidden>
+                                        <div class="card mb-4">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Full Name</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="fullName" th:value="${client.getName()}">
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Email</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="email" th:value="${client.getEmail()}">
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Phone</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="phone" th:value="${client.getPhone()}">
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Gender</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="gender" th:value="${client.getGender()}">
+                                                    </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Address</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="address" th:value="${client.getAddress()}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <button type="button" onclick="history.back()">Cancel</button>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <button>Save changes</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+<script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+
+<script src="../../admin_assets/js/popper1.min.js"></script>
+
+<script src="../../admin_assets/js/bootstrap1.min.js"></script>
+
+<script src="../../admin_assets/js/metisMenu.js"></script>
+
+
+<script src="../../admin_assets/js/custom.js"></script>
+</body>
+
+<!-- Mirrored from demo.dashboardpack.com/user-management-html/empty_page.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
+</html>

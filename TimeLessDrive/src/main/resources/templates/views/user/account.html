@@ -44,9 +44,8 @@
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
     <th:block th:if="${session.client != null}">
         <script>
-        let id = '[[${session.client.getId()}]]';
-        const amount = 1;
-        const avatar = '[[${session.client.getAvatar()}]]';
+            let id = '[[${session.client.getId()}]]';
+            const avatar = '[[${session.client.getAvatar()}]]';
         </script>
     </th:block>
     <script src="../../user_assets/js/notification-js.js"></script>
@@ -67,7 +66,6 @@
             <a class="bell_notification_clicker" href="#">
                 <div class="fa fa-bell"></div>
             </a>
-
             <div class="Menu_NOtification_Wrap">
                 <div class="notification_Header">
                     <h4>Notifications</h4>
@@ -266,9 +264,7 @@
                 </form>
 
                 <div class="col-md-3">
-                    <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change
-                        Password
-                    </button>
+                    <button id="change-password-button" class="btn btn-primary profile-button mg25" type="button">Change Password</button>
                     <form action="/change-password">
                         <div class="change-password row mt-3">
                             <div class="col-md-12">
