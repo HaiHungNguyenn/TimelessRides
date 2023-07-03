@@ -1,6 +1,8 @@
+let pages = 1;
 function updateData(){
-    let url = '/check-notification?id=' + id;
+    let url = '/check-notification?id=' + id + '&pages=' + pages;
     let notification = $(".Notification_body");
+    console.log(pages);
     $.get(url, function (response){
         if(response.length > 0){
             notification.empty();
@@ -52,7 +54,10 @@ function updateData(){
     }, "json");
 }
 
-
+function seeMore(){
+    pages += 1;
+    updateData();
+}
 
 $(document).ready(function (){
     // $(".fa-bell").click(function (){
@@ -63,11 +68,16 @@ $(document).ready(function (){
     //         e.classList.add("my-style");
     //     }
     // });
+    $("#see-more").click(function(){
+        seeMore();
+    });
     updateData();
     setInterval(function (){
         updateData();
     }, 10000);
 });
+
+
 
 function formatTime(time){
     let result = '';
@@ -97,6 +107,11 @@ function formatTime(time){
         }else {
             result += ` ${minute} minutes`;
         }
+    }else {
+        if (day === 0 && hour === 0){
+            result += `${minute} minutes`;
+        }
     }
+
     return result;
 }

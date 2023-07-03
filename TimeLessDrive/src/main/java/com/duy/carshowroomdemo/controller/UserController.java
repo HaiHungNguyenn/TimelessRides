@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -610,14 +609,14 @@ public ModelAndView postCar(){
     @RequestMapping("/check-notification")
     @ResponseBody
     public List<ClientNotificationDto> checkNotification(@RequestParam("id") String id,
-                                                         @Nullable @RequestParam("offset") Integer offset){
+                                                         @Nullable @RequestParam("pages") Integer pages){
         ClientDto client = service.getClientService().findById(id);
 
-        offset = (offset == null) ? 0 : offset;
+        pages = (pages == null) ? 1 : pages;
 
         List<ClientNotificationDto> notificationList = service
                 .getClientNotificationService()
-                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(offset, 10, Sort.by("createDate", "createTime").descending()));
+                .findNotificationsByClient(mapperManager.getClientMapper().toEntity(client), PageRequest.of(0, pages * 10, Sort.by("createDate", "createTime").descending()));
 
         if (client == null){
             return new ArrayList<>();
