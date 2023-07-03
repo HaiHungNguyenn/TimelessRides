@@ -196,13 +196,13 @@ public class MappingController {
     }
     @RequestMapping("/client-detail/{clientID}")
     public ModelAndView clientDetail(@PathVariable("clientID") String clientID){
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(!isAuthenticated()){
-            modelAndView.setViewName("views/user/login");
+            return modelAndView;
         }
-        modelAndView.setViewName("views/admin/user-profile");
         ClientDto client = service.getClientService().findById(clientID);
-        modelAndView.addObject("client",client);
+        modelAndView.addObject("client",client)
+            .setViewName("views/admin/user-profile");
 
         return modelAndView;
     }

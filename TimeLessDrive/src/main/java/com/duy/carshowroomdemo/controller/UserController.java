@@ -158,12 +158,12 @@ public ModelAndView postCar(){
                     }
                 }
             }
-
         }else if(direction != null){
             postList = service.getPostService().findSortedApprovedPosts(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()), direction);
         }else{
             postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
         }
+
         long lastOffSet = service.getCarService().getLastOffset(9);
 
         modelAndView.addObject("postDto", postList)
@@ -200,11 +200,19 @@ public ModelAndView postCar(){
                                     @RequestParam("phone") String phone,
                                     @RequestParam("carId") String carId,
                                     @RequestParam("description") String description){
-        
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
         if(!isAuthenticated()) {
-            return new ModelAndView("views/user/login");
+            return modelAndView;
         }
-        
+
+        Car car = service.getCarService().findCarEntityById(carId);
+
+        if (!(car != null && car.getStatus().equals(Status.AVAILABLE))){
+            modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                    .setViewName("views/user/car-details");
+            return modelAndView;
+        }
+
         String[] parts = Util.splitDateTimeString(slot);
         OffMeeting offMeeting = OffMeeting.builder()
                 .client(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")))
@@ -214,26 +222,24 @@ public ModelAndView postCar(){
                 .createDate(LocalDate.now())
                 .createTime(LocalTime.now())
                 .description(description)
-                .car(service.getCarService().findCarEntityById(carId))
+                .car(car)
                 .status(Status.PENDING)
                 .build();
 
+        car.setStatus(Status.PROCESSING);
+        service.getCarService().save(car);
         service.getOffMeetingService().save(offMeeting);
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("carDto",service.getCarService().findCarById(carId))
+        modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                .addObject("status","success")
+                .addObject("message","Your meeting request has been sent. Please wait for respond")
                 .setViewName("views/user/car-details");
-        modelAndView.addObject("status","success");
-        modelAndView.addObject("message","Your meeting request has been sent. Please wait for respond");
         return modelAndView;
     }
     @GetMapping ("/car-detail/{id}")
     public ModelAndView carDetail(@PathVariable String id){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("carDto",service.getCarService().findCarById(id))
-                .setViewName("views/user/car-details");
-
-        return modelAndView;
+        return new ModelAndView("views/user/car-details")
+                .addObject("carDto", service.getCarService().findCarById(id));
     }
 
     @RequestMapping("/testadd")
@@ -375,7 +381,7 @@ public ModelAndView postCar(){
         car.getCarImageList().addAll(carImageList);
         car.setName(carName);
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
-        car.setStatus("Available on market");
+        car.setStatus(Status.AVAILABLE);
         car.setCarDescription(carDescription);
 //        car.setShowroom(showroomList.get(0));
 
@@ -489,7 +495,7 @@ public ModelAndView postCar(){
         System.out.println("email ne: "+email);
 
         StaffDto staffDto = service.getStaffService().findByEmail(email);
-        if(staffDto!= null){
+        if(staffDto != null){
             System.out.println("chinh la staff");
             modelAndView.setViewName("views/staff/profile");
             session.setAttribute("staff",staffDto);
@@ -618,6 +624,11 @@ public ModelAndView postCar(){
         }
 
         return notificationList;
+    }
+    @RequestMapping("/post-history")
+
+    public ModelAndView  checkNotification(){
+       return new ModelAndView("views/user/post-history");
     }
 
 }

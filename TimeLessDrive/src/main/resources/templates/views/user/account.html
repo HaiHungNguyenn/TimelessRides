@@ -42,12 +42,12 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
+    <script src="../../user_assets/js/notification-js.js"></script>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]';
         const avatar = '[[${session.client.getAvatar()}]]';
         </script>
     </th:block>
-    <script src="../../user_assets/js/notification-js.js"></script>
 </head>
 
 <body>
@@ -132,6 +132,7 @@
                                     <ul class="dropdown">
                                         <li><a href="/transactions_history">Transactions History</a></li>
                                         <li><a href="/meeting_history">Meeting History</a></li>
+                                        <li ><a href="/post-history">My Post</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/post_car">Post Car</a></li>

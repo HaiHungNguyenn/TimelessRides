@@ -10,20 +10,19 @@ function updateData(){
                 let p = document.createElement("p");
                 const [hours, minutes, seconds] = response[i].createTime.split(':');
                 let date = new Date(response[i].createDate).setHours(hours, minutes, seconds);
-                let now = new Date();
-                const timeDiff = Math.abs(now - date);
-                const hour = Math.floor(timeDiff / (1000 * 60 * 60));
-                const minute = Math.floor((timeDiff / (1000 * 60)) % 60);
-                const second = Math.floor((timeDiff / 1000) % 60);
-                const formattedTime = `${hour}h ${minute}m ${second}s`;
+                // let now = new Date();
+                // const timeDiff = Math.abs(now - date);
+                // const hour = Math.floor(timeDiff / (1000 * 60 * 60));
+                // const minute = Math.floor((timeDiff / (1000 * 60)) % 60);
+                // const second = Math.floor((timeDiff / 1000) % 60);
+                // const formattedTime = `${hour}h ${minute}m ${second}s`;
+                const formattedTime = formatTime(date);
                 p.innerText = formattedTime + " ago";
                 let notifyContent = document.createElement("div");
                 notifyContent.classList.add("notify_content");
                 notifyContent.appendChild(h5);
                 notifyContent.appendChild(p);
-                let image = document.createElement("img");
-                image.src = "../../admin_assets/img/staf/2.png";
-                image.alt = "staff_image";
+                let image = document.createElement("div");
                 let notifyThumb = document.createElement("div");
                 notifyThumb.classList.add("notify_thumb");
                 notifyThumb.appendChild(image);
@@ -53,6 +52,8 @@ function updateData(){
     }, "json");
 }
 
+
+
 $(document).ready(function (){
     // $(".fa-bell").click(function (){
     //     let e = document.getElementById("notify-container");
@@ -67,3 +68,35 @@ $(document).ready(function (){
         updateData();
     }, 10000);
 });
+
+function formatTime(time){
+    let result = '';
+    let now = new Date();
+    const timeDiff = Math.abs(now - time);
+    const day = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hour = Math.floor(timeDiff / (1000 * 60 * 60));
+    const minute = Math.floor((timeDiff / (1000 * 60)) % 60);
+    const second = Math.floor((timeDiff / 1000) % 60);
+    if (day > 0){
+        if (day < 2){
+            result += `${day} day`;
+        }else {
+            result += `${day} days`;
+        }
+    }
+    if (hour > 0){
+        if (hour < 2){
+            result += ` ${hour} hour`;
+        }else {
+            result += ` ${hour} hours`;
+        }
+    }
+    if (minute > 0){
+        if (minute < 2){
+            result += ` ${minute} minute`;
+        }else {
+            result += ` ${minute} minutes`;
+        }
+    }
+    return result;
+}
