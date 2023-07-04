@@ -36,6 +36,6 @@ public class CarDescriptionDto implements Serializable {
         if (licensePlate == null || licensePlate.isEmpty()){
             return "";
         }
-        return licensePlate.substring(0, 3) + "-" + licensePlate.substring(3, 6) + "." + licensePlate.substring(6, 8);
+        return licensePlate.substring(0, 3) + "-" + licensePlate.substring(3, 6) + "." + licensePlate.substring(6);
     }
 }

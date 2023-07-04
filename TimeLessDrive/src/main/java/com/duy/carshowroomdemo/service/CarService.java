@@ -93,7 +93,7 @@ public class CarService {
 
 
     public Car findCarEntityById(String carId) {
-        return repository.findById(carId).get();
+        return repository.findById(carId).orElse(null);
     }
     public void delete(Car car) {
         if(car.getStatus() != "Available") return;

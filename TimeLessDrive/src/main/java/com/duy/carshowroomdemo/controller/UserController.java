@@ -9,6 +9,7 @@ import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -170,14 +171,32 @@ public class UserController {
         }
 
         Car car = service.getCarService().findCarEntityById(carId);
+        Client clientEntity = service.getClientService().findEntityById(((ClientDto) session.getAttribute("client")).getId());
 
-        if (!(car != null && car.getStatus().equals(Status.AVAILABLE))) {
+        if (car.getPost().getClient().equals(clientEntity)){
             modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                    .addObject("status", "fail")
+                    .addObject("message", "You are not allowed to book meeting for this car")
                     .setViewName("views/user/car-details");
             return modelAndView;
         }
 
         String[] parts = Util.splitDateTimeString(slot);
+        List<OffMeeting> offMeetingList = car.getOffMeetingList();
+
+        for (OffMeeting meeting : offMeetingList){
+            if (meeting.getMeetingDate().equals(Util.parseLocalDate(parts[0]))
+                    && meeting.getMeetingTime().equals(Util.parseLocalTime(parts[1]))
+                    && Objects.equals(meeting.getStatus(), Status.PENDING)){
+
+                modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                        .addObject("status", "fail")
+                        .addObject("message", "This car has been booked for another meeting at this time. Please choose another time")
+                        .setViewName("views/user/car-details");
+                return modelAndView;
+            }
+        }
+
         OffMeeting offMeeting = OffMeeting.builder()
                 .client(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")))
                 .meetingDate(Util.parseLocalDate(parts[0]))
@@ -190,7 +209,6 @@ public class UserController {
                 .status(Status.PENDING)
                 .build();
 
-        car.setStatus(Status.PROCESSING);
         service.getCarService().save(car);
         service.getOffMeetingService().save(offMeeting);
 
