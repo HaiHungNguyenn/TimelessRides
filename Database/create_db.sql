@@ -73,10 +73,10 @@ CREATE TABLE car_description (
 	transmission			VARCHAR(50),
 	first_registration		VARCHAR(50),
 	seats					INT,
-	[power]					INT,
-	engine_capacity			INT,
-	co2_emission			INT,
-	kms_driven				INT,
+	[power]					VARCHAR(100),
+	engine_capacity			VARCHAR(100),
+	co2_emission			VARCHAR(100),
+	mileage				    VARCHAR(100),
 	others					NVARCHAR(2000)
 )
 

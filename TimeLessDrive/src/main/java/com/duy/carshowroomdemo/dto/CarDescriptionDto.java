@@ -26,10 +26,10 @@ public class CarDescriptionDto implements Serializable {
     private String transmission;
     private String firstRegistration;
     private int seats;
-    private int power;
-    private int engineCapacity;
-    private int co2Emission;
-    private int kmsDriven;
+    private String power;
+    private String engineCapacity;
+    private String co2Emission;
+    private String mileage;
     private String others;
 
     public String getLicensePlate() {

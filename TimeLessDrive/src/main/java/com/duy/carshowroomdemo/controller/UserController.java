@@ -317,10 +317,10 @@ public class UserController {
                 .transmission(transmission)
                 .firstRegistration(firstRegistration)
                 .seats((Objects.equals(seats, "") || seats == null) ? 0 : Integer.parseInt(seats))
-                .power((Objects.equals(power, "") || power == null) ? 0 : Integer.parseInt(power))
-                .engineCapacity((Objects.equals(engineCapacity, "") || engineCapacity == null) ? 0 : Integer.parseInt(engineCapacity))
-                .co2Emission((Objects.equals(co2Emission, "") || co2Emission == null) ? 0 : Integer.parseInt(co2Emission))
-                .kmsDriven((Objects.equals(mileage, "") || mileage == null) ? 0 : Integer.parseInt(mileage))
+                .power(power)
+                .engineCapacity(engineCapacity)
+                .co2Emission(co2Emission)
+                .mileage(mileage)
                 .others(others)
                 .build();
 

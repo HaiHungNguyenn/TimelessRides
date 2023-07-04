@@ -209,7 +209,7 @@
                                             <div class="car__details__tab__info__item">
                                                 <ul>
                                                     <li><i class="fa fa-check"></i> <b>Name:</b> <span th:text="${carDto.getName()}"/></li>
-                                                    <li><i class="fa fa-check"></i> <b>Price:</b> $<span th:text="${carDto.getFormattedPrice()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Price:</b> <span th:text="${carDto.getFormattedPrice()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Status:</b> <span th:text="${carDto.getStatus()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Interior Color:</b> <span th:text="${carDto.getCarDescription().getInteriorColor()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Interior Material:</b> <span th:text="${carDto.getCarDescription().getInteriorMaterial()}"/></li>
@@ -243,7 +243,7 @@
                                                     <li><i class="fa fa-check"></i> <b>Power:</b> <span th:text="${carDto.getCarDescription().getPower()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Engine Capacity:</b> <span th:text="${carDto.getCarDescription().getEngineCapacity()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>CO2 Emission:</b> <span th:text="${carDto.getCarDescription().getCo2Emission()}"/></li>
-                                                    <li><i class="fa fa-check"></i> <b>Kms Driven:</b> <span th:text="${carDto.getCarDescription().getKmsDriven()}"/></li>
+                                                    <li><i class="fa fa-check"></i> <b>Mileage:</b> <span th:text="${carDto.getCarDescription().getMileage()}"/></li>
                                                     <li><i class="fa fa-check"></i> <b>Others:</b> <span th:text="${carDto.getCarDescription().getOthers()}"/></li>
                                                 </ul>
                                             </div>
@@ -267,7 +267,7 @@
                         <div class="car__details__sidebar__payment">
                             <ul>
 
-                                <li>Price $<span th:text="${carDto.getPrice()}"/></li>
+                                <li>Price <span th:text="${carDto.getFormattedPrice()}"/></li>
                             </ul>
                             <a href="#" class="primary-btn"><i class="fa fa-credit-card"></i> Tax Calculator</a>
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build

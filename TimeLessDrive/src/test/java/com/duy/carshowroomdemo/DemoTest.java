@@ -255,19 +255,19 @@ public class DemoTest {
 
                 } else if (line.contains("Power")) {
 
-                    carDescription.setPower(Util.handleInteger(line.replace("Power:", "").trim()));
+                    carDescription.setPower(line.replace("Power:", "").trim());
 
                 } else if (line.contains("Engine capacity")) {
 
-                    carDescription.setPower(Util.handleInteger(line.replace("Engine capacity:", "").trim()));
+                    carDescription.setPower(line.replace("Engine capacity:", "").trim());
 
                 } else if (line.contains("CO2 emission")) {
 
-                    carDescription.setCo2Emission(Util.handleInteger(line.replace("CO2 emission:", "").trim()));
+                    carDescription.setCo2Emission(line.replace("CO2 emission:", "").trim());
 
                 } else if (line.contains("Kms driven")) {
 
-                    carDescription.setKmsDriven(Util.handleInteger(line.replace("Kms driven:", "").trim()));
+                    carDescription.setMileage(line.replace("Kms driven:", "").trim());
 
                 } else if (line.contains("First registration")) {
 
