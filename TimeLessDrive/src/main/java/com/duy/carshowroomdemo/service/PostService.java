@@ -42,6 +42,14 @@ public class PostService {
         return postDtoList;
     }
 
+    public List<PostDto> getPostsByClientId(ClientDto clientDto, Pageable pageable){
+        List<PostDto> postDtoList = new ArrayList<>();
+        postRepository.findPostsByClientId(mapperManager.getClientMapper().toEntity(clientDto).getId(), pageable).forEach(x -> {
+            postDtoList.add(mapperManager.getPostMapper().toDto(x));
+        });
+        return postDtoList;
+    }
+
     public List<PostDto> getPostsPerPage(Pageable pageable){
         List<PostDto> postDtoList = new ArrayList<>();
 

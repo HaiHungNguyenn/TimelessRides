@@ -21,6 +21,9 @@ public interface PostRepository extends JpaRepository<Post, String>{
     LocalDate CURRENT_DATE = LocalDate.now();
     Page<Post> findPostsByClient(Client client, Pageable pageable);
 
+    @Query("select p from Post p where p.client.id = :id order by p.postDate")
+    Page<Post> findPostsByClientId(@Param("id") String clientId, Pageable pageable);
+
     List<Post> findAllByStatusIs(String status);
     @Query("select p from Post p where p.status='Approved' AND p.car.carDescription.make = :value AND p.expireDate > :date order by p.postDate")
     Page<Post> findAllByStatusIsAndCarMake(@Param("value") String value, Pageable pageable ,LocalDate date );

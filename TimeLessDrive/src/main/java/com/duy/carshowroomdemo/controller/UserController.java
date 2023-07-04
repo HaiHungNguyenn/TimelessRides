@@ -265,6 +265,10 @@ public class UserController {
         if (!isAuthenticated()){
             return modelAndView;
         }
+        ClientDto client = (ClientDto) session.getAttribute("client");
+        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,10));
+
+        modelAndView.addObject("postList", postList);
 
         modelAndView.setViewName("views/user/post-history");
         return modelAndView;
