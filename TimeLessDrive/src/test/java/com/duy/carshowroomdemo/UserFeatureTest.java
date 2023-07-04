@@ -100,7 +100,11 @@ public class UserFeatureTest {
         System.out.println(list.size());
     }
     @Test
-    public void testUpdateExpiredDate(){
+    public void getEnvvar(){
+        String awsSecretKey = System.getProperty("aws_access_key");
+        System.out.println(awsSecretKey );
+        String awsSecretKey1 = System.getenv("aws_access_key");
+        System.out.println(awsSecretKey1 );
 
     }
 }
