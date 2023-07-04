@@ -206,6 +206,52 @@ public class MappingController {
 
         return modelAndView;
     }
+    @RequestMapping("/edit-user/{id}")
+    public ModelAndView editUser(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Client client = service.getClientService().findEntityById(id);
+
+        if (client == null){
+            return userList(null);
+        }
+
+        modelAndView.addObject("client", client)
+                .setViewName("views/admin/edit-user");
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/confirm-edit-user")
+    public ModelAndView confirmEditUser(@RequestParam("id") String id,
+                                        @RequestParam("fullName") String fullName,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("phone") String phone,
+                                        @RequestParam("gender") String gender,
+                                        @RequestParam("address") String address){
+
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Client client = service.getClientService().findEntityById(id);
+
+        client.setName(fullName);
+        client.setEmail(email);
+        client.setPhone(phone);
+        client.setGender(gender);
+        client.setAddress(address);
+
+        service.getClientService().save(client);
+
+        return userList(null);
+    }
 
     @RequestMapping("/feedbacks")
     public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset){

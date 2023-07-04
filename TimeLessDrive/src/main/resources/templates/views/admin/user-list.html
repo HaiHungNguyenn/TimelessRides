@@ -331,7 +331,7 @@
                           <td><a href="#" th:text="${client.getGender()}"></a></td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a th:href="'/admin/client-detail/'+${client.getId()}" class="action_btn mr_10">
+                              <a th:href="'/admin/edit-user/'+${client.getId()}" class="action_btn mr_10">
                                 <i class="fa fa-edit"></i>
                               </a>
                               <a th:href="@{'/admin/delete-user/' + ${client.getId()}}" class="action_btn">
