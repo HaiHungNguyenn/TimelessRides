@@ -220,15 +220,14 @@
 
                     <div class="car__item__text col-md-8">
                         <div class="car__item__text__inner">
-                            <div class="label-date"
-                                 th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
+                            <div class="label-date" th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
                             <div class="row">
                                 <div class="col-md-9">
                                     <h5><a th:href="'/car-detail/'+${post.getCar().getId()}"
                                            th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a>
                                     </h5>
                                     <ul>
-                                        <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi
+                                        <li><span th:text="${post.getCar().getCarDescription().getMileage()}"/> mi
                                         </li>
                                         <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>
                                         <li><span th:text="${post.getCar().getCarDescription().getPower()}"/> hp</li>

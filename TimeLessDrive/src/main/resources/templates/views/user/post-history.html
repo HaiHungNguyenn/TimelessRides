@@ -233,7 +233,7 @@
                             <a href="#"><i class="fa fa-list"></i> Edit</a>
                         </div>
                         <div class="car-history-btn">
-                            <a href="#"><i class="fa fa-trash"></i> Remove</a>
+                            <a th:href="@{/post-history/delete (id = ${post.getId()})}"><i class="fa fa-trash"></i> Remove</a>
                         </div>
                     </div>
                 </div>

@@ -29,6 +29,6 @@ public class InvoiceDto implements Serializable {
     private String otherInformation;
 
     public String getFormattedTotal() {
-        return Util.formatVndPrice(total);
+        return Util.formatUSDPrice(total);
     }
 }

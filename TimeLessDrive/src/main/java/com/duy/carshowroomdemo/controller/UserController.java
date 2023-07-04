@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
@@ -290,6 +291,25 @@ public class UserController {
 
         modelAndView.setViewName("views/user/post-history");
         return modelAndView;
+    }
+
+    @RequestMapping("/post-history/delete")
+    public ModelAndView deletePost(@RequestParam("id") String postId) {
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Post post = service.getPostService().findById(postId);
+
+        if (post == null){
+            return showPostHistory();
+        }
+
+        service.getPostService().delete(post);
+
+        return showPostHistory();
     }
 
     @GetMapping("/customer_service")

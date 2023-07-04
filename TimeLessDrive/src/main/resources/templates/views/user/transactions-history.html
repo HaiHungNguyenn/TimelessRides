@@ -473,7 +473,7 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Seller</th>
+                        <th>Staff Name</th>
                         <th>Car Make</th>
                         <th>Car Model</th>
                         <th>Price</th>
@@ -484,9 +484,10 @@
                 <tbody>
                     <tr th:each="invoice, iStat: ${invoiceList}">
                         <td th:text="${iStat.count}"/>
-                        <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>
-                        <td th:text="${invoice.getClient().getName()}"/>
-                        <td th:text="${invoice.getCar().getName()}"/>
+<!--                        <td><a href="#" onclick="openProfileModal('John Doe')">John Doe</a></td>-->
+                        <td th:text="${invoice.getStaff().getName()}"/>
+                        <td th:text="${invoice.getCar().getCarDescription().getMake()}"/>
+                        <td th:text="${invoice.getCar().getCarDescription().getModel()}"/>
                         <td th:text="${invoice.getFormattedTotal()}"/>
                         <td class="status-completed" th:text="${invoice.getStatus()}"/>
                         <td th:text="${invoice.getCreateDate()}"/>
