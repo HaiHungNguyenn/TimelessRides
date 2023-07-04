@@ -26,16 +26,16 @@ public class CarDescriptionDto implements Serializable {
     private String transmission;
     private String firstRegistration;
     private int seats;
-    private int power;
-    private int engineCapacity;
-    private int co2Emission;
-    private int kmsDriven;
+    private String power;
+    private String engineCapacity;
+    private String co2Emission;
+    private String mileage;
     private String others;
 
     public String getLicensePlate() {
         if (licensePlate == null || licensePlate.isEmpty()){
             return "";
         }
-        return licensePlate.substring(0, 3) + "-" + licensePlate.substring(3, 6) + "." + licensePlate.substring(6, 8);
+        return licensePlate.substring(0, 3) + "-" + licensePlate.substring(3, 6) + "." + licensePlate.substring(6);
     }
 }

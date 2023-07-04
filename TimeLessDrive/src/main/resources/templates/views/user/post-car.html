@@ -290,7 +290,7 @@
                     <div class="col-sm-12 col-md-6">
                         <h4>Mileage</h4>
                         <div>
-                            <input type="number" name="mileage" id="mileage"
+                            <input type="text" name="mileage" id="mileage"
                                    min="0">
                             <label for="mileage"></label>
                         </div>
@@ -300,16 +300,14 @@
                     <div class="col-sm-12 col-md-6">
                         <h4>Engine Capacity</h4>
                         <div class="engine-capacity">
-                            <input type="number" name="engineCapacity" id="engine-capacity" min="0">
+                            <input type="text" name="engineCapacity" id="engine-capacity" min="0">
                             <label for="engine-capacity">Calculation Unit: cc</label>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <h4>Power</h4>
                         <div class="power">
-                            <input type="number" name="power" id="power"
-                                   onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                   maxlength="2" min="0">
+                            <input type="text" name="power" id="power">
                             <label for="power">Calculation Unit: hp</label>
                         </div>
                     </div>
@@ -317,7 +315,7 @@
                 <li class="row">
                     <div class="col-sm-12 col-md-6">
                         <h4>CO2 Emission</h4>
-                        <input type="number" name="co2Emission" id="co2-emission" min="0">
+                        <input type="text" name="co2Emission" id="co2-emission" min="0">
                         <label for="co2-emission"></label>
                     </div>
                     <div class="col-sm-12 col-md-6">
@@ -374,18 +372,21 @@
                     <div class="pricing-table">
                         <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
                              style="width: 30% ">
-                            <h2>FOR 1 MONTH</h2>
-                            <p class="price">$9.99/month</p>
+                            <h2>STANDARD PLAN</h2>
+                            <p class="price">$299/month</p>
+                            <p class="text-center">Your post will have default priority</p>
                         </div>
                         <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
                              style="width: 30% ">
-                            <h2>FOR 6 MONTH</h2>
-                            <p class="price">$34.99/6 month</p>
+                            <h2>FEATURED PLAN</h2>
+                            <p class="price">$599/month</p>
+                            <p class="text-center">Your post will have high priority in order to be seen easily</p>
                         </div>
                         <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
                              style="width: 30% ">
-                            <h2>FOR 1 YEAR</h2>
-                            <p class="price">$69.99/year</p>
+                            <h2>PREMIUM PLAN</h2>
+                            <p class="price">$799/month</p>
+                            <p class="text-center">Your post will always be on top of our website</p>
                         </div>
                     </div>
                     <input type="text" class="d-none" name="plan" id="plan" required>

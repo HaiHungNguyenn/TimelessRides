@@ -274,7 +274,7 @@
                                         <div class="label-date" th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
                                         <h5><a th:href="'/car-detail/'+${post.getCar().getId()}" th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a></h5>
                                         <ul>
-                                            <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi</li>
+                                            <li><span th:text="${post.getCar().getCarDescription().getMileage()}"/> mi</li>
                                             <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>
                                             <li><span th:text="${post.getCar().getCarDescription().getPower()}"/> hp</li>
                                             <li><span th:text="${post.getPostDate()}"/></li>
