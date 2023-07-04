@@ -312,6 +312,105 @@ public class UserController {
         return showPostHistory();
     }
 
+    @RequestMapping("/post-history/edit-post")
+    public ModelAndView showPostEditingPage(@RequestParam("id") String postId){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Post post = service.getPostService().findById(postId);
+
+        if (post == null){
+            return showPostHistory();
+        }
+
+        modelAndView.addObject("post", post)
+                .setViewName("views/user/edit-post");
+        return modelAndView;
+    }
+
+    @RequestMapping("/post-history/confirm-edit")
+    public ModelAndView editPost(@RequestParam("id") String postId,
+                                 @RequestParam("carName") String carName,
+                                 @RequestParam("price") String price,
+                                 @RequestParam("make") String make,
+                                 @RequestParam("model") String model,
+//                                 @RequestParam("plan") String plan,
+                                 @Nullable @RequestParam("files") MultipartFile[] files,
+                                 @Nullable @RequestParam("bodyColor") String bodyColor,
+                                 @Nullable @RequestParam("interiorColor") String interiorColor,
+                                 @Nullable @RequestParam("interiorMaterial") String interiorMaterial,
+                                 @Nullable @RequestParam("body") String body,
+                                 @Nullable @RequestParam("licensePlate") String licensePlate,
+                                 @Nullable @RequestParam("transmission") String transmission,
+                                 @Nullable @RequestParam("seats") String seats,
+                                 @Nullable @RequestParam("mileage") String mileage,
+                                 @Nullable @RequestParam("engineCapacity") String engineCapacity,
+                                 @Nullable @RequestParam("power") String power,
+                                 @Nullable @RequestParam("co2Emission") String co2Emission,
+                                 @Nullable @RequestParam("fuelType") String fuelType,
+                                 @Nullable @RequestParam("firstRegistration") String firstRegistration,
+                                 @Nullable @RequestParam("others") String others,
+                                 @Nullable @RequestParam("postDescription") String postDescription) {
+
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        List<CarImage> carImageList = new ArrayList<>();
+        Post post = service.getPostService().findById(postId);
+        Car car = post.getCar();
+
+        CarDescription carDescription = CarDescription.builder()
+                .make(make)
+                .model(model)
+                .bodyColor(bodyColor)
+                .interiorColor(interiorColor)
+                .interiorMaterial(interiorMaterial)
+                .body(body)
+                .licensePlate(licensePlate)
+                .fuelType(fuelType)
+                .transmission(transmission)
+                .firstRegistration(firstRegistration)
+                .seats((Objects.equals(seats, "") || seats == null) ? 0 : Integer.parseInt(seats))
+                .power(power)
+                .engineCapacity(engineCapacity)
+                .co2Emission(co2Emission)
+                .mileage(mileage)
+                .others(others)
+                .build();
+
+        if (files != null) {
+            for (MultipartFile file : files) {
+                CarImage carImage = new CarImage();
+                carImage.setContent(service.getStorageService().uploadFile(file));
+                carImage.setCar(car);
+                carImageList.add(carImage);
+            }
+        }
+
+        car.getCarImageList().addAll(carImageList);
+        car.setName(carName);
+        car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
+        car.setStatus(Status.AVAILABLE);
+        car.setCarDescription(carDescription);
+
+        post.setCar(car);
+        post.setDescription(postDescription);
+
+        service.getCarService().save(car);
+        service.getPostService().save(post);
+
+        modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
+        return showPostHistory();
+    }
+
+
+
     @GetMapping("/customer_service")
     public ModelAndView showCustomerServicePage() {
         return new ModelAndView("views/user/customer-service");
@@ -398,6 +497,8 @@ public class UserController {
         modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
         return modelAndView;
     }
+
+
 
     @RequestMapping("/meeting-history/cancel")
     public ModelAndView cancelMeeting(@RequestParam("id") String id) {

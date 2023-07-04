@@ -7,7 +7,7 @@
     <meta name="keywords" content="HVAC, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Meeting History</title>
+    <title>Post History</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -201,8 +201,6 @@
         <!-- code here -->
 
         <div class="container-car-history row">
-
-
             <div th:each="post : ${postList}" class="col-md-12">
                 <div class="car__item">
                     <div class="col-12">
@@ -216,7 +214,7 @@
                     <div class="car__item__text car-history-information">
                         <ul th:with="postDetail=${post.getCar().getCarDescription()}">
                             <li>Name: <span
-                                    th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></span>
+                                    th:text="${post.getCar().getName()}"></span>
                             </li>
                             <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
                             <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
@@ -227,10 +225,10 @@
 
                     <div class="post-utils">
                         <div class="car-history-btn">
-                            <a href="#"><i class="fa fa-eye"></i> View</a>
+                            <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
                         </div>
                         <div class="car-history-btn">
-                            <a href="#"><i class="fa fa-list"></i> Edit</a>
+                            <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
                         </div>
                         <div class="car-history-btn">
                             <a th:href="@{/post-history/delete (id = ${post.getId()})}"><i class="fa fa-trash"></i> Remove</a>
