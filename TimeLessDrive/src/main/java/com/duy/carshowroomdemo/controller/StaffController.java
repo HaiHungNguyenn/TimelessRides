@@ -209,12 +209,12 @@ public class StaffController {
         Email carOwnerEmail = new Email();
 
         buyerEmail.setTo(buyer.getEmail());
-        buyerEmail.setFrom("nguyenhai181911@gmail.com");
+        buyerEmail.setFrom("timelessride3@gmail.com");
         buyerEmail.setSubject("Meeting Request Response");
         buyerEmail.setTemplate("views/email/email-meeting.html");
 
         carOwnerEmail.setTo(carOwner.getEmail());
-        carOwnerEmail.setFrom("nguyenhai181911@gmail.com");
+        carOwnerEmail.setFrom("timelessride3@gmail.com");
         carOwnerEmail.setSubject("Car Delivery Request");
         carOwnerEmail.setTemplate("views/email/email-delivery.html");
         Map<String, Object> buyerEmailProperties = new HashMap<>();
@@ -505,7 +505,8 @@ public class StaffController {
         Email carOwnerEmail = new Email();
 
         buyerEmail.setTo(buyer.getEmail());
-        buyerEmail.setFrom("nguyenhai181911@gmail.com");
+        buyerEmail.setFrom("timelessride3@gmail.com");
+
         buyerEmail.setSubject("Purchase Invoice");
         buyerEmail.setTemplate("views/email/email-buyer-invoice.html");
 
