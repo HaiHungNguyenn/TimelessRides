@@ -4,22 +4,23 @@ import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Post;
-import com.duy.carshowroomdemo.entity.Staff;
-import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.service.Service;
+import com.duy.carshowroomdemo.util.MyList;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -84,23 +85,55 @@ public class MappingController {
     }
 
     @RequestMapping("/user-list")
-    public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset) {
+    public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset,
+                                 MyList clientList,
+                                 boolean isLastPage) {
 
         offset = (offset == null) ? 1 : offset;
+        boolean isFirstPage = offset == 1;
 
         ModelAndView modelAndView = new ModelAndView();
         if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
 
-        List<ClientDto> clientList = service.getClientService().findAll(PageRequest.of(offset - 1, 10));
-        long lastOffset = service.getClientService().getLastOffset(PageRequest.of(0, 10));
+        if(clientList == null){
+            Pageable pageable = PageRequest.of(offset - 1, 10);
+            clientList = new MyList();
+            clientList.addAll(service.getClientService().findAll(pageable));
+            isLastPage = service.getClientService().getLastOffset(pageable) == offset;
+        }
 
         modelAndView.addObject("offset", offset)
                 .addObject("clientList", clientList)
-                .addObject("lastOffset", lastOffset)
+                .addObject("isFirstPage", isFirstPage)
+                .addObject("isLastPage", isLastPage)
                 .setViewName("views/admin/user-list");
         return modelAndView;
+    }
+
+    @RequestMapping("/search")
+    public ModelAndView searchUser(@Nullable @RequestParam Integer offset,
+                                   @RequestParam("searchKW") String keyword){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        if (keyword.isBlank()){
+            return userList(null, null, false);
+        }
+
+        offset = (offset == null) ? 1 : offset;
+
+        Pageable pageable = PageRequest.of(offset - 1, 10);
+        MyList clientList = new MyList();
+        clientList.addAll(service.getClientService().searchUser(pageable, keyword));
+
+        boolean isLastPage = service.getClientService().getSearchUserLastOffset(pageable, keyword) == offset;
+
+        return userList(offset, clientList, isLastPage);
     }
 
     @RequestMapping("/carmanagement")
@@ -174,12 +207,12 @@ public class MappingController {
         Client client = service.getClientService().findEntityById(id);
 
         if (client == null) {
-            return userList(null);
+            return userList(null, null, false);
         }
 
         service.getClientService().delete(client);
 
-        return userList(null);
+        return userList(null, null, false);
     }
 
     @RequestMapping("/staff-detail/{staffID}")
@@ -225,7 +258,7 @@ public class MappingController {
         Client client = service.getClientService().findEntityById(id);
 
         if (client == null) {
-            return userList(null);
+            return userList(null, null, false);
         }
 
         modelAndView.addObject("client", client)
@@ -258,7 +291,7 @@ public class MappingController {
 
         service.getClientService().save(client);
 
-        return userList(null);
+        return userList(null, null, false);
     }
 
     @RequestMapping("/edit-staff/{id}")
