@@ -6,6 +6,7 @@ import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.MyList;
+import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -97,7 +99,11 @@ public class MappingController {
             modelAndView.setViewName("views/user/login");
         }
 
-        if(clientList == null){
+        if (clientList == null){
+            clientList = new MyList();
+        }
+
+        if(clientList.isEmpty()){
             Pageable pageable = PageRequest.of(offset - 1, 10);
             clientList = new MyList();
             clientList.addAll(service.getClientService().findAll(pageable));
@@ -134,6 +140,57 @@ public class MappingController {
         boolean isLastPage = service.getClientService().getSearchUserLastOffset(pageable, keyword) == offset;
 
         return userList(offset, clientList, isLastPage);
+    }
+
+    @RequestMapping("/add-new-user")
+    public ModelAndView showAddNewUserPage(){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        modelAndView.setViewName("views/admin/add-new-user");
+        return modelAndView;
+    }
+
+    @RequestMapping("/add-new-user/confirm")
+    public ModelAndView addUser(@RequestParam("fullName") String fullName,
+                                @RequestParam("email") String email,
+                                @RequestParam("password") String password,
+                                @Nullable @RequestParam("phone") String phone,
+                                @Nullable @RequestParam("address") String address,
+                                @Nullable @RequestParam("gender") String gender,
+                                @Nullable @RequestParam("dob") String dob){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Client client = service.getClientService().findEntityByEmail(email);
+
+        if (client != null){
+            return showAddNewUserPage();
+        }
+
+        dob = (dob == null) ? "" : dob;
+
+        Client newClient = Client.builder()
+                .name(fullName)
+                .email(email)
+                .password(password)
+                .joinDate(LocalDate.now())
+                .role("client")
+                .phone(phone)
+                .gender(gender)
+                .address(address)
+                .dob(Util.parseLocalDate(dob))
+                .build();
+        service.getClientService().save(newClient);
+
+        modelAndView.setViewName("views/admin/add-new-user");
+        return modelAndView;
     }
 
     @RequestMapping("/carmanagement")

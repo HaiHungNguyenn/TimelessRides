@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<!-- Mirrored from demo.dashboardpack.com/user-management-html/add_new_admin.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
+<head>
+  <meta charset="utf-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <title>Add New User</title>
+  <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png" />
+
+  <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css" />
+  <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css" />
+  <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css" />
+  <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
+  <link rel="stylesheet" href="../../user_assets/css/popup.css">
+
+
+</head>
+<body class="crm_body_bg">
+<nav class="sidebar">
+  <div class="logo d-flex justify-content-between">
+    <a class="large_logo" href="/admin/home"
+    ><img src="../../admin_assets/img/logo.png" alt
+    /></a>
+    <a class="small_logo" href="/admin/home"
+    ><img src="../../admin_assets/img/mini_logo.png" alt
+    /></a>
+    <div class="sidebar_close_icon d-lg-none">
+      <i class="ti-close"></i>
+    </div>
+  </div>
+  <ul id="sidebar_menu">
+
+    <li class>
+      <a class="has-arrow" href="#" aria-expanded="false">
+        <div class="nav_icon_small">
+          <img src="../../admin_assets/img/menu-icon/4.svg" alt />
+        </div>
+        <div class="nav_title">
+          <span>User</span>
+        </div>
+      </a>
+      <ul>
+        <li><a href="/admin/staff_list">Staff List</a></li>
+        <li><a href="/admin/add_new_staff">Add New Staff</a></li>
+      </ul>
+    </li>
+    <li class>
+      <a class="has-arrow" href="#" aria-expanded="false">
+        <div class="nav_icon_small">
+          <img src="../../admin_assets/img/menu-icon/5.svg" alt />
+        </div>
+        <div class="nav_title">
+          <span>Users</span>
+        </div>
+      </a>
+      <ul>
+        <li><a href="/admin/user-list">Users List</a></li>
+        <li><a href="/admin/add-new-user">Add New User</a></li>
+      </ul>
+    </li>
+    <li class>
+      <a href="/admin/carmanagement" aria-expanded="false">
+        <div class="nav_icon_small">
+          <img src="../../admin_assets/img/menu-icon/9.svg" alt />
+        </div>
+        <div class="nav_title">
+          <span>Car Management</span>
+        </div>
+      </a>
+    </li>
+    <li class>
+      <a href="/admin/schedule" aria-expanded="false">
+        <div class="nav_icon_small">
+          <img src="../../admin_assets/img/menu-icon/10.svg" alt />
+        </div>
+        <div class="nav_title">
+          <span>Calander</span>
+        </div>
+      </a>
+    </li>
+
+  </ul>
+</nav>
+
+<section class="main_content dashboard_part large_header_bg">
+  <div class="container-fluid g-0">
+    <div class="row">
+      <div class="col-lg-12 p-0">
+        <div class="header_iner d-flex justify-content-between align-items-center">
+          <div class="sidebar_icon d-lg-none">
+            <i class="ti-menu"></i>
+          </div>
+          <div class="line_icon open_miniSide d-none d-lg-block">
+            <img src="../../admin_assets/img/line_img.png" alt />
+          </div>
+          <div class="serach_field-area d-flex align-items-center">
+            <div class="search_inner">
+              <form action="#">
+                <div class="search_field">
+                  <input type="text" placeholder="Search" />
+                </div>
+                <button type="submit">
+                  <img src="../../admin_assets/img/icon/icon_search.svg" alt />
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="header_right d-flex justify-content-between align-items-center">
+            <div class="profile_info">
+              <img src="../../admin_assets/img/client_img.png" alt="#" />
+              <div class="profile_info_iner">
+                <div class="profile_author_name">
+                  <p>Neurologist</p>
+                  <h5>Dr. Robar Smith</h5>
+                </div>
+                <div class="profile_info_details">
+                  <a href="#">My Profile </a>
+                  <a href="#">Settings</a>
+                  <a href="/admin/logout">Log Out </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+        <div class="modal_item s_modal active tly" th:if="${status == 'success'}">
+          <div class="close close_btn">
+            <ion-icon name="close"></ion-icon>
+          </div>
+          <div class="modal_body" style="background-color: whitesmoke">
+            <div class="s_icon">
+              <ion-icon name="checkmark"></ion-icon>
+            </div>
+            <div class="s_text">
+              <h2>SUCCESS</h2>
+              <p  th:text="${message}" ></p>
+            </div>
+          </div>
+          <div class="s_button">
+            <button class="success_btn">Continue</button>
+          </div>
+        </div>
+
+        <div class="modal_item e_modal active tly" th:if="${status == 'fail'}">
+          <div class="close close_btn">
+            <ion-icon name="close" th:onclick="fade()"></ion-icon>
+          </div>
+          <div class="modal_body" style="background-color:whitesmoke">
+            <div class="s_icon">
+              <ion-icon name="help"></ion-icon>
+            </div>
+            <div class="s_text">
+              <h2>ERROR</h2>
+              <p th:text="${message}"></p>
+            </div>
+          </div>
+          <div class="s_button">
+            <button class="error_btn">Continue</button>
+          </div>
+        </div>
+
+  <div class="main_content_iner overly_inner">
+    <div class="container-fluid p-0">
+      <div class="row">
+        <div class="col-12">
+          <div
+                  class="page_title_box d-flex flex-wrap align-items-center justify-content-between"
+          >
+            <div class="page_title_left d-flex align-items-center">
+              <h3 class="f_s_25 f_w_700 dark_text mr_30">Add User</h3>
+              <ol class="breadcrumb page_bradcam mb-0">
+                <li class="breadcrumb-item">
+                  <a href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Analytic</li>
+              </ol>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="white_card card_height_100 mb_30">
+            <div class="white_card_header">
+              <div class="box_header m-0">
+                <div class="main-title">
+                  <h3 class="m-0">Add New User</h3>
+                </div>
+              </div>
+            </div>
+            <form action="/admin/add-new-user/confirm">
+              <div class="white_card_body">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <input type="text" placeholder="FullName" name="fullName" required/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <input type="text" placeholder="Email" name="email" required/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <input type="tel" placeholder="Mobile Phone" pattern="[0-9]{10}" maxlength="10" name="phone"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <input type="text" placeholder="Password" name="password" required/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <input type="date" name="dob"/>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="common_input mb_15">
+                      <select class="second-row-input" id="gender" name="gender">
+                        <option value="" disabled selected hidden>Gender</option>
+                        <option value="male">Male
+                        </option>
+                        <option value="female">
+                          Female
+                        </option>
+                        <option value="other">
+                          Other
+                        </option>
+                      </select>
+                    </div>
+                    <style>
+                      .second-row-input{
+                        height: 47px;
+                        line-height: 47px;
+                        background-color: transparent;
+                        border: 0;
+                        padding: 10px 25px;
+                        color: #81879f;
+                        font-weight: 400;
+                        font-size: 14px;
+                        width: 100%;
+                        display: block;
+                        border-radius: 10px;
+                        border: 1px solid #e5ecff;
+                      }
+                    </style>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="common_input mb_15">
+                      <input type="text" placeholder="Address" name="address"/>
+                    </div>
+                  </div>
+                  <div class="col-12" style="text-align: center">
+                      <input type="submit" class="btn_1 radius_btn d-block text-center" value="Add User">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+<script src="../../admin_assets/js/popper1.min.js"></script>
+<script src="../../admin_assets/js/bootstrap1.min.js"></script>
+<script src="../../admin_assets/js/metisMenu.js"></script>
+<script src="../../admin_assets/js/custom.js"></script>
+<script>
+  // Get the close icon element
+  const closeIcon = document.querySelectorAll('.close_btn ion-icon');
+
+  //Get the background
+  const background = document.querySelector(".modal_wrapper")
+
+  // Add event listener to the close icon
+  closeIcon.forEach((close) => close.addEventListener('click', () => {
+    // Hide the modal
+    const modal = close.parentElement.parentElement;
+    modal.style.display = 'none';
+    background.classList.remove("active");
+  }));
+  // Get the "Continue" buttons
+  var successButton = document.querySelector('.success_btn');
+  var errorButton = document.querySelector('.error_btn');
+
+  // Get the modals
+  var successModal = document.querySelector('.s_modal');
+  var errorModal = document.querySelector('.e_modal');
+
+  // Add click event listener to the success button
+  successButton.addEventListener('click', function() {
+    // Hide the success modal by setting display to "none"
+    successModal.style.display = 'none';
+  });
+
+  // Add click event listener to the error button
+  errorButton.addEventListener('click', function() {
+    // Hide the error modal by setting display to "none"
+    errorModal.style.display = 'none';
+  });
+
+</script>
+</body>
+
+</html>
