@@ -199,40 +199,36 @@
     <section style="width:100%;height:100%">
 
         <!-- code here -->
-
         <div class="container-car-history row">
-            <div th:each="post : ${postList}" class="col-md-12">
-                <div class="car__item">
-                    <div class="col-12">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img th:src="${carImageUrl.getContent()}"
-                                 th:each="carImageUrl : ${post.getCar().getCarImageList()}">
-                        </div>
-                    </div>
-                    <h2 class="car-history-title"
-                        th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></h2>
-                    <div class="car__item__text car-history-information">
-                        <ul th:with="postDetail=${post.getCar().getCarDescription()}">
-                            <li>Name: <span
-                                    th:text="${post.getCar().getName()}"></span>
-                            </li>
-                            <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
-                            <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
-                            <li>Status: <span th:text="${post.getStatus()}"></span></li>
-                            <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
-                        </ul>
-                    </div>
+            <div th:each="post : ${postList}" class="car__item col-md-12">
+                <div class="car__item__pic__slider owl-carousel">
+                    <img th:src="${carImageUrl.getContent()}"
+                         th:each="carImageUrl : ${post.getCar().getCarImageList()}">
+                </div>
+                <h2 class="car-history-title"
+                    th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></h2>
+                <div class="car__item__text car-history-information">
+                    <ul th:with="postDetail=${post.getCar().getCarDescription()}">
+                        <li>Name: <span
+                                th:text="${post.getCar().getName()}"></span>
+                        </li>
+                        <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
+                        <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
+                        <li>Status: <span th:text="${post.getStatus()}"></span></li>
+                        <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
+                    </ul>
+                </div>
 
-                    <div class="post-utils">
-                        <div class="car-history-btn">
-                            <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
-                        </div>
-                        <div class="car-history-btn">
-                            <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
-                        </div>
-                        <div class="car-history-btn">
-                            <a th:href="@{/post-history/delete (id = ${post.getId()})}"><i class="fa fa-trash"></i> Remove</a>
-                        </div>
+                <div class="post-utils">
+                    <div class="car-history-btn">
+                        <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
+                    </div>
+                    <div class="car-history-btn">
+                        <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
+                    </div>
+                    <div class="car-history-btn">
+                        <a th:href="@{/post-history/delete (id = ${post.getId()})}"><i class="fa fa-trash"></i>
+                            Remove</a>
                     </div>
                 </div>
             </div>
@@ -430,17 +426,6 @@
     });
 </script>
 <script src="../../user_assets/js/calendar-script.js"></script>
-
-<!-- Js Plugins -->
-<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-<script src="../../user_assets/js/bootstrap.min.js"></script>
-<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-<script src="../../user_assets/js/jquery-ui.min.js"></script>
-<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-<script src="../../user_assets/js/mixitup.min.js"></script>
-<script src="../../user_assets/js/jquery.slicknav.js"></script>
-<script src="../../user_assets/js/owl.carousel.min.js"></script>
-<script src="../../user_assets/js/main.js"></script>
 <!-- notification js-->
 <script src="../../admin_assets/js/metisMenu.js"></script>
 <script src="../../admin_assets/js/custom.js"></script>

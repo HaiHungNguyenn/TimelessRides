@@ -74,4 +74,8 @@ public class StaffService {
     public Staff findEntityByEmail(String userEmail) {
         return repository.findByEmail(userEmail).orElse(null);
     }
+
+    public void delete(StaffDto staff){
+        repository.delete(mapperManager.getStaffMapper().toEntity(staff));
+    }
 }

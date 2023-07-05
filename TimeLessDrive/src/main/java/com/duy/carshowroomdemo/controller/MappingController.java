@@ -4,6 +4,7 @@ import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Post;
+import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.service.Service;
 import jakarta.servlet.http.HttpSession;
@@ -251,6 +252,78 @@ public class MappingController {
         service.getClientService().save(client);
 
         return userList(null);
+    }
+
+    @RequestMapping("/edit-staff/{id}")
+    public ModelAndView editStaff(@PathVariable String id,
+                                  @Nullable @RequestParam("offset") Integer offset){
+        offset = (offset == null) ? 1: offset;
+
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        StaffDto staff = service.getStaffService().findById(id);
+
+        if (staff == null){
+            return staffList(null);
+        }
+
+        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(id,PageRequest.of(offset -1,4));
+
+        modelAndView.addObject("staff",staff)
+                    .addObject("offset", offset)
+                    .addObject("offMeetingList",list)
+                .setViewName("views/admin/edit-staff");
+        return modelAndView;
+    }
+
+    @RequestMapping("/confirm-edit-staff")
+    public ModelAndView confirmEditStaff(@RequestParam("id") String id,
+                                        @RequestParam("fullName") String fullName,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("phone") String phone,
+                                        @RequestParam("gender") String gender,
+                                        @RequestParam("address") String address){
+
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        StaffDto staff = service.getStaffService().findById(id);
+
+        staff.setName(fullName);
+        staff.setEmail(email);
+        staff.setPhone(phone);
+        staff.setGender(gender);
+        staff.setAddress(address);
+
+        service.getStaffService().save(staff);
+
+        return staffList(null);
+    }
+
+    @RequestMapping("/delete-staff/{id}")
+    public ModelAndView deleteStaff(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        StaffDto staff = service.getStaffService().findById(id);
+
+        if (staff == null){
+            return staffList(null);
+        }
+
+        service.getStaffService().delete(staff);
+
+        return staffList(null);
     }
 
     @RequestMapping("/feedbacks")
