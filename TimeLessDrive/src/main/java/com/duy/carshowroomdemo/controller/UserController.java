@@ -158,6 +158,23 @@ public class UserController {
         return showCarInventory(direction, property, value, offset);
     }
 
+    @RequestMapping("/car/search")
+    public ModelAndView searchCar(@RequestParam("searchKW") String keyword,
+                                  @Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/car");
+
+        if (keyword.isBlank()){
+            return showCarInventory(null,null, null, null);
+        }
+
+        offset = (offset == null) ? 1 : offset;
+
+        List<PostDto> postList = service.getPostService().searchCar(PageRequest.of(offset - 1, 10, Sort.by("priority").descending()), keyword);
+
+        modelAndView.addObject("postDto", postList)
+                .addObject("offset", offset);
+        return modelAndView;
+    }
 
     @GetMapping("/car/book-meeting")
     public ModelAndView bookMeeting(@RequestParam("slot") String slot,

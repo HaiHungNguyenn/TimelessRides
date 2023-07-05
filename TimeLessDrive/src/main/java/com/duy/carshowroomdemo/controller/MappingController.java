@@ -88,7 +88,7 @@ public class MappingController {
 
     @RequestMapping("/user-list")
     public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset,
-                                 MyList clientList,
+                                 MyList<ClientDto> clientList,
                                  boolean isLastPage) {
 
         offset = (offset == null) ? 1 : offset;
@@ -100,12 +100,12 @@ public class MappingController {
         }
 
         if (clientList == null){
-            clientList = new MyList();
+            clientList = new MyList<>();
         }
 
         if(clientList.isEmpty()){
             Pageable pageable = PageRequest.of(offset - 1, 10);
-            clientList = new MyList();
+            clientList = new MyList<>();
             clientList.addAll(service.getClientService().findAll(pageable));
             isLastPage = service.getClientService().getLastOffset(pageable) == offset;
         }
@@ -134,7 +134,7 @@ public class MappingController {
         offset = (offset == null) ? 1 : offset;
 
         Pageable pageable = PageRequest.of(offset - 1, 10);
-        MyList clientList = new MyList();
+        MyList<ClientDto> clientList = new MyList<>();
         clientList.addAll(service.getClientService().searchUser(pageable, keyword));
 
         boolean isLastPage = service.getClientService().getSearchUserLastOffset(pageable, keyword) == offset;

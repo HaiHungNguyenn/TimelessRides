@@ -4,6 +4,6 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 
 import java.util.*;
 
-public class MyList extends ArrayList<ClientDto> {
+public class MyList<T> extends ArrayList<T> {
 
 }

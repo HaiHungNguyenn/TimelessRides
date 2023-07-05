@@ -251,4 +251,13 @@ public class PostService {
     public void delete(Post post) {
         postRepository.delete(post);
     }
+
+    public List<PostDto> searchCar(Pageable pageable, String keyword) {
+        List<PostDto> postList = new ArrayList<>();
+
+        postRepository.findByCarNameOrMakeOrModel(pageable, keyword)
+                .forEach(post -> postList.add(mapperManager.getPostMapper().toDto(post)));
+
+        return postList;
+    }
 }
