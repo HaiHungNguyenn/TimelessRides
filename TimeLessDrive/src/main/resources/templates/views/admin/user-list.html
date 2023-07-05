@@ -377,9 +377,9 @@
                         }
                       </style>
                       <div class="container">
-                        <a th:href="${(offset == 1) ? '#' : '/admin/user-list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
+                        <a th:href="${(offset == 1) ? '#!' : '/admin/user-list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
                         <button class="button act"   th:text="${offset}"></button>
-                        <a th:href="@{/admin/user-list(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
+                        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/user-list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
                       </div>
                     </div>
                   </div>

@@ -30,14 +30,14 @@ public class MappingController {
     @Autowired
     private Service service;
 
-    boolean isAuthenticated(){
+    boolean isAuthenticated() {
         return (session.getAttribute("admin") != null);
     }
 
     @RequestMapping("/home")
-    public ModelAndView home(){
+    public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/index");
@@ -45,34 +45,38 @@ public class MappingController {
     }
 
     @RequestMapping("/mailbox")
-    public ModelAndView mailBox(){
+    public ModelAndView mailBox() {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/mail-box");
         return modelAndView;
     }
-    @RequestMapping("/staff_list")
-    public ModelAndView staffList(@Nullable @RequestParam("offset") Integer offset){
 
-        offset = (offset == null) ? 1: offset;
+    @RequestMapping("/staff_list")
+    public ModelAndView staffList(@Nullable @RequestParam("offset") Integer offset) {
+
+        offset = (offset == null) ? 1 : offset;
 
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
-        List<StaffDto> listStaff = new ArrayList<>();
-        listStaff = service.getStaffService().findAll( PageRequest.of(offset - 1, 10));
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("staffList", listStaff);
-        modelAndView.setViewName("views/admin/staff-list");
+
+        List<StaffDto> listStaff = service.getStaffService().findAll(PageRequest.of(offset - 1, 10));
+        long lastOffset = service.getStaffService().getLastOffset(PageRequest.of(0, 10));
+        modelAndView.addObject("offset", offset)
+                .addObject("staffList", listStaff)
+                .addObject("lastOffset", lastOffset)
+                .setViewName("views/admin/staff-list");
         return modelAndView;
     }
+
     @RequestMapping("/add_new_staff")
-    public ModelAndView addStaff(){
+    public ModelAndView addStaff() {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/add-new-staff");
@@ -80,54 +84,55 @@ public class MappingController {
     }
 
     @RequestMapping("/user-list")
-    public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset){
+    public ModelAndView userList(@Nullable @RequestParam("offset") Integer offset) {
 
-        offset = (offset == null) ? 1: offset;
+        offset = (offset == null) ? 1 : offset;
 
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
 
-        List<ClientDto> clientList = new ArrayList<>();
-        clientList = service.getClientService().findAll( PageRequest.of(offset - 1, 10));
+        List<ClientDto> clientList = service.getClientService().findAll(PageRequest.of(offset - 1, 10));
+        long lastOffset = service.getClientService().getLastOffset(PageRequest.of(0, 10));
 
-        modelAndView.setViewName("views/admin/user-list");
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("clientList", clientList);
+        modelAndView.addObject("offset", offset)
+                .addObject("clientList", clientList)
+                .addObject("lastOffset", lastOffset)
+                .setViewName("views/admin/user-list");
         return modelAndView;
     }
 
     @RequestMapping("/carmanagement")
-    public ModelAndView carList(@Nullable @RequestParam("offset") Integer offset ){
+    public ModelAndView carList(@Nullable @RequestParam("offset") Integer offset) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         offset = (offset == null) ? 1 : offset;
 
         List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
-        modelAndView.addObject("postDto",postDto);
-        modelAndView.addObject("offset",offset);
+        modelAndView.addObject("postDto", postDto);
+        modelAndView.addObject("offset", offset);
         modelAndView.setViewName("views/admin/car-management");
         return modelAndView;
     }
 
     @RequestMapping("/delete-car/{id}")
-    public ModelAndView deleteCar(@PathVariable String id ) {
+    public ModelAndView deleteCar(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
 
         Car car = service.getCarService().findCarEntityById(id);
         Post post = service.getPostService().findPostByCarId(id);
 
-        if (car == null){
+        if (car == null) {
             return carList(null);
         }
 
-        if(post == null){
+        if (post == null) {
             return carList(null);
         }
 
@@ -139,9 +144,9 @@ public class MappingController {
     }
 
     @RequestMapping("/schedule")
-    public ModelAndView scheduleManagement(){
+    public ModelAndView scheduleManagement() {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/schedule-management");
@@ -149,9 +154,9 @@ public class MappingController {
     }
 
     @RequestMapping("/showroom-list")
-    public ModelAndView showroomManagement(){
+    public ModelAndView showroomManagement() {
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/showroom-list");
@@ -159,16 +164,16 @@ public class MappingController {
     }
 
     @RequestMapping("/delete-user/{id}")
-    public ModelAndView deleteUser(@PathVariable String id){
+    public ModelAndView deleteUser(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         Client client = service.getClientService().findEntityById(id);
 
-        if (client == null){
+        if (client == null) {
             return userList(null);
         }
 
@@ -179,45 +184,47 @@ public class MappingController {
 
     @RequestMapping("/staff-detail/{staffID}")
     public ModelAndView staffDetail(@PathVariable("staffID") String staffID,
-                                    @Nullable @RequestParam("offset") Integer offset){
-        offset = (offset == null) ? 1: offset;
+                                    @Nullable @RequestParam("offset") Integer offset) {
+        offset = (offset == null) ? 1 : offset;
 
         ModelAndView modelAndView = new ModelAndView();
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
         modelAndView.setViewName("views/admin/staff-profile");
         StaffDto staff = service.getStaffService().findById(staffID);
-        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(staffID,PageRequest.of(offset -1,4));
-        modelAndView.addObject("staff",staff);
+        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(staffID, PageRequest.of(offset - 1, 4));
+        modelAndView.addObject("staff", staff);
         modelAndView.addObject("offset", offset);
-        modelAndView.addObject("offMeetingList",list);
+        modelAndView.addObject("offMeetingList", list);
 
         return modelAndView;
     }
+
     @RequestMapping("/client-detail/{clientID}")
-    public ModelAndView clientDetail(@PathVariable("clientID") String clientID){
+    public ModelAndView clientDetail(@PathVariable("clientID") String clientID) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
         ClientDto client = service.getClientService().findById(clientID);
-        modelAndView.addObject("client",client)
-            .setViewName("views/admin/user-profile");
+        modelAndView.addObject("client", client)
+                .setViewName("views/admin/user-profile");
 
         return modelAndView;
     }
+
     @RequestMapping("/edit-user/{id}")
-    public ModelAndView editUser(@PathVariable String id){
+    public ModelAndView editUser(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         Client client = service.getClientService().findEntityById(id);
 
-        if (client == null){
+        if (client == null) {
             return userList(null);
         }
 
@@ -233,11 +240,11 @@ public class MappingController {
                                         @RequestParam("email") String email,
                                         @RequestParam("phone") String phone,
                                         @RequestParam("gender") String gender,
-                                        @RequestParam("address") String address){
+                                        @RequestParam("address") String address) {
 
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
@@ -256,41 +263,41 @@ public class MappingController {
 
     @RequestMapping("/edit-staff/{id}")
     public ModelAndView editStaff(@PathVariable String id,
-                                  @Nullable @RequestParam("offset") Integer offset){
-        offset = (offset == null) ? 1: offset;
+                                  @Nullable @RequestParam("offset") Integer offset) {
+        offset = (offset == null) ? 1 : offset;
 
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         StaffDto staff = service.getStaffService().findById(id);
 
-        if (staff == null){
+        if (staff == null) {
             return staffList(null);
         }
 
-        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(id,PageRequest.of(offset -1,4));
+        List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(id, PageRequest.of(offset - 1, 4));
 
-        modelAndView.addObject("staff",staff)
-                    .addObject("offset", offset)
-                    .addObject("offMeetingList",list)
+        modelAndView.addObject("staff", staff)
+                .addObject("offset", offset)
+                .addObject("offMeetingList", list)
                 .setViewName("views/admin/edit-staff");
         return modelAndView;
     }
 
     @RequestMapping("/confirm-edit-staff")
     public ModelAndView confirmEditStaff(@RequestParam("id") String id,
-                                        @RequestParam("fullName") String fullName,
-                                        @RequestParam("email") String email,
-                                        @RequestParam("phone") String phone,
-                                        @RequestParam("gender") String gender,
-                                        @RequestParam("address") String address){
+                                         @RequestParam("fullName") String fullName,
+                                         @RequestParam("email") String email,
+                                         @RequestParam("phone") String phone,
+                                         @RequestParam("gender") String gender,
+                                         @RequestParam("address") String address) {
 
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
@@ -308,16 +315,16 @@ public class MappingController {
     }
 
     @RequestMapping("/delete-staff/{id}")
-    public ModelAndView deleteStaff(@PathVariable String id){
+    public ModelAndView deleteStaff(@PathVariable String id) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
-        if(!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
         StaffDto staff = service.getStaffService().findById(id);
 
-        if (staff == null){
+        if (staff == null) {
             return staffList(null);
         }
 
@@ -327,12 +334,12 @@ public class MappingController {
     }
 
     @RequestMapping("/feedbacks")
-    public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset){
+    public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         offset = (offset == null) ? 1 : offset;
 
-        if (!isAuthenticated()){
+        if (!isAuthenticated()) {
             return modelAndView;
         }
 
@@ -345,7 +352,7 @@ public class MappingController {
     }
 
     @RequestMapping("/logout")
-    public ModelAndView logout(){
+    public ModelAndView logout() {
         ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("admin");
         modelAndView.setViewName("views/user/index");
