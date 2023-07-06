@@ -3821,7 +3821,8 @@ ol {
 	align-self: center;
 	font-weight: 700;
 	text-align: center;
-
+	border-left: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
 }
 .car-history-information{
 	grid-column: 2/3;
@@ -3836,14 +3837,24 @@ ol {
 .car-history-btn{
 	width: 92px;
 	height: 44px;
-	border: 2px solid black;
-	border-radius: 5px;
+	border-left: 2px solid #ebebeb;
+	border-bottom: 2px solid #ebebeb;
+	border-top-left-radius: 0px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-basis: 294px;
+	flex-basis: 100%;
 	font-size: 20px;
 	transition: all .25s ease;
+}
+
+.car-history-btn:first-child{
+	border-bottom-left-radius: 5px;
+}
+
+.car-history-btn:last-child{
+	border-bottom-right-radius: 5px;
+	border-right: 2px solid #ebebeb;
 }
 
 .car-history-btn:hover{
@@ -3853,7 +3864,7 @@ ol {
 
 .car-history-btn a {
 	text-decoration: none;
-	color: black;
+	color: gray;
 }
 
 .car-history-btn:hover > a {
