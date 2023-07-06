@@ -196,10 +196,11 @@
             </div>
         </div>
     </div>
-    <section style="width:100%;height:100%">
+    <section style="width:100%;height:80vh">
 
         <!-- code here -->
         <div class="container-car-history row">
+
             <div th:each="post : ${postList}" class="car__item col-md-12">
                 <div class="car__item__pic__slider owl-carousel">
                     <img th:src="${carImageUrl.getContent()}"

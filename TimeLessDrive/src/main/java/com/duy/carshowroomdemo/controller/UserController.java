@@ -716,5 +716,12 @@ public class UserController {
 
         return notificationList;
     }
+    @RequestMapping("/a12a")
+    public ModelAndView a(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("views/admin/feedback-managerment");
+        return modelAndView;
+
+    }
 
 }
