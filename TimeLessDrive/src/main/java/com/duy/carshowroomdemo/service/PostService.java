@@ -1,23 +1,21 @@
 package com.duy.carshowroomdemo.service;
 
-import com.duy.carshowroomdemo.dto.CarDto;
 import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.dto.PostDto;
 import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.PostRepository;
+import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.time.Month;
+import java.time.Year;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -250,5 +248,28 @@ public class PostService {
 
     public void delete(Post post) {
         postRepository.delete(post);
+    }
+
+    public List<PostDto> searchCar(Pageable pageable, String keyword) {
+        List<PostDto> postList = new ArrayList<>();
+
+        postRepository.findByCarNameOrMakeOrModel(pageable, keyword)
+                .forEach(post -> postList.add(mapperManager.getPostMapper().toDto(post)));
+
+        return postList;
+    }
+
+    public Map<String, Long> getAnnualRevenue(int year) {
+        Map<String, Long> revenue = new LinkedHashMap<>();
+        int latestMonth = (year < Year.now().getValue()) ? 12 : LocalDate.now().getMonthValue();
+        for (int i = 1; i <= latestMonth; i++){
+            long monthlyRevenue = 0;
+            List<Post> postList = postRepository.findPostsByMonth(i, year);
+            for (Post p: postList){
+                monthlyRevenue += Plan.getPrice(p.getPlan());
+            }
+            revenue.put(Month.of(i).toString(), monthlyRevenue);
+        }
+        return revenue;
     }
 }

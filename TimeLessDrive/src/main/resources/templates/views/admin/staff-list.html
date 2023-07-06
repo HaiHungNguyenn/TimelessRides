@@ -73,6 +73,7 @@
           </div>
         </a>
         <ul>
+          <li><a href="/admin/add-new-user">Add New User</a></li>
           <li><a href="/admin/user-list">Users List</a></li>
         </ul>
       </li>
@@ -354,9 +355,9 @@
                         }
                       </style>
                       <div class="container">
-                        <a th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
+                        <a th:href="${(offset == 1) ? '#!' : '/admin/staff_list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
                         <button class="button act"   th:text="${offset}"></button>
-                        <a th:href="@{/admin/staff_list(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
+                        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/staff_list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
                       </div>
                     </div>
                   </div>

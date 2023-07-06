@@ -100,6 +100,7 @@
         </a>
         <ul>
           <li><a href="/admin/user-list">Users List</a></li>
+          <li><a href="/admin/add-new-user">Add New User</a></li>
         </ul>
       </li>
       <li class>
@@ -285,9 +286,9 @@
                       <div class="box_right d-flex lms_block">
                         <div class="serach_field_2">
                           <div class="search_inner">
-                            <form active="#">
+                            <form action="/admin/search" method="get">
                               <div class="search_field">
-                                <input type="text" placeholder="Search content here..."/>
+                                <input type="text" placeholder="Search user by name" name="searchKW"/>
                               </div>
                               <button type="submit">
                                 <i class="ti-search"></i>
@@ -377,9 +378,9 @@
                         }
                       </style>
                       <div class="container">
-                        <a th:href="${(offset == 1) ? '#' : '/admin/user-list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
+                        <a th:href="${isFirstPage ? '#!' : '/admin/user-list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
                         <button class="button act"   th:text="${offset}"></button>
-                        <a th:href="@{/admin/user-list(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
+                        <a th:href="${isLastPage ? '#!' : '/admin/user-list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
                       </div>
                     </div>
                   </div>

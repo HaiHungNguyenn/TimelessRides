@@ -4,6 +4,8 @@ import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
 import com.duy.carshowroomdemo.entity.Staff;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -25,6 +27,8 @@ public interface ClientRepository extends JpaRepository<Client, String> {
     List<Client> findByJoinDateBetween(LocalDate startDate, LocalDate endDate);
 
     Client findByEmailAndNameAndPhone(String email, String name, String phone);
+
+    Page<Client> findClientsByName(Pageable pageable, String name);
 
     void deleteByEmail(String s);
 }

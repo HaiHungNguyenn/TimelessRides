@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LogInController {
@@ -58,7 +59,11 @@ public class LogInController {
         }
 
         else if(adminDto != null){
-            modelAndView.setViewName("views/admin/index");
+            Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
+
+            modelAndView.addObject("keys", revenue.keySet())
+                    .addObject("values", revenue.values())
+                    .setViewName("views/admin/index");
             session.setAttribute("admin", adminDto);
         }
 
