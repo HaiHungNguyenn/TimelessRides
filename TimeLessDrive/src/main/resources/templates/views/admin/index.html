@@ -269,7 +269,13 @@
                   </div>
                 </div>
                 <div class="white_card_body">
-                  <div id="management_bar"></div>
+<!--                  <div id="management_bar"></div>-->
+                  <!--  chart starts-->
+                  <div>
+                    <div id="chart-container"
+                         style="width: 100%; height: 100%; margin: 0 auto"></div>
+                  </div>
+                  <!--chart ends-->
                 </div>
               </div>
             </div>
@@ -1875,6 +1881,58 @@
 
     <script src="../../admin_assets/js/dashboard_init.js"></script>
     <script src="../../admin_assets/js/custom.js"></script>
+
+<!--  chart script starts-->
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script th:inline="javascript">
+      $(function(){
+        Highcharts.chart('chart-container', {
+          chart: {
+            type: 'spline'
+          },
+          title: {
+            text: 'Annual Revenue'
+          },
+          // subtitle: {
+          //   text: 'Details'
+          // },
+          xAxis: {
+            categories: [[${keys}]],
+            crosshair: true
+          },
+          yAxis: {
+            min: 0,
+            max: 10000,
+            title: {
+              text: 'Revenue (USD)'
+            }
+          },
+          tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">Total: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} USD</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+          },
+          series: [{
+            name: 'Month',
+            data: [[${values}]]
+          }]
+        });
+      });
+    </script>
+
+<!--  chart script ends-->
   </body>
 
   <!-- Mirrored from demo.dashboardpack.com/user-management-html/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:42:38 GMT -->

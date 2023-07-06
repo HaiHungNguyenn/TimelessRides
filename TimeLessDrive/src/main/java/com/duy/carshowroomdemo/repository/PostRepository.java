@@ -93,4 +93,7 @@ public interface PostRepository extends JpaRepository<Post, String>{
 
     @Query("select p from Post p where (p.car.name = :keyword or p.car.carDescription.make = :keyword or p.car.carDescription.model = :keyword) and p.status = 'Approved'")
     Page<Post> findByCarNameOrMakeOrModel(Pageable pageable, @Param("keyword") String keyword);
+
+    @Query("select p from Post p where (month(p.postDate) = :month and year(p.postDate) = :year) and (p.status = 'Approved' or p.status = 'Completed')")
+    List<Post> findPostsByMonth(@Param("month") int month, @Param("year") int year);
 }
