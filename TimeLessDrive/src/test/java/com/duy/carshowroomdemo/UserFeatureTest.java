@@ -101,10 +101,8 @@ public class UserFeatureTest {
     }
     @Test
     public void getEnvvar(){
-        String awsSecretKey = System.getProperty("aws_access_key");
+        String awsSecretKey = System.getenv("a");
         System.out.println(awsSecretKey );
-        String awsSecretKey1 = System.getenv("aws_access_key");
-        System.out.println(awsSecretKey1 );
 
     }
 }
