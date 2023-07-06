@@ -21,6 +21,41 @@
 
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
 
+    <style>
+        .container {
+            display: flex;
+            justify-content: right;
+            align-items: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            color: black;
+            cursor: pointer;
+            background-color: white;
+        }
+        .button:hover {
+            color: whitesmoke;
+            background-color: #884ffb;
+            transition: background-color 0.5s ease;
+        }
+
+        .button:active {
+            background-color: white;
+            transition: background-color 0.5s ease;
+
+        }
+        .act{
+            background-color: #884ffb;
+            color: whitesmoke;
+
+        }
+    </style>
+
     <link rel="stylesheet" href="../../admin_assets/css/car-management.css">
 </head>
 <body class="crm_body_bg">
@@ -66,7 +101,7 @@
             </ul>
         </li>
         <li class>
-            <a href="/admim/carmanagement" aria-expanded="false">
+            <a href="/admin/carmanagement" aria-expanded="false">
                 <div class="nav_icon_small">
                     <img src="../../admin_assets/img/menu-icon/9.svg" alt/>
                 </div>
@@ -220,15 +255,14 @@
 
                     <div class="car__item__text col-md-8">
                         <div class="car__item__text__inner">
-                            <div class="label-date"
-                                 th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
+                            <div class="label-date" th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
                             <div class="row">
                                 <div class="col-md-9">
                                     <h5><a th:href="'/car-detail/'+${post.getCar().getId()}"
                                            th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a>
                                     </h5>
                                     <ul>
-                                        <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi
+                                        <li><span th:text="${post.getCar().getCarDescription().getMileage()}"/> mi
                                         </li>
                                         <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>
                                         <li><span th:text="${post.getCar().getCarDescription().getPower()}"/> hp</li>
@@ -255,12 +289,9 @@
         </div>
     </div>
     <div class="container">
-        <!--                        /admin/staff-detail/{staffID}-->
-        <button class="button"><a th:href="${(offset == 1) ? '#' : '/admin/carmanagement?offset=' + (offset - 1)}"><i
-                class="fa fa-arrow-left"></i></a></button>
-        <button class="button act" th:text="${offset}"></button>
-        <button class="button"><a th:href="@{/admin/carmanagement(offset=${offset + 1})}"><i
-                class="fa fa-arrow-right"></i></a></button>
+        <a th:href="${(offset == 1) ? '#' : '/admin/carmanagement?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
+        <button class="button act"   th:text="${offset}"></button>
+        <a th:href="@{/admin/carmanagement(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
     </div>
     </div>
     </div>

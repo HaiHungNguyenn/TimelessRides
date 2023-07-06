@@ -110,4 +110,21 @@ public class ClientService {
     public void delete(Client client) {
         repository.delete(client);
     }
+
+    public long getLastOffset(Pageable pageable) {
+        return repository.findAll(pageable).getTotalPages();
+    }
+
+    public List<ClientDto> searchUser(Pageable pageable, String name) {
+        List<ClientDto> clientList = new ArrayList<>();
+        repository.findClientsByName(pageable, name).forEach(client -> {
+            clientList.add(mapperManager.getClientMapper().toDto(client));
+        });
+
+        return clientList;
+    }
+
+    public long getSearchUserLastOffset(Pageable pageable, String name) {
+        return repository.findClientsByName(pageable, name).getTotalPages();
+    }
 }

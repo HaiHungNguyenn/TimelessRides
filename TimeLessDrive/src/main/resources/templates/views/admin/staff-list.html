@@ -31,6 +31,8 @@
         display:none!important;
       }
     </style>
+
+
   </head>
   <body class="crm_body_bg">
   <nav class="sidebar">
@@ -71,6 +73,7 @@
           </div>
         </a>
         <ul>
+          <li><a href="/admin/add-new-user">Add New User</a></li>
           <li><a href="/admin/user-list">Users List</a></li>
         </ul>
       </li>
@@ -306,10 +309,10 @@
                           <td><a href="#" th:text="${staff.getJoinDate()}"></a></td>
                           <td>
                             <div class="action_btns d-flex">
-                              <a href="#" class="action_btn mr_10">
+                              <a th:href="'/admin/edit-staff/'+${staff.getId()}" class="action_btn mr_10">
                                 <i class="fa fa-edit"></i>
                               </a>
-                              <a href="#" class="action_btn">
+                              <a th:href="@{'/admin/delete-staff/' + ${staff.getId()}}" class="action_btn">
                                 <i class="fa fa-trash"></i>
                               </a>
                             </div>
@@ -352,10 +355,9 @@
                         }
                       </style>
                       <div class="container">
-<!--                        /admin/staff-detail/{staffID}-->
-                        <button class="button"><a  th:href="${(offset == 1) ? '#' : '/admin/staff_list?offset=' + (offset - 1)}"><i class="fa fa-arrow-left"></i></a></button>
+                        <a th:href="${(offset == 1) ? '#!' : '/admin/staff_list?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
                         <button class="button act"   th:text="${offset}"></button>
-                        <button class="button"><a th:href="@{/admin/staff_list(offset=${offset + 1})}"><i class="fa fa-arrow-right"></i></a></button>
+                        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/staff_list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
                       </div>
                     </div>
                   </div>

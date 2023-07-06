@@ -165,8 +165,8 @@
                     <div class="car__sidebar">
                         <div class="car__search">
                             <h5>Car Search</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
+                            <form action="/car/search">
+                                <input type="text" placeholder="Search..." name="searchKW">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
@@ -274,7 +274,7 @@
                                         <div class="label-date" th:text="${post.getCar().getCarDescription().getFirstRegistration()}"/>
                                         <h5><a th:href="'/car-detail/'+${post.getCar().getId()}" th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a></h5>
                                         <ul>
-                                            <li><span th:text="${post.getCar().getCarDescription().getKmsDriven()}"/> mi</li>
+                                            <li><span th:text="${post.getCar().getCarDescription().getMileage()}"/> mi</li>
                                             <li th:text="${post.getCar().getCarDescription().getTransmission()}"/>
                                             <li><span th:text="${post.getCar().getCarDescription().getPower()}"/> hp</li>
                                             <li><span th:text="${post.getPostDate()}"/></li>

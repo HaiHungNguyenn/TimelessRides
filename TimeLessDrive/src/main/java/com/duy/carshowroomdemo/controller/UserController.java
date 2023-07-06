@@ -9,7 +9,9 @@ import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
@@ -156,6 +158,23 @@ public class UserController {
         return showCarInventory(direction, property, value, offset);
     }
 
+    @RequestMapping("/car/search")
+    public ModelAndView searchCar(@RequestParam("searchKW") String keyword,
+                                  @Nullable @RequestParam("offset") Integer offset){
+        ModelAndView modelAndView = new ModelAndView("views/user/car");
+
+        if (keyword.isBlank()){
+            return showCarInventory(null,null, null, null);
+        }
+
+        offset = (offset == null) ? 1 : offset;
+
+        List<PostDto> postList = service.getPostService().searchCar(PageRequest.of(offset - 1, 10, Sort.by("priority").descending()), keyword);
+
+        modelAndView.addObject("postDto", postList)
+                .addObject("offset", offset);
+        return modelAndView;
+    }
 
     @GetMapping("/car/book-meeting")
     public ModelAndView bookMeeting(@RequestParam("slot") String slot,
@@ -170,14 +189,32 @@ public class UserController {
         }
 
         Car car = service.getCarService().findCarEntityById(carId);
+        Client clientEntity = service.getClientService().findEntityById(((ClientDto) session.getAttribute("client")).getId());
 
-        if (!(car != null && car.getStatus().equals(Status.AVAILABLE))) {
+        if (car.getPost().getClient().equals(clientEntity)){
             modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                    .addObject("status", "fail")
+                    .addObject("message", "You are not allowed to book meeting for this car")
                     .setViewName("views/user/car-details");
             return modelAndView;
         }
 
         String[] parts = Util.splitDateTimeString(slot);
+        List<OffMeeting> offMeetingList = car.getOffMeetingList();
+
+        for (OffMeeting meeting : offMeetingList){
+            if (meeting.getMeetingDate().equals(Util.parseLocalDate(parts[0]))
+                    && meeting.getMeetingTime().equals(Util.parseLocalTime(parts[1]))
+                    && Objects.equals(meeting.getStatus(), Status.PENDING)){
+
+                modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                        .addObject("status", "fail")
+                        .addObject("message", "This car has been booked for another meeting at this time. Please choose another time")
+                        .setViewName("views/user/car-details");
+                return modelAndView;
+            }
+        }
+
         OffMeeting offMeeting = OffMeeting.builder()
                 .client(mapperManager.getClientMapper().toEntity((ClientDto) session.getAttribute("client")))
                 .meetingDate(Util.parseLocalDate(parts[0]))
@@ -190,7 +227,6 @@ public class UserController {
                 .status(Status.PENDING)
                 .build();
 
-        car.setStatus(Status.PROCESSING);
         service.getCarService().save(car);
         service.getOffMeetingService().save(offMeeting);
 
@@ -265,10 +301,132 @@ public class UserController {
         if (!isAuthenticated()){
             return modelAndView;
         }
+        ClientDto client = (ClientDto) session.getAttribute("client");
+        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,10));
+
+        modelAndView.addObject("postList", postList);
 
         modelAndView.setViewName("views/user/post-history");
         return modelAndView;
     }
+
+    @RequestMapping("/post-history/delete")
+    public ModelAndView deletePost(@RequestParam("id") String postId) {
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if (!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Post post = service.getPostService().findById(postId);
+
+        if (post == null){
+            return showPostHistory();
+        }
+
+        service.getPostService().delete(post);
+
+        return showPostHistory();
+    }
+
+    @RequestMapping("/post-history/edit-post")
+    public ModelAndView showPostEditingPage(@RequestParam("id") String postId){
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        Post post = service.getPostService().findById(postId);
+
+        if (post == null){
+            return showPostHistory();
+        }
+
+        modelAndView.addObject("post", post)
+                .setViewName("views/user/edit-post");
+        return modelAndView;
+    }
+
+    @RequestMapping("/post-history/confirm-edit")
+    public ModelAndView editPost(@RequestParam("id") String postId,
+                                 @RequestParam("carName") String carName,
+                                 @RequestParam("price") String price,
+                                 @RequestParam("make") String make,
+                                 @RequestParam("model") String model,
+//                                 @RequestParam("plan") String plan,
+                                 @Nullable @RequestParam("files") MultipartFile[] files,
+                                 @Nullable @RequestParam("bodyColor") String bodyColor,
+                                 @Nullable @RequestParam("interiorColor") String interiorColor,
+                                 @Nullable @RequestParam("interiorMaterial") String interiorMaterial,
+                                 @Nullable @RequestParam("body") String body,
+                                 @Nullable @RequestParam("licensePlate") String licensePlate,
+                                 @Nullable @RequestParam("transmission") String transmission,
+                                 @Nullable @RequestParam("seats") String seats,
+                                 @Nullable @RequestParam("mileage") String mileage,
+                                 @Nullable @RequestParam("engineCapacity") String engineCapacity,
+                                 @Nullable @RequestParam("power") String power,
+                                 @Nullable @RequestParam("co2Emission") String co2Emission,
+                                 @Nullable @RequestParam("fuelType") String fuelType,
+                                 @Nullable @RequestParam("firstRegistration") String firstRegistration,
+                                 @Nullable @RequestParam("others") String others,
+                                 @Nullable @RequestParam("postDescription") String postDescription) {
+
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+
+        List<CarImage> carImageList = new ArrayList<>();
+        Post post = service.getPostService().findById(postId);
+        Car car = post.getCar();
+
+        CarDescription carDescription = CarDescription.builder()
+                .make(make)
+                .model(model)
+                .bodyColor(bodyColor)
+                .interiorColor(interiorColor)
+                .interiorMaterial(interiorMaterial)
+                .body(body)
+                .licensePlate(licensePlate)
+                .fuelType(fuelType)
+                .transmission(transmission)
+                .firstRegistration(firstRegistration)
+                .seats((Objects.equals(seats, "") || seats == null) ? 0 : Integer.parseInt(seats))
+                .power(power)
+                .engineCapacity(engineCapacity)
+                .co2Emission(co2Emission)
+                .mileage(mileage)
+                .others(others)
+                .build();
+
+        if (files != null) {
+            for (MultipartFile file : files) {
+                CarImage carImage = new CarImage();
+                carImage.setContent(service.getStorageService().uploadFile(file));
+                carImage.setCar(car);
+                carImageList.add(carImage);
+            }
+        }
+
+        car.getCarImageList().addAll(carImageList);
+        car.setName(carName);
+        car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
+        car.setStatus(Status.AVAILABLE);
+        car.setCarDescription(carDescription);
+
+        post.setCar(car);
+        post.setDescription(postDescription);
+
+        service.getCarService().save(car);
+        service.getPostService().save(post);
+
+        modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
+        return showPostHistory();
+    }
+
+
 
     @GetMapping("/customer_service")
     public ModelAndView showCustomerServicePage() {
@@ -317,10 +475,10 @@ public class UserController {
                 .transmission(transmission)
                 .firstRegistration(firstRegistration)
                 .seats((Objects.equals(seats, "") || seats == null) ? 0 : Integer.parseInt(seats))
-                .power((Objects.equals(power, "") || power == null) ? 0 : Integer.parseInt(power))
-                .engineCapacity((Objects.equals(engineCapacity, "") || engineCapacity == null) ? 0 : Integer.parseInt(engineCapacity))
-                .co2Emission((Objects.equals(co2Emission, "") || co2Emission == null) ? 0 : Integer.parseInt(co2Emission))
-                .kmsDriven((Objects.equals(mileage, "") || mileage == null) ? 0 : Integer.parseInt(mileage))
+                .power(power)
+                .engineCapacity(engineCapacity)
+                .co2Emission(co2Emission)
+                .mileage(mileage)
                 .others(others)
                 .build();
 
@@ -356,6 +514,8 @@ public class UserController {
         modelAndView.addObject("successMsg", "Your post request has been received! Wait for approval");
         return modelAndView;
     }
+
+
 
     @RequestMapping("/meeting-history/cancel")
     public ModelAndView cancelMeeting(@RequestParam("id") String id) {

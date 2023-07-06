@@ -7,7 +7,7 @@
     <meta name="keywords" content="HVAC, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Meeting History</title>
+    <title>Post History</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
@@ -24,21 +24,57 @@
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
     <!--    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">-->
     <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
-    <link rel="stylesheet" href="../../user_assets/css/calendar-style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link rel="stylesheet" href="../../user_assets/css/calendar-style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet" />
+          rel="stylesheet"/>
     <!-- Libs CSS -->
     <link href="css/feather.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet" />
-    <link href="css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="css/materialdesignicons.min.css" rel="stylesheet"/>
     <link href="css/simplebar.min.css" rel="stylesheet">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="css/theme.min.css">
     <!--    notification css-->
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
+    <style>
+        .owl-carousel.owl-loaded {
+            height: 350px;
+        }
+
+
+        .owl-carousel .owl-item img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .owl-carousel .owl-stage {
+            height: 100%;
+        }
+
+        .owl-carousel .owl-stage-outer {
+            height: 100%;
+        }
+
+        .owl-carousel.owl-drag .owl-item {
+            height: 100%;
+        }
+
+        .car-history-information ul {
+            padding: 15px;
+        }
+
+        .car__item:hover{
+            box-shadow: none;
+        }
+
+        .car__item{
+            cursor: auto;
+        }
+    </style>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -53,7 +89,9 @@
     </div>
 
     <!--    notification starts-->
-    <div th:if="${session.client != null}" class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+    <div th:if="${session.client != null}"
+         class="header_notification_warp d-flex align-items-center justify-content-center"
+         style="z-index: 3; position: absolute; right: 2rem;">
         <li>
             <a class="bell_notification_clicker" href="#">
                 <div class="fa fa-bell"></div>
@@ -125,7 +163,7 @@
                                     <ul class="dropdown">
                                         <li><a href="/transactions_history">Transactions History</a></li>
                                         <li><a href="/meeting_history">Meeting History</a></li>
-                                        <li ><a href="/post-history">My Post</a></li>
+                                        <li><a href="/post-history">My Post</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="/post_car">Post Car</a></li>
@@ -166,97 +204,41 @@
             </div>
         </div>
     </div>
-    <section style="width:100%;height:80vh">
+    <section style="width:100%;height:100%">
 
         <!-- code here -->
-
-        <div class="container-car-history">
-
-
-            <div class="car-history">
-                <div class="car-history-image">
-                    <img src="" alt="Car 3">
+        <div class="container-car-history row">
+            <div th:each="post : ${postList}" class="car__item col-md-12">
+                <div class="car__item__pic__slider owl-carousel">
+                    <img th:src="${carImageUrl.getContent()}"
+                         th:each="carImageUrl : ${post.getCar().getCarImageList()}">
                 </div>
-                <div class="car-history-information">
-                    <ul>
-                        <li>Brand:audi </li>
-                        <li>Interior Color: Black </li>
-                        <li>Interior Material: Leather </li>
-                        <li>Status: Processing</li>
-                        <li>Price: $50,000</li>
-
+                <h2 class="car-history-title"
+                    th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></h2>
+                <div class="car__item__text car-history-information">
+                    <ul th:with="postDetail=${post.getCar().getCarDescription()}">
+                        <li>Name: <span
+                                th:text="${post.getCar().getName()}"></span>
+                        </li>
+                        <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
+                        <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
+                        <li>Status: <span th:text="${post.getStatus()}"></span></li>
+                        <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
                     </ul>
-
-                </div>
-                <h2 class="car-history-title">Car 1</h2>
-                <div class="car-history-btn">
-                    <a href="#" >Learn More</a>
                 </div>
 
-            </div>
-            <div class="car-history">
-                <div class="car-history-image">
-                    <img src="image/Screenshot 2023-06-30 212301.png" alt="Car 3">
+                <div class="post-utils">
+                    <div class="car-history-btn">
+                        <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
+                    </div>
+                    <div class="car-history-btn">
+                        <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
+                    </div>
+                    <div class="car-history-btn">
+                        <a th:href="@{/post-history/delete (id = ${post.getId()})}"><i class="fa fa-trash"></i>
+                            Remove</a>
+                    </div>
                 </div>
-                <div class="car-history-information">
-                    <ul>
-                        <li>Brand:audi </li>
-                        <li>Interior Color: Black </li>
-                        <li>Interior Material: Leather </li>
-                        <li>Status: Processing</li>
-                        <li>Price: $50,000</li>
-
-                    </ul>
-
-                </div>
-                <h2 class="car-history-title">Car 2</h2>
-                <div class="car-history-btn">
-                    <a href="#" >Learn More</a>
-                </div>
-
-
-            </div>
-            <div class="car-history">
-                <div class="car-history-image">
-                    <img src="image/Screenshot 2023-06-30 212301.png" alt="Car 3">
-                </div>
-                <div class="car-history-information">
-                    <ul>
-                        <li>Brand:audi </li>
-                        <li>Interior Color: Black </li>
-                        <li>Interior Material: Leather </li>
-                        <li>Status: Processing</li>
-                        <li>Price: $50,000</li>
-
-                    </ul>
-
-                </div>
-                <h2 class="car-history-title">Car 3</h2>
-                <div class="car-history-btn">
-                    <a href="#" >Learn More</a>
-                </div>
-
-            </div>
-            <div class="car-history">
-                <div class="car-history-image">
-                    <img src="image/Screenshot 2023-06-30 212301.png" alt="Car 3">
-                </div>
-                <div class="car-history-information">
-                    <ul>
-                        <li>Brand:audi </li>
-                        <li>Interior Color: Black </li>
-                        <li>Interior Material: Leather </li>
-                        <li>Status: Processing</li>
-                        <li>Price: $50,000</li>
-
-                    </ul>
-
-                </div>
-                <h2 class="car-history-title">Car 4</h2>
-                <div class="car-history-btn">
-                    <a href="#" >Learn More</a>
-                </div>
-
             </div>
         </div>
 
@@ -400,7 +382,7 @@
                     <label class="form-label form-label-top" for="phone-number">
                         Phone Number
                     </label>
-                    <input type="text" id="phone-number"  name="phone">
+                    <input type="text" id="phone-number" name="phone">
                 </li>
                 <li class="form-line">
                     <label class="form-label form-label-top" for="other">
@@ -412,7 +394,7 @@
                 <li class="form-line">
                     <input type="submit" value="Submit">
                 </li>
-                <li style="display:none">Should be Empty: <input type="text" name="website" value="" /></li>
+                <li style="display:none">Should be Empty: <input type="text" name="website" value=""/></li>
             </ul>
         </div>
     </form>
@@ -432,11 +414,11 @@
 <script src="../../user_assets/js/owl.carousel.min.js"></script>
 <script src="../../user_assets/js/main.js"></script>
 <script>
-    let popUpActivateButtons =  document.querySelectorAll(".show-booking");
+    let popUpActivateButtons = document.querySelectorAll(".show-booking");
 
     popUpActivateButtons.forEach((button) => {
-        button.addEventListener("click",function(){
-            document.querySelector(".pop-up").className="pop-up-active";
+        button.addEventListener("click", function () {
+            document.querySelector(".pop-up").className = "pop-up-active";
             document.querySelector(".all-page").classList.add("blur");
             document.querySelector("#offMeetingId").value = button.id;
         });
@@ -444,28 +426,17 @@
 
     let escButtons = document.querySelectorAll(".pop-up .esc-button");
 
-    escButtons.forEach((button) =>{
-        button.addEventListener("click",function(){
-            document.querySelector(".pop-up-active").className="pop-up";
+    escButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            document.querySelector(".pop-up-active").className = "pop-up";
             document.querySelector(".all-page").classList.remove("blur");
         });
     });
 </script>
 <script src="../../user_assets/js/calendar-script.js"></script>
-
-    <!-- Js Plugins -->
-    <script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
-    <script src="../../user_assets/js/bootstrap.min.js"></script>
-    <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
-    <script src="../../user_assets/js/jquery-ui.min.js"></script>
-    <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="../../user_assets/js/mixitup.min.js"></script>
-    <script src="../../user_assets/js/jquery.slicknav.js"></script>
-    <script src="../../user_assets/js/owl.carousel.min.js"></script>
-    <script src="../../user_assets/js/main.js"></script>
-    <!-- notification js-->
-    <script src="../../admin_assets/js/metisMenu.js"></script>
-    <script src="../../admin_assets/js/custom.js"></script>
+<!-- notification js-->
+<script src="../../admin_assets/js/metisMenu.js"></script>
+<script src="../../admin_assets/js/custom.js"></script>
 </body>
 
 </html>

@@ -1,15 +1,11 @@
 package com.duy.carshowroomdemo.service;
 
 import com.duy.carshowroomdemo.dto.CarDto;
-import com.duy.carshowroomdemo.dto.ClientDto;
 import com.duy.carshowroomdemo.entity.Car;
 
-import com.duy.carshowroomdemo.entity.CarDescription;
 import com.duy.carshowroomdemo.mapper.MapperManager;
-import com.duy.carshowroomdemo.repository.CarDescriptionRepository;
 import com.duy.carshowroomdemo.repository.CarRepository;
 import com.duy.carshowroomdemo.util.Status;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -19,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CarService {
@@ -93,7 +88,7 @@ public class CarService {
 
 
     public Car findCarEntityById(String carId) {
-        return repository.findById(carId).get();
+        return repository.findById(carId).orElse(null);
     }
     public void delete(Car car) {
         if(car.getStatus() != "Available") return;

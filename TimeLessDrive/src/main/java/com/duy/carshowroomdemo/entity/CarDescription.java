@@ -42,19 +42,20 @@ public class CarDescription {
     @Column(name = "first_registration")
     private String firstRegistration;
 
+    @Column(name = "seats")
     private int seats;
 
-    @Column(name = "power")
-    private int power;
+    @Column(name = "power", length = 100)
+    private String power;
 
-    @Column(name = "engine_capacity")
-    private int engineCapacity;
+    @Column(name = "engine_capacity", length = 100)
+    private String engineCapacity;
 
-    @Column(name = "co2_emission")
-    private int co2Emission;
+    @Column(name = "co2_emission", length = 100)
+    private String co2Emission;
 
-    @Column(name = "kms_driven")
-    private int kmsDriven;
+    @Column(name = "mileage")
+    private String mileage;
 
     @Column(name = "others", length = 2000)
     private String others;

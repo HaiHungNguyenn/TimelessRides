@@ -70,8 +70,16 @@ public class StaffService {
         return list;
     }
 
+    public long getLastOffset(Pageable pageable){
+        return repository.findAll(pageable).getTotalPages();
+    }
+
 
     public Staff findEntityByEmail(String userEmail) {
         return repository.findByEmail(userEmail).orElse(null);
+    }
+
+    public void delete(StaffDto staff){
+        repository.delete(mapperManager.getStaffMapper().toEntity(staff));
     }
 }

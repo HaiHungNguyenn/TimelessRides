@@ -21,6 +21,9 @@ public interface PostRepository extends JpaRepository<Post, String>{
     LocalDate CURRENT_DATE = LocalDate.now();
     Page<Post> findPostsByClient(Client client, Pageable pageable);
 
+    @Query("select p from Post p where p.client.id = :id order by p.postDate")
+    Page<Post> findPostsByClientId(@Param("id") String clientId, Pageable pageable);
+
     List<Post> findAllByStatusIs(String status);
     @Query("select p from Post p where p.status='Approved' AND p.car.carDescription.make = :value AND p.expireDate > :date order by p.postDate")
     Page<Post> findAllByStatusIsAndCarMake(@Param("value") String value, Pageable pageable ,LocalDate date );
@@ -87,4 +90,10 @@ public interface PostRepository extends JpaRepository<Post, String>{
 
     @Query("select p from Post p where p.car.id = :Id and p.status='Approved' and p.expireDate > :date")
     List<Post> findPostByCarId(@Param("Id") String CarId, LocalDate date);
+
+    @Query("select p from Post p where (p.car.name = :keyword or p.car.carDescription.make = :keyword or p.car.carDescription.model = :keyword) and p.status = 'Approved'")
+    Page<Post> findByCarNameOrMakeOrModel(Pageable pageable, @Param("keyword") String keyword);
+
+    @Query("select p from Post p where (month(p.postDate) = :month and year(p.postDate) = :year) and (p.status = 'Approved' or p.status = 'Completed')")
+    List<Post> findPostsByMonth(@Param("month") int month, @Param("year") int year);
 }

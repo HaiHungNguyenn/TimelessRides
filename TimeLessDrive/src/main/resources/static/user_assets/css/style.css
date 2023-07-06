@@ -3821,31 +3821,55 @@ ol {
 	align-self: center;
 	font-weight: 700;
 	text-align: center;
-
+	border-left: 1px solid #ebebeb;
+	border-right: 1px solid #ebebeb;
 }
 .car-history-information{
 	grid-column: 2/3;
 	grid-row: 2/4;
 	font-size: large;
 }
+.post-utils{
+	display: flex;
+	justify-content: space-around;
+}
+
 .car-history-btn{
 	width: 92px;
-	height: 32px;
-	border: 2px solid #ff0000;
-	background-color: red;
-	color: #fff;
-	border-radius: 5px;
+	height: 44px;
+	border-left: 2px solid #ebebeb;
+	border-bottom: 2px solid #ebebeb;
+	border-top-left-radius: 0px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	bottom: 15px;
-	right: 80px;
+	flex-basis: 100%;
+	font-size: 20px;
+	transition: all .25s ease;
 }
+
+.car-history-btn:first-child{
+	border-bottom-left-radius: 5px;
+}
+
+.car-history-btn:last-child{
+	border-bottom-right-radius: 5px;
+	border-right: 2px solid #ebebeb;
+}
+
+.car-history-btn:hover{
+	border: 2px solid #ff0000;
+	background-color: red;
+}
+
 .car-history-btn a {
 	text-decoration: none;
-	color: #f5f5f5;
+	color: gray;
+}
 
+.car-history-btn:hover > a {
+	text-decoration: none;
+	color: #fff;
 }
 
 
