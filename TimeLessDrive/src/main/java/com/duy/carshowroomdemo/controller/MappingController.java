@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -234,12 +237,18 @@ public class MappingController {
     }
 
     @RequestMapping("/schedule")
-    public ModelAndView scheduleManagement() {
+    public ModelAndView scheduleManagement(@RequestParam(name = "date",
+                                                        defaultValue = "#{T(java.time.LocalDate).now()}",
+                                                        required = false)
+                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         ModelAndView modelAndView = new ModelAndView();
         if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
-        modelAndView.setViewName("views/admin/schedule-management");
+        List<OffMeetingDto> meetings = service.getOffMeetingService().getMeetingsByDate(date);
+
+        modelAndView.addObject("meetings", meetings)
+                .setViewName("views/admin/schedule-management");
         return modelAndView;
     }
 

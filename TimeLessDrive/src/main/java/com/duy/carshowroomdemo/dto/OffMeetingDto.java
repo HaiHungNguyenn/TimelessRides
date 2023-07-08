@@ -33,6 +33,6 @@ public class OffMeetingDto implements Serializable {
     }
 
     public String toString(){
-        return client.getName() + staff.getName() + meetingDate + description + getStatus();
+        return client.getName()+" " + staff.getName() +" "+ meetingDate+" " + description+" " + getStatus();
     }
 }
