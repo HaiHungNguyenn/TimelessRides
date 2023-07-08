@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <!-- Mirrored from demo.dashboardpack.com/user-management-html/calender.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Calendar</title>
+    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png" />
+
+    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css" />
+    <link rel="stylesheet" href="../../../static/admin_assets/css/feedback-history.css"/>
+
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/niceselect/css/nice-select.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/owl_carousel/css/owl.carousel.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/gijgo/gijgo.min.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/tagsinput/tagsinput.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/datepicker/date-picker.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/scroll/scrollable.css" />
+
+    <link
+      rel="stylesheet"
+      href="../../admin_assets/vendors/datatable/css/jquery.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../admin_assets/vendors/datatable/css/responsive.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="../../admin_assets/vendors/datatable/css/buttons.dataTables.min.css"
+    />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/text_editor/summernote-bs4.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/morris/morris.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/material_icon/material-icons.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/core/main.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/daygrid/main.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/timegrid/main.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/list/main.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css" />
+
+    <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
+    <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS" />
+  </head>
+  <body class="crm_body_bg">
+  <nav class="sidebar">
+    <div class="logo d-flex justify-content-between">
+      <a class="large_logo" href="/admin/home"
+      ><img src="../../admin_assets/img/logo.png" alt
+      /></a>
+      <a class="small_logo" href="/admin/home"
+      ><img src="../../admin_assets/img/mini_logo.png" alt
+      /></a>
+      <div class="sidebar_close_icon d-lg-none">
+        <i class="ti-close"></i>
+      </div>
+    </div>
+    <ul id="sidebar_menu">
+
+      <li class>
+        <a class="has-arrow" href="#" aria-expanded="false">
+          <div class="nav_icon_small">
+            <img src="../../admin_assets/img/menu-icon/4.svg" alt />
+          </div>
+          <div class="nav_title">
+            <span>Staff</span>
+          </div>
+        </a>
+        <ul>
+          <li><a href="/admin/staff_list">Staff List</a></li>
+          <li><a href="/admin/add_new_staff">Add New Staff</a></li>
+        </ul>
+      </li>
+      <li class>
+        <a class="has-arrow" href="#" aria-expanded="false">
+          <div class="nav_icon_small">
+            <img src="../../admin_assets/img/menu-icon/5.svg" alt />
+          </div>
+          <div class="nav_title">
+            <span>Users</span>
+          </div>
+        </a>
+        <ul>
+          <li><a href="/admin/user-list">Users List</a></li>
+        </ul>
+      </li>
+      <li class>
+        <a href="/admin/carmanagement" aria-expanded="false">
+          <div class="nav_icon_small">
+            <img src="../../admin_assets/img/menu-icon/9.svg" alt />
+          </div>
+          <div class="nav_title">
+            <span>Car Management</span>
+          </div>
+        </a>
+      </li>
+      <li class>
+        <a href="/admin/schedule" aria-expanded="false">
+          <div class="nav_icon_small">
+            <img src="../../admin_assets/img/menu-icon/10.svg" alt />
+          </div>
+          <div class="nav_title">
+            <span>Calander</span>
+          </div>
+        </a>
+      </li>
+      <li class>
+        <a href="/admin/schedule" aria-expanded="false">
+          <div class="nav_icon_small">
+            <img src="../../admin_assets/img/menu-icon/10.svg" alt />
+          </div>
+          <div class="nav_title">
+            <span>Feedback History</span>
+          </div>
+        </a>
+      </li>
+
+
+
+    </ul>
+  </nav>
+
+    <section class="main_content dashboard_part large_header_bg">
+      <div class="container-fluid g-0">
+        <div class="row">
+          <div class="col-lg-12 p-0">
+            <div
+              class="header_iner d-flex justify-content-between align-items-center"
+            >
+              <div class="sidebar_icon d-lg-none">
+                <i class="ti-menu"></i>
+              </div>
+              <div class="line_icon open_miniSide d-none d-lg-block">
+                <img src="../../admin_assets/img/line_img.png" alt />
+              </div>
+              <div class="serach_field-area d-flex align-items-center">
+                <div class="search_inner">
+                  <form action="#">
+                    <div class="search_field">
+                      <input type="text" placeholder="Search" />
+                    </div>
+                    <button type="submit">
+                      <img src="../../admin_assets/img/icon/icon_search.svg" alt />
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div
+                class="header_right d-flex justify-content-between align-items-center"
+              >
+                <div class="header_notification_warp d-flex align-items-center">
+                  <li>
+                    <a class="bell_notification_clicker" href="#">
+                      <img src="../../admin_assets/img/icon/bell.svg" alt />
+                      <span>2</span>
+                    </a>
+
+                    <div class="Menu_NOtification_Wrap">
+                      <div class="notification_Header">
+                        <h4>Notifications</h4>
+                      </div>
+                      <div class="Notification_body">
+                        <div class="single_notify d-flex align-items-center">
+                          <div class="notify_thumb">
+                            <a href="#"><img src="../../admin_assets/img/staf/2.png" alt /></a>
+                          </div>
+                          <div class="notify_content">
+                            <a href="#"><h5>Cool Marketing</h5></a>
+                            <p>Lorem ipsum dolor sit amet</p>
+                          </div>
+                        </div>
+
+                        <div class="single_notify d-flex align-items-center">
+                          <div class="notify_thumb">
+                            <a href="#"><img src="../../admin_assets/img/staf/4.png" alt /></a>
+                          </div>
+                          <div class="notify_content">
+                            <a href="#"><h5>Awesome packages</h5></a>
+                            <p>Lorem ipsum dolor sit amet</p>
+                          </div>
+                        </div>
+
+
+
+
+                      </div>
+                      <div class="nofity_footer">
+                        <div class="submit_button text-center pt_20">
+                          <a href="#" class="btn_1">See More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                </div>
+                <div class="profile_info">
+                  <img src="../../admin_assets/img/client_img.png" alt="#" />
+                  <div class="profile_info_iner">
+                    <div class="profile_author_name">
+                      <p>Neurologist</p>
+                      <h5>Dr. Robar Smith</h5>
+                    </div>
+                    <div class="profile_info_details">
+                      <a href="#">My Profile </a>
+                      <a href="#">Settings</a>
+                      <a href="/admin/logout">Log Out </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main_content_iner">
+        <div class="container-fluid p-0">
+          <div class="row">
+            <div class="col-12">
+              <div class="dashboard_header mb_50">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="dashboard_header_title">
+                      <h3>Default Dashboard</h3>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="dashboard_breadcam text-end">
+                      <p>
+                        <a href="index-2.html">Dashboard</a>
+                        <i class="fas fa-caret-right"></i> calendar
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div id="calendar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </section>
+
+  <div class="feedback-container">
+    <div class="product-rating-overview">
+      <div class="product-rating-overview_briefing">
+        <div class=" product-rating-overview_score-wrapper ">
+          <span class="product-rating-overview_rating-score">4.8</span>
+          <span class="product-rating-overview_rating-score-out-of">/5</span>
+        </div>
+        <a class="rating-star" data-value="1">&#9733;</a>
+        <a class="rating-star" data-value="2">&#9733;</a>
+        <a class="rating-star" data-value="3">&#9733;</a>
+        <a class="rating-star" data-value="4">&#9733;</a>
+        <a class="rating-star" data-value="5">&#9733;</a>
+      </div>
+      <div class="product-rating-overview__filters">
+        <button class="product-rating-overview__filter-active">All</button>
+        <button class="product-rating-overview__filter-active">5 Star (202)</button>
+        <button class="product-rating-overview__filter-active">4 Star (8)</button>
+        <button class="product-rating-overview__filter-active">3 Star (3)</button>
+        <button class="product-rating-overview__filter-active">2 Star (5)</button>
+        <button class="product-rating-overview__filter-active">1 Star (2)</button>
+        <button class="product-rating-overview__filter-active">Have Commet (111)</button>
+      </div>
+    </div>
+
+    <div class="feedback">
+      <h2>Feedback 1</h2>
+      <div class="rating-container">
+        <button class="rating-star" data-value="1">&#9733;</button>
+        <button class="rating-star" data-value="2">&#9733;</button>
+        <button class="rating-star" data-value="3">&#9733;</button>
+        <button class="rating-star" data-value="4">&#9733;</button>
+        <button class="rating-star" data-value="5">&#9733;</button>
+      </div>
+      <p class="name">Customer Name: John Doe</p>
+      <p class="email">Email: johndoe@example.com</p>
+      <p class="phone">Phone Number: 123-456-7890</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis metus id felis iaculis bibendum non vitae nisl. Sed ullamcorper faucibus ligula, sed facilisis lacus commodo in. Nullam vitae dapibus libero. Suspendisse potenti.</p>
+      <p class="date">Date: January 1, 2023</p>
+    </div>
+
+    <div class="feedback">
+      <h2>Feedback 2</h2>
+      <div class="rating-container">
+        <button class="rating-star" data-value="1">&#9733;</button>
+        <button class="rating-star" data-value="2">&#9733;</button>
+        <button class="rating-star" data-value="3">&#9733;</button>
+        <button class="rating-star" data-value="4">&#9733;</button>
+        <button class="rating-star" data-value="5">&#9733;</button>
+      </div>
+      <p class="name">Customer Name: Jane Smith</p>
+      <p class="email">Email: janesmith@example.com</p>
+      <p class="phone">Phone Number: 987-654-3210</p>
+      <p>Nulla eget neque nec nisl eleifend vestibulum. Sed vulputate est sit amet enim iaculis, ut laoreet lectus pulvinar. Proin at nisl bibendum, commodo magna sit amet, faucibus erat. Vestibulum condimentum euismod venenatis.</p>
+      <p class="date">Date: February 15, 2023</p>
+    </div>
+    <div class="feedback">
+      <h2>Feedback 2</h2>
+      <div class="rating-container">
+        <button class="rating-star" data-value="1">&#9733;</button>
+        <button class="rating-star" data-value="2">&#9733;</button>
+        <button class="rating-star" data-value="3">&#9733;</button>
+        <button class="rating-star" data-value="4">&#9733;</button>
+        <button class="rating-star" data-value="5">&#9733;</button>
+      </div>
+      <p class="name">Customer Name: Jane Smith</p>
+      <p class="email">Email: janesmith@example.com</p>
+      <p class="phone">Phone Number: 987-654-3210</p>
+      <p>Nulla eget neque nec nisl eleifend vestibulum. Sed vulputate est sit amet enim iaculis, ut laoreet lectus pulvinar. Proin at nisl bibendum, commodo magna sit amet, faucibus erat. Vestibulum condimentum euismod venenatis.</p>
+      <p class="date">Date: February 15, 2023</p>
+    </div>
+    <div class="feedback">
+      <h2>Feedback 2</h2>
+      <div class="rating-container">
+        <button class="rating-star" data-value="1">&#9733;</button>
+        <button class="rating-star" data-value="2">&#9733;</button>
+        <button class="rating-star" data-value="3">&#9733;</button>
+        <button class="rating-star" data-value="4">&#9733;</button>
+        <button class="rating-star" data-value="5">&#9733;</button>
+      </div>
+      <p class="name">Customer Name: Jane Smith</p>
+      <p class="email">Email: janesmith@example.com</p>
+      <p class="phone">Phone Number: 987-654-3210</p>
+      <p>Nulla eget neque nec nisl eleifend vestibulum. Sed vulputate est sit amet enim iaculis, ut laoreet lectus pulvinar. Proin at nisl bibendum, commodo magna sit amet, faucibus erat. Vestibulum condimentum euismod venenatis.</p>
+      <p class="date">Date: February 15, 2023</p>
+    </div>
+
+    <!-- Add more feedback items here -->
+
+  </div>
+  <script>
+    const ratingStars = document.querySelectorAll(".rating-star");
+
+    function handleRatingSelection(event) {
+      const selectedValue = event.target.getAttribute("data-value");
+      ratingStars.forEach(star => {
+        star.classList.remove("selected");
+        if (star.getAttribute("data-value") <= selectedValue) {
+          star.classList.add("selected");
+        }
+      });
+    }
+
+    ratingStars.forEach(star => {
+      star.addEventListener("click", handleRatingSelection);
+    });
+  </script>
+
+
+
+    <script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+
+    <script src="../../admin_assets/js/popper1.min.js"></script>
+
+    <script src="../../admin_assets/js/bootstrap1.min.js"></script>
+
+    <script src="../../admin_assets/js/metisMenu.js"></script>
+
+    <script src="../../admin_assets/js/custom.js"></script>
+  </body>
+
+</html>

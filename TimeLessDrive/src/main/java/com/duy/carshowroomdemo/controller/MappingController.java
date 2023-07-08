@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -46,7 +45,12 @@ public class MappingController {
         if (!isAuthenticated()) {
             modelAndView.setViewName("views/user/login");
         }
-        modelAndView.setViewName("views/admin/index");
+
+        Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
+
+        modelAndView.addObject("keys", revenue.keySet())
+                .addObject("values", revenue.values())
+                .setViewName("views/admin/index");
         return modelAndView;
     }
 
