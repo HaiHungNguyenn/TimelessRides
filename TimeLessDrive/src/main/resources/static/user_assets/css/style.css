@@ -3845,7 +3845,9 @@ ol {
 	align-items: center;
 	flex-basis: 100%;
 	font-size: 20px;
-	transition: all .25s ease;
+	transition: background-color 1s ease,
+				border .25s ease;
+	cursor: pointer;
 }
 
 .car-history-btn:first-child{
@@ -3858,8 +3860,8 @@ ol {
 }
 
 .car-history-btn:hover{
-	border: 2px solid #ff0000;
-	background-color: red;
+	border: 2px solid #db2d2e;
+	background-color: #db2d2e;
 }
 
 .car-history-btn a {
