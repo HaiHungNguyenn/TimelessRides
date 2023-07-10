@@ -251,6 +251,8 @@ public class PostService {
     }
 
     public List<PostDto> searchCar(Pageable pageable, String keyword) {
+        keyword = "%" + keyword + "%";
+        System.out.println("The keyword is: " + keyword);
         List<PostDto> postList = new ArrayList<>();
 
         postRepository.findByCarNameOrMakeOrModel(pageable, keyword)
