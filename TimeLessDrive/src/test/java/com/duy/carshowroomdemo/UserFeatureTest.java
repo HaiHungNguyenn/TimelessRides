@@ -106,6 +106,11 @@ public class UserFeatureTest {
         System.out.println(awsSecretKey );
 
     }
+    @Test
+    public void testPost(){
+
+        postRepository.findPostsByMonth(LocalDate.now().getMonthValue(),LocalDate.now().getYear()).forEach(x -> System.out.println(x));
+    }
 }
 
 //package com.duy.carshowroomdemo;
