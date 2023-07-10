@@ -273,8 +273,10 @@
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-sliders"></i> Build
                                 Payment</a>
                             <a href="#" class="primary-btn sidebar-btn"><i class="fa fa-money"></i> Value Trade</a>
-                            <button id="show-booking" class="primary-btn sidebar-btn" style="width: 100%;"><i class="fa fa-calendar" ></i>
-                                Book Meeting</button>
+                            <button id="show-booking" class="primary-btn sidebar-btn" style="width: 100%;" th:attr="disabled=${checkUser == 'true'} ? 'disabled' : null">
+                                <i class="fa fa-calendar" ></i>
+                                <span th:text="${checkUser == 'true'} ? 'This is your car' : 'Book Meeting'"></span>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -240,8 +240,23 @@ public class UserController {
 
     @GetMapping("/car-detail/{id}")
     public ModelAndView showCarDetails(@PathVariable String id) {
-        return new ModelAndView("views/user/car-details")
-                .addObject("carDto", service.getCarService().findCarById(id));
+        ModelAndView modelAndView = new ModelAndView("views/user/car-details");
+        String check = "false";
+        System.out.println("==========================================");
+        System.out.println(service.getCarService().findCarEntityById(id).getPost()
+                .getClient().getName());
+        if(session.getAttribute("client") != null){
+            System.out.println(((ClientDto)session.getAttribute("client")).getName());
+            if(service.getCarService().findCarEntityById(id).getPost()
+                    .getClient().getName().equalsIgnoreCase(((ClientDto)session.getAttribute("client")).getName())){
+               check = "true";
+            }
+        }
+        modelAndView.addObject("carDto", service.getCarService().findCarById(id));
+        modelAndView.addObject("checkUser", check);
+        return modelAndView;
+
+
     }
 
     @GetMapping("/account")
@@ -701,15 +716,15 @@ public class UserController {
 
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D", ""));
-//        client.setGender(gender);
-//        client.setDob(LocalDate.parse(dob));
+        client.setGender(gender);
+        client.setDob(LocalDate.parse(dob));
         client.setAddress(address);
 
         service.getClientService().save(client);
         session.setAttribute("client", service.getClientService().findById(clientDto.getId()));
 
-//        modelAndView.addObject("status","success");
-//        modelAndView.addObject("message","Your information has been updated successfully");
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your information has been updated successfully");
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;
