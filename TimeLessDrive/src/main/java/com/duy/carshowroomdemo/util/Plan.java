@@ -13,7 +13,7 @@ public class Plan {
                return 599;
            }
            case PLAN_3 -> {
-               return 699;
+               return 799;
            }
        }
        return 0;
