@@ -8,15 +8,20 @@ import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.mapper.MapperManager;
 import com.duy.carshowroomdemo.repository.OffMeetingRepository;
 import com.duy.carshowroomdemo.util.Status;
+import com.fasterxml.jackson.databind.DatabindException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -100,6 +105,31 @@ public class OffMeetingService {
 
     public long getTotalOffMeetingsByClient(ClientDto client) {
         return offMeetingRepository.countByClient(mapperManager.getClientMapper().toEntity(client));
+    }
+
+    public List<OffMeetingDto> getMeetingsByDate(LocalDate date){
+        List<OffMeetingDto> list = new ArrayList<>();
+        offMeetingRepository.findOffMeetingsByWeek(getMonday(date), getSunday(date)).forEach(x ->
+                list.add(mapperManager.getOffMeetingMapper().toDto(x)));
+        return list;
+    }
+
+    public LocalDate getMonday(LocalDate date){
+        LocalDate monday = date;
+        while (monday.getDayOfWeek() != DayOfWeek.MONDAY)
+        {
+            monday = monday.minusDays(1);
+        }
+        return monday;
+    }
+
+    public LocalDate getSunday(LocalDate date){
+        LocalDate sunday = date;
+        while (sunday.getDayOfWeek() != DayOfWeek.SUNDAY)
+        {
+            sunday = sunday.plusDays(1);
+        }
+        return sunday;
     }
 
     public void delete(OffMeeting offMeeting) {

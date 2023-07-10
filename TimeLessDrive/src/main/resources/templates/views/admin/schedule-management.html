@@ -1,265 +1,439 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <!-- Mirrored from demo.dashboardpack.com/user-management-html/calender.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
-  <head>
-    <meta charset="utf-8" />
+<!-- Mirrored from demo.dashboardpack.com/user-management-html/calender.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
+<head>
+    <meta charset="utf-8"/>
     <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Calendar</title>
-    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png" />
+    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png"/>
 
-    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css" />
+    <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/niceselect/css/nice-select.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/niceselect/css/nice-select.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/owl_carousel/css/owl.carousel.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/owl_carousel/css/owl.carousel.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/gijgo/gijgo.min.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/gijgo/gijgo.min.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css" />
-    <link rel="stylesheet" href="../../admin_assets/vendors/tagsinput/tagsinput.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/font_awesome/css/all.min.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/tagsinput/tagsinput.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/datepicker/date-picker.css" />
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/scroll/scrollable.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/scroll/scrollable.css"/>
 
     <link
-      rel="stylesheet"
-      href="../../admin_assets/vendors/datatable/css/jquery.dataTables.min.css"
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/jquery.dataTables.min.css"
     />
     <link
-      rel="stylesheet"
-      href="../../admin_assets/vendors/datatable/css/responsive.dataTables.min.css"
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/responsive.dataTables.min.css"
     />
     <link
-      rel="stylesheet"
-      href="../../admin_assets/vendors/datatable/css/buttons.dataTables.min.css"
+            rel="stylesheet"
+            href="../../admin_assets/vendors/datatable/css/buttons.dataTables.min.css"
     />
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/text_editor/summernote-bs4.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/text_editor/summernote-bs4.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/morris/morris.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/morris/morris.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/material_icon/material-icons.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/material_icon/material-icons.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/core/main.css" />
-    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/daygrid/main.css" />
-    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/timegrid/main.css" />
-    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/list/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css" />
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/core/main.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/daygrid/main.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/timegrid/main.css"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/calender_js/list/main.css"/>
 
-    <link rel="stylesheet" href="../../admin_assets/css/style1.css" />
-    <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS" />
-  </head>
-  <body class="crm_body_bg">
-  <nav class="sidebar">
+    <link rel="stylesheet" href="../../admin_assets/css/metisMenu.css"/>
+
+    <link rel="stylesheet" href="../../admin_assets/css/style1.css"/>
+    <link rel="stylesheet" href="../../admin_assets/css/colors/default.css" id="colorSkinCSS"/>
+    <link rel="stylesheet" href="../../admin_assets/vendors/datepicker/date-picker.css"/>
+</head>
+<body class="crm_body_bg">
+<nav class="sidebar">
     <div class="logo d-flex justify-content-between">
-      <a class="large_logo" href="/admin/home"
-      ><img src="../../admin_assets/img/logo.png" alt
-      /></a>
-      <a class="small_logo" href="/admin/home"
-      ><img src="../../admin_assets/img/mini_logo.png" alt
-      /></a>
-      <div class="sidebar_close_icon d-lg-none">
-        <i class="ti-close"></i>
-      </div>
+        <a class="large_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/logo.png" alt
+        /></a>
+        <a class="small_logo" href="/admin/home"
+        ><img src="../../admin_assets/img/mini_logo.png" alt
+        /></a>
+        <div class="sidebar_close_icon d-lg-none">
+            <i class="ti-close"></i>
+        </div>
     </div>
     <ul id="sidebar_menu">
 
-      <li class>
-        <a class="has-arrow" href="#" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/4.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Staff</span>
-          </div>
-        </a>
-        <ul>
-          <li><a href="/admin/staff_list">Staff List</a></li>
-          <li><a href="/admin/add_new_staff">Add New Staff</a></li>
-        </ul>
-      </li>
-      <li class>
-        <a class="has-arrow" href="#" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/5.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Users</span>
-          </div>
-        </a>
-        <ul>
-          <li><a href="/admin/user-list">Users List</a></li>
-        </ul>
-      </li>
-      <li class>
-        <a href="/admin/carmanagement" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/9.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Car Management</span>
-          </div>
-        </a>
-      </li>
-      <li class>
-        <a href="/admin/schedule" aria-expanded="false">
-          <div class="nav_icon_small">
-            <img src="../../admin_assets/img/menu-icon/10.svg" alt />
-          </div>
-          <div class="nav_title">
-            <span>Calander</span>
-          </div>
-        </a>
-      </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/4.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Staff</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/staff_list">Staff List</a></li>
+                <li><a href="/admin/add_new_staff">Add New Staff</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/5.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Users</span>
+                </div>
+            </a>
+            <ul>
+                <li><a href="/admin/user-list">Users List</a></li>
+            </ul>
+        </li>
+        <li class>
+            <a href="/admin/carmanagement" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/9.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Car Management</span>
+                </div>
+            </a>
+        </li>
+        <li class>
+            <a href="/admin/schedule" aria-expanded="false">
+                <div class="nav_icon_small">
+                    <img src="../../admin_assets/img/menu-icon/10.svg" alt/>
+                </div>
+                <div class="nav_title">
+                    <span>Calander</span>
+                </div>
+            </a>
+        </li>
+
+
 
     </ul>
-  </nav>
+</nav>
 
-    <section class="main_content dashboard_part large_header_bg">
-      <div class="container-fluid g-0">
+<section class="main_content dashboard_part large_header_bg">
+    <div class="container-fluid g-0">
         <div class="row">
-          <div class="col-lg-12 p-0">
-            <div
-              class="header_iner d-flex justify-content-between align-items-center"
-            >
-              <div class="sidebar_icon d-lg-none">
-                <i class="ti-menu"></i>
-              </div>
-              <div class="line_icon open_miniSide d-none d-lg-block">
-                <img src="../../admin_assets/img/line_img.png" alt />
-              </div>
-              <div class="serach_field-area d-flex align-items-center">
-                <div class="search_inner">
-                  <form action="#">
-                    <div class="search_field">
-                      <input type="text" placeholder="Search" />
+            <div class="col-lg-12 p-0">
+                <div
+                        class="header_iner d-flex justify-content-between align-items-center"
+                >
+                    <div class="sidebar_icon d-lg-none">
+                        <i class="ti-menu"></i>
                     </div>
-                    <button type="submit">
-                      <img src="../../admin_assets/img/icon/icon_search.svg" alt />
-                    </button>
-                  </form>
-                </div>
-              </div>
-              <div
-                class="header_right d-flex justify-content-between align-items-center"
-              >
-                <div class="header_notification_warp d-flex align-items-center">
-                  <li>
-                    <a class="bell_notification_clicker" href="#">
-                      <img src="../../admin_assets/img/icon/bell.svg" alt />
-                      <span>2</span>
-                    </a>
-
-                    <div class="Menu_NOtification_Wrap">
-                      <div class="notification_Header">
-                        <h4>Notifications</h4>
-                      </div>
-                      <div class="Notification_body">
-                        <div class="single_notify d-flex align-items-center">
-                          <div class="notify_thumb">
-                            <a href="#"><img src="../../admin_assets/img/staf/2.png" alt /></a>
-                          </div>
-                          <div class="notify_content">
-                            <a href="#"><h5>Cool Marketing</h5></a>
-                            <p>Lorem ipsum dolor sit amet</p>
-                          </div>
+                    <div class="line_icon open_miniSide d-none d-lg-block">
+                        <img src="../../admin_assets/img/line_img.png" alt/>
+                    </div>
+                    <div class="serach_field-area d-flex align-items-center">
+                        <div class="search_inner">
+                            <form action="#">
+                                <div class="search_field">
+                                    <input type="text" placeholder="Search"/>
+                                </div>
+                                <button type="submit">
+                                    <img src="../../admin_assets/img/icon/icon_search.svg" alt/>
+                                </button>
+                            </form>
                         </div>
+                    </div>
+                    <div
+                            class="header_right d-flex justify-content-between align-items-center"
+                    >
+                        <div class="header_notification_warp d-flex align-items-center">
+                            <li>
+                                <a class="bell_notification_clicker" href="#">
+                                    <img src="../../admin_assets/img/icon/bell.svg" alt/>
+                                    <span>2</span>
+                                </a>
 
-                        <div class="single_notify d-flex align-items-center">
-                          <div class="notify_thumb">
-                            <a href="#"><img src="../../admin_assets/img/staf/4.png" alt /></a>
-                          </div>
-                          <div class="notify_content">
-                            <a href="#"><h5>Awesome packages</h5></a>
-                            <p>Lorem ipsum dolor sit amet</p>
-                          </div>
+                                <div class="Menu_NOtification_Wrap">
+                                    <div class="notification_Header">
+                                        <h4>Notifications</h4>
+                                    </div>
+                                    <div class="Notification_body">
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/2.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Cool Marketing</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="single_notify d-flex align-items-center">
+                                            <div class="notify_thumb">
+                                                <a href="#"><img src="../../admin_assets/img/staf/4.png" alt/></a>
+                                            </div>
+                                            <div class="notify_content">
+                                                <a href="#"><h5>Awesome packages</h5></a>
+                                                <p>Lorem ipsum dolor sit amet</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="nofity_footer">
+                                        <div class="submit_button text-center pt_20">
+                                            <a href="#" class="btn_1">See More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
                         </div>
-
-
-
-
-                      </div>
-                      <div class="nofity_footer">
-                        <div class="submit_button text-center pt_20">
-                          <a href="#" class="btn_1">See More</a>
+                        <div class="profile_info">
+                            <img src="../../admin_assets/img/client_img.png" alt="#"/>
+                            <div class="profile_info_iner">
+                                <div class="profile_author_name">
+                                    <p>Neurologist</p>
+                                    <h5>Dr. Robar Smith</h5>
+                                </div>
+                                <div class="profile_info_details">
+                                    <a href="#">My Profile </a>
+                                    <a href="#">Settings</a>
+                                    <a href="/admin/logout">Log Out </a>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </li>
-
                 </div>
-                <div class="profile_info">
-                  <img src="../../admin_assets/img/client_img.png" alt="#" />
-                  <div class="profile_info_iner">
-                    <div class="profile_author_name">
-                      <p>Neurologist</p>
-                      <h5>Dr. Robar Smith</h5>
-                    </div>
-                    <div class="profile_info_details">
-                      <a href="#">My Profile </a>
-                      <a href="#">Settings</a>
-                      <a href="/admin/logout">Log Out </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-      <div class="main_content_iner">
+    <div class="main_content_iner">
         <div class="container-fluid p-0">
-          <div class="row">
-            <div class="col-12">
-              <div class="dashboard_header mb_50">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="dashboard_header_title">
-                      <h3>Default Dashboard</h3>
+            <div class="row">
+                <div class="col-12">
+                    <div class="dashboard_header mb_50">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="dashboard_header_title">
+                                    <h3>Default Dashboard</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="dashboard_breadcam text-end">
+                                    <p>
+                                        <a href="index-2.html">Dashboard</a>
+                                        <i class="fas fa-caret-right"></i> calendar
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="dashboard_breadcam text-end">
-                      <p>
-                        <a href="index-2.html">Dashboard</a>
-                        <i class="fas fa-caret-right"></i> calendar
-                      </p>
-                    </div>
-                  </div>
                 </div>
-              </div>
+                <div class="col-12">
+                    <style>
+                        #calendar table{
+                            width: 100%;
+                            overflow: scroll;
+                        }
+
+                        #calendar table, th, td {
+                            border: 1px solid black;
+                        }
+
+                        #calendar td{
+                            padding: 2%;
+                        }
+
+                        .calendar-nav{
+                            display: flex;
+                            margin-bottom: 10px;
+                        }
+
+                        .button {
+                            padding: 10px 20px;
+                            margin: 0 3px;
+                            font-size: 16px;
+                            border: none;
+                            border-radius: 4px;
+                            color: black;
+                            cursor: pointer;
+                            background-color: white;
+                        }
+                        .button:hover {
+                            color: whitesmoke;
+                            background-color: #884ffb;
+                            transition: background-color 0.5s ease;
+                        }
+
+                        .button:active {
+                            background-color: white;
+                            transition: background-color 0.5s ease;
+                        }
+
+                        #formId{
+                            display: flex;
+                        }
+                    </style>
+                    <div class="calendar-nav">
+                        <button id="prev-btn" class="button"><i class="fa fa-arrow-left"></i></button>
+                        <form method='GET' id='formId'>
+                            <input type="date" name="date">
+                        </form>
+                        <button id="next-btn" class="button"><i class="fa fa-arrow-right"></i></button>
+                    </div>
+                    <div id="calendar">
+                        <table>
+                            <div th:each="meeting : ${meetings}" th:value="${meeting.getCar().getName()+ ' ' + meeting.getCar().getCarDescription().getModel()}" name="cars"></div>
+                            <div th:each="meeting : ${meetings}" th:value="${meeting.getMeetingDate()}" name="dates"></div>
+                            <div th:each="meeting : ${meetings}" th:value="${meeting.getMeetingTime()}" name="slots"></div>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-12">
-              <div id="calendar"></div>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
 
 
-    </section>
+</section>
 
 
+<script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+
+<script src="../../admin_assets/js/popper1.min.js"></script>
+
+<script src="../../admin_assets/js/bootstrap1.min.js"></script>
+
+<script src="../../admin_assets/js/metisMenu.js"></script>
+
+<script src="../../admin_assets/js/custom.js"></script>
+
+<script>
+    function setToMonday( date ) {
+        var day = date.getDay() || 7;
+        if( day !== 1 )
+            date.setHours(-24 * (day - 1));
+        return date;
+    }
+    function setToSunday(date){
+        var day = 7 - (date.getDay() || 7);
+        if( day !== 0 )
+            date.setHours(24 * day );
+        return date;
+    }
+    function getDaysOfWeek(monday, sunday){
+        const days = [];
+        for(let i=new Date(monday);i<=new Date(sunday);i.setDate(i.getDate()+1)){
+            let date = new Date(i)
+            days.push(date.getDate()+"/"+date.getMonth(date.setMonth(date.getMonth()+1)))
+        }
+        return days
+    }
+    //get url param
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let date1 = urlParams.get("date");
+
+    //change date input
+    const dateInput = document.querySelector("#formId input");
+    if(date1==null){
+        date1 = new Date()
+        dateInput.valueAsDate = date1;
+    }
+    else dateInput.value = date1;
+    dateInput.addEventListener("change", () =>{
+        document.getElementById("formId").submit();
+    })
+
+    //get first, last date of week
+    const monday = setToMonday(new Date(Date.parse(date1)))
+    const sunday = setToSunday(new Date(Date.parse(date1)))
+
+    const table = document.querySelector("#calendar table");
+    //get all dates in week
+    const dateOfWeek = getDaysOfWeek(monday,sunday)
+    table.innerHTML += "<thead>\n" +
+        "<tr>\n" +
+        "  <td></td>\n" +
+        "  <td>Monday <p><b>"+dateOfWeek[0]+"</b></p></td>\n" +
+        "  <td>Tuesday <p><b>"+dateOfWeek[1]+"</b></p></td>\n" +
+        "  <td>Wednesday <p><b>"+dateOfWeek[2]+"</b></p></td>\n" +
+        "  <td>Thursday <p><b>"+dateOfWeek[3]+"</b></p></td>\n" +
+        "  <td>Friday <p><b>"+dateOfWeek[4]+"</b></p></td>\n" +
+        "  <td>Saturday <p><b>"+dateOfWeek[5]+"</b></p></td>\n" +
+        "  <td>Sunday <p><b>"+dateOfWeek[6]+"</b></p></td>\n" +
+        "</tr>\n" +
+        "</thead>"
 
 
+    const dates = []
+    document.getElementsByName("dates").forEach(
+        date => dates.push(date.getAttribute("value")));
+    console.log(dates);
+    const days = []
+    for(var dateString of dates){
+        let day = new Date(Date.parse(dateString)).getDay() || 7;
+        days.push(day)
+    }
 
-    <script src="../../admin_assets/js/jquery1-3.4.1.min.js"></script>
+    const slots = []
+    document.getElementsByName("slots").forEach(
+        slot => slots.push(slot.getAttribute("value")));
+    console.log(slots);
 
-    <script src="../../admin_assets/js/popper1.min.js"></script>
+    const cars = []
+    document.getElementsByName("cars").forEach(
+        car => cars.push(car.getAttribute("value")));
+    console.log(cars);
 
-    <script src="../../admin_assets/js/bootstrap1.min.js"></script>
+    table.innerHTML += "<tbody></tbody>"
+    const tableBody = document.querySelector("#calendar table tbody");
+    let tableRender = "";
+    for (let i=0;i<slots.length;i++){
+        tableRender += "<tr>" +
+                "  <td>"+slots[i]+"</td>";
+        for(let j=1;j<=7;j++){
+            if(j==days[i]){
+                tableRender += "<td>" +
+                    "<a href='#'>View detail</a><br>" +
+                    "<a href='#'>"+cars[i]+"</a>"
+                    "</td>"
+                //check there still slots
+                if(slots[i]==slots[i+1]) i++
+            }
+            else tableRender += "<td> - </td>"
+        }
+        tableRender +="</tr>"
+    }
+    tableBody.innerHTML += tableRender;
 
-    <script src="../../admin_assets/js/metisMenu.js"></script>
+    const prevBtn = document.getElementById("prev-btn")
+    const nextBtn = document.getElementById("next-btn");
 
-    <script src="../../admin_assets/js/custom.js"></script>
-  </body>
+    prevBtn.addEventListener("click", () =>{
+        let prevWeekDay =  new Date(dateInput.value)
+        prevWeekDay.setHours(-24*6);
+        dateInput.valueAsDate = prevWeekDay;
+        document.getElementById("formId").submit();
+    })
+
+    nextBtn.addEventListener("click", () =>{
+        let nextWeekDay =  new Date(dateInput.value)
+        nextWeekDay.setHours(24*8);
+        dateInput.valueAsDate = nextWeekDay;
+        document.getElementById("formId").submit();
+    })
+
+</script>
+</body>
 
 </html>

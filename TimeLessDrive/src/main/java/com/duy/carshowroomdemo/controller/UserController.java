@@ -683,9 +683,9 @@ public class UserController {
     public ModelAndView updateAccountInfo(@Nullable @RequestParam("avatar") MultipartFile file,
                                           @RequestParam("name") String name,
                                           @RequestParam("phone") String phone,
-                                          @RequestParam("gender") String gender,
-                                          @RequestParam("dob") String dob,
-                                          @RequestParam("address") String address) {
+                                          @Nullable@RequestParam("gender") String gender,
+                                          @Nullable@RequestParam("dob") String dob,
+                                          @Nullable@RequestParam("address") String address) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -733,6 +733,13 @@ public class UserController {
         }
 
         return notificationList;
+    }
+    @RequestMapping("/a12a")
+    public ModelAndView a(){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("views/admin/feedback-managerment");
+        return modelAndView;
+
     }
 
 }
