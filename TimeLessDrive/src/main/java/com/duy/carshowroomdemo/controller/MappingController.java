@@ -253,6 +253,25 @@ public class MappingController {
         return modelAndView;
     }
 
+    @RequestMapping("/slot-detail")
+    public ModelAndView slotDetail(@RequestParam(name = "date",
+                                                defaultValue = "#{T(java.time.LocalDate).now()}",
+                                                required = false)
+                                       @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+                                   @RequestParam("slot") LocalTime slot) {
+        ModelAndView modelAndView = new ModelAndView();
+        if (!isAuthenticated()) {
+            modelAndView.setViewName("views/user/login");
+        }
+
+        List<OffMeetingDto> meetings = service.getOffMeetingService().getMeetingsByDateAndSlot(date, slot);
+
+        modelAndView.addObject("meetings", meetings)
+                .setViewName("views/admin/slot-detail");
+
+        return modelAndView;
+    }
+
     @RequestMapping("/showroom-list")
     public ModelAndView showroomManagement() {
         ModelAndView modelAndView = new ModelAndView();

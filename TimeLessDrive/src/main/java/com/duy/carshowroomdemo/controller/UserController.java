@@ -700,15 +700,15 @@ public class UserController {
 
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D", ""));
-//        client.setGender(gender);
-//        client.setDob(LocalDate.parse(dob));
+        client.setGender(gender);
+        client.setDob(LocalDate.parse(dob));
         client.setAddress(address);
 
         service.getClientService().save(client);
         session.setAttribute("client", service.getClientService().findById(clientDto.getId()));
 
-//        modelAndView.addObject("status","success");
-//        modelAndView.addObject("message","Your information has been updated successfully");
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your information has been updated successfully");
 
         modelAndView.setViewName("views/user/account");
         return modelAndView;

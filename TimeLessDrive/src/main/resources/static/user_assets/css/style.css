@@ -3769,11 +3769,10 @@ ol {
 }
 /* Post history */
 .container-car-history {
-	max-width: 960px;
-	margin: 20px auto;
+	max-width: 100%;
+	margin: 20px 8%;
 	padding: 0 20px;
 	display: flex;
-	gap: 20px;
 	justify-content: space-between;
 	flex-wrap: wrap;
 }

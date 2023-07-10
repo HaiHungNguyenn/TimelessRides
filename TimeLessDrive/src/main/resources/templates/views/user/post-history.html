@@ -209,7 +209,7 @@
         <!-- code here -->
         <div class="container-car-history row">
 
-            <div th:each="post : ${postList}" class="car__item col-md-12">
+            <div th:each="post : ${postList}" class="car__item col-md-6">
                 <div class="car__item__pic__slider owl-carousel">
                     <img th:src="${carImageUrl.getContent()}"
                          th:each="carImageUrl : ${post.getCar().getCarImageList()}">

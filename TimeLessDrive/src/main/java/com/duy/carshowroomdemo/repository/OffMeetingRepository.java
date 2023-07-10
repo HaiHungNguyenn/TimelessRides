@@ -15,6 +15,8 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -34,8 +36,8 @@ public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> 
     long countByClient(Client client);
 
     Page<OffMeeting> findByStaffId(String staffID,Pageable pageable);
-    @Query("select m from OffMeeting m where m.meetingDate = :date order by m.meetingDate")
-    List<OffMeeting> findOffMeetingsByMeetingDate(@Param("date") LocalDate date);
+    @Query("select m from OffMeeting m where m.meetingDate = :date and m.meetingTime= :slot order by m.meetingTime")
+    List<OffMeeting> findOffMeetingsByMeetingDateAndSlot(@Param("date") LocalDate date, @Param("slot") LocalTime slot);
 
     @Query("select m from OffMeeting m where m.meetingDate >= :start and m.meetingDate <= :end order by m.meetingTime, m.meetingDate")
     List<OffMeeting> findOffMeetingsByWeek(@Param("start") LocalDate start, @Param("end") LocalDate end);
