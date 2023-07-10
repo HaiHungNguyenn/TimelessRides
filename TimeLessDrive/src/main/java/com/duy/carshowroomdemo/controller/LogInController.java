@@ -60,9 +60,11 @@ public class LogInController {
 
         else if(adminDto != null){
             Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
-
+            List<PostDto> listPost = new ArrayList<>();
+            listPost = service.getPostService().getNewestPost();
             modelAndView.addObject("keys", revenue.keySet())
                     .addObject("values", revenue.values())
+                    .addObject("listPost",listPost)
                     .setViewName("views/admin/index");
             session.setAttribute("admin", adminDto);
         }

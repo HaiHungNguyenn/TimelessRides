@@ -274,4 +274,10 @@ public class PostService {
         }
         return revenue;
     }
+
+    public List<PostDto> getNewestPost() {
+        List<PostDto> list = new ArrayList<>();
+        postRepository.findPostsByMonth(LocalDate.now().getMonthValue(),LocalDate.now().getYear()).forEach(x -> list.add(mapperManager.getPostMapper().toDto(x)));
+        return list;
+    }
 }

@@ -12,6 +12,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +21,11 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, String>{
 
     LocalDate CURRENT_DATE = LocalDate.now();
+
+    Month month = CURRENT_DATE.getMonth();
+
+    int year = CURRENT_DATE.getYear();
+
     Page<Post> findPostsByClient(Client client, Pageable pageable);
 
     @Query("select p from Post p where p.client.id = :id order by p.postDate")
@@ -96,4 +103,9 @@ public interface PostRepository extends JpaRepository<Post, String>{
 
     @Query("select p from Post p where (month(p.postDate) = :month and year(p.postDate) = :year) and (p.status = 'Approved' or p.status = 'Completed')")
     List<Post> findPostsByMonth(@Param("month") int month, @Param("year") int year);
+//    SELECT *
+//    FROM post
+//    WHERE MONTH(post_date) = MONTH(GETDATE()) AND YEAR(post_date) = YEAR(GETDATE());
+
+
 }
