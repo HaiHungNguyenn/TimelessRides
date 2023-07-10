@@ -228,7 +228,7 @@ public class StaffController {
             offMeeting.setStatus(action.equalsIgnoreCase("decline") ? Status.DECLINED : Status.APPROVED);
             Runnable runnable;
             if(offMeeting.getStatus().equalsIgnoreCase(Status.DECLINED)){
-                String msg = "Your meeting at " + offMeeting.getMeetingDate() + ", " + offMeeting.getMeetingTime() + " has been declined";
+                String msg = "Your meeting at " + offMeeting.getMeetingDate(    ) + ", " + offMeeting.getMeetingTime() + " has been declined";
                 service.sendNotification(offMeeting.getClient(), msg);
                 successMsg = "Declined meeting with " + offMeeting.getClient().getName();
                 // mail

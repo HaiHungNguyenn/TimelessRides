@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -239,8 +240,23 @@ public class UserController {
 
     @GetMapping("/car-detail/{id}")
     public ModelAndView showCarDetails(@PathVariable String id) {
-        return new ModelAndView("views/user/car-details")
-                .addObject("carDto", service.getCarService().findCarById(id));
+        ModelAndView modelAndView = new ModelAndView("views/user/car-details");
+        String check = "false";
+        System.out.println("==========================================");
+        System.out.println(service.getCarService().findCarEntityById(id).getPost()
+                .getClient().getName());
+        if(session.getAttribute("client") != null){
+            System.out.println(((ClientDto)session.getAttribute("client")).getName());
+            if(service.getCarService().findCarEntityById(id).getPost()
+                    .getClient().getName().equalsIgnoreCase(((ClientDto)session.getAttribute("client")).getName())){
+               check = "true";
+            }
+        }
+        modelAndView.addObject("carDto", service.getCarService().findCarById(id));
+        modelAndView.addObject("checkUser", check);
+        return modelAndView;
+
+
     }
 
     @GetMapping("/account")
@@ -430,7 +446,12 @@ public class UserController {
 
     @GetMapping("/customer_service")
     public ModelAndView showCustomerServicePage() {
-        return new ModelAndView("views/user/customer-service");
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+        modelAndView.setViewName("views/user/customer-service");
+        return modelAndView ;
     }
 
     @RequestMapping("/confirm-post/{clientId}")
@@ -737,6 +758,26 @@ public class UserController {
     public ModelAndView a(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/admin/feedback-managerment");
+        return modelAndView;
+
+    }
+    @RequestMapping( value = "/send_feedback",method = RequestMethod.POST)
+    public ModelAndView sendFeedBack(@RequestParam("name") String name,
+                             @RequestParam("subject") String subject,
+                             @RequestParam("rating") String rating,
+                             @RequestParam("message") String message){
+        System.out.println(Double.parseDouble(rating));
+        Feedback feedback = Feedback.builder()
+                .rating(Double.parseDouble(rating))
+                .createdAt(LocalDate.now())
+                .client(service.getClientService().findEntityById(((ClientDto) session.getAttribute("client")).getId()))
+                .description(message).build();
+
+
+        service.getFeedbackService().save(feedback);
+        ModelAndView modelAndView = new ModelAndView("views/user/customer-service");
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your feedback has just been sent successfully");
         return modelAndView;
 
     }

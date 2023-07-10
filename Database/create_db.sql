@@ -139,7 +139,7 @@ CREATE TABLE feedback (
 	client_id				VARCHAR(100) FOREIGN KEY REFERENCES client(id),
 	created_at				DATE,
 	[description]			NVARCHAR(2000),
-	rating                  DECIMAL
+	rating                  FLOAT
 )
 
 CREATE TABLE client_notification (
