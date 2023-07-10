@@ -29,5 +29,5 @@ public class Feedback {
     private String description;
 
     @Column(name = "rating")
-    private long rating;
+    private double rating;
 }

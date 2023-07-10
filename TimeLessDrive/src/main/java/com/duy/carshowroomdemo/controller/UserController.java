@@ -446,7 +446,12 @@ public class UserController {
 
     @GetMapping("/customer_service")
     public ModelAndView showCustomerServicePage() {
-        return new ModelAndView("views/user/customer-service");
+        ModelAndView modelAndView = new ModelAndView("views/user/login");
+        if(!isAuthenticated()){
+            return modelAndView;
+        }
+        modelAndView.setViewName("views/user/customer-service");
+        return modelAndView ;
     }
 
     @RequestMapping("/confirm-post/{clientId}")
@@ -753,6 +758,26 @@ public class UserController {
     public ModelAndView a(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("views/admin/feedback-managerment");
+        return modelAndView;
+
+    }
+    @RequestMapping( value = "/send_feedback",method = RequestMethod.POST)
+    public ModelAndView sendFeedBack(@RequestParam("name") String name,
+                             @RequestParam("subject") String subject,
+                             @RequestParam("rating") String rating,
+                             @RequestParam("message") String message){
+        System.out.println(Double.parseDouble(rating));
+        Feedback feedback = Feedback.builder()
+                .rating(Double.parseDouble(rating))
+                .createdAt(LocalDate.now())
+                .client(service.getClientService().findEntityById(((ClientDto) session.getAttribute("client")).getId()))
+                .description(message).build();
+
+
+        service.getFeedbackService().save(feedback);
+        ModelAndView modelAndView = new ModelAndView("views/user/customer-service");
+        modelAndView.addObject("status","success");
+        modelAndView.addObject("message","Your feedback has just been sent successfully");
         return modelAndView;
 
     }

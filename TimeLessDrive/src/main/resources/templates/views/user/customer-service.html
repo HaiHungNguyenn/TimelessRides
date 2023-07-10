@@ -96,32 +96,7 @@
 
     <!-- Header Section Begin -->
     <header class="header">
-<!--        <div class="header__top">-->
-<!--            <div class="container">-->
-<!--                <div class="row">-->
-<!--                    <div class="col-lg-7">-->
-<!--                        <ul class="header__top__widget">-->
-<!--                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>-->
-<!--                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-5">-->
-<!--                        <div class="header__top__right">-->
-<!--                            <div class="header__top__phone">-->
-<!--                                <i class="fa fa-phone"></i>-->
-<!--                                <span>(+12) 345 678 910</span>-->
-<!--                            </div>-->
-<!--                            <div class="header__top__social">-->
-<!--                                <a href="#"><i class="fa fa-facebook"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-twitter"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-google"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-instagram"></i></a>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-2">
@@ -245,15 +220,9 @@
             <h2>Contact Us</h2>
             <p>If you have any questions or inquiries, please fill out the form below:</p>
             <div class="form">
-                <form action="#" method="POST">
+                <form action="/send_feedback" method="POST" onsubmit="return validateForm()">
                     <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="text" id="name" name="name" required th:value="${session.client != null} ? ${session.client.getName()} : ''" th:placeholder="${session.client != null} ? ${session.client.getName()} : '' ">
 
                     <label for="subject">Subject:</label>
                     <input type="text" id="subject" name="subject" required>
@@ -308,7 +277,7 @@
                         }
                     </style>
                     <label for="ratings">Rate us please</label>
-                    <fieldset id="ratings" class="rating col-12">
+                    <fieldset id="ratings" class="rating col-12" required>
                         <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
                         <input type="radio" id="star4half" name="rating" value="4.5" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>
                         <input type="radio" id="star4" name="rating" value="4" /><label class = "full" for="star4" title="Pretty good - 4 stars"></label>
@@ -320,7 +289,7 @@
                         <input type="radio" id="star1" name="rating" value="1" /><label class = "full" for="star1" title="Sucks big time - 1 star"></label>
                         <input type="radio" id="starhalf" name="rating" value="0.5" /><label class="half" for="starhalf" title="Sucks big time - 0.5 stars"></label>
                     </fieldset>
-
+                    <div id="ratingError" style="color: red;"></div>
                     <label for="message">Message:</label>
                     <textarea id="message" name="message" rows="4" required></textarea>
 
@@ -346,7 +315,7 @@
                         </div>
                         <div class="s_text">
                             <h2>SUCCESS</h2>
-                            <p th:text="${loginMess}"></p>
+                            <p th:text="${message}"></p>
                         </div>
                     </div>
                     <div class="s_button">
@@ -364,7 +333,7 @@
                         </div>
                         <div class="s_text">
                             <h2>ERROR</h2>
-                            <p th:text="${loginMess}"></p>
+                            <p th:text="${message}"></p>
                         </div>
                     </div>
                     <div class="s_button">
@@ -494,6 +463,25 @@
             modal.style.display = 'none';
             background.classList.remove("active");
         }));
+        function validateForm() {
+            var ratingInputs = document.querySelectorAll('#ratings input[type="radio"]');
+            var isRatingSelected = false;
+
+            for (var i = 0; i < ratingInputs.length; i++) {
+                if (ratingInputs[i].checked) {
+                    isRatingSelected = true;
+                    break;
+                }
+            }
+
+            if (!isRatingSelected) {
+                var ratingError = document.getElementById('ratingError');
+                ratingError.textContent = "Please select a rating.";
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
 
     </script>
     <!-- notification js-->

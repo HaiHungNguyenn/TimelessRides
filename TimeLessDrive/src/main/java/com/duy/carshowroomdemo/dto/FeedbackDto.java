@@ -17,6 +17,6 @@ public class FeedbackDto implements Serializable {
     private String id;
     private LocalDate createdAt;
     private String description;
-    private long rating;
+    private double rating;
 
 }
