@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div th:each="meeting : ${meetings}" >
+      <div th:text="${meeting.getCar().getName()}"></div>
+      <div th:text="${meeting.getClient().getName()}"></div>
+  </div>
+</body>
+</html>

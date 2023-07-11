@@ -322,6 +322,7 @@
         var day = date.getDay() || 7;
         if( day !== 1 )
             date.setHours(-24 * (day - 1));
+        else date.setHours(0);
         return date;
     }
     function setToSunday(date){
@@ -330,14 +331,28 @@
             date.setHours(24 * day );
         return date;
     }
-    function getDaysOfWeek(monday, sunday){
+    //format: date/month
+    function getDatesAndMonthsOfWeek(monday, sunday){
         const days = [];
+        let date
         for(let i=new Date(monday);i<=new Date(sunday);i.setDate(i.getDate()+1)){
-            let date = new Date(i)
+            date = new Date(i)
             days.push(date.getDate()+"/"+date.getMonth(date.setMonth(date.getMonth()+1)))
         }
         return days
     }
+
+    //format: year-month-date
+    function getDatesOfWeek(monday, sunday){
+        const dates = [];
+        for(let i=new Date(monday);i<=new Date(sunday);i.setDate(i.getDate()+1)){
+            let [date] = new Date(i).toISOString().split('T')
+            dates.push(date)
+        }
+        return dates
+    }
+
+
     //get url param
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -358,9 +373,13 @@
     const monday = setToMonday(new Date(Date.parse(date1)))
     const sunday = setToSunday(new Date(Date.parse(date1)))
 
+    console.log(monday)
+    console.log(sunday)
+    console.log(getDatesOfWeek(monday,sunday))
+
     const table = document.querySelector("#calendar table");
     //get all dates in week
-    const dateOfWeek = getDaysOfWeek(monday,sunday)
+    const dateOfWeek = getDatesAndMonthsOfWeek(monday,sunday)
     table.innerHTML += "<thead>\n" +
         "<tr>\n" +
         "  <td></td>\n" +
@@ -374,7 +393,6 @@
         "</tr>\n" +
         "</thead>"
 
-
     const dates = []
     document.getElementsByName("dates").forEach(
         date => dates.push(date.getAttribute("value")));
@@ -384,6 +402,7 @@
         let day = new Date(Date.parse(dateString)).getDay() || 7;
         days.push(day)
     }
+    console.log(days)
 
     const slots = []
     document.getElementsByName("slots").forEach(
@@ -404,7 +423,7 @@
         for(let j=1;j<=7;j++){
             if(j==days[i]){
                 tableRender += "<td>" +
-                    "<a href='#'>View detail</a><br>" +
+                    "<a href='/slot-detail?date="+dates[i]+"&slot="+slots[i]+"'>View detail</a><br>" +
                     "<a href='#'>"+cars[i]+"</a>"
                     "</td>"
                 //check there still slots

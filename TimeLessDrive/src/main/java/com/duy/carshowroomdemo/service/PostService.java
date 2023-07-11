@@ -8,6 +8,7 @@ import com.duy.carshowroomdemo.repository.PostRepository;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -78,20 +79,25 @@ public class PostService {
     public long getLastOffset(ClientDto clientDto, int size) {
         return postRepository.findPostsByClient(mapperManager.getClientMapper().toEntity(clientDto),PageRequest.of(0, size)).getTotalPages();
     }
+
+    public long getCarInventoryLastOffset(int size) {
+        return postRepository.findAllByStatus(Status.APPROVED, PageRequest.of(0,size)).getTotalPages();
+    }
+
     public long getLastOffset(String value, String property, int size) {
-        switch (property){
-            case"make":
-                return postRepository.findAllByStatusIsAndCarMake(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
-            case"body":
-                return postRepository.findAllByStatusIsAndCarBody(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
-            case"model":
-                return postRepository.findAllByStatusIsAndCarModel(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
-            case"tranmision":
-                return postRepository.findAllByStatusIsAndCarTran(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
-            case"fuel":
-                return postRepository.findAllByStatusIsAndCarFuel(value,PageRequest.of(0, size),CURRENT_DAY).getTotalPages();
-        }
-        return  0 ;
+        return switch (property) {
+            case "make" ->
+                    postRepository.findAllByStatusIsAndCarMake(value, PageRequest.of(0, size), CURRENT_DAY).getTotalPages();
+            case "body" ->
+                    postRepository.findAllByStatusIsAndCarBody(value, PageRequest.of(0, size), CURRENT_DAY).getTotalPages();
+            case "model" ->
+                    postRepository.findAllByStatusIsAndCarModel(value, PageRequest.of(0, size), CURRENT_DAY).getTotalPages();
+            case "tranmision" ->
+                    postRepository.findAllByStatusIsAndCarTran(value, PageRequest.of(0, size), CURRENT_DAY).getTotalPages();
+            case "fuel" ->
+                    postRepository.findAllByStatusIsAndCarFuel(value, PageRequest.of(0, size), CURRENT_DAY).getTotalPages();
+            default -> 0;
+        };
     }
 
     public void save(Post post) {
@@ -279,5 +285,14 @@ public class PostService {
         List<PostDto> list = new ArrayList<>();
         postRepository.findPostsByMonth(LocalDate.now().getMonthValue(),LocalDate.now().getYear()).forEach(x -> list.add(mapperManager.getPostMapper().toDto(x)));
         return list;
+    }
+
+    public List<PostDto> findPostsInPriceRange(Long lower, Long upper, Pageable pageable) {
+        List<PostDto> postList = new ArrayList<>();
+        postRepository.findPostsInPriceRange(pageable, lower, upper, LocalDate.now())
+                .forEach(post -> {
+                    postList.add(mapperManager.getPostMapper().toDto(post));
+                });
+        return postList;
     }
 }
