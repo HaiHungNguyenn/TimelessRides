@@ -28,7 +28,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
     <th:block th:if="${session.client != null}">
-        <script>let id = '[[${session.client.getId()}]]''[[${session.client.getId()}]]'</script>
+        <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
     <script src="../../user_assets/js/notification-js.js"></script>
 </head>
@@ -173,7 +173,7 @@
                         </div>
                         <div class="car__filter">
                             <h5>Car Filter</h5>
-                            <form action="#" >
+                            <form action="/search-cars-by-price" >
                                 <select class="mySelect" onchange="handleSelectChange(this)">
                                     <option data-display="Brand">Select Brand</option>
                                     <div th:each="x:${session.makeList}">
@@ -212,13 +212,13 @@
                                         <div class="filter-price-range"></div>
                                         <div class="range-slider">
                                             <div class="price-input">
-                                                <input type="text" id="filterAmount">
+                                                <input type="text" id="filterAmount" name="filterAmount">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="car__filter__btn">
-                                    <button type="submit" class="site-btn">Reset FIlter</button>
+                                    <button type="submit" class="site-btn">Search by price</button>
                                 </div>
                             </form>
                         </div>
@@ -292,19 +292,23 @@
 
                     <div class="pagination__option">
                         <ul th:with="url=(${property != null} ? '/admin/searchCarBy-' + ${property} + '-' + ${value} : '/car/sorted-'+${direction})">
-                            <p th:text="${property}"/>
-                            <p th:text="${direction}"/>
+<!--                            <p th:text="${property}"/>-->
+<!--                            <p th:text="${direction}"/>-->
 
-                            <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (offset = 1, property = ${property}, value = ${value}, direction = ${direction})}" th:text="First"/>&laquo
+                           <a th:if="${offset > 1}" th:href="@{${url} (offset = 1, property = ${property}, value = ${value}, direction = ${direction})}" th:text="First"/>
+                           <a th:if="${offset == 1}" href="#!" th:text="First"/>&laquo
 
-                           <a th:classappend="${offset == 1} ? 'disabled'" th:href="@{${url} (offset = ${offset - 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Prev"/>
+                           <a th:if="${offset > 1}" th:href="@{${url} (offset = ${offset - 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Prev"/>
+                           <a th:if="${offset == 1} ? 'disabled'" href="#!" th:text="Prev"/>
 
                              <a href="#" class="active" th:text="${offset}"></a>
                             <li th:if="${lastOffset >= offset + 1}"> <a th:text="${offset+1}" th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}" /></li>
                             <li th:if="${lastOffset >= offset + 2}"> <a th:text="${offset+2}" th:href="@{${url} (offset = ${offset + 2}, property = ${property}, value = ${value}, direction = ${direction})}" /></li>
 
-                           <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Next"/>&raquo
-                            <a th:classappend="${lastOffset < offset + 1} ? 'disabled'" th:href="@{${url} (offset = ${lastOffset}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Last"/>
+                           <a th:if="${offset >= lastOffset}" href="#!" th:text="Next"/>
+                           <a th:if="${offset < lastOffset}" th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Next"/>&raquo
+                           <a th:if="${offset >= lastOffset}" href="#!" th:text="Last"/>
+                           <a th:if="${offset < lastOffset}" th:href="@{${url} (offset = ${lastOffset}, property = ${property}, value = ${value}, direction = ${direction})}" th:text="Last"/>
                         </ul>
                     </div>
 <!--                    <div class="pagination__option">-->

@@ -103,6 +103,9 @@ public interface PostRepository extends JpaRepository<Post, String>{
 
     @Query("select p from Post p where (month(p.postDate) = :month and year(p.postDate) = :year) and (p.status = 'Approved' or p.status = 'Completed')")
     List<Post> findPostsByMonth(@Param("month") int month, @Param("year") int year);
+
+    @Query("select p from Post p where p.status='Approved' and p.expireDate > :date and (p.car.price >= :lower and p.car.price <= :upper)")
+    Page<Post> findPostsInPriceRange(Pageable pageable, @Param("lower") Long lower,@Param("upper") Long upper, @Param("date") LocalDate today);
 //    SELECT *
 //    FROM post
 //    WHERE MONTH(post_date) = MONTH(GETDATE()) AND YEAR(post_date) = YEAR(GETDATE());

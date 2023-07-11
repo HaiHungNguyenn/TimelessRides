@@ -23,10 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -129,7 +126,7 @@ public class UserController {
             postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
         }
 
-        long lastOffSet = service.getCarService().getLastOffset(9);
+        long lastOffSet = service.getPostService().getCarInventoryLastOffset(9);
 
         modelAndView.addObject("postDto", postList)
                 .addObject("offset", offset)
@@ -175,6 +172,26 @@ public class UserController {
         modelAndView.addObject("postDto", postList)
                 .addObject("offset", offset);
         return modelAndView;
+    }
+
+    @RequestMapping("/search-cars-by-price")
+    public ModelAndView searchCarsByPrice(@RequestParam("filterAmount") String amount,
+                                          @Nullable @RequestParam("offset") Integer offset){
+
+        ModelAndView modelAndView = new ModelAndView("views/user/car");
+
+        offset = (offset == null) ? 1 : offset;
+
+        Map<String, Long> splitPrice = Util.processPriceRange(amount);
+
+        Long lower = splitPrice.get("lower");
+        Long upper = splitPrice.get("upper");
+
+        List<PostDto> postList = service.getPostService().findPostsInPriceRange(lower, upper, PageRequest.of(offset - 1, 10));
+        System.out.println("The list size is: " + postList.size());
+
+        return modelAndView.addObject("postDto", postList)
+                .addObject("offset", offset);
     }
 
     @GetMapping("/car/book-meeting")

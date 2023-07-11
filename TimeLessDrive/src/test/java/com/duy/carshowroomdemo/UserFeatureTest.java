@@ -111,6 +111,24 @@ public class UserFeatureTest {
 
         postRepository.findPostsByMonth(LocalDate.now().getMonthValue(),LocalDate.now().getYear()).forEach(x -> System.out.println(x));
     }
+
+    @Test
+    public void testTime(){
+        List<OffMeeting> list = offMeetingRepository.findOffMeetingsByMeetingDateAndSlot(LocalDate.now(), LocalTime.now());
+        System.out.println(list.isEmpty());
+    }
+
+    @Test
+    public void testPriceRange(){
+        String priceRange = "[ $508457 - $1000000 ]";
+        String[] split = priceRange.split("-");
+        List<String> result = new ArrayList<>();
+        for (String part : split){
+            result.add(part.replaceAll("\\D", ""));
+        }
+        result.forEach(System.out::println);
+    }
+
 }
 
 //package com.duy.carshowroomdemo;
