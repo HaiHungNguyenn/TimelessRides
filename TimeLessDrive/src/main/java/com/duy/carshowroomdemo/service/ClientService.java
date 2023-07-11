@@ -127,4 +127,8 @@ public class ClientService {
     public long getSearchUserLastOffset(Pageable pageable, String name) {
         return repository.findClientsByName(pageable, name).getTotalPages();
     }
+
+    public int getNumOfUser() {
+        return repository.getNumberOfUser();
+    }
 }

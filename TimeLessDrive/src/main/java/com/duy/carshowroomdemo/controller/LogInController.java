@@ -62,9 +62,11 @@ public class LogInController {
             Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
             List<PostDto> listPost = new ArrayList<>();
             listPost = service.getPostService().getNewestPost();
+            int numberOfUser = service.getClientService().getNumOfUser();
             modelAndView.addObject("keys", revenue.keySet())
                     .addObject("values", revenue.values())
                     .addObject("listPost",listPost)
+                    .addObject("num",numberOfUser)
                     .setViewName("views/admin/index");
             session.setAttribute("admin", adminDto);
         }
