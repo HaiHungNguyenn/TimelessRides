@@ -129,7 +129,7 @@ public class UserController {
             postList = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
         }
 
-        long lastOffSet = service.getCarService().getLastOffset(9);
+        long lastOffSet = service.getPostService().getCarInventoryLastOffset(9);
 
         modelAndView.addObject("postDto", postList)
                 .addObject("offset", offset)

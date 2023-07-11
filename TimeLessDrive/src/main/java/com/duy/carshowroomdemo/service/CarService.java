@@ -83,7 +83,7 @@ public class CarService {
 
 
     public long getLastOffset(int size) {
-        return repository.findAllByStatus(Status.AVAILABLE,PageRequest.of(0,size)).getTotalPages();
+        return repository.findAllByStatus(Status.AVAILABLE, PageRequest.of(0,size)).getTotalPages();
     }
 
 
