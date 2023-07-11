@@ -8,7 +8,7 @@
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>Calendar</title>
-    <link rel="icon" href="../../admin_assets/img/mini_logo.png" type="image/png"/>
+    <link rel="icon" href="../../user_assets/img/logo.png" type="image/png"/>
 
     <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css"/>
 
@@ -62,7 +62,7 @@
 <nav class="sidebar">
     <div class="logo d-flex justify-content-between">
         <a class="large_logo" href="/admin/home"
-        ><img src="../../admin_assets/img/logo.png" alt
+        ><img src="../../user_assets/img/logo.png" alt
         /></a>
         <a class="small_logo" href="/admin/home"
         ><img src="../../admin_assets/img/mini_logo.png" alt
@@ -423,7 +423,7 @@
         for(let j=1;j<=7;j++){
             if(j==days[i]){
                 tableRender += "<td>" +
-                    "<a href='/slot-detail?date="+dates[i]+"&slot="+slots[i]+"'>View detail</a><br>" +
+                    "<a href='./slot-detail?date="+dates[i]+"&slot="+slots[i]+"'>View detail</a><br>" +
                     "<a href='#'>"+cars[i]+"</a>"
                     "</td>"
                 //check there still slots

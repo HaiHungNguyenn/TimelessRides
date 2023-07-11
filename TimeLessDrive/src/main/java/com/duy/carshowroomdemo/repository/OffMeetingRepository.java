@@ -36,7 +36,7 @@ public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> 
     long countByClient(Client client);
 
     Page<OffMeeting> findByStaffId(String staffID,Pageable pageable);
-    @Query("select m from OffMeeting m where m.meetingDate = :date and m.meetingTime= :slot order by m.meetingTime")
+    @Query("select m from OffMeeting m where m.meetingDate = :date and m.meetingTime =  cast(:slot as localtime) order by m.meetingTime")
     List<OffMeeting> findOffMeetingsByMeetingDateAndSlot(@Param("date") LocalDate date, @Param("slot") LocalTime slot);
 
     @Query("select m from OffMeeting m where m.meetingDate >= :start and m.meetingDate <= :end order by m.meetingTime, m.meetingDate")
