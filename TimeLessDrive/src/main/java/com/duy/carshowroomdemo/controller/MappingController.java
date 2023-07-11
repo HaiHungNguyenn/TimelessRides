@@ -9,6 +9,7 @@ import com.duy.carshowroomdemo.util.MyList;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -264,9 +266,14 @@ public class MappingController {
             modelAndView.setViewName("views/user/login");
         }
 
+
         List<OffMeetingDto> meetings = service.getOffMeetingService().getMeetingsByDateAndSlot(date, slot);
+        Map<CarDto, List<OffMeetingDto>> offMeetingGrouped =
+                meetings.stream().collect(Collectors.groupingBy(w -> w.getCar()));
+
 
         modelAndView.addObject("meetings", meetings)
+                .addObject("meetingGroups", offMeetingGrouped)
                 .setViewName("views/admin/slot-detail");
 
         return modelAndView;

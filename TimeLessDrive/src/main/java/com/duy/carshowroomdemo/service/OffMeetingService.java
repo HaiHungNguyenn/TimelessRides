@@ -20,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -117,6 +119,7 @@ public class OffMeetingService {
 
     public List<OffMeetingDto> getMeetingsByDateAndSlot(LocalDate date, LocalTime slot){
         List<OffMeetingDto> list = new ArrayList<>();
+        slot.format(DateTimeFormatter.ISO_TIME);
         offMeetingRepository.findOffMeetingsByMeetingDateAndSlot(date, slot).forEach(x ->
                 list.add(mapperManager.getOffMeetingMapper().toDto(x)));
         return list;
