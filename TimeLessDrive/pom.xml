@@ -6,11 +6,12 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.0.6</version>
+
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.duy</groupId>
     <artifactId>CarShowroomDemo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1</version>
     <packaging>war</packaging>
     <name>CarShowroomDemo</name>
     <description>CarShowroomDemo</description>
@@ -122,6 +123,10 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
             </plugin>
         </plugins>
     </build>
