@@ -469,4 +469,12 @@ public class Util {
     public static String formatUSDPrice(Long price) {
         return NumberFormat.getCurrencyInstance(Locale.US).format(price);
     }
+
+    public static Map<String, Long> processPriceRange(String priceRange){
+        String[] parts = priceRange.split("-");
+        Map<String, Long> result = new HashMap<>();
+        result.put("lower", Long.parseLong(parts[0].replaceAll("\\D", "")));
+        result.put("upper", Long.parseLong(parts[1].replaceAll("\\D", "")));
+        return result;
+    }
 }

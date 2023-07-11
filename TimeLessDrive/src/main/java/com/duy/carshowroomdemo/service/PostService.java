@@ -8,6 +8,7 @@ import com.duy.carshowroomdemo.repository.PostRepository;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -284,5 +285,14 @@ public class PostService {
         List<PostDto> list = new ArrayList<>();
         postRepository.findPostsByMonth(LocalDate.now().getMonthValue(),LocalDate.now().getYear()).forEach(x -> list.add(mapperManager.getPostMapper().toDto(x)));
         return list;
+    }
+
+    public List<PostDto> findPostsInPriceRange(Long lower, Long upper, Pageable pageable) {
+        List<PostDto> postList = new ArrayList<>();
+        postRepository.findPostsInPriceRange(pageable, lower, upper, LocalDate.now())
+                .forEach(post -> {
+                    postList.add(mapperManager.getPostMapper().toDto(post));
+                });
+        return postList;
     }
 }

@@ -172,7 +172,7 @@
                         </div>
                         <div class="car__filter">
                             <h5>Car Filter</h5>
-                            <form action="#" >
+                            <form action="/search-cars-by-price" >
                                 <select class="mySelect" onchange="handleSelectChange(this)">
                                     <option data-display="Brand">Select Brand</option>
                                     <div th:each="x:${session.makeList}">
@@ -211,13 +211,13 @@
                                         <div class="filter-price-range"></div>
                                         <div class="range-slider">
                                             <div class="price-input">
-                                                <input type="text" id="filterAmount">
+                                                <input type="text" id="filterAmount" name="filterAmount">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="car__filter__btn">
-                                    <button type="submit" class="site-btn">Reset FIlter</button>
+                                    <button type="submit" class="site-btn">Search by price</button>
                                 </div>
                             </form>
                         </div>
