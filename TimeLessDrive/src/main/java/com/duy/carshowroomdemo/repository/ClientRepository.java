@@ -31,4 +31,6 @@ public interface ClientRepository extends JpaRepository<Client, String> {
     Page<Client> findClientsByName(Pageable pageable, String name);
 
     void deleteByEmail(String s);
+    @Query("select count(c) from Client c")
+    int getNumberOfUser();
 }
