@@ -1,0 +1,57 @@
+#calendar table{
+    width: 100%;
+    overflow: scroll;
+}
+
+#calendar table, th, td {
+    border: 1px solid black;
+}
+
+#calendar td{
+    padding: 1%;
+}
+
+.calendar-nav{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 0 3px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    cursor: pointer;
+    background-color: white;
+}
+.button:hover {
+    color: whitesmoke;
+    background-color: #884ffb;
+    transition: background-color 0.5s ease;
+}
+
+.button:active {
+    background-color: white;
+    transition: background-color 0.5s ease;
+}
+
+#formId{
+    display: flex;
+}
+
+#detail-btn{
+    padding: 5px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #EC9F05 var(--c1, 5%), #FF4E00 var(--c2, 50%))
+                var(--x, 0)/ 200%;
+    color: white;
+    transition: all .5s ease;
+}
+
+#detail-btn:hover{
+    --x: 100%;
+    --c1: 0%;
+    --c2: 100%;
+}
