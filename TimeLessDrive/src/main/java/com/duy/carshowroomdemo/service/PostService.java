@@ -295,4 +295,13 @@ public class PostService {
                 });
         return postList;
     }
+
+    public List<PostDto> findPriorPosts() {
+        List<PostDto> postList = new ArrayList<>();
+
+        postRepository.findAllByPriority(PageRequest.of(0, 10), 3)
+                .forEach(post -> postList.add(mapperManager.getPostMapper().toDto(post)));
+
+        return postList;
+    }
 }

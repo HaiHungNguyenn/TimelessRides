@@ -43,13 +43,12 @@ public class UserController {
 
     @GetMapping("/")
     public ModelAndView home() {
-
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/index");
 
         service.configSearchList();
 
-        modelAndView.setViewName("views/user/index");
-        return modelAndView;
+        return modelAndView
+                .addObject("postList", service.getPostService().findPriorPosts());
     }
 
     @GetMapping("/post_car")
