@@ -34,7 +34,24 @@ public class StaffDto implements Serializable {
     private LocalDate joinDate;
     private Showroom showroom;
 
-    public int getWorkingTime(){
-        return Period.between(this.getJoinDate(), LocalDate.now()).getMonths();
+    public String getWorkingTime(){
+        StringBuilder result = new StringBuilder();
+        Period workingTime = Period.between(this.getJoinDate(), LocalDate.now());
+        int workingMonths = workingTime.getMonths();
+
+        if (workingMonths >= 1){
+            int workingYears = workingTime.getYears();
+
+            if (workingYears >= 1){
+                result.append(workingYears).append(" years, ");
+                workingMonths -= workingYears * 12;
+            }
+
+            if (workingMonths >= 1){
+                result.append(workingMonths).append(" months, ");
+            }
+        }
+
+        return result.append(workingTime.getDays()).append(" days").toString();
     }
 }
