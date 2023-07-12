@@ -2,8 +2,8 @@ package com.duy.carshowroomdemo.mapper;
 
 import org.modelmapper.ModelMapper;
 
-public interface Mapper<E, D> {
+public interface Mapper<T, S> {
     ModelMapper modelMapper = new ModelMapper();
-    E toEntity(D source);
-    D toDto(E source);
+    T toEntity(S source);
+    S toDto(T source);
 }
