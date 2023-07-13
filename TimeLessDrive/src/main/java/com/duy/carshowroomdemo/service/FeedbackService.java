@@ -17,9 +17,9 @@ public class FeedbackService {
     private FeedbackRepository feedbackRepository;
     MapperManager mapperManager = MapperManager.getInstance();
 
-    public List<FeedbackDto> findFeedbacksPerPage(Pageable pageable) {
-        List<FeedbackDto> feedbackList = new ArrayList<>();
-        feedbackRepository.findAll(pageable).forEach(x -> feedbackList.add(mapperManager.getFeedbackMapper().toDto(x)));
+    public List<Feedback> findFeedbacksPerPage(Pageable pageable) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        feedbackRepository.findAll(pageable).forEach(x -> feedbackList.add(x));
         return feedbackList;
     }
 

@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Car;
 import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.Feedback;
 import com.duy.carshowroomdemo.entity.Post;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.MyList;
@@ -469,11 +470,11 @@ public class MappingController {
             return modelAndView;
         }
 
-        List<FeedbackDto> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+        List<Feedback> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
 
         modelAndView.addObject("feedbackList", feedbackList)
                 .addObject("offset", offset)
-                .setViewName("views/admin/feed-back");
+                .setViewName("views/admin/feedback-managerment");
         return modelAndView;
     }
 
