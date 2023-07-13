@@ -136,6 +136,8 @@ public class Util {
         return text.toString();
     }
 
+
+
     public static String getRandAddress() {
         return getRandInt(1,500) + " " + lorem.getCity() + " " + lorem.getStateFull() + " " + lorem.getCountry();
     }
@@ -289,7 +291,18 @@ public class Util {
             char randomChar = CHARACTERS.charAt(randomIndex);
             sb.append(randomChar);
         }
+        return sb.toString();
+    }
 
+    public static String getRandPW(){
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < 10; i++) {
+            int randomIndex = random.nextInt(CHARACTERS.length());
+            char randomChar = CHARACTERS.charAt(randomIndex);
+            sb.append(randomChar);
+        }
         return sb.toString();
     }
 

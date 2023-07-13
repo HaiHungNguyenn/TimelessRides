@@ -8,6 +8,7 @@ import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.joda.time.DateTime;
@@ -670,15 +671,37 @@ public class UserController {
         Client client = service.getClientService().findEntityByEmail(email);
 
         if (client == null) {
+            String password = Util.getRandPW();
             client = Client.builder()
                     .email(email)
                     .name(token.getPrincipal().getAttribute("name"))
                     .avatar(token.getPrincipal().getAttribute("picture"))
                     .role("client")
                     .joinDate(LocalDate.now())
+                    .password(Util.encodePassword(password))
                     .build();
             service.getClientService().save(client);
+
+            Email clientEmail = new Email();
+            clientEmail.setTo(client.getEmail());
+            clientEmail.setFrom("timelessride3@gmail.com");
+            clientEmail.setSubject("Temporary Password Generated");
+            clientEmail.setTemplate("views/email/email-temp-password.html");
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("tempPassword", password);
+            clientEmail.setProperties(properties);
+            Runnable runnable = () -> {
+                try {
+                    service.getEmailService().sendHTMLMessage(clientEmail);
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+
+            };
+            new Thread(runnable).start();
         }
+
+
 
         session.setAttribute("client", mapperManager.getClientMapper().toDto(client));
         return modelAndView;
