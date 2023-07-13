@@ -8,6 +8,7 @@ import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 @Controller
 @RequestMapping("/staff")
@@ -33,6 +36,9 @@ public class StaffController {
     private Service service;
     @Autowired
     private HttpSession session;
+    @Autowired
+    HttpServletRequest request;
+
     private final MapperManager mapperManager = MapperManager.getInstance();
 
     public boolean isAuthenticated(){
@@ -82,6 +88,7 @@ public class StaffController {
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
         }
+        
 
         return modelAndView;
     }
@@ -90,6 +97,7 @@ public class StaffController {
     public ModelAndView showHomePageSortedNext(@RequestParam("offset") int offset,
                                                @PathVariable String property,
                                                @PathVariable String direction){
+        
         return showHomePage(direction, property, null, null, offset);
     }
 
@@ -132,6 +140,7 @@ public class StaffController {
 
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
+        
 
         return showHomePage(direction, property, successMsg, errorMsg, offset);
     }
@@ -177,6 +186,7 @@ public class StaffController {
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
         }
+        
 
         return modelAndView;
     }
@@ -185,6 +195,8 @@ public class StaffController {
     public ModelAndView showMeetingRequestsSortedPerPage1(@PathVariable String property,
                                                           @PathVariable String direction,
                                                           @Nullable @RequestParam("page") Integer offset){
+        
+
         return showMeetingRequestList(direction, property, null, null, offset);
     }
 
@@ -284,6 +296,7 @@ public class StaffController {
 
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
+        
 
         return showMeetingRequestList(direction, property, successMsg, errorMsg, offset);
     }
@@ -328,6 +341,7 @@ public class StaffController {
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
         }
+        
 
         return modelAndView;
     }
@@ -336,6 +350,8 @@ public class StaffController {
     public ModelAndView showPostRequestSortedPerPage(@PathVariable String direction,
                                                      @PathVariable String property,
                                                      @Nullable @RequestParam("page") Integer offset){
+        
+
         return showPostRequestList(direction, property, null, null, offset);
     }
 
@@ -380,6 +396,7 @@ public class StaffController {
 
         property = property.isEmpty() ? null : property;
         direction = direction.isEmpty() ? null : direction;
+        
 
         return showPostRequestList(direction,property, successMsg, errorMsg, offset);
     }
@@ -404,6 +421,7 @@ public class StaffController {
         long lastPOffset = service.getPostService().getLastOffset(client, 3);
         long totalMeetings = service.getOffMeetingService().getTotalOffMeetingsByClient(client);
         long totalPosts = service.getPostService().getTotalPostRequests(client);
+
         modelAndView.addObject("client", client)
                 .addObject("offMeetingList", offMeetingsByClient)
                 .addObject("postList", postsByClient)
@@ -414,6 +432,8 @@ public class StaffController {
                 .addObject("lastMOffset", lastMOffset)
                 .addObject("lastPOffset", lastPOffset)
                 .setViewName("views/staff/client-details");
+
+        
 
         return modelAndView;
     }
@@ -452,6 +472,7 @@ public class StaffController {
         if(errorMsg!= null){
             modelAndView.addObject("errorMsg", errorMsg);
         }
+        
 
         return modelAndView;
     }
@@ -482,6 +503,7 @@ public class StaffController {
                 successMsg = "Meeting has been moved to your meetings queue";
             }
         }
+        
 
         return showCreateInvoicePage(null, successMsg, errorMsg);
     }
@@ -579,6 +601,8 @@ public class StaffController {
             successMsg = "Invoice has been created";
         new Thread(runnable).start();
         }
+        
+
         return showCreateInvoicePage(null, successMsg, errorMsg);
     }
 
@@ -593,6 +617,7 @@ public class StaffController {
         CarDto car = service.getCarService().findCarById(id);
         modelAndView.addObject("car", car);
         modelAndView.setViewName("views/staff/car-details");
+        
 
         return modelAndView;
     }
@@ -603,6 +628,7 @@ public class StaffController {
 
         session.removeAttribute("staff");
         modelAndView.setViewName("views/user/index");
+        
 
         return modelAndView;
     }
@@ -622,8 +648,12 @@ public class StaffController {
         boolean success = service.getStaffService().changePassword(id,oldPass,newPass);
 
         if(success) {
+            
+
             return showHomePage(null, null, "Password changed successfully", null, null);
         }else {
+            
+
             return showHomePage(null, null, null, "An error occurred", null);
         }
     }

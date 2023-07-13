@@ -3884,3 +3884,352 @@ ol {
 	}
 
 }
+/* meeting history*/
+body .meeting-history{
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f2f2f2;
+}
+
+.meeting-history h1 {
+	color: #333;
+	text-align: center;
+	margin-bottom: 30px;
+	font-size: 20px;
+}
+
+.meeting-history table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meeting-history th, td {
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+	font-size: medium;
+}
+
+.meeting-history th {
+	background-color: #f5f5f5;
+	font-weight: bold;
+}
+
+.meeting-history tr:hover {
+	background-color: #f9f9f9;
+}
+
+.meeting-history td:nth-child(2) {
+	font-weight: bold;
+	color: #555;
+}
+
+.meeting-history status {
+	text-transform: capitalize;
+	font-weight: bold;
+	padding: 5px 0;
+	border-radius: 4px;
+}
+
+.meeting-history pending {
+
+	color: #000000;
+}
+
+.meeting-history approved {
+
+	color: #09ff00;
+}
+
+.meeting-history rejected {
+
+	color: #ff0000;
+}
+
+@media (max-width: 600px) {
+	table {
+		font-size: 14px;
+	}
+}
+/* transaction history*/
+body .transaction-history {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 20px;
+	/*background-color: #f5f5f5;*/
+	background-color: #fff;
+}
+
+.body h1 {
+	color: #333;
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.body table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.body th, td {
+	padding: 12px;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+}
+
+.body th {
+	background-color: #f2f2f2;
+	font-weight: bold;
+	color: #333;
+}
+
+.body tr:hover {
+	background-color: #f9f9f9;
+}
+
+.body .status-completed {
+	color: #11bb11;
+}
+
+.body .status-pending {
+	color: red;
+}
+.body #transactionTable a{
+	color: red;
+}
+.body #transactionTable a:active{
+	color: red;
+}
+.body #transactionTable a:hover{
+	color: red;
+}
+.body a:visited{
+	color: #ffffff;
+}
+
+.body .profile-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	display: none;
+}
+
+.body .profile-modal.active {
+	display: block;
+}
+
+.body .profile-modal h2 {
+	margin-top: 0;
+}
+
+.body .profile-modal p {
+	margin-bottom: 10px;
+}
+
+.body .profile-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	display: none;
+	max-width: 400px;
+	width: 100%;
+	text-align: center;
+}
+
+.body .profile-modal.active {
+	display: block;
+}
+
+.body .profile-modal h2 {
+	margin-top: 0;
+	color: #333;
+	font-size: 24px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.body .profile-modal p {
+	margin-bottom: 10px;
+	font-size: 16px;
+	color: #666;
+	line-height: 1.4;
+}
+
+.body .profile-modal button {
+	padding: 10px 20px;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.body .profile-modal button:hover {
+	background-color: #45a049;
+}
+
+.body .profile-modal button:active {
+	background-color: #3e8e41;
+}
+.body .profile-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	display: none;
+	max-width: 250px;
+	width: 100%;
+	text-align: -webkit-left;
+	border-radius: 8px;
+}
+
+
+
+.body .profile-modal h2 {
+	margin-top: 0;
+	color: #333;
+	font-size: 24px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+}
+
+.body .profile-modal p {
+	margin-bottom: 10px;
+	font-size: 16px;
+	color: #666;
+	line-height: 1.4;
+}
+
+.body .profile-modal button {
+	padding: 12px 24px;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.body .profile-modal button:hover {
+	background-color: #45a049;
+}
+
+.body .profile-modal button:active {
+	background-color: #3e8e41;
+}
+
+.body .profile-modal:before {
+	content: "";
+	position: absolute;
+	top: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent transparent #fff transparent;
+}
+
+.body .profile-modal:after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: 50%;
+	transform: translateX(-50%);
+	border-width: 10px;
+	border-style: solid;
+	border-color: #fff transparent transparent transparent;
+}
+
+
+.body .date-picker-container label {
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.body .date-picker-container input {
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.body .date-picker-container button {
+	padding: 8px 16px;
+	background-color: #4caf50;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.body .date-picker-container button:hover {
+	background-color: #45a049;
+}
+
+.body .date-picker-container button:active {
+	background-color: #3e8e41;
+}
+.body .profile-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	display: none;
+}
+
+.body .profile-modal.active {
+	display: block;
+}
+
+.body .profile-modal h2 {
+	margin-top: 0;
+}
+
+.body .profile-modal p {
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+
+.body .profile-modal button {
+	padding: 8px 16px;
+	background-color: #ce0b25;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.body .profile-modal button:hover {
+	background-color: #8f0b1d;
+}
+
+.body .profile-modal button:active {
+	background-color: #8f0b1d;
+}

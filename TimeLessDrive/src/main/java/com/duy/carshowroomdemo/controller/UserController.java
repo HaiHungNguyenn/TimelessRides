@@ -3,6 +3,7 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
+import com.duy.carshowroomdemo.mapper.ModelMapper;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
@@ -43,13 +44,12 @@ public class UserController {
 
     @GetMapping("/")
     public ModelAndView home() {
-
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("views/user/index");
 
         service.configSearchList();
 
-        modelAndView.setViewName("views/user/index");
-        return modelAndView;
+        return modelAndView
+                .addObject("postList", service.getPostService().findPriorPosts());
     }
 
     @GetMapping("/post_car")

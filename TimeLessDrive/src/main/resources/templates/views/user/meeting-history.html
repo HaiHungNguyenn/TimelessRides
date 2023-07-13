@@ -23,78 +23,9 @@
     <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../../../resources/static/user_assets/css/meeting-history.css" type="text/css">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f2f2f2;
-        }
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #f5f5f5;
-            font-weight: bold;
-        }
-
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        td:nth-child(2) {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .status {
-            text-transform: capitalize;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 4px;
-        }
-
-        .pending {
-            /* background-color: #ffc107; */
-            color: #000000;
-        }
-
-        .approved {
-            /* background-color: #28a745; */
-            color: #09ff00;
-        }
-
-        .rejected {
-            /* background-color: #dc3545; */
-            color: #ff0000;
-        }
-
-        @media (max-width: 600px) {
-            table {
-                font-size: 14px;
-            }
-        }
-    </style>
 
     <!--    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">-->
     <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
@@ -117,6 +48,7 @@
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
     <script src="../../user_assets/js/notification-js.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/meetings-history.css">
 </head>
 
 <body style="padding: 0">
@@ -240,7 +172,7 @@
             </div>
         </div>
     </div>
-    <section style="width:100%;height:80vh">
+    <section class="meeting-history" style="width:100%;height:80vh; padding:0 100px;">
 
         <!-- code here -->
 
