@@ -1,10 +1,8 @@
 package com.duy.carshowroomdemo.mapper;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class MapperManager {
     private static MapperManager instance;
     public static MapperManager getInstance(){
@@ -14,16 +12,16 @@ public class MapperManager {
         return instance;
     }
     private MapperManager(){}
-    private CarImageMapper carImageMapper = new CarImageMapper();
-    private CarDescriptionMapper carDescriptionMapper = new CarDescriptionMapper();
-    private CarMapper carMapper = new CarMapper();
-    private AdminMapper adminMapper = new AdminMapper();
-    private ClientMapper clientMapper = new ClientMapper();
-    private FeedbackMapper feedbackMapper = new FeedbackMapper();
-    private InvoiceMapper invoiceMapper = new InvoiceMapper();
-    private OffMeetingMapper offMeetingMapper = new OffMeetingMapper();
-    private PostMapper postMapper = new PostMapper();
-    private ShowroomMapper showroomMapper = new ShowroomMapper();
-    private StaffMapper staffMapper = new StaffMapper();
-    private ClientNotificationMapper clientNotificationMapper = new ClientNotificationMapper();
+    private final CarImageMapper            carImageMapper              = new CarImageMapper();
+    private final CarDescriptionMapper      carDescriptionMapper        = new CarDescriptionMapper();
+    private final CarMapper                 carMapper                   = new CarMapper();
+    private final AdminMapper               adminMapper                 = new AdminMapper();
+    private final ClientMapper              clientMapper                = new ClientMapper();
+    private final FeedbackMapper            feedbackMapper              = new FeedbackMapper();
+    private final InvoiceMapper             invoiceMapper               = new InvoiceMapper();
+    private final OffMeetingMapper          offMeetingMapper            = new OffMeetingMapper();
+    private final PostMapper                postMapper                  = new PostMapper();
+    private final ShowroomMapper            showroomMapper              = new ShowroomMapper();
+    private final StaffMapper               staffMapper                 = new StaffMapper();
+    private final ClientNotificationMapper  clientNotificationMapper    = new ClientNotificationMapper();
 }

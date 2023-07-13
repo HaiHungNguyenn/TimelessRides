@@ -21,7 +21,7 @@ public class Post {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "car_id")
     private Car car;
 
