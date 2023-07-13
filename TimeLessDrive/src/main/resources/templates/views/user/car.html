@@ -227,17 +227,8 @@
                 <div class="col-lg-9">
                     <div class="car__filter__option">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6">
-                                <div class="car__filter__option__item">
-                                    <h6>Show On Page</h6>
-                                    <select>
-                                        <option value="">9 Car</option>
-                                        <option value="">15 Car</option>
-                                        <option value="">20 Car</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6">
+
+                            <div class="col-lg-8 col-md-8">
                                 <div class="car__filter__option__item car__filter__option__item--right">
                                     <h6>Sort By
                                         <a th:href="@{/car/sorted-asc (property = ${property}, value = ${value})} " th:text="ASC" />
@@ -290,7 +281,7 @@
                         </div>
                     </div>
 
-                    <div class="pagination__option">
+                    <div class="pagination__option" th:if="${postDto.size() > 1}">
                         <ul th:with="url=(${property != null} ? '/admin/searchCarBy-' + ${property} + '-' + ${value} : '/car/sorted-'+${direction})">
 <!--                            <p th:text="${property}"/>-->
 <!--                            <p th:text="${direction}"/>-->

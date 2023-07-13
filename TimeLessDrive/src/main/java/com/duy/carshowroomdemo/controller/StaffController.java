@@ -540,6 +540,7 @@ public class StaffController {
 
             service.getInvoiceService().save(invoice);
             service.getOffMeetingService().save(meeting);
+            service.sendNotification(buyer,"Your invoice of " + meeting.getCar().getName()+" has been created" );
 
 
             //purchase-mail

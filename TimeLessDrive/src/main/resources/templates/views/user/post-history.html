@@ -75,6 +75,23 @@
         .car__item{
             cursor: auto;
         }
+        .hv_black:hover{
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        .car__item__text {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .car-history-information li {
+            margin-bottom: 5px;
+        }
+
+        .car-history-information li span {
+            font-weight: bold;
+        }
+
     </style>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
@@ -210,7 +227,7 @@
         <!-- code here -->
         <div class="container-car-history row">
 
-            <div th:each="post : ${postList}" class="car__item col-md-6">
+            <div th:each="post : ${postList}" class="car__item col-md-6 hv_black">
                 <div class="car__item__pic__slider owl-carousel">
                     <img th:src="${carImageUrl.getContent()}"
                          th:each="carImageUrl : ${post.getCar().getCarImageList()}">
