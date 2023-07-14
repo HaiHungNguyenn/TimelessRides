@@ -117,7 +117,7 @@ public class ClientService {
 
     public List<ClientDto> searchUser(Pageable pageable, String name) {
         List<ClientDto> clientList = new ArrayList<>();
-        repository.findClientsByName(pageable, name).forEach(client -> {
+        repository.findClientsByNameContainingIgnoreCase(pageable, name).forEach(client -> {
             clientList.add(mapperManager.getClientMapper().toDto(client));
         });
 
@@ -125,7 +125,7 @@ public class ClientService {
     }
 
     public long getSearchUserLastOffset(Pageable pageable, String name) {
-        return repository.findClientsByName(pageable, name).getTotalPages();
+        return repository.findClientsByNameContainingIgnoreCase(pageable, name).getTotalPages();
     }
 
     public int getNumOfUser() {

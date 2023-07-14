@@ -50,6 +50,7 @@ public class MappingController {
 
         modelAndView.addObject("keys", revenue.keySet())
                 .addObject("values", revenue.values())
+                .addObject("num",service.getClientService().getNumOfUser())
                 .setViewName("views/admin/index");
         return modelAndView;
     }
@@ -472,6 +473,7 @@ public class MappingController {
         }
         List<Feedback> feedbackList = null;
 
+<<<<<<< HEAD
         if(star==null) {
             feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
         }
@@ -490,6 +492,15 @@ public class MappingController {
                 .addObject("offset", offset)
                 .addObject("averageRating", averageRating)
                 .addObject("feedbackGroup", feedbackGrouped)
+=======
+        List<Feedback> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+        double avgStar = service.getFeedbackService().getAvg();
+        int numOfFeedBack = service.getFeedbackService().getNumOfFeedback();
+        modelAndView.addObject("feedbackList", feedbackList)
+                .addObject("offset", offset)
+                .addObject("avgRating",avgStar)
+                .addObject("numOfFeedBack",numOfFeedBack)
+>>>>>>> 7f499e8aa629d3fd6713aea288c5cd0709fefb76
                 .setViewName("views/admin/feedback-managerment");
         return modelAndView;
     }

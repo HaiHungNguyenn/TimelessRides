@@ -28,7 +28,7 @@ public interface ClientRepository extends JpaRepository<Client, String> {
 
     Client findByEmailAndNameAndPhone(String email, String name, String phone);
 
-    Page<Client> findClientsByName(Pageable pageable, String name);
+    Page<Client> findClientsByNameContainingIgnoreCase(Pageable pageable, String name);
 
     void deleteByEmail(String s);
     @Query("select count(c) from Client c")
