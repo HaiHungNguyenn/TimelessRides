@@ -23,10 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 @Controller
 @RequestMapping("/staff")
@@ -540,6 +537,8 @@ public class StaffController {
 
         Map<String, Object> buyerEmailProperties = new HashMap<>();
 //        Map<String, Object> carOwnerEmailProperties = new HashMap<>();
+        List<Runnable> emailCancellationList = new ArrayList<>();
+
 
 
         if (meeting == null){
@@ -562,8 +561,35 @@ public class StaffController {
             car.getPost().setStatus(Status.COMPLETED);
 
             for (OffMeeting offMeeting : car.getOffMeetingList()){
+                Set<Client> clients = new HashSet<>();
                 if (!offMeeting.getId().equals(meeting.getId())){
                     offMeeting.setStatus(Status.FAILED);
+                    clients.add(offMeeting.getClient());
+                }
+                for (Client client : clients){
+                    service.sendNotification(client, "Your meeting has been cancelled because the car has been purchased");
+                    Email email = new Email();
+                    email.setTo(client.getEmail());
+                    email.setFrom("timelessride3@gmail.com");
+                    email.setSubject("Meeting Cancellation");
+                    email.setTemplate("views/email/email-cancel-meeting.html");
+
+                    Map<String, Object> emailProperties = new HashMap<>();
+
+                    emailProperties.put("clientName", client.getName());
+                    emailProperties.put("meetingDate", offMeeting.getMeetingDate());
+                    emailProperties.put("meetingTime", offMeeting.getMeetingTime());
+                    emailProperties.put("staffName", ((StaffDto) session.getAttribute("staff")).getName());
+                    email.setProperties(emailProperties);
+
+                    emailCancellationList.add(() -> {
+                        try {
+                            service.getEmailService().sendHTMLMessage(email);
+                        } catch (MessagingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+
                 }
             }
 
@@ -606,8 +632,12 @@ public class StaffController {
                     throw new RuntimeException(e);
                 }
             };
+            new Thread(runnable).start();
+            for (Runnable email : emailCancellationList){
+                new Thread(email).start();
+            }
+
             successMsg = "Invoice has been created";
-        new Thread(runnable).start();
         }
         
 
@@ -636,7 +666,6 @@ public class StaffController {
 
         session.removeAttribute("staff");
         modelAndView.setViewName("views/user/index");
-        
 
         return modelAndView;
     }
