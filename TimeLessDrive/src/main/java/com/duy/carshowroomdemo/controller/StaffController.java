@@ -508,7 +508,7 @@ public class StaffController {
     @RequestMapping("/create-invoice/confirm")
     public ModelAndView createInvoiceConfirm(@RequestParam("id") String id,
                                              @Nullable @RequestParam("notes") String notes,
-                                             @RequestParam("tax") String tax){
+                                             @RequestParam("tax") String tax) throws Exception {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
         String errorMsg = null;
         String successMsg = null;
@@ -593,10 +593,16 @@ public class StaffController {
                 }
             }
 
-            service.getCarService().save(car);
-            service.getInvoiceService().save(invoice);
-            service.getOffMeetingService().save(meeting);
-            service.sendNotification(buyer,"Your invoice of " + meeting.getCar().getName() + " has been created" );
+            // handle if error occurs
+            try{
+                service.getCarService().save(car);
+                service.getInvoiceService().save(invoice);
+                service.getOffMeetingService().save(meeting);
+                service.sendNotification(buyer,"Your invoice of " + meeting.getCar().getName() + " has been created" );
+            } catch (Exception e){
+                errorMsg = "An error occurred";
+                return showCreateInvoicePage(null, successMsg, errorMsg);
+            }
 
 
             //purchase-mail
