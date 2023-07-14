@@ -160,7 +160,8 @@ h1 {
     cursor: pointer;
 }
 
-.star + label:hover{
+.star + label:hover,
+.star[selected=true] + label{
     background-color: #f45b0f;
     border-color: orange;
     color: white;

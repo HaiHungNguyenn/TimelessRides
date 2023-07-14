@@ -193,15 +193,20 @@
                     <input class="star" type="radio" id="star" name="star" value="">
                     <label for="star" class="product-rating-overview__filter-active">All</label>
                     <input class="star" type="radio" id="star5" name="star" value="5">
-                    <label th:text="'5 Star ('+ ${feedbackGroup.get(5)==null ? 0 : feedbackGroup.get(5).size()}+')'" for="star5" class="product-rating-overview__filter-active"></label>
+                    <label th:text="'5 Star ('+ ${feedbackGroup.get(5)==null ? 0 : feedbackGroup.get(5).size()}+')'"# for="star5"
+                           ></label>
                     <input class="star" type="radio" id="star4" name="star" value="4">
-                    <label th:text="'4 Star ('+ ${feedbackGroup.get(4)==null ? 0 : feedbackGroup.get(4).size()}+')'" for="star4" class="product-rating-overview__filter-active"></label>
+                    <label th:text="'4 Star ('+ ${feedbackGroup.get(4)==null ? 0 : feedbackGroup.get(4).size()}+')'" for="star4"
+                           ></label>
                     <input class="star" type="radio" id="star3" name="star" value="3">
-                    <label th:text="'3 Star ('+ ${feedbackGroup.get(3)==null ? 0 : feedbackGroup.get(3).size()}+')'" for="star3" class="product-rating-overview__filter-active"></label>
+                    <label th:text="'3 Star ('+ ${feedbackGroup.get(3)==null ? 0 : feedbackGroup.get(3).size()}+')'" for="star3"
+                           ></label>
                     <input class="star" type="radio" id="star2" name="star" value="2">
-                    <label th:text="'2 Star ('+ ${feedbackGroup.get(2)==null ? 0 : feedbackGroup.get(2).size()}+')'" for="star2" class="product-rating-overview__filter-active"></label>
+                    <label th:text="'2 Star ('+ ${feedbackGroup.get(2)==null ? 0 : feedbackGroup.get(2).size()}+')'" for="star2"
+                           ></label>
                     <input class="star" type="radio" id="star1" name="star" value="1">
-                    <label th:text="'1 Star ('+ ${feedbackGroup.get(1)==null ? 0 : feedbackGroup.get(1).size()}+')'" for="star1" class="product-rating-overview__filter-active"></label>
+                    <label th:text="'1 Star ('+ ${feedbackGroup.get(1)==null ? 0 : feedbackGroup.get(1).size()}+')'" for="star1"
+                           ></label>
                 </div>
             </form>
         </div>
@@ -340,6 +345,12 @@
                 document.getElementById("search-star").submit();
             })
         }
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const s = urlParams.get('star')
+        const selected = document.getElementById("star"+s);
+        selected.setAttribute("selected",true)
         // const ratingStars = document.querySelectorAll(".rating-star");
         //
         // function handleRatingSelection(event) {
