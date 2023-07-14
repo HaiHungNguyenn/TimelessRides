@@ -50,6 +50,7 @@ public class MappingController {
 
         modelAndView.addObject("keys", revenue.keySet())
                 .addObject("values", revenue.values())
+                .addObject("num",service.getClientService().getNumOfUser())
                 .setViewName("views/admin/index");
         return modelAndView;
     }
@@ -471,9 +472,12 @@ public class MappingController {
         }
 
         List<Feedback> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
-
+        double avgStar = service.getFeedbackService().getAvg();
+        int numOfFeedBack = service.getFeedbackService().getNumOfFeedback();
         modelAndView.addObject("feedbackList", feedbackList)
                 .addObject("offset", offset)
+                .addObject("avgRating",avgStar)
+                .addObject("numOfFeedBack",numOfFeedBack)
                 .setViewName("views/admin/feedback-managerment");
         return modelAndView;
     }

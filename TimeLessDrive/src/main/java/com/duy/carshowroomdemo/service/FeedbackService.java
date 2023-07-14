@@ -26,4 +26,12 @@ public class FeedbackService {
     public void save(Feedback feedback) {
         feedbackRepository.save(feedback);
     }
+
+    public double getAvg() {
+        return feedbackRepository.getAvgStar();
+    }
+
+    public int getNumOfFeedback() {
+        return feedbackRepository.getTotalFb();
+    }
 }
