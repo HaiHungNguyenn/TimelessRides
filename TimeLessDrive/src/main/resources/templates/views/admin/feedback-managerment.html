@@ -11,7 +11,7 @@
     <link rel="icon" href="../../user_assets/img/logo.png" type="image/png"/>
 
     <link rel="stylesheet" href="../../admin_assets/css/bootstrap1.min.css"/>
-    <link rel="stylesheet" href="../../../static/admin_assets/css/feedback-history.css"/>
+    <link rel="stylesheet" href="../../admin_assets/css/feedback-history.css"/>
 
 
     <link rel="stylesheet" href="../../admin_assets/vendors/themefy_icon/themify-icons.css"/>
@@ -233,7 +233,7 @@
         <div class="product-rating-overview">
             <div class="product-rating-overview_briefing">
                 <div class=" product-rating-overview_score-wrapper ">
-                    <span class="product-rating-overview_rating-score">4.8</span>
+                    <span th:text='${averageRating}' class="product-rating-overview_rating-score"></span>
                     <span class="product-rating-overview_rating-score-out-of">/5</span>
                 </div>
                 <a class="rating-star" data-value="1">&#9733;</a>
@@ -242,24 +242,34 @@
                 <a class="rating-star" data-value="4">&#9733;</a>
                 <a class="rating-star" data-value="5">&#9733;</a>
             </div>
-            <div class="product-rating-overview__filters">
-                <button class="product-rating-overview__filter-active">All</button>
-                <button class="product-rating-overview__filter-active">5 Star (202)</button>
-                <button class="product-rating-overview__filter-active">4 Star (8)</button>
-                <button class="product-rating-overview__filter-active">3 Star (3)</button>
-                <button class="product-rating-overview__filter-active">2 Star (5)</button>
-                <button class="product-rating-overview__filter-active">1 Star (2)</button>
-                <button class="product-rating-overview__filter-active">Have Commented (111)</button>
-            </div>
+            <form id="search-star" action="/admin/feedbacks" method="get">
+                <div class="product-rating-overview__filters">
+                    <input class="star" type="radio" id="star" name="star" value="">
+                    <label for="star" class="product-rating-overview__filter-active">All</label>
+                    <input class="star" type="radio" id="star5" name="star" value="5">
+                    <label th:text="'5 Star ('+ ${feedbackGroup.get(5)==null ? 0 : feedbackGroup.get(5).size()}+')'" for="star5" class="product-rating-overview__filter-active"></label>
+                    <input class="star" type="radio" id="star4" name="star" value="4">
+                    <label th:text="'4 Star ('+ ${feedbackGroup.get(4)==null ? 0 : feedbackGroup.get(4).size()}+')'" for="star4" class="product-rating-overview__filter-active"></label>
+                    <input class="star" type="radio" id="star3" name="star" value="3">
+                    <label th:text="'3 Star ('+ ${feedbackGroup.get(3)==null ? 0 : feedbackGroup.get(3).size()}+')'" for="star3" class="product-rating-overview__filter-active"></label>
+                    <input class="star" type="radio" id="star2" name="star" value="2">
+                    <label th:text="'2 Star ('+ ${feedbackGroup.get(2)==null ? 0 : feedbackGroup.get(2).size()}+')'" for="star2" class="product-rating-overview__filter-active"></label>
+                    <input class="star" type="radio" id="star1" name="star" value="1">
+                    <label th:text="'1 Star ('+ ${feedbackGroup.get(1)==null ? 0 : feedbackGroup.get(1).size()}+')'" for="star1" class="product-rating-overview__filter-active"></label>
+                </div>
+            </form>
         </div>
 
         <div class="feedback" th:each="feedback : ${feedbackList}">
             <h2 th:text="${feedback.getDescription()}"></h2>
-            <div class="rating-container" >
+            <div class="rating-container">
                 <style>
                     @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-                    fieldset, label { margin: 0; padding: 0; }
+                    fieldset, label {
+                        margin: 0;
+                        padding: 0;
+                    }
 
                     /****** Style Star Rating Widget *****/
 
@@ -271,7 +281,10 @@
                         width: fit-content;
                     }
 
-                    .rating > input { display: none; }
+                    .rating > input {
+                        display: none;
+                    }
+
                     .rating > label:before {
                         margin: 5px;
                         font-size: 1.25em;
@@ -292,23 +305,56 @@
 
                     /***** CSS Magic to Highlight Stars on Hover *****/
 
-                    .rating input:checked ~ label { color: #FFED85;  }
-                    #ratings:after{
+                    .rating input:checked ~ label {
+                        color: #FFED85;
+                    }
+
+                    #ratings:after {
                         clear: both;
                     }
                 </style>
                 <form>
                     <fieldset id="ratings" th:with="rating=${feedback.getRating()}" class="rating col-12" disabled>
-                        <input type="radio" th:attr="id='star5-'+${feedbackStat.index}" name="rating" value="5" th:checked="${rating==5}"/><label class = "full" th:attr="for='star5-'+${feedbackStat.index}" title="Awesome - 5 stars"></label>
-                        <input type="radio" th:attr="id='star4.5-'+${feedbackStat.index}" name="rating" value="4.5" th:checked="${rating==4.5}"/><label class="half" th:attr="for='star4.5-'+${feedbackStat.index}" title="Pretty good - 4.5 stars"></label>
-                        <input type="radio" th:attr="id='star4-'+${feedbackStat.index}" name="rating" value="4" th:checked="${rating==4}"/><label class = "full" th:attr="for='star4-'+${feedbackStat.index}" title="Pretty good - 4 stars"></label>
-                        <input type="radio" th:attr="id='star3.5-'+${feedbackStat.index}" name="rating" value="3.5" th:checked="${rating==3.5}"/><label class="half" th:attr="for='star3.5-'+${feedbackStat.index}" title="Meh - 3.5 stars"></label>
-                        <input type="radio" th:attr="id='star3-'+${feedbackStat.index}" name="rating" value="3" th:checked="${rating==3}"/><label class = "full" th:attr="for='star3-'+${feedbackStat.index}" title="Meh - 3 stars"></label>
-                        <input type="radio" th:attr="id='star2.5-'+${feedbackStat.index}" name="rating" value="2.5" th:checked="${rating==2.5}"/><label class="half" th:attr="for='star2.5-'+${feedbackStat.index}" title="Kinda bad - 2.5 stars"></label>
-                        <input type="radio" th:attr="id='star2-'+${feedbackStat.index}" name="rating" value="2" th:checked="${rating==2}"/><label class = "full" th:attr="for='star2-'+${feedbackStat.index}" title="Kinda bad - 2 stars"></label>
-                        <input type="radio" th:attr="id='star1.5-'+${feedbackStat.index}" name="rating" value="1.5" th:checked="${rating==1.5}"/><label class="half" th:attr="for='star1.5-'+${feedbackStat.index}" title="Meh - 1.5 stars"></label>
-                        <input type="radio" th:attr="id='star1-'+${feedbackStat.index}" name="rating" value="1" th:checked="${rating==1}"/><label class = "full" th:attr="for='star1-'+${feedbackStat.index}" title="Sucks big time - 1 star"></label>
-                        <input type="radio" th:attr="id='star0.5-'+${feedbackStat.index}" name="rating" value="0.5" th:checked="${rating==0.5}"/><label class="half" th:attr="for='star0.5-'+${feedbackStat.index}" title="Sucks big time - 0.5 stars"></label>
+                        <input type="radio" th:attr="id='star5-'+${feedbackStat.index}" name="rating" value="5"
+                               th:checked="${rating==5}"/><label class="full"
+                                                                 th:attr="for='star5-'+${feedbackStat.index}"
+                                                                 title="Awesome - 5 stars"></label>
+                        <input type="radio" th:attr="id='star4.5-'+${feedbackStat.index}" name="rating" value="4.5"
+                               th:checked="${rating==4.5}"/><label class="half"
+                                                                   th:attr="for='star4.5-'+${feedbackStat.index}"
+                                                                   title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" th:attr="id='star4-'+${feedbackStat.index}" name="rating" value="4"
+                               th:checked="${rating==4}"/><label class="full"
+                                                                 th:attr="for='star4-'+${feedbackStat.index}"
+                                                                 title="Pretty good - 4 stars"></label>
+                        <input type="radio" th:attr="id='star3.5-'+${feedbackStat.index}" name="rating" value="3.5"
+                               th:checked="${rating==3.5}"/><label class="half"
+                                                                   th:attr="for='star3.5-'+${feedbackStat.index}"
+                                                                   title="Meh - 3.5 stars"></label>
+                        <input type="radio" th:attr="id='star3-'+${feedbackStat.index}" name="rating" value="3"
+                               th:checked="${rating==3}"/><label class="full"
+                                                                 th:attr="for='star3-'+${feedbackStat.index}"
+                                                                 title="Meh - 3 stars"></label>
+                        <input type="radio" th:attr="id='star2.5-'+${feedbackStat.index}" name="rating" value="2.5"
+                               th:checked="${rating==2.5}"/><label class="half"
+                                                                   th:attr="for='star2.5-'+${feedbackStat.index}"
+                                                                   title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" th:attr="id='star2-'+${feedbackStat.index}" name="rating" value="2"
+                               th:checked="${rating==2}"/><label class="full"
+                                                                 th:attr="for='star2-'+${feedbackStat.index}"
+                                                                 title="Kinda bad - 2 stars"></label>
+                        <input type="radio" th:attr="id='star1.5-'+${feedbackStat.index}" name="rating" value="1.5"
+                               th:checked="${rating==1.5}"/><label class="half"
+                                                                   th:attr="for='star1.5-'+${feedbackStat.index}"
+                                                                   title="Meh - 1.5 stars"></label>
+                        <input type="radio" th:attr="id='star1-'+${feedbackStat.index}" name="rating" value="1"
+                               th:checked="${rating==1}"/><label class="full"
+                                                                 th:attr="for='star1-'+${feedbackStat.index}"
+                                                                 title="Sucks big time - 1 star"></label>
+                        <input type="radio" th:attr="id='star0.5-'+${feedbackStat.index}" name="rating" value="0.5"
+                               th:checked="${rating==0.5}"/><label class="half"
+                                                                   th:attr="for='star0.5-'+${feedbackStat.index}"
+                                                                   title="Sucks big time - 0.5 stars"></label>
                     </fieldset>
                 </form>
             </div>
@@ -324,7 +370,8 @@
     </div>
     <div class="page-select">
         <a th:classappend="${offset == 1} ? 'disabled'"
-           th:href="@{${url} (offset = ${offset - 1})}"
+           th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+           th:href="${urlBuilder.replaceQueryParam('offset', offset - 1).build().toUriString()}"
            th:text="Prev"/>
 
         <a href="#" class="active" th:text="${offset}"></a>
@@ -336,11 +383,17 @@
         </li>
 
         <a th:classappend="${lastOffset < offset + 1} ? 'disabled'"
-           th:href="@{${url} (offset = ${offset + 1})}"
+           th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+           th:href="${urlBuilder.replaceQueryParam('offset', offset + 1).build().toUriString()}"
            th:text="Next"/>
     </div>
     <script>
-
+        const stars = document.getElementsByName("star");
+        for(let star of stars){
+            star.addEventListener("click",() => {
+                document.getElementById("search-star").submit();
+            })
+        }
         // const ratingStars = document.querySelectorAll(".rating-star");
         //
         // function handleRatingSelection(event) {

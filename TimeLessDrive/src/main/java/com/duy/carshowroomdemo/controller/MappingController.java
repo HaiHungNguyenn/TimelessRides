@@ -461,7 +461,8 @@ public class MappingController {
     }
 
     @RequestMapping("/feedbacks")
-    public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset) {
+    public ModelAndView showFeedbacks(@Nullable @RequestParam("offset") Integer offset,
+                                      @Nullable @RequestParam("star") Double star) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         offset = (offset == null) ? 1 : offset;
@@ -469,11 +470,26 @@ public class MappingController {
         if (!isAuthenticated()) {
             return modelAndView;
         }
+        List<Feedback> feedbackList = null;
 
-        List<Feedback> feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+        if(star==null) {
+            feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+        }
+        else{
+            feedbackList = service.getFeedbackService().findFeedbacksByRating(star, PageRequest.of(offset - 1, 10));
+        }
+
+
+        List<Feedback> allFeedBacks = service.getFeedbackService().findAllFeedBacks();
+        Map<Integer, List<Feedback>> feedbackGrouped =
+                allFeedBacks.stream().collect(Collectors.groupingBy(w -> (int)Math.ceil(w.getRating())));
+
+        String averageRating = String.format("%.1f" ,service.getFeedbackService().getAverageRating());
 
         modelAndView.addObject("feedbackList", feedbackList)
                 .addObject("offset", offset)
+                .addObject("averageRating", averageRating)
+                .addObject("feedbackGroup", feedbackGrouped)
                 .setViewName("views/admin/feedback-managerment");
         return modelAndView;
     }

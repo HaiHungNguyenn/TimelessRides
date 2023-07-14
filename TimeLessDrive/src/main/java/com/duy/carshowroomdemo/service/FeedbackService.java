@@ -23,6 +23,28 @@ public class FeedbackService {
         return feedbackList;
     }
 
+    public List<Feedback> findFeedbacksByRating(Double star,Pageable pageable) {
+        List<Feedback> feedbackList = new ArrayList<>();
+        feedbackRepository.findAllByRating(star ,pageable).forEach(x -> feedbackList.add(x));
+        return feedbackList;
+    }
+
+    public List<Feedback> findAllFeedBacks() {
+        List<Feedback> feedbackList = new ArrayList<>();
+        feedbackRepository.findAll().forEach(x -> feedbackList.add(x));
+        return feedbackList;
+    }
+
+    public double getAverageRating() {
+        double average=0;
+        List<Feedback> feedbackList = findAllFeedBacks();
+        for(Feedback f : feedbackList){
+            average += f.getRating();
+        }
+        average = average/feedbackList.size();
+        return average;
+    }
+
     public void save(Feedback feedback) {
         feedbackRepository.save(feedback);
     }

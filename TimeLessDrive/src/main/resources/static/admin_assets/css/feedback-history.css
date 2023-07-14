@@ -147,3 +147,21 @@ h1 {
     font-size: larger;
     font-weight: bolder;
 }
+
+.star{
+    display: none;
+}
+
+.star + label{
+    border: 1px solid;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.star + label:hover{
+    background-color: #f45b0f;
+    border-color: orange;
+    color: white;
+}
