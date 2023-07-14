@@ -152,4 +152,8 @@ public class OffMeetingService {
         offMeetingRepository.findByStaffId(staffID ,pageable).forEach(x -> list.add(mapperManager.getOffMeetingMapper().toDto(x)));
         return list;
     }
+
+    public boolean isOffMeetingsByStaffLastOffset(String staffID, Pageable pageable) {
+        return offMeetingRepository.findByStaffId(staffID ,pageable).isLast();
+    }
 }

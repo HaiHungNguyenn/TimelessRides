@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <!-- Mirrored from demo.dashboardpack.com/user-management-html/empty_page.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
 <head>
     <meta charset="utf-8"/>
@@ -367,7 +367,8 @@
                 <!--              </div>-->
             </div>
             <div class="page-select">
-                <a th:classappend="${offset == 1} ? 'disabled'"
+                <a th:if="${offset == 1}" href="#!" th:text="Prev"/>
+                <a th:if="${offset != 1}"
                    th:href="@{${url} (offset = ${offset - 1}, property = ${property}, value = ${value}, direction = ${direction})}"
                    th:text="Prev"/>
 
@@ -379,7 +380,8 @@
                                                            th:href="@{${url} (offset = ${offset + 2}, property = ${property}, value = ${value}, direction = ${direction})}"/>
                 </li>
 
-                <a th:classappend="${lastOffset < offset + 1} ? 'disabled'"
+                <a th:if="${isLastPage}" href="#!" th:text="Next"/>
+                <a th:if="${!isLastPage}"
                    th:href="@{${url} (offset = ${offset + 1}, property = ${property}, value = ${value}, direction = ${direction})}"
                    th:text="Next"/>
             </div>

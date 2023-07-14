@@ -322,9 +322,11 @@ public class MappingController {
         modelAndView.setViewName("views/admin/staff-profile");
         StaffDto staff = service.getStaffService().findById(staffID);
         List<OffMeetingDto> list = service.getOffMeetingService().findByStaffId(staffID, PageRequest.of(offset - 1, 4));
-        modelAndView.addObject("staff", staff);
-        modelAndView.addObject("offset", offset);
-        modelAndView.addObject("offMeetingList", list);
+        boolean isLastPage = service.getOffMeetingService().isOffMeetingsByStaffLastOffset(staffID, PageRequest.of(offset - 1, 4));
+        modelAndView.addObject("staff", staff)
+                .addObject("offset", offset)
+                .addObject("offMeetingList", list)
+                .addObject("isLastPage", isLastPage);
 
         return modelAndView;
     }
