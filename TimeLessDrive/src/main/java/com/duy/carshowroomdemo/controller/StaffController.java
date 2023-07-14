@@ -522,6 +522,7 @@ public class StaffController {
 
         OffMeeting meeting = service.getOffMeetingService().findById(id);
         Client buyer = meeting.getClient();
+        Car car = service.getCarService().findCarEntityById(meeting.getCar().getId());
 //        Client carOwner = meeting.getCar().getPost().getClient();
         Email buyerEmail = new Email();
         Email carOwnerEmail = new Email();
@@ -556,13 +557,20 @@ public class StaffController {
                     .otherInformation(notes)
                     .build();
 
-            meeting.getCar().setStatus(Status.BOUGHT);
             meeting.setStatus(Status.DONE);
-            meeting.getCar().getPost().setStatus(Status.COMPLETED);
+            car.setStatus(Status.BOUGHT);
+            car.getPost().setStatus(Status.COMPLETED);
 
+            for (OffMeeting offMeeting : car.getOffMeetingList()){
+                if (!offMeeting.getId().equals(meeting.getId())){
+                    offMeeting.setStatus(Status.FAILED);
+                }
+            }
+
+            service.getCarService().save(car);
             service.getInvoiceService().save(invoice);
             service.getOffMeetingService().save(meeting);
-            service.sendNotification(buyer,"Your invoice of " + meeting.getCar().getName()+" has been created" );
+            service.sendNotification(buyer,"Your invoice of " + meeting.getCar().getName() + " has been created" );
 
 
             //purchase-mail
