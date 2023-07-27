@@ -85,8 +85,6 @@ function RenderCalendar() {
     }
     console.log(days)
 
-
-
     const slots = []
     document.getElementsByName("slots").forEach(
         slot => slots.push(slot.getAttribute("value")));
@@ -101,6 +99,11 @@ function RenderCalendar() {
     document.getElementsByName("cars").forEach(
         car => cars.push(car.getAttribute("value")));
     console.log(cars);
+
+    const statuses = []
+    document.getElementsByName("status").forEach(
+        status => statuses.push(status.getAttribute("value")));
+    console.log(statuses);
 
     table.innerHTML += "<tbody></tbody>"
     const tableBody = document.querySelector("#calendar table tbody");
@@ -125,18 +128,15 @@ function RenderCalendar() {
                     //check overlap meetings in this slot
                     //if there is no overlap count is equal to 1
                     if (count == 1) {
-                        tableRender += "<a href='#'>" + cars[i] + "</a>" +
-                            "</td>"
+                        tableRender +=
+                            "<a href='#'>" + cars[i] + "</a><br>"
                         if (slots[i] == slots[i + 1]) i++
                     } else {
-                        tableRender += "<a href='#'>" + count + " Cars</a>" +
-                            "</td>"
+                        tableRender += "<a href='#'>" + count + " Cars</a><br>"
                         if (slots[i] == slots[i + 1]) i++
                     }
-                    console.log(count)
                 } else {
-                    tableRender += "<a href='#'>" + cars[i] + " Cars</a>" +
-                        "</td>"
+                    tableRender += "<a href='#'>" + cars[i] + " Cars</a><br>"
                 }
             } else tableRender += "<td> - </td>"
         }

@@ -8,6 +8,9 @@
 
 #calendar td{
     padding: 1%;
+}
+
+tbody td{
     width: 12%;
 }
 
@@ -73,3 +76,5 @@ tbody tr:nth-child(even) {
 tbody tr:hover{
     background-color: #f2f2f2;
 }
+
+
