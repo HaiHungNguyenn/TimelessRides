@@ -313,6 +313,19 @@
                                                         </p>
                                                     </div>
                                                 </div>
+                                                <hr/>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <p class="mb-0">Status</p>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <p
+                                                           th:text="${meeting.getStatus()}"
+                                                            th:class="'mb-0 '+${meeting.getStatus() == 'Done' || meeting.getStatus() == 'Approved' ? 'buton success-btn' : 'buton fail-btn'}">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

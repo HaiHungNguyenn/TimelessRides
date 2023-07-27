@@ -215,6 +215,7 @@
                             <div th:each="meeting : ${meetings}" th:value="${meeting.getCar().getName()+ ' ' + meeting.getCar().getCarDescription().getModel()}" name="cars"></div>
                             <div th:each="meeting : ${meetings}" th:value="${meeting.getMeetingDate()}" name="dates"></div>
                             <div th:each="meeting : ${meetings}" th:value="${meeting.getMeetingTime()}" name="slots"></div>
+                            <div th:each="meeting : ${meetings}" th:value="${meeting.getStatus()}" name="status"></div>
                         </table>
                     </div>
                 </div>
