@@ -181,10 +181,23 @@
                       </div>
                     </div>
                     <div class="col-lg-4 text-end d-flex justify-content-end">
-                      <select class="nice_Select2 max-width-220">
-                        <option value="1">Show by month</option>
+<!--                      <select class="nice_Select2 max-width-220">-->
+<!--                        <option value="1">Show by month</option>-->
+<!--                        <option value="1">Show by year</option>-->
+<!--                        <option value="1">Show by day</option>-->
+<!--                      </select>-->
+                      <div>
+                        <div class="btn btn-primary d-none" onclick="showRevenueByMonth()" id="show-revenue">Show</div>
+                      </div>
+                      <div>
+                        <select class="nice_Select2 max-width-220 d-none" name="month" id="monthSelector"></select>
+                      </div>
+                      <div>
+                        <select class="nice_Select2 max-width-220 d-none" name="year" onchange="showRevenueByYear()" id="yearSelector"></select>
+                      </div>
+                      <select class="nice_Select2 max-width-220" onchange="periodHandler()" id="period-selector">
                         <option value="1">Show by year</option>
-                        <option value="1">Show by day</option>
+                        <option value="2">Show by month</option>
                       </select>
                     </div>
                   </div>
@@ -281,176 +294,6 @@
                 </div>
               </div>
             </div>
-<!--            <div class="col-xl-4">-->
-<!--              <div class="white_card card_height_100 mb_30">-->
-<!--                <div class="white_card_header">-->
-<!--                  <div class="row align-items-center">-->
-<!--                    <div class="col-lg-4">-->
-<!--                      <div class="main-title">-->
-<!--                        <h3 class="m-0">New Users</h3>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-lg-8">-->
-<!--                      <div class="row justify-content-end">-->
-<!--                        <div class="col-lg-8 d-flex justify-content-end">-->
-<!--                          <div-->
-<!--                            class="serach_field-area theme_bg d-flex align-items-center"-->
-<!--                          >-->
-<!--                            <div class="search_inner">-->
-<!--                              <form action="#">-->
-<!--                                <div class="search_field">-->
-<!--                                  <input type="text" placeholder="Search" />-->
-<!--                                </div>-->
-<!--                                <button type="submit">-->
-<!--                                  <img src="../../admin_assets/img/icon/icon_search.svg" alt />-->
-<!--                                </button>-->
-<!--                              </form>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="row justify-content-end">-->
-<!--                    <div class="col-lg-4 mt_20">-->
-<!--                      <select class="nice_Select2 wide">-->
-<!--                        <option value="1">Show by All</option>-->
-<!--                        <option value="1">Show by A</option>-->
-<!--                        <option value="1">Show by B</option>-->
-<!--                      </select>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="white_card_body">-->
-<!--                  <div-->
-<!--                    class="single_user_pil d-flex align-items-center justify-content-between"-->
-<!--                  >-->
-<!--                    <div class="user_pils_thumb d-flex align-items-center">-->
-<!--                      <div class="thumb_34 mr_15 mt-0">-->
-<!--                        <img-->
-<!--                          class="img-fluid radius_50"-->
-<!--                          src="../../admin_assets/img/customers/1.png"-->
-<!--                          alt-->
-<!--                        />-->
-<!--                      </div>-->
-<!--                      <span class="f_s_14 f_w_400 text_color_11"-->
-<!--                        >Jhon Smith</span-->
-<!--                      >-->
-<!--                    </div>-->
-<!--                    <div class="user_info">Customer</div>-->
-<!--                    <div class="action_btns d-flex">-->
-<!--                      <a href="#" class="action_btn mr_10">-->
-<!--                        <i class="far fa-edit"></i>-->
-<!--                      </a>-->
-<!--                      <a href="#" class="action_btn">-->
-<!--                        <i class="fas fa-trash"></i>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div-->
-<!--                    class="single_user_pil admin_bg d-flex align-items-center justify-content-between"-->
-<!--                  >-->
-<!--                    <div class="user_pils_thumb d-flex align-items-center">-->
-<!--                      <div class="thumb_34 mr_15 mt-0">-->
-<!--                        <img-->
-<!--                          class="img-fluid radius_50"-->
-<!--                          src="../../admin_assets/img/customers/1.png"-->
-<!--                          alt-->
-<!--                        />-->
-<!--                      </div>-->
-<!--                      <span class="f_s_14 f_w_400 text_color_11"-->
-<!--                        >Jhon Smith</span-->
-<!--                      >-->
-<!--                    </div>-->
-<!--                    <div class="user_info">Admin</div>-->
-<!--                    <div class="action_btns d-flex">-->
-<!--                      <a href="#" class="action_btn mr_10">-->
-<!--                        <i class="far fa-edit"></i>-->
-<!--                      </a>-->
-<!--                      <a href="#" class="action_btn">-->
-<!--                        <i class="fas fa-trash"></i>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div-->
-<!--                    class="single_user_pil d-flex align-items-center justify-content-between"-->
-<!--                  >-->
-<!--                    <div class="user_pils_thumb d-flex align-items-center">-->
-<!--                      <div class="thumb_34 mr_15 mt-0">-->
-<!--                        <img-->
-<!--                          class="img-fluid radius_50"-->
-<!--                          src="../../admin_assets/img/customers/1.png"-->
-<!--                          alt-->
-<!--                        />-->
-<!--                      </div>-->
-<!--                      <span class="f_s_14 f_w_400 text_color_11"-->
-<!--                        >Jhon Smith</span-->
-<!--                      >-->
-<!--                    </div>-->
-<!--                    <div class="user_info">Customer</div>-->
-<!--                    <div class="action_btns d-flex">-->
-<!--                      <a href="#" class="action_btn mr_10">-->
-<!--                        <i class="far fa-edit"></i>-->
-<!--                      </a>-->
-<!--                      <a href="#" class="action_btn">-->
-<!--                        <i class="fas fa-trash"></i>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div-->
-<!--                    class="single_user_pil d-flex align-items-center justify-content-between"-->
-<!--                  >-->
-<!--                    <div class="user_pils_thumb d-flex align-items-center">-->
-<!--                      <div class="thumb_34 mr_15 mt-0">-->
-<!--                        <img-->
-<!--                          class="img-fluid radius_50"-->
-<!--                          src="../../admin_assets/img/customers/1.png"-->
-<!--                          alt-->
-<!--                        />-->
-<!--                      </div>-->
-<!--                      <span class="f_s_14 f_w_400 text_color_11"-->
-<!--                        >Jhon Smith</span-->
-<!--                      >-->
-<!--                    </div>-->
-<!--                    <div class="user_info">Customer</div>-->
-<!--                    <div class="action_btns d-flex">-->
-<!--                      <a href="#" class="action_btn mr_10">-->
-<!--                        <i class="far fa-edit"></i>-->
-<!--                      </a>-->
-<!--                      <a href="#" class="action_btn">-->
-<!--                        <i class="fas fa-trash"></i>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div-->
-<!--                    class="single_user_pil d-flex align-items-center justify-content-between mb-0"-->
-<!--                  >-->
-<!--                    <div class="user_pils_thumb d-flex align-items-center">-->
-<!--                      <div class="thumb_34 mr_15 mt-0">-->
-<!--                        <img-->
-<!--                          class="img-fluid radius_50"-->
-<!--                          src="../../admin_assets/img/customers/1.png"-->
-<!--                          alt-->
-<!--                        />-->
-<!--                      </div>-->
-<!--                      <span class="f_s_14 f_w_400 text_color_11"-->
-<!--                        >Jhon Smith</span-->
-<!--                      >-->
-<!--                    </div>-->
-<!--                    <div class="user_info">Customer</div>-->
-<!--                    <div class="action_btns d-flex">-->
-<!--                      <a href="#" class="action_btn mr_10">-->
-<!--                        <i class="far fa-edit"></i>-->
-<!--                      </a>-->
-<!--                      <a href="#" class="action_btn">-->
-<!--                        <i class="fas fa-trash"></i>-->
-<!--                      </a>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
 
             <div class="col-xl-12">
               <div class="white_card card_height_100 mb_20">
@@ -553,105 +396,6 @@
               </div>
             </div>
 
-
-<!--            <div class="col-xl-4">-->
-<!--              <div class="white_card card_height_100 mb_30">-->
-<!--                <div class="white_card_header">-->
-<!--                  <div class="box_header m-0">-->
-<!--                    <div class="main-title">-->
-<!--                      <h3 class="m-0">Recent activity</h3>-->
-<!--                    </div>-->
-<!--                    <div class="header_more_tool">-->
-<!--                      <div class="dropdown">-->
-<!--                        <span-->
-<!--                          class="dropdown-toggle"-->
-<!--                          id="dropdownMenuButton"-->
-<!--                          data-bs-toggle="dropdown"-->
-<!--                        >-->
-<!--                          <i class="ti-more-alt"></i>-->
-<!--                        </span>-->
-<!--                        <div-->
-<!--                          class="dropdown-menu dropdown-menu-right"-->
-<!--                          aria-labelledby="dropdownMenuButton"-->
-<!--                        >-->
-<!--                          <a class="dropdown-item" href="#">-->
-<!--                            <i class="ti-eye"></i> Action</a-->
-<!--                          >-->
-<!--                          <a class="dropdown-item" href="#">-->
-<!--                            <i class="ti-trash"></i> Delete</a-->
-<!--                          >-->
-<!--                          <a class="dropdown-item" href="#">-->
-<!--                            <i class="fas fa-edit"></i> Edit</a-->
-<!--                          >-->
-<!--                          <a class="dropdown-item" href="#">-->
-<!--                            <i class="ti-printer"></i> Print</a-->
-<!--                          >-->
-<!--                          <a class="dropdown-item" href="#">-->
-<!--                            <i class="fa fa-download"></i> Download</a-->
-<!--                          >-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="white_card_body">-->
-<!--                  <div class="Activity_timeline">-->
-<!--                    <ul>-->
-<!--                      <li>-->
-<!--                        <div class="activity_bell"></div>-->
-<!--                        <div class="timeLine_inner d-flex align-items-center">-->
-<!--                          <div class="activity_wrap">-->
-<!--                            <h6>5 min ago</h6>-->
-<!--                            <p>-->
-<!--                              Lorem ipsum dolor sit amet, consectetur adipiscing-->
-<!--                              elit. Quisque scelerisque-->
-<!--                            </p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </li>-->
-<!--                      <li>-->
-<!--                        <div class="activity_bell"></div>-->
-<!--                        <div class="timeLine_inner d-flex align-items-center">-->
-<!--                          <div class="activity_wrap">-->
-<!--                            <h6>5 min ago</h6>-->
-<!--                            <p>-->
-<!--                              Lorem ipsum dolor sit amet, consectetur adipiscing-->
-<!--                              elit. Quisque scelerisque-->
-<!--                            </p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </li>-->
-<!--                      <li>-->
-<!--                        <div class="activity_bell bell_lite"></div>-->
-<!--                        <div class="timeLine_inner d-flex align-items-center">-->
-<!--                          <div class="activity_wrap">-->
-<!--                            <h6>5 min ago</h6>-->
-<!--                            <p>-->
-<!--                              Lorem ipsum dolor sit amet, consectetur adipiscing-->
-<!--                              elit. Quisque scelerisque-->
-<!--                            </p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </li>-->
-<!--                      <li>-->
-<!--                        <div class="activity_bell bell_lite"></div>-->
-<!--                        <div class="timeLine_inner d-flex align-items-center">-->
-<!--                          <div class="activity_wrap">-->
-<!--                            <h6>5 min ago</h6>-->
-<!--                            <p>-->
-<!--                              Lorem ipsum dolor sit amet, consectetur adipiscing-->
-<!--                              elit. Quisque scelerisque-->
-<!--                            </p>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </li>-->
-<!--                    </ul>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-
           </div>
         </div>
       </div>
@@ -692,6 +436,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script th:inline="javascript">
       $(function(){
+        console.log([[${keys}]]);
         Highcharts.chart('chart-container', {
           chart: {
             type: 'spline'
@@ -708,7 +453,7 @@
           },
           yAxis: {
             min: 0,
-            max: 10000,
+            max: [[${maxRevenue}]],
             title: {
               text: 'Revenue (USD)'
             }
@@ -733,6 +478,148 @@
           }]
         });
       });
+
+      function updateChart(keys, values){
+        // document.querySelector("#chart-container").innerHTML = '';
+        Highcharts.chart('chart-container', {
+          chart: {
+            type: 'spline'
+          },
+          title: {
+            text: 'Annual Revenue'
+          },
+          // subtitle: {
+          //   text: 'Details'
+          // },
+          xAxis: {
+            categories: keys,
+            crosshair: true
+          },
+          yAxis: {
+            min: 0,
+            max: Math.max(...values),
+            title: {
+              text: 'Revenue (USD)'
+            }
+          },
+          tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">Total: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} USD</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+          },
+          plotOptions: {
+            column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+            }
+          },
+          series: [{
+            name: 'Month',
+            data: values
+          }]
+        });
+      }
+    </script>
+
+    <script>
+      function periodHandler(){
+
+        const periodSelector = document.querySelector("#period-selector");
+        const yearSelector = document.querySelector("#yearSelector");
+        const monthSelector = document.querySelector("#monthSelector");
+        const value = periodSelector.value;
+        const buttonShow = document.querySelector("#show-revenue");
+
+        switch (value){
+          case "1":
+            initYearSelector();
+
+            if (!monthSelector.classList.contains("d-none")){
+              monthSelector.classList.add("d-none");
+            }
+
+            if (!buttonShow.classList.contains("d-none")){
+              buttonShow.classList.add("d-none");
+            }
+
+            yearSelector.classList.remove("d-none");
+            break;
+          case "2":
+            initYearSelector();
+            initMonthSelector();
+            yearSelector.classList.remove("d-none");
+            monthSelector.classList.remove("d-none");
+            buttonShow.classList.remove("d-none")
+            break;
+        }
+      }
+
+      function initYearSelector(){
+        let yearSelector = document.querySelector("#yearSelector");
+        yearSelector.innerHTML = '';
+        for (let i = 2000; i <= 2023; i++) {
+          let opt = document.createElement("option")
+          opt.text = i.toString();
+          yearSelector.appendChild(opt);
+        }
+      }
+
+      function initMonthSelector(){
+        let monthSelector = document.querySelector("#monthSelector");
+        monthSelector.innerHTML = '';
+        for (let i = 1; i <= 12; i++) {
+          let opt = document.createElement("option")
+          opt.text = i.toString();
+          monthSelector.appendChild(opt);
+        }
+      }
+
+      function showRevenueByYear(){
+        // show revenue by year here
+        const yearSelector = document.querySelector("#yearSelector");
+        const monthSelector = document.querySelector("#monthSelector");
+
+        if (!monthSelector.classList.contains("d-none")){
+          if (yearSelector.value == new Date().getFullYear()){
+            monthSelector.innerHTML = '';
+            for (let i = 1; i <= new Date().getMonth() + 1; i++) {
+              let opt = document.createElement("option")
+              opt.text = i.toString();
+              monthSelector.appendChild(opt);
+            }
+          }
+          return;
+        }
+
+        fetch('/admin/show-revenue-by-year/' + yearSelector.value, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+                .then(response => response.text())
+                .then(text => {
+                  updateChart(JSON.parse(text)[0], JSON.parse(text)[1]);
+                });
+      }
+
+      function showRevenueByMonth(){
+        // show revenue by month here
+        const yearSelector = document.querySelector("#yearSelector");
+        const monthSelector = document.querySelector("#monthSelector");
+
+        fetch('/admin/show-revenue-by-month/' + monthSelector.value + '-' + yearSelector.value, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+                .then(response => response.text())
+                .then(text => {
+                  updateChart(JSON.parse(text)[0], JSON.parse(text)[1]);
+                });
+      }
     </script>
 
 <!--  chart script ends-->

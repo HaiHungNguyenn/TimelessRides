@@ -20,10 +20,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,16 +48,44 @@ public class MappingController {
             modelAndView.setViewName("views/user/login");
         }
 
+
         Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
         List<PostDto> listPost = new ArrayList<>();
         listPost = service.getPostService().getNewestPost();
 
         modelAndView.addObject("keys", revenue.keySet())
                 .addObject("values", revenue.values())
+                .addObject("maxRevenue", revenue.values().stream().max((r1, r2) -> (int) (r1 - r2)).orElse(0L))
                 .addObject("listPost",listPost)
                 .addObject("num",service.getClientService().getNumOfUser())
                 .setViewName("views/admin/index");
+        
         return modelAndView;
+    }
+
+    @RequestMapping("/show-revenue-by-year/{year}")
+    @ResponseBody
+    public List<Collection> showRevenueByYear(@PathVariable int year){
+        Map<String, Long> annualRevenue = service.getPostService().getAnnualRevenue(year);
+        List<Collection> result = new ArrayList<>();
+        result.add(annualRevenue.keySet());
+        result.add(annualRevenue.values());
+        return result;
+    }
+
+    @RequestMapping("/show-revenue-by-month/{month}")
+    @ResponseBody
+    public List<Collection> showRevenueByMonth(@PathVariable String month){
+        String[] parts = month.split("-");
+        int m = Integer.parseInt(parts[0]);
+        int y = Integer.parseInt(parts[1]);
+
+        Map<Integer, Long> annualRevenue = service.getPostService().getMonthlyRevenue(m, y);
+        List<Collection> result = new ArrayList<>();
+        result.add(annualRevenue.keySet());
+        result.add(annualRevenue.values());
+
+        return result;
     }
 
     @RequestMapping("/mailbox")
