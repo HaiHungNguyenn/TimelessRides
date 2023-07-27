@@ -47,9 +47,12 @@ public class MappingController {
         }
 
         Map<String, Long> revenue = service.getPostService().getAnnualRevenue(2023);
+        List<PostDto> listPost = new ArrayList<>();
+        listPost = service.getPostService().getNewestPost();
 
         modelAndView.addObject("keys", revenue.keySet())
                 .addObject("values", revenue.values())
+                .addObject("listPost",listPost)
                 .addObject("num",service.getClientService().getNumOfUser())
                 .setViewName("views/admin/index");
         return modelAndView;

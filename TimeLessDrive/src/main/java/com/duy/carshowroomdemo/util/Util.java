@@ -239,6 +239,8 @@ public class Util {
         }
         return price + price * (Long.parseLong(taxNumber.toString()) / 100);
     }
+
+
     public static LocalDate parseLocalDate(String dateString) {
         if (dateString.isBlank()){
             return null;

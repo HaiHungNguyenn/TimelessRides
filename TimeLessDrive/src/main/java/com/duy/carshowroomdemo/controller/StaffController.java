@@ -567,7 +567,7 @@ public class StaffController {
                     clients.add(offMeeting.getClient());
                 }
                 for (Client client : clients){
-                    service.sendNotification(client, "Your meeting has been cancelled because the car has been purchased");
+                    service.sendNotification(client, "We are sorry to say that your car has just been purchased. Happy to serve you with our serivce in the next time");
                     Email email = new Email();
                     email.setTo(client.getEmail());
                     email.setFrom("timelessride3@gmail.com");

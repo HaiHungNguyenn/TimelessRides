@@ -54,6 +54,7 @@ public class LogInController {
         }
 
         else if(clientDto != null){
+
             modelAndView.setViewName("views/user/index");
             session.setAttribute("client", clientDto);
         }
@@ -78,7 +79,7 @@ public class LogInController {
             modelAndView.setViewName("views/user/login");
         }
 
-        return modelAndView;
+        return modelAndView.addObject("postList", service.getPostService().findPriorPosts());
 
     }
     @RequestMapping(value = "/register-form", method = RequestMethod.POST)

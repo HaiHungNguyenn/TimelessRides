@@ -299,7 +299,7 @@ public class PostService {
     public List<PostDto> findPriorPosts() {
         List<PostDto> postList = new ArrayList<>();
 
-        postRepository.findAllByPriority(PageRequest.of(0, 10), 3)
+        postRepository.findAllByPriority(PageRequest.of(0, 10),LocalDate.now())
                 .forEach(post -> postList.add(mapperManager.getPostMapper().toDto(post)));
 
         return postList;

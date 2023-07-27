@@ -283,9 +283,9 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
 
         if (!isAuthenticated()) {
+            System.out.println(request.getRequestURI());
             return modelAndView;
         }
-
         stack.push(request.getRequestURI());
         modelAndView.setViewName("views/user/account");
         return modelAndView;
@@ -644,7 +644,7 @@ public class UserController {
     @RequestMapping("/google-handler")
     public ModelAndView googleHandler(OAuth2AuthenticationToken token) {
 
-        ModelAndView modelAndView = new ModelAndView("views/user/index");
+        ModelAndView modelAndView = new ModelAndView("views/user/index").addObject("postList", service.getPostService().findPriorPosts());
 
         String email = token.getPrincipal().getAttribute("email");
 
@@ -664,6 +664,7 @@ public class UserController {
                     .addObject("offset", 1)
                     .addObject("lastOffset", lastOffset)
                     .addObject("totalMeetings", totalMeetings)
+
                     .setViewName("views/staff/profile");
             return modelAndView;
         }
