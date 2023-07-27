@@ -4,11 +4,11 @@
 }
 
 #calendar table, th, td {
-    border: 1px solid black;
 }
 
 #calendar td{
     padding: 1%;
+    width: 12%;
 }
 
 .calendar-nav{
@@ -54,4 +54,22 @@
     --x: 100%;
     --c1: 0%;
     --c2: 100%;
+}
+
+thead tr{
+    color: whitesmoke;
+    background-color: #EC9F05;
+}
+
+thead tr b{
+    color: lightgray;
+    font-weight: 700;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover{
+    background-color: #f2f2f2;
 }
