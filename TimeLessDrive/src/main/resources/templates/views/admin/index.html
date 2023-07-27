@@ -497,7 +497,7 @@
           },
           yAxis: {
             min: 0,
-            max: Math.max(...values),
+            max: (Math.max(...values) === 0) ? 1000 : Math.max(...values),
             title: {
               text: 'Revenue (USD)'
             }
@@ -522,9 +522,7 @@
           }]
         });
       }
-    </script>
 
-    <script>
       function periodHandler(){
 
         const periodSelector = document.querySelector("#period-selector");

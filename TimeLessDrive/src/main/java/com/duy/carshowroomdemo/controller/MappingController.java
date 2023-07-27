@@ -59,7 +59,7 @@ public class MappingController {
                 .addObject("listPost",listPost)
                 .addObject("num",service.getClientService().getNumOfUser())
                 .setViewName("views/admin/index");
-        
+
         return modelAndView;
     }
 
