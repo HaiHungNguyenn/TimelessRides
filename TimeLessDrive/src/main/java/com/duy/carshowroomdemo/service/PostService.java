@@ -13,9 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
+import java.time.*;
 import java.util.*;
 
 @Service
@@ -278,6 +276,7 @@ public class PostService {
             }
             revenue.put(Month.of(i).toString(), monthlyRevenue);
         }
+
         return revenue;
     }
 
@@ -303,5 +302,31 @@ public class PostService {
                 .forEach(post -> postList.add(mapperManager.getPostMapper().toDto(post)));
 
         return postList;
+    }
+
+    public Map<Integer, Long> getMonthlyRevenue(int m, int y) {
+        Map<Integer, Long> revenue = new LinkedHashMap<>();
+        int latestDate;
+
+        if (LocalDate.now().isBefore(LocalDate.of(y,m,1))){
+            return null;
+        }
+
+        if (m == Year.now().getValue() && m == Month.of(LocalDate.now().getMonthValue()).getValue()){
+            latestDate = LocalDate.now().getDayOfMonth();
+        } else {
+            latestDate = YearMonth.of(y, m).lengthOfMonth();
+        }
+
+        for (int i = 1; i <= latestDate; i++){
+            long dailyRevenue = 0;
+            List<Post> postList = postRepository.findPostsByDate(i, m, y);
+            for (Post p: postList){
+                dailyRevenue += Plan.getPrice(p.getPlan());
+            }
+            revenue.put(i, dailyRevenue);
+        }
+
+        return revenue;
     }
 }
