@@ -50,6 +50,11 @@ th, td {
     background-color: #28a745; /* Green */
     color: #fff; /* White text color */
 }
+.status-tag.deleted {
+    background-color: #3b3535; /* Green */
+    color: #fff; /* White text color */
+}
+
 
 .status-tag.done {
     background-color: #17a2b8; /* Blue */

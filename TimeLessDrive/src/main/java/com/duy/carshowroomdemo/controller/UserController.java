@@ -363,8 +363,18 @@ public class UserController {
         if (post == null){
             return showPostHistory();
         }
+        List<OffMeeting> offMeetingList = post.getCar().getOffMeetingList();
 
-        service.getPostService().delete(post);
+        offMeetingList.forEach(x -> {
+            x.setStatus(Status.DELETED);
+            service.sendNotification(x.getClient(),"Your meeting has been cancel due to the car owner post's deletion.");
+            service.getOffMeetingService().save(x);
+
+        });
+
+        post.setStatus(Status.DELETED);
+        service.getPostService().save(post);
+
 
         return showPostHistory();
     }

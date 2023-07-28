@@ -40,59 +40,8 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
-    <style>
-        .owl-carousel.owl-loaded {
-            height: 350px;
-        }
+    <link rel="stylesheet" href="../../user_assets/css/mypost.css"/>
 
-
-        .owl-carousel .owl-item img {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .owl-carousel .owl-stage {
-            height: 100%;
-        }
-
-        .owl-carousel .owl-stage-outer {
-            height: 100%;
-        }
-
-        .owl-carousel.owl-drag .owl-item {
-            height: 100%;
-        }
-
-        .car-history-information ul {
-            padding: 15px;
-        }
-
-        .car__item:hover{
-            box-shadow: none;
-        }
-
-        .car__item{
-            cursor: auto;
-        }
-        .hv_black:hover{
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-        .car__item__text {
-            background-color: #f2f2f2;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .car-history-information li {
-            margin-bottom: 5px;
-        }
-
-        .car-history-information li span {
-            font-weight: bold;
-        }
-
-    </style>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -207,7 +156,7 @@
         <!-- code here -->
         <div class="container-car-history row">
 
-            <div th:each="post : ${postList}" class="car__item col-md-6 hv_black">
+            <div th:each="post : ${postList}" class="car__item col-md-6 hv_black" th:if="${post.getStatus() != 'Deleted'}">
                 <div class="car__item__pic__slider owl-carousel">
                     <img th:src="${carImageUrl.getContent()}"
                          th:each="carImageUrl : ${post.getCar().getCarImageList()}">
@@ -221,7 +170,7 @@
                         </li>
                         <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
                         <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
-                        <li>Status: <span th:text="${post.getStatus()}"></span></li>
+                        <li>Status: <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}" th:text="${post.getStatus()}"></span></li>
                         <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
                     </ul>
                 </div>

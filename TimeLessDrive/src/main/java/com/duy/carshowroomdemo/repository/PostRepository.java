@@ -114,6 +114,8 @@ public interface PostRepository extends JpaRepository<Post, String>{
     @Query("select p from Post p where (month(p.postDate) = :month and year(p.postDate) = :year and day(p.postDate) = :day ) and (p.status = 'Approved' or p.status = 'Completed')")
     List<Post> findPostsByDate(@Param("day") int i, @Param("month") int m, @Param("year") int y);
 
+
+
 //    SELECT *
 //    FROM post
 //    WHERE MONTH(post_date) = MONTH(GETDATE()) AND YEAR(post_date) = YEAR(GETDATE());
