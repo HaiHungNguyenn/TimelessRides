@@ -347,6 +347,8 @@ public class UserController {
         List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,10));
 
         modelAndView.addObject("postList", postList);
+        modelAndView.addObject("checkdate",LocalDate.now().plusDays(7));
+
 
         modelAndView.setViewName("views/user/post-history");
         return modelAndView;

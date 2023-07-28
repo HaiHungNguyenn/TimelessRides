@@ -51,7 +51,9 @@
 .status-tag.pending {
     color: #ffc107;
 }
-
+.status-tag.OutDated{
+    color:black;
+}
 .status-tag.completed {
     color:  #28a745;
 }

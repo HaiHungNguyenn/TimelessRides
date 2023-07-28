@@ -170,8 +170,32 @@
                         </li>
                         <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
                         <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
-                        <li>Status: <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}" th:text="${post.getStatus()}"></span></li>
+                        <li th:if="${post.getExpireDate() >= checkdate}">
+                            Status:
+                            <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}"
+                                  th:text="${post.getStatus()}"></span>
+                        </li>
+                        <li th:if="${post.getExpireDate() < checkdate}">
+                            Status:
+                            <span th:class="status-tag"
+                                  > Outdated</span>
+                        </li>
+
                         <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
+<!--                        <p>Current Date and Time: <span th:text="${#dates.createNow().format('yyyy-MM-dd HH:mm:ss')}"></span></p>-->
+                        <li>Expired Date: <span th:text="${post.getExpireDate()}"/> </li>
+
+                        <li th:if="${post.getExpireDate() < checkdate}">
+                            <span style="color: red;
+                            display: inline-block;
+                            padding: 4px 8px;
+                            border-radius: 4px;
+                            font-size: 24px;
+                            font-weight: bold;
+                            text-transform: uppercase;" >Need to extend the date now</span>
+                        </li>
+
+
                     </ul>
                 </div>
 
