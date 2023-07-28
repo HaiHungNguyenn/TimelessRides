@@ -30,6 +30,9 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <link rel="stylesheet" href="../../user_assets/css/transaction-history.css" />
+
+
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -135,304 +138,22 @@
 
     <!-- code here -->
 
-    <style>
-        body .transaction-history {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            /*background-color: #f5f5f5;*/
-            background-color: #fff;
-        }
 
-        .body h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .body table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .body th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .body th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .body tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .body .status-completed {
-            color: #11bb11;
-        }
-
-        .body .status-pending {
-            color: red;
-        }
-        .body #transactionTable a{
-            color: red;
-        }
-        .body #transactionTable a:active{
-            color: red;
-        }
-        .body #transactionTable a:hover{
-            color: red;
-        }
-        .body a:visited{
-            color: #ffffff;
-        }
-
-        .body .profile-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            display: none;
-        }
-
-        .body .profile-modal.active {
-            display: block;
-        }
-
-        .body .profile-modal h2 {
-            margin-top: 0;
-        }
-
-        .body .profile-modal p {
-            margin-bottom: 10px;
-        }
-
-        .body .profile-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            display: none;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .body .profile-modal.active {
-            display: block;
-        }
-
-        .body .profile-modal h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .body .profile-modal p {
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .body .profile-modal button {
-            padding: 10px 20px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .body .profile-modal button:hover {
-            background-color: #45a049;
-        }
-
-        .body .profile-modal button:active {
-            background-color: #3e8e41;
-        }
-        .body .profile-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            display: none;
-            max-width: 250px;
-            width: 100%;
-            text-align: -webkit-left;
-            border-radius: 8px;
-        }
-
-
-
-        .body .profile-modal h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .body .profile-modal p {
-            margin-bottom: 10px;
-            font-size: 16px;
-            color: #666;
-            line-height: 1.4;
-        }
-
-        .body .profile-modal button {
-            padding: 12px 24px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .body .profile-modal button:hover {
-            background-color: #45a049;
-        }
-
-        .body .profile-modal button:active {
-            background-color: #3e8e41;
-        }
-
-        .body .profile-modal:before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px;
-            border-style: solid;
-            border-color: transparent transparent #fff transparent;
-        }
-
-        .body .profile-modal:after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-width: 10px;
-            border-style: solid;
-            border-color: #fff transparent transparent transparent;
-        }
-
-
-        .body .date-picker-container label {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .body .date-picker-container input {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-
-        .body .date-picker-container button {
-            padding: 8px 16px;
-            background-color: #4caf50;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .body .date-picker-container button:hover {
-            background-color: #45a049;
-        }
-
-        .body .date-picker-container button:active {
-            background-color: #3e8e41;
-        }
-        .body .profile-modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            display: none;
-        }
-
-        .body .profile-modal.active {
-            display: block;
-        }
-
-        .body .profile-modal h2 {
-            margin-top: 0;
-        }
-
-        .body .profile-modal p {
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .body .profile-modal button {
-            padding: 8px 16px;
-            background-color: #ce0b25;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .body .profile-modal button:hover {
-            background-color: #8f0b1d;
-        }
-
-        .body .profile-modal button:active {
-            background-color: #8f0b1d;
-        }
-
-    </style>
     <div class="body">
         <h1 th:if="${invoiceList.isEmpty()}" th:text="'You don\'t have any transactions'" class="text-center mt-5"/>
         <th:block th:if="${!invoiceList.isEmpty()}">
             <div style="margin: 20px;">
-<!--                <label for="datePicker">Select a Date:</label>-->
-<!--                <input type="text" id="datePicker" readonly>-->
-<!--                <button onclick="showTransactions()">Show </button>-->
             </div>
             <table id="transactionTable">
                 <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Staff Name</th>
-                        <th>Car Make</th>
-                        <th>Car Model</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Date</th>
+                    <tr >
+                        <th class="headtable">No.</th>
+                        <th class="headtable">Staff Name</th>
+                        <th class="headtable">Car Make</th>
+                        <th class="headtable">Car Model</th>
+                        <th class="headtable">Price</th>
+                        <th class="headtable">Status</th>
+                        <th class="headtable">Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -442,9 +163,9 @@
                         <td th:text="${invoice.getStaff().getName()}"/>
                         <td th:text="${invoice.getCar().getCarDescription().getMake()}"/>
                         <td th:text="${invoice.getCar().getCarDescription().getModel()}"/>
-                        <td th:text="${invoice.getFormattedTotal()}"/>
-                        <td class="status-completed" th:text="${invoice.getStatus()}"/>
-                        <td th:text="${invoice.getCreateDate()}"/>
+                        <td><span class="price-tag" th:text="${invoice.getFormattedTotal()}"></span></td>
+                        <td><span class="date-tag" th:text="${invoice.getStatus()}"></span></td>
+                        <td><span class="date-tag"th:text="${invoice.getCreateDate()}"></span></td>
                     </tr>
                 </tbody>
             </table>

@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -277,6 +278,7 @@ public class UserController {
             }
         }
         modelAndView.addObject("carDto", service.getCarService().findCarById(id));
+        modelAndView.addObject("meetings", service.getOffMeetingService().getOffMeetingsByCarId(id));
         modelAndView.addObject("checkUser", check);
         return modelAndView;
 
@@ -363,8 +365,18 @@ public class UserController {
         if (post == null){
             return showPostHistory();
         }
+        List<OffMeeting> offMeetingList = post.getCar().getOffMeetingList();
 
-        service.getPostService().delete(post);
+        offMeetingList.forEach(x -> {
+            x.setStatus(Status.DELETED);
+            service.sendNotification(x.getClient(),"Your meeting has been cancel due to the car owner post's deletion.");
+            service.getOffMeetingService().save(x);
+
+        });
+
+        post.setStatus(Status.DELETED);
+        service.getPostService().save(post);
+
 
         return showPostHistory();
     }

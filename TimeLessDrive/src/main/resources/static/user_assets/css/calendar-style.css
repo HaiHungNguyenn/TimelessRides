@@ -189,3 +189,10 @@ html {
 #phone-comment{
     color: red;
 }
+
+.slots .occupied{
+    background: darkred;
+    cursor: none;
+    pointer-events: none;
+    color: white;
+}

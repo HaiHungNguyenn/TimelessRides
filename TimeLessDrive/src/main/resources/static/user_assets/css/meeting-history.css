@@ -1,70 +1,86 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f2f2f2;
-}
 
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 20px;
-}
-
+    /* Apply general styling to the table */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
-    padding: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
     text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: medium;
 }
 
-th {
-    background-color: #f5f5f5;
-    font-weight: bold;
+/* Style the 'No participant' text in red */
+.text-danger {
+    color: red;
 }
 
-tr:hover {
-    background-color: #f9f9f9;
+/* Style the other text in green */
+.text-success {
+    color: green;
 }
 
-td:nth-child(2) {
-    font-weight: bold;
-    color: #555;
-}
-
-.status {
-    text-transform: capitalize;
-    font-weight: bold;
-    padding: 5px 0;
+/* Style the 'Pending' status span as a tag */
+.status-tag {
+    display: inline-block;
+    padding: 4px 8px;
     border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.pending {
-
-    color: #000000;
+/* Style different status values */
+.status-tag.pending {
+    background-color: #ffc107; /* Yellow */
+    color: #fff; /* White text color */
 }
 
-.approved {
-
-    color: #09ff00;
+.status-tag.failed {
+    background-color: #dc3545; /* Red */
+    color: #fff; /* White text color */
+}
+.status-tag.declined {
+    background-color: #dc3545; /* Red */
+    color: #fff; /* White text color */
 }
 
-.rejected {
-
-    color: #ff0000;
+.status-tag.approved {
+    background-color: #28a745; /* Green */
+    color: #fff; /* White text color */
+}
+.status-tag.deleted {
+    background-color: #3b3535; /* Green */
+    color: #fff; /* White text color */
 }
 
-@media (max-width: 600px) {
-    table {
-        font-size: 14px;
-    }
+
+.status-tag.done {
+    background-color: #17a2b8; /* Blue */
+    color: #fff; /* White text color */
+}
+
+.done{
+    background-color: #ffc107;
+}
+.datee{
+    background-color: #0acf83;
+}
+
+/* Style the 'Cancel' and 'Edit' buttons */
+.btn-secondary {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #138496;
+}
+.headtable{
+    color:white;
+    background-color: #ff0000!important;
 }

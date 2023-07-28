@@ -54,6 +54,14 @@ public class OffMeetingService {
         return offMeetingDtoList;
     }
 
+    public List<OffMeetingDto> getOffMeetingsByCarId(String id){
+        List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
+        offMeetingRepository.findOffMeetingsByCarId(id).forEach(x -> {
+            offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
+        });
+        return offMeetingDtoList;
+    }
+
     public List<OffMeetingDto> getOffMeetingsPerPage(Pageable pageable){
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
 
@@ -156,4 +164,6 @@ public class OffMeetingService {
     public boolean isOffMeetingsByStaffLastOffset(String staffID, Pageable pageable) {
         return offMeetingRepository.findByStaffId(staffID ,pageable).isLast();
     }
+
+
 }
