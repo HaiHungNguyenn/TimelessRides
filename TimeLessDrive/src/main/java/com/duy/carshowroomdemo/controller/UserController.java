@@ -230,6 +230,7 @@ public class UserController {
                     modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                             .addObject("status", "fail")
                             .addObject("message", "You have booked this slot already.")
+                            .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                             .setViewName("views/user/car-details");
                     return modelAndView;
                 }
