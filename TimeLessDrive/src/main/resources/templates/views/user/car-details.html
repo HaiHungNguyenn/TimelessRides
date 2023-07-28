@@ -29,8 +29,6 @@
 
 
     <link rel="stylesheet" href="../../user_assets/css/book-meeting.css">
-    <script src="../../user_assets/js/booking-meeting.js"></script>
-
     <link rel="stylesheet" href="../../user_assets/css/calendar-style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
@@ -370,13 +368,15 @@
 <!-- Search End -->
 <!-- Start pop up form -->
 <div class="pop-up">
+    <div th:each="meeting : ${meetings}" name="meetingDates" th:value="${meeting.getMeetingDate()}"></div>
+    <div th:each="meeting :  ${meetings}" name="meetingTimes" th:value="${meeting.getMeetingTime()}"></div>
     <form id="booking-form" action="/car/book-meeting" onsubmit="return checkSubmit();">
         <div role="main" class="form-all" style="background: white;">
             <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
             <div class="esc-button">&times;</div>
             <ul>
                 <li class="form-line">
-                    <label class="form-label form-label-top" for="appointment">
+                    <label class="form-label form-label-top">
                         Select an Appointment Date
                     </label>
                     <div class="row">
@@ -477,7 +477,6 @@
 <script src="../../user_assets/js/jquery.nice-select.min.js"></script>
 <script src="../../user_assets/js/jquery-ui.min.js"></script>
 <script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
-<script src="../../user_assets/js/mixitup.min.js"></script>
 <script src="../../user_assets/js/jquery.slicknav.js"></script>
 <script src="../../user_assets/js/owl.carousel.min.js"></script>
 <script src="../../user_assets/js/splide.min.js"></script>
@@ -520,6 +519,8 @@
         background.classList.remove("active");
         errorModal.style.display = 'none';
     });
+
+
 
 </script>
     <!-- notification js-->
