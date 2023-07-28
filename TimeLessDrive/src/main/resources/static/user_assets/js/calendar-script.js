@@ -1,5 +1,26 @@
 const date = new Date();
 
+//get occupied dates
+const occupiedDates = []
+document.getElementsByName("meetingDates").forEach(
+    date => occupiedDates.push(date.getAttribute("value")));
+console.log(occupiedDates);
+
+//get occupied times
+const occupiedTimes = []
+document.getElementsByName("meetingTimes").forEach(
+    time => occupiedTimes.push(time.getAttribute("value")));
+console.log(occupiedTimes);
+
+function checkIfSlotOccupied(date){
+    for(let i=0; i<occupiedDates.length; i++){
+        let occupiedDate = new Date(occupiedDates[i])
+        occupiedDate.setHours(occupiedTimes[i].slice(0, -3))
+        if(date.getTime()==occupiedDate.getTime()) return true
+    }
+    return false
+}
+
 const renderCalendar = () => {
     date.setDate(1);
 
@@ -92,11 +113,18 @@ const renderSlot = (active) => {
         "22",
     ];
     for (let slot of slots) {
-        if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot) < new Date())
+        if (new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot) < new Date()) {
             slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
                                <label class="unavailable" for="${slot}">${slot + ":00"}</label>`
-        else slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
+        }
+        else if(checkIfSlotOccupied(new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot))){
+            slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
+                              <label class="occupied" for="${slot}">${slot + ":00"}</label>`
+        }
+        else {
+            slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
                               <label for="${slot}">${slot + ":00"}</label>`
+        }
     }
 }
 

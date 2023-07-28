@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -277,6 +278,7 @@ public class UserController {
             }
         }
         modelAndView.addObject("carDto", service.getCarService().findCarById(id));
+        modelAndView.addObject("meetings", service.getOffMeetingService().getOffMeetingsByCarId(id));
         modelAndView.addObject("checkUser", check);
         return modelAndView;
 

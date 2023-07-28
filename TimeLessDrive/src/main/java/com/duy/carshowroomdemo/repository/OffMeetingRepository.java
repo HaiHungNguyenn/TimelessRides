@@ -42,4 +42,7 @@ public interface OffMeetingRepository extends JpaRepository<OffMeeting, String> 
     @Query("select m from OffMeeting m where m.meetingDate >= :start and m.meetingDate <= :end order by m.meetingTime, m.meetingDate")
     List<OffMeeting> findOffMeetingsByWeek(@Param("start") LocalDate start, @Param("end") LocalDate end);
     //    List<OffMeeting> findAll(Pageable pageable, Sort sort);
+
+    @Query("select m from OffMeeting m where m.car.id = :id order by m.meetingTime, m.meetingDate")
+    List<OffMeeting> findOffMeetingsByCarId(@Param("id") String id);
 }
