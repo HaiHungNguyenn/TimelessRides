@@ -259,6 +259,7 @@ public class UserController {
         modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                 .addObject("status", "success")
                 .addObject("message", "Your meeting request has been sent. Please wait for respond")
+                .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                 .setViewName("views/user/car-details");
         return modelAndView;
     }
@@ -278,7 +279,7 @@ public class UserController {
             }
         }
         modelAndView.addObject("carDto", service.getCarService().findCarById(id));
-        modelAndView.addObject("meetings", service.getOffMeetingService().getOffMeetingsByCarId(id));
+        modelAndView.addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(id));
         modelAndView.addObject("checkUser", check);
         return modelAndView;
 

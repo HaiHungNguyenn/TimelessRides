@@ -54,9 +54,9 @@ public class OffMeetingService {
         return offMeetingDtoList;
     }
 
-    public List<OffMeetingDto> getOffMeetingsByCarId(String id){
+    public List<OffMeetingDto> getOccupiedOffMeetingsByCarId(String id){
         List<OffMeetingDto> offMeetingDtoList = new ArrayList<>();
-        offMeetingRepository.findOffMeetingsByCarId(id).forEach(x -> {
+        offMeetingRepository.findOccupiedOffMeetingsByCarId(id).forEach(x -> {
             offMeetingDtoList.add(mapperManager.getOffMeetingMapper().toDto(x));
         });
         return offMeetingDtoList;
