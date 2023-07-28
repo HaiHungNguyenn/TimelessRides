@@ -225,10 +225,16 @@ public class UserController {
             if (meeting.getMeetingDate().equals(Util.parseLocalDate(parts[0]))
                     && meeting.getMeetingTime().equals(Util.parseLocalTime(parts[1]))
                     && Objects.equals(meeting.getStatus(), Status.PENDING)){
-
+                if(meeting.getClient().getId() == ((ClientDto) session.getAttribute("client")).getId()){
+                    modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
+                            .addObject("status", "fail")
+                            .addObject("message", "You have booked this slot already.")
+                            .setViewName("views/user/car-details");
+                    return modelAndView;
+                }
                 modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                         .addObject("status", "fail")
-                        .addObject("message", "This car has been booked for another meeting at this time. Please choose another time")
+                        .addObject("message", "This car has been booked for another meeting at this time. Please choose another time.")
                         .setViewName("views/user/car-details");
                 return modelAndView;
             }
@@ -713,7 +719,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         session.removeAttribute("client");
         modelAndView.setViewName("views/user/index");
-        return modelAndView;
+        return modelAndView.addObject("postList", service.getPostService().findPriorPosts());
     }
 
     @RequestMapping("/change-password")
