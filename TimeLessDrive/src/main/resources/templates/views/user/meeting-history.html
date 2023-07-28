@@ -44,6 +44,7 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <link rel="stylesheet" href="../../user_assets/css/meeting-history.css">
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -157,29 +158,31 @@
         <p th:if="${successMsg != null}" th:text="${successMsg}" class="text-success fs-3 text-center"/>
         <h1 th:if="${meetingList.isEmpty()}" th:text="'You don\'t have any meetings'" class="fs-3 text-center"/>
 
-        <table th:if="${!meetingList.isEmpty()}">
-            <thead>
+        <table>
+            <thead >
             <tr>
-                <th>No.</th>
-                <th>Meeting date</th>
-                <th>Meeting time</th>
-                <th>Staff name</th>
-                <th>Car model</th>
-                <th>Status</th>
-                <th colspan="2" style="text-align: center">Actions</th>
+                <th class="headtable">No.</th>
+                <th class="headtable">Meeting date</th>
+                <th class="headtable">Meeting time</th>
+                <th class="headtable">Staff name</th>
+                <th class="headtable">Car model</th>
+                <th class="headtable">Status</th>
+                <th class="headtable" colspan="2" style="text-align: center">Actions</th>
             </tr>
             </thead>
             <tbody>
             <th:block th:each="meeting, iStat : ${meetingList}">
                 <tr>
                     <td th:text="${iStat.count}"/>
-                    <td th:text="${meeting.getMeetingDate()}"/>
-                    <td th:text="${meeting.getMeetingTime()}"/>
+                    <td><span th:text="${meeting.getMeetingDate()}" class="status-tag done"></span></td>
+
+                    <td><span th:text="${meeting.getMeetingTime()}" class="status-tag datee"></span></td>
+
                     <td th:with="staffName=(${meeting.getStaff() == null} ? 'No participant' : ${meeting.getStaff().getName()})"
                         th:classappend="${staffName == 'No participant'} ? 'text-danger' : 'text-success'"
                         th:text="${staffName}"/>
                     <td th:text="${meeting.getCar().getName()}"/>
-                    <td><span class="status pending" th:text="${meeting.getStatus()}"/></td>
+                    <td><span th:class="status-tag" th:classappend="${meeting.getStatus().toLowerCase()}" th:text="${meeting.getStatus()}"></span></td>
                     <td>
                         <a th:if="${meeting.getStatus().equals('Pending')}" th:href="@{/meeting-history/cancel (id = ${meeting.getId()})}">
                             <button class="btn btn-secondary hover-text-600 fs--1">Cancel</button>
@@ -193,6 +196,8 @@
             <!-- Add more rows for additional meeting history -->
             </tbody>
         </table>
+
+
 
     </section>
 
@@ -277,7 +282,7 @@
             <div class="footer__copyright__text">
                 <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
                     All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
