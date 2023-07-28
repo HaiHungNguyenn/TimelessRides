@@ -242,11 +242,15 @@ public class MappingController {
         }
         offset = (offset == null) ? 1 : offset;
 
-        List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
-        modelAndView.addObject("postDto", postDto);
-        modelAndView.addObject("offset", offset);
+        Pageable pageable = PageRequest.of(offset - 1, 9, Sort.by("priority").descending());
+        List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(pageable);
+        boolean isLastPage = service.getPostService().isLastPageOfApprovedPostsByStatus(pageable);
+
         modelAndView.setViewName("views/admin/car-management");
-        return modelAndView;
+        return modelAndView
+                .addObject("postDto", postDto)
+                .addObject("offset", offset)
+                .addObject("isLastPage", isLastPage);
     }
 
     @RequestMapping("/delete-car/{id}")
