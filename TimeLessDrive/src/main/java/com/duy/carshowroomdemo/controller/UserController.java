@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
@@ -346,7 +347,7 @@ public class UserController {
             return modelAndView;
         }
         ClientDto client = (ClientDto) session.getAttribute("client");
-        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,10));
+        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,20));
 
         modelAndView.addObject("postList", postList);
         modelAndView.addObject("checkdate",LocalDate.now().plusDays(7));
@@ -878,5 +879,21 @@ public class UserController {
         return modelAndView;
 
     }
-
+    @RequestMapping("/extend-post/{id}")
+    public ModelAndView extendPost(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("===================");
+        System.out.println("post id:"+id);
+        modelAndView.setViewName("views/user/extend-post");
+        return modelAndView.addObject(service.getPostService().findById(id));
+    }
+    @RequestMapping("/extend_plan")
+    public ModelAndView extend(@RequestParam("plan") String plan,@RequestParam("postID") String id){
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("==========================");
+        System.out.println(plan);
+        System.out.println(id);
+        modelAndView.setViewName("views/user/extend-post");
+        return modelAndView.addObject(service.getPostService().findById(id));
+    }
 }

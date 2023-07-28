@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="HVAC Template">
+    <meta name="keywords" content="HVAC, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Car Posting</title>
+    <link rel="icon" href="../../user_assets/img/logo.png" type="image/png"/>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../../user_assets/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../user_assets/css/themes/buy-package.css" type="text/css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../user_assets/css/post-car-style.css">
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css" rel="stylesheet">
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/popup.css">
+
+    <!--    notification css-->
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../../user_assets/css/notification-style.css" />
+    <th:block th:if="${session.client != null}">
+        <script>let id = '[[${session.client.getId()}]]'</script>
+    </th:block>
+    <script src="../../user_assets/js/notification-js.js"></script>
+</head>
+
+<body style="font-family: 'Lato', 'sans-serif background-color';">
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!--    notification starts-->
+<div th:if="${session.client != null}" class="header_notification_warp d-flex align-items-center justify-content-center" style="z-index: 3; position: absolute; right: 2rem;">
+    <li>
+        <a class="bell_notification_clicker" href="#">
+            <div class="fa fa-bell"></div>
+            <!--                <span>2</span>-->
+        </a>
+
+        <div class="Menu_NOtification_Wrap">
+            <div class="notification_Header">
+                <h4>Notifications</h4>
+            </div>
+            <div class="Notification_body">
+            </div>
+            <div class="nofity_footer">
+                <div class="submit_button text-center pt_20" id="see-more">
+                    <a href="#!" class="btn_1">See More</a>
+                </div>
+            </div>
+        </div>
+    </li>
+</div>
+<!--    notification ends-->
+
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__widget">
+        <a href="#"><i class="fa fa-cart-plus"></i></a>
+        <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
+        <a href="#" class="primary-btn">Add Car</a>
+    </div>
+    <div class="offcanvas__logo">
+        <a href="./index.html"><img src="../../user_assets/img/logo.png" alt=""></a>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <ul class="offcanvas__widget__add">
+        <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
+        <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+    </ul>
+    <div class="offcanvas__phone__num">
+        <i class="fa fa-phone"></i>
+        <span>(+12) 345 678 910</span>
+    </div>
+    <div class="offcanvas__social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-google"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
+
+<!-- Header Section Begin -->
+<header class="header" style="height: 178.73px; padding: 0">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="header__logo">
+                    <a href="/"><img src="../../user_assets/img/logo.png" alt=""></a>
+                    <p class="logo-text ms-2 d-none d-sm-block" style="font-size: 24px">Timeless Ride</p>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="header__nav">
+                    <nav class="header__menu " style="width: 100%;">
+                        <ul style="font-family: Lato, sans-serif; margin: 0">
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/car">Car Inventory</a></li>
+                            <li><a href="/account">Account</a></li>
+                            <li class="active"><a href="#">History</a>
+                                <ul class="dropdown">
+                                    <li><a href="/transactions_history">Transactions History</a></li>
+                                    <li><a href="/meeting_history">Meeting History</a></li>
+                                    <li><a href="/post-history">My Post</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/post_car">Post Car</a></li>
+                            <li><a href="/customer_service">Customer Service</a></li>
+                            <li th:if="${session.client != null}">
+                                <a href="/log-out">Log out</a>
+                            </li>
+                            <li th:if="${session.client == null}">
+                                <a href="/signin">Login</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <span class="fa fa-bars"></span>
+        </div>
+    </div>
+</header>
+
+
+<form action="/extend_plan" id="myForm" enctype="multipart/form-data" method="post">
+    <ul class="container main-container">
+        <li class="row header main-header">
+            <h1>Extend your post</h1>
+            <p class="text-danger fs-5" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
+            <p class="text-success fs-5" th:if="${successMsg != null}" th:text="${successMsg}"/>
+        </li>
+        <li class="row">
+            <ul class="container">
+
+                <li>
+                    <div class="pricing-table">
+                        <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
+                             style="width: 30% ">
+                            <h2>STANDARD PLAN</h2>
+                            <p class="price">$299/month</p>
+                            <p class="text-center">Your post will have default priority</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
+                             style="width: 30% ">
+                            <h2>FEATURED PLAN</h2>
+                            <p class="price">$599/month</p>
+                            <p class="text-center">Your post will have high priority in order to be seen easily</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
+                             style="width: 30% ">
+                            <h2>PREMIUM PLAN</h2>
+                            <p class="price">$799/month</p>
+                            <p class="text-center">Your post will always be on top of our website</p>
+                        </div>
+                    </div>
+                    <input type="text" class="d-none" name="plan" id="plan" required>
+                    <input type="hidden" th:value="${post.getId()}" name="postID" >
+                </li>
+                <li class="row" style="margin:60px">
+                    <input type="submit" value="Submit" style="font-size:20px">
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</form>
+
+
+<!-- Footer Section Begin -->
+<footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
+    <div class="container">
+        <div class="footer__contact">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__title">
+                        <h2>Contact Us Now!</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="footer__contact__option">
+                        <div class="option__item"><i class="fa fa-phone"></i> (+84) 367 669 780</div>
+                        <div class="option__item email"><i class="fa fa-envelope-o"></i> TimeLessRide@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="/"><img src="../../user_assets/img/white-car-logo.png"width="100"></a>
+                        <p class="logo-text ms-2 d-none d-sm-block" style="  margin: 0px 0 15px 8px; font-weight:900; color: white">Timeless Ride </p>
+                    </div>
+                    <p>Any questions? Contact with us</p>
+                    <p>Email:TimeLessRide@gmail.com </p>
+                    <p>Phone number: (+84) 367 669 780</p>
+                    <div class="footer__social">
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="google"><i class="fa fa-google"></i></a>
+                        <a href="#" class="skype"><i class="fa fa-skype"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3">
+                <div class="footer__widget">
+                    <h5>Infomation</h5>
+                    <ul>
+                        <li><a href="/account"><i class="fa fa-angle-right"></i> Account</a></li>
+                        <li><a href="/customer_service"><i class="fa fa-angle-right"></i> Customer Service</a></li>
+                        <li><a href="/car"><i class="fa fa-angle-right"></i> Car Inventory</a></li>
+                        <li><a href="/post_car"><i class="fa fa-angle-right"></i> Post Car</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3">
+                <div class="footer__widget">
+                    <h5>History</h5>
+                    <ul>
+                        <li><a href="/transactions_history"><i class="fa fa-angle-right"></i> Transaction History</a></li>
+                        <li><a href="/meeting_history"><i class="fa fa-angle-right"></i> Meeting History</a></li>
+                        <li><a href="/post-history"><i class="fa fa-angle-right"></i> My Posst</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer__brand">
+                    <h5>Team Member</h5>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Hưng Hãi</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Thanh Duy</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Quốc Thái</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Đỗ Minh Trí</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <div class="footer__copyright__text">
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+        </div>
+        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+
+<!-- Js Plugins -->
+<script src="../../user_assets/js/jquery-3.3.1.min.js"></script>
+<script src="../../user_assets/js/bootstrap.min.js"></script>
+<script src="../../user_assets/js/jquery.nice-select.min.js"></script>
+<script src="../../user_assets/js/jquery-ui.min.js"></script>
+<script src="../../user_assets/js/jquery.magnific-popup.min.js"></script>
+<script src="../../user_assets/js/mixitup.min.js"></script>
+<script src="../../user_assets/js/jquery.slicknav.js"></script>
+<script src="../../user_assets/js/owl.carousel.min.js"></script>
+<script src="../../user_assets/js/main.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="../../user_assets/js/post-car-script.js"></script>
+
+<script>
+    // Get the close icon element
+    const closeIcon = document.querySelectorAll('.close_btn ion-icon');
+
+    //Get the background
+    const background = document.querySelector(".modal_wrapper")
+
+    // Add event listener to the close icon
+    closeIcon.forEach((close) => close.addEventListener('click', () => {
+        // Hide the modal
+        const modal = close.parentElement.parentElement;
+        modal.style.display = 'none';
+        background.classList.remove("active");
+    }));
+
+</script>
+<!-- notification js-->
+<script src="../../admin_assets/js/metisMenu.js"></script>
+<script src="../../admin_assets/js/custom.js"></script>
+</body>
+
+</html>

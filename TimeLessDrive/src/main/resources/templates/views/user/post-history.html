@@ -182,19 +182,18 @@
                         </li>
 
                         <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
-<!--                        <p>Current Date and Time: <span th:text="${#dates.createNow().format('yyyy-MM-dd HH:mm:ss')}"></span></p>-->
                         <li>Expired Date: <span th:text="${post.getExpireDate()}"/> </li>
 
-                        <li th:if="${post.getExpireDate() < checkdate}">
-                            <span style="color: red;
+                        <li id="extend_post" th:if="${post.getExpireDate() < checkdate}" onclick="showPopup()">
+                            <span style="color: white;
                             display: inline-block;
                             padding: 4px 8px;
                             border-radius: 4px;
                             font-size: 24px;
                             font-weight: bold;
-                            text-transform: uppercase;" >Need to extend the date now</span>
+                            background-color: #9b0303;
+                            text-transform: uppercase;" ><a th:href="@{'/extend-post/' + ${post.getId()} }">Extend your post here</a></span>
                         </li>
-
 
                     </ul>
                 </div>
