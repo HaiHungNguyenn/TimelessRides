@@ -119,7 +119,7 @@ const renderSlot = (active) => {
         }
         else if(checkIfSlotOccupied(new Date(d.getFullYear(), d.getMonth(), d.getDate(), slot))){
             slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">
-                              <label class="occupied" for="${slot}">${slot + ":00"}</label>`
+                              <label title="Taken slot" class="occupied" for="${slot}">${slot + ":00"} Taken</label>`
         }
         else {
             slotInsert.innerHTML += `<input type="radio" name="slot" id="${slot}" value="${slot}">

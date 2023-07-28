@@ -212,18 +212,8 @@
                 <div class="row car__item">
                     <div class="col-lg-4 col-md-4">
                         <div class="car__item__pic__slider owl-carousel">
-                            <!--                                    <div th:if="${post.getCar() != null}" th:each="image,i : ${post.getCar().getCarImageList()}">-->
-                            <!--                                        &lt;!&ndash; Access the image at the current index &ndash;&gt;-->
-                            <!--                                        <img th:if="${i.count < 5} "th:src="${car.getCarImageList().get(i).getId()}" alt="">-->
-
-                            <!--                                    </div>-->
                             <img th:src="${carImageUrl.getContent()}"
                                  th:each="carImageUrl: ${post.getCar().getCarImageList()}">
-                            <!--                                    <img  src="../../user_assets/img/cars/car-1.jpg" alt="">-->
-                            <!--                                    <img  src="../../user_assets/img/cars/car-8.jpg" alt="">-->
-                            <!--                                    <img  src="../../user_assets/img/cars/car-6.jpg" alt="">-->
-                            <!--                                    <img  src="../../user_assets/img/cars/car-3.jpg" alt="">-->
-
                         </div>
                     </div>
 
@@ -265,7 +255,8 @@
     <div class="container">
         <a th:href="${(offset == 1) ? '#' : '/admin/carmanagement?offset=' + (offset - 1)}"><button class="button"><i class="fa fa-arrow-left"></i></button></a>
         <button class="button act"   th:text="${offset}"></button>
-        <a th:href="@{/admin/carmanagement(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
+        <a th:if="${isLastPage}" th:href="'#!'"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
+        <a th:if="${!isLastPage}" th:href="@{/admin/carmanagement(offset=${offset + 1})}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>
     </div>
     </div>
     </div>

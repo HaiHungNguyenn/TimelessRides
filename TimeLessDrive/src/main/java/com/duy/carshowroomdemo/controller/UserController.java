@@ -230,6 +230,7 @@ public class UserController {
                     modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                             .addObject("status", "fail")
                             .addObject("message", "You have booked this slot already.")
+                            .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                             .setViewName("views/user/car-details");
                     return modelAndView;
                 }
@@ -259,6 +260,7 @@ public class UserController {
         modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                 .addObject("status", "success")
                 .addObject("message", "Your meeting request has been sent. Please wait for respond")
+                .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                 .setViewName("views/user/car-details");
         return modelAndView;
     }
@@ -278,7 +280,7 @@ public class UserController {
             }
         }
         modelAndView.addObject("carDto", service.getCarService().findCarById(id));
-        modelAndView.addObject("meetings", service.getOffMeetingService().getOffMeetingsByCarId(id));
+        modelAndView.addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(id));
         modelAndView.addObject("checkUser", check);
         return modelAndView;
 
@@ -764,9 +766,9 @@ public class UserController {
     public ModelAndView updateAccountInfo(@Nullable @RequestParam("avatar") MultipartFile file,
                                           @RequestParam("name") String name,
                                           @RequestParam("phone") String phone,
-                                          @Nullable@RequestParam("gender") String gender,
-                                          @Nullable@RequestParam("dob") String dob,
-                                          @Nullable@RequestParam("address") String address) {
+                                          @Nullable @RequestParam("gender") String gender,
+                                          @Nullable @RequestParam("dob") String dob,
+                                          @Nullable @RequestParam("address") String address) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -783,7 +785,9 @@ public class UserController {
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D", ""));
         client.setGender(gender);
-        client.setDob(LocalDate.parse(dob));
+        if (dob != null){
+           client.setDob(Util.parseLocalDate(dob));
+        }
         client.setAddress(address);
 
         service.getClientService().save(client);
@@ -815,6 +819,38 @@ public class UserController {
 
         return notificationList;
     }
+
+    @RequestMapping("/check-expiration")
+    public void checkExpiration(@RequestParam("id") String id){
+        Client client = service.getClientService().findEntityById(id);
+        client.getPostList().forEach(p -> {
+            if (p.getStatus().equals(Status.APPROVED) && p.getExpireDate().isBefore(LocalDate.now().plusDays(3))){
+                Email alertEmail = new Email();
+                Map<String, Object> alertEmailProperties = new HashMap<>();
+
+                alertEmail.setTo(client.getEmail());
+                alertEmail.setFrom("timelessride3@gmail.com");
+                alertEmail.setSubject("Meeting Cancellation");
+                alertEmail.setTemplate("views/email/subscription-expiration-alert.html");
+
+                alertEmailProperties.put("clientName", client.getName());
+//                alertEmailProperties.put("expireDate", p.getExpireDate());
+//                alertEmailProperties.put("plan", p.getPlan());
+                alertEmailProperties.put("carName", p.getCar().getName());
+
+                alertEmail.setProperties(alertEmailProperties);
+
+                new Thread(() -> {
+                    try {
+                        service.getEmailService().sendHTMLMessage(alertEmail);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+            }
+        });
+    }
+
     @RequestMapping("/a12a")
     public ModelAndView a(){
         ModelAndView modelAndView = new ModelAndView();

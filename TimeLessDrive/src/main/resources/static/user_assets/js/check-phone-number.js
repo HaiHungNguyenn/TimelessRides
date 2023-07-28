@@ -25,12 +25,18 @@ function checkPhone(){
 }
 
 function checkSubmit(){
+    let slot =document.querySelector("#booking-form input[name='slot']:checked")
     var phone = document.getElementById("phone-number");
-    if(phone.value.length == 10)
-        return true;
+    if(phone.value.length != 10){
+        alert("Phone number should have 10 number")
+        return false
+    }
+    else if (slot==null){
+        alert("Slot can not be null")
+        return false
+    }
     else{
-        alert("Phone number should have 10 number");
-        return false;
+        return true
     }
 }
 
