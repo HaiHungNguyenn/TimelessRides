@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TimelessRide - Meeting Cancellation</title>
+  <style>
+    .approval {
+      background-color: #eafbea;
+    }
+
+    .denial {
+      background-color: #fbeaea;
+    }
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    table {
+      width: 100%;
+      border: 0;
+      cellspacing: 0;
+      cellpadding: 0;
+    }
+    
+    td {
+      text-align: left;
+      vertical-align: top;
+    }
+    
+    .container {
+      padding: 40px 0;
+      background-color: #f4f4f4;
+    }
+    
+    .email-content {
+      width: 600px;
+      margin: 0 auto;
+      border: 1px solid #dddddd;
+      background-color: #ffffff;
+    }
+    
+    .logo {
+      padding-top: 20px;
+      text-align: center;
+    }
+    
+    .logo img {
+      width: 200px;
+      height: auto;
+    }
+    
+    .heading {
+      font-size: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #dddddd;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    
+    .info-section {
+      padding: 0 40px;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+    
+    .info-label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .info-value {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .greeting {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    
+    .regards {
+      font-size: 16px;
+      font-style: italic;
+    }
+    
+    .footer {
+      font-size: 14px;
+      padding: 20px 0;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    
+    .footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <table class="container">
+    <tr>
+      <td>
+        <table class="email-content">
+          <tr>
+            <td class="logo">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT17CtLtkGnJeTfAiNSV7iP89IW2cfTanKkEQ&usqp=CAU" alt="TimelessRide Logo">
+            </td>
+          </tr>
+          <tr>
+            <td class="heading">
+              <h2 style="margin: 0;">Subscription Expiration Alert</h2>
+            </td>
+          </tr>
+          <tr>
+            <td class="info-section">
+                <p class="info-label">Dear</p>
+                <p class="greeting" th:text="${clientName}"> </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="info-section">
+              <p>Your post of <i class="denial-message" th:text="${carName}"/> is going to expire soon.</p>
+              <p class="denial-message">You may want to extend your subscription plan.</p>
+              <p class="regards">Best regards,</p>
+              <p>The TimelessRide Team</p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td class="footer">
+        <p>&copy; 2023 TimelessRide. All rights reserved.</p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

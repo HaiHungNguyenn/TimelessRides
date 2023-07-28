@@ -71,10 +71,13 @@ $(document).ready(function (){
     $("#see-more").click(function(){
         seeMore();
     });
+
     updateData();
+
     setInterval(function (){
         updateData();
     }, 10000);
+
 });
 
 

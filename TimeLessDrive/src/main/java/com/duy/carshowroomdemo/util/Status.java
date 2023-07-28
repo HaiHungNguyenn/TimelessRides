@@ -13,4 +13,5 @@ public class Status {
     public static final String COMPLETED = "Completed";
     public static final String SENT = "Sent";
     public static final String PROCESSING = "Processing";
+    public static final String DELETED = "Deleted";
 }

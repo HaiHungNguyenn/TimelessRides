@@ -40,59 +40,8 @@
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../../user_assets/css/notification-style.css"/>
-    <style>
-        .owl-carousel.owl-loaded {
-            height: 350px;
-        }
+    <link rel="stylesheet" href="../../user_assets/css/mypost.css"/>
 
-
-        .owl-carousel .owl-item img {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        .owl-carousel .owl-stage {
-            height: 100%;
-        }
-
-        .owl-carousel .owl-stage-outer {
-            height: 100%;
-        }
-
-        .owl-carousel.owl-drag .owl-item {
-            height: 100%;
-        }
-
-        .car-history-information ul {
-            padding: 15px;
-        }
-
-        .car__item:hover{
-            box-shadow: none;
-        }
-
-        .car__item{
-            cursor: auto;
-        }
-        .hv_black:hover{
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-        .car__item__text {
-            background-color: #f2f2f2;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-
-        .car-history-information li {
-            margin-bottom: 5px;
-        }
-
-        .car-history-information li span {
-            font-weight: bold;
-        }
-
-    </style>
     <th:block th:if="${session.client != null}">
         <script>let id = '[[${session.client.getId()}]]'</script>
     </th:block>
@@ -207,7 +156,7 @@
         <!-- code here -->
         <div class="container-car-history row">
 
-            <div th:each="post : ${postList}" class="car__item col-md-6 hv_black">
+            <div th:each="post : ${postList}" class="car__item col-md-6 hv_black" th:if="${post.getStatus() != 'Deleted'}">
                 <div class="car__item__pic__slider owl-carousel">
                     <img th:src="${carImageUrl.getContent()}"
                          th:each="carImageUrl : ${post.getCar().getCarImageList()}">
@@ -221,7 +170,7 @@
                         </li>
                         <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
                         <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
-                        <li>Status: <span th:text="${post.getStatus()}"></span></li>
+                        <li>Status: <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}" th:text="${post.getStatus()}"></span></li>
                         <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
                     </ul>
                 </div>
@@ -284,10 +233,10 @@
                     <div class="footer__widget">
                         <h5>Infomation</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                            <li><a href="/account"><i class="fa fa-angle-right"></i> Account</a></li>
+                            <li><a href="/customer_service"><i class="fa fa-angle-right"></i> Customer Service</a></li>
+                            <li><a href="/car"><i class="fa fa-angle-right"></i> Car Inventory</a></li>
+                            <li><a href="/post_car"><i class="fa fa-angle-right"></i> Post Car</a></li>
                         </ul>
                     </div>
                 </div>
@@ -295,27 +244,21 @@
                     <div class="footer__widget">
                         <h5>History</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Transaction History</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Meeting History</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> My Posst</a></li>
+                            <li><a href="/transactions_history"><i class="fa fa-angle-right"></i> Transaction History</a></li>
+                            <li><a href="/meeting_history"><i class="fa fa-angle-right"></i> Meeting History</a></li>
+                            <li><a href="/post-history"><i class="fa fa-angle-right"></i> My Posst</a></li>
 
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer__brand">
-                        <h5>Top Brand</h5>
+                        <h5> Team Member</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Hưng Hãi</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Thanh Duy</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Quốc Thái</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Đỗ Minh Trí</a></li>
                         </ul>
                     </div>
                 </div>

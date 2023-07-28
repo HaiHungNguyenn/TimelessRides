@@ -133,6 +133,11 @@ public class PostService {
         });
         return postDtoList;
     }
+
+    public boolean isLastPageOfApprovedPostsByStatus(Pageable pageable) {
+        return postRepository.findAllByStatus(Status.APPROVED, pageable).isLast();
+    }
+
     public List<PostDto> getApprovedPostsByStatus(Pageable pageable, String property, String direction) {
 
         List<PostDto> postDtoList = new ArrayList<>();
