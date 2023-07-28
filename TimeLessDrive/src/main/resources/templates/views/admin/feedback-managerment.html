@@ -332,7 +332,7 @@
         <li th:if="${lastOffset >= offset + 2}"><a th:text="${offset+2}"
                                                    th:href="@{${url} (offset = ${offset + 2}"/>
         </li>
-
+<!--        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/staff_list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>-->
         <a th:classappend="${lastOffset < offset + 1} ? 'disabled'"
            th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
            th:href="${urlBuilder.replaceQueryParam('offset', offset + 1).build().toUriString()}"

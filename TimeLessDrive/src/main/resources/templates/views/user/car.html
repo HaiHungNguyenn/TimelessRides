@@ -241,8 +241,11 @@
                                 <div class="car__item__text">
                                     <div class="car__item__text__inner">
                                         <div class="label-date" th:text="${post.getPostDate()}"/>
-                                        <div class="label-date" th:text="${post.getClient().getId() == session.client.getId() ? 'Your car' : ''}" th:style="'background-image: linear-gradient(to right, #ff0000, #ff9999);' + (${post.getClient().getId() == session.client.getId() && post.getClient().getId() != null ? '' : 'display: none;'})">
+                                        <div class="label-date"
+                                             th:text="${session.client != null && post.getClient().getId() == session.client.getId() ? 'Your car' : (session.client == null ? 'Unknown car' : '')}"
+                                             th:style="'background-image: linear-gradient(to right, #ff0000, #ff9999);' + (${session.client != null && post.getClient().getId() == session.client.getId() ? '' : 'display: none;'})">
                                         </div>
+
                                         <h5><a th:href="'/car-detail/'+${post.getCar().getId()}" th:text="${post.getCar().getName()}+' '+${post.getCar().getCarDescription().getModel()}"></a></h5>
                                         <ul>
                                             <li><span th:text="${post.getCar().getCarDescription().getMileage()}"/> mi</li>
