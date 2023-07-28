@@ -320,7 +320,10 @@
 
     </div>
     <div class="page-select">
-        <a th:classappend="${offset == 1} ? 'disabled'"
+        <a th:if="${offset == 1}"
+           th:href="'#!'"
+           th:text="Prev"/>
+        <a th:if="${offset != 1}"
            th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
            th:href="${urlBuilder.replaceQueryParam('offset', offset - 1).build().toUriString()}"
            th:text="Prev"/>
@@ -333,7 +336,11 @@
                                                    th:href="@{${url} (offset = ${offset + 2}"/>
         </li>
 <!--        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/staff_list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>-->
-        <a th:classappend="${lastOffset < offset + 1} ? 'disabled'"
+        <a th:if="${isLastPage}"
+           th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+           th:href="'#!'"
+           th:text="Next"/>
+        <a th:if="${!isLastPage}"
            th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
            th:href="${urlBuilder.replaceQueryParam('offset', offset + 1).build().toUriString()}"
            th:text="Next"/>
