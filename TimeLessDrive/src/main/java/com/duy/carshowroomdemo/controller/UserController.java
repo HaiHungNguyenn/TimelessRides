@@ -3,7 +3,6 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
-import com.duy.carshowroomdemo.mapper.ModelMapper;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
@@ -11,23 +10,18 @@ import com.duy.carshowroomdemo.util.Util;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -906,5 +900,10 @@ public class UserController {
 
         modelAndView.setViewName("views/user/extend-post");
         return modelAndView.addObject(service.getPostService().findById(id));
+    }
+
+    @RequestMapping("/test-exception")
+    public ModelAndView testException(){
+        throw new NullPointerException();
     }
 }
