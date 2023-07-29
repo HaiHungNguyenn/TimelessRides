@@ -49,6 +49,10 @@ public class Post {
 
     private String status;
 
+    public void setPlan(String plan) {
+        this.plan = this.plan +","+plan;
+    }
+
     public List<String> getPlanList(){
         return Arrays.asList(plan.split(","));
     }

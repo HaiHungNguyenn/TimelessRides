@@ -893,6 +893,17 @@ public class UserController {
         System.out.println("==========================");
         System.out.println(plan);
         System.out.println(id);
+
+        Post post = service.getPostService().findById(id);
+
+        post.setPlan(plan);
+        post.setPriority(Plan.getPriority(plan));
+        post.setExpireDate(LocalDate.now().plusDays(Plan.getDuration(plan)));
+        service.getPostService().save(post);
+
+        modelAndView.addObject("message", "Your post plan has been extended");
+        modelAndView.addObject("status", "success");
+
         modelAndView.setViewName("views/user/extend-post");
         return modelAndView.addObject(service.getPostService().findById(id));
     }

@@ -146,7 +146,7 @@ public class LogInController {
 
             service.getClientService().save(client);
 
-            modelAndView.addObject("loginMess", "Your account has been registered successfully. Please log in")
+            modelAndView.addObject("loginMess", "We have just sent you a confirm email. PLease do one more step to register your account.")
                     .addObject("status", "success")
                     .setViewName("views/user/login");
         }
