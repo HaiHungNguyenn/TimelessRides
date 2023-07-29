@@ -43,12 +43,12 @@ public class StaffDto implements Serializable {
             int workingYears = workingTime.getYears();
 
             if (workingYears >= 1){
-                result.append(workingYears).append(" years, ");
+                result.append(workingYears).append((workingYears == 1) ? "year, " : " years, ");
                 workingMonths -= workingYears * 12;
             }
 
             if (workingMonths >= 1){
-                result.append(workingMonths).append(" months, ");
+                result.append(workingMonths).append((workingMonths == 1) ? " month, " : " months, ");
             }
         }
 
