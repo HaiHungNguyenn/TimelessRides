@@ -781,9 +781,10 @@ public class UserController {
         client.setPhone(phone.replaceAll("\\D", ""));
         client.setGender(gender);
         if (dob != null){
-           client.setDob(Util.parseLocalDate(dob));
+           client.setDob(Util.parseLocalDateAccount(dob));
         }
         client.setAddress(address);
+
 
         service.getClientService().save(client);
         session.setAttribute("client", service.getClientService().findById(clientDto.getId()));

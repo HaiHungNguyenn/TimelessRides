@@ -248,6 +248,15 @@ public class Util {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return LocalDate.parse(dateString, formatter);
     }
+
+    public static LocalDate parseLocalDateAccount(String dateString) {
+        if (dateString.isBlank()){
+            return null;
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(dateString, formatter);
+    }
+
     public static LocalTime parseLocalTime(String timeString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         return LocalTime.parse(timeString, formatter);
