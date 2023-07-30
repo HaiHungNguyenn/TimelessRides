@@ -202,7 +202,7 @@ public class StaffController {
                                               @RequestParam("id") String meetingId,
                                               @RequestParam("property") String property,
                                               @RequestParam("direction") String direction,
-                                              @RequestParam("offset") Integer offset) throws MessagingException {
+                                              @RequestParam("offset") Integer offset) {
         ModelAndView modelAndView = new ModelAndView("views/user/login");
         String errorMsg = null;
         String successMsg = null;

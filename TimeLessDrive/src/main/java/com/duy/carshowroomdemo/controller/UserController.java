@@ -3,7 +3,6 @@ package com.duy.carshowroomdemo.controller;
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.*;
 import com.duy.carshowroomdemo.mapper.MapperManager;
-import com.duy.carshowroomdemo.mapper.ModelMapper;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Plan;
 import com.duy.carshowroomdemo.util.Status;
@@ -11,22 +10,18 @@ import com.duy.carshowroomdemo.util.Util;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -230,6 +225,7 @@ public class UserController {
                     modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                             .addObject("status", "fail")
                             .addObject("message", "You have booked this slot already.")
+                            .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                             .setViewName("views/user/car-details");
                     return modelAndView;
                 }
@@ -259,6 +255,7 @@ public class UserController {
         modelAndView.addObject("carDto", service.getCarService().findCarById(carId))
                 .addObject("status", "success")
                 .addObject("message", "Your meeting request has been sent. Please wait for respond")
+                .addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(carId))
                 .setViewName("views/user/car-details");
         return modelAndView;
     }
@@ -278,7 +275,7 @@ public class UserController {
             }
         }
         modelAndView.addObject("carDto", service.getCarService().findCarById(id));
-        modelAndView.addObject("meetings", service.getOffMeetingService().getOffMeetingsByCarId(id));
+        modelAndView.addObject("meetings", service.getOffMeetingService().getOccupiedOffMeetingsByCarId(id));
         modelAndView.addObject("checkUser", check);
         return modelAndView;
 
@@ -327,7 +324,7 @@ public class UserController {
         }
 
         ClientDto client = (ClientDto) session.getAttribute("client");
-        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0, 10));
+        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0, 100));
 
         modelAndView.addObject("meetingList", meetingList)
                 .addObject("errorMsg", errorMsg)
@@ -344,9 +341,11 @@ public class UserController {
             return modelAndView;
         }
         ClientDto client = (ClientDto) session.getAttribute("client");
-        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,10));
+        List<PostDto> postList = service.getPostService().getPostsByClientId(client, PageRequest.of(0,20));
 
         modelAndView.addObject("postList", postList);
+        modelAndView.addObject("checkdate",LocalDate.now().plusDays(7));
+
 
         modelAndView.setViewName("views/user/post-history");
         return modelAndView;
@@ -460,9 +459,9 @@ public class UserController {
                 carImage.setCar(car);
                 carImageList.add(carImage);
             }
+            car.getCarImageList().addAll(carImageList);
         }
 
-        car.getCarImageList().addAll(carImageList);
         car.setName(carName);
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
         car.setStatus(Status.AVAILABLE);
@@ -762,9 +761,9 @@ public class UserController {
     public ModelAndView updateAccountInfo(@Nullable @RequestParam("avatar") MultipartFile file,
                                           @RequestParam("name") String name,
                                           @RequestParam("phone") String phone,
-                                          @Nullable@RequestParam("gender") String gender,
-                                          @Nullable@RequestParam("dob") String dob,
-                                          @Nullable@RequestParam("address") String address) {
+                                          @Nullable @RequestParam("gender") String gender,
+                                          @Nullable @RequestParam("dob") String dob,
+                                          @Nullable @RequestParam("address") String address) {
 
         ModelAndView modelAndView = new ModelAndView();
 
@@ -781,8 +780,11 @@ public class UserController {
         client.setName(name);
         client.setPhone(phone.replaceAll("\\D", ""));
         client.setGender(gender);
-        client.setDob(LocalDate.parse(dob));
+        if (dob != null){
+           client.setDob(Util.parseLocalDateAccount(dob));
+        }
         client.setAddress(address);
+
 
         service.getClientService().save(client);
         session.setAttribute("client", service.getClientService().findById(clientDto.getId()));
@@ -813,6 +815,38 @@ public class UserController {
 
         return notificationList;
     }
+
+    @RequestMapping("/check-expiration")
+    public void checkExpiration(@RequestParam("id") String id){
+        Client client = service.getClientService().findEntityById(id);
+        client.getPostList().forEach(p -> {
+            if (p.getStatus().equals(Status.APPROVED) && p.getExpireDate().isBefore(LocalDate.now().plusDays(3))){
+                Email alertEmail = new Email();
+                Map<String, Object> alertEmailProperties = new HashMap<>();
+
+                alertEmail.setTo(client.getEmail());
+                alertEmail.setFrom("timelessride3@gmail.com");
+                alertEmail.setSubject("Meeting Cancellation");
+                alertEmail.setTemplate("views/email/subscription-expiration-alert.html");
+
+                alertEmailProperties.put("clientName", client.getName());
+//                alertEmailProperties.put("expireDate", p.getExpireDate());
+//                alertEmailProperties.put("plan", p.getPlan());
+                alertEmailProperties.put("carName", p.getCar().getName());
+
+                alertEmail.setProperties(alertEmailProperties);
+
+                new Thread(() -> {
+                    try {
+                        service.getEmailService().sendHTMLMessage(alertEmail);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+            }
+        });
+    }
+
     @RequestMapping("/a12a")
     public ModelAndView a(){
         ModelAndView modelAndView = new ModelAndView();
@@ -840,5 +874,37 @@ public class UserController {
         return modelAndView;
 
     }
+    @RequestMapping("/extend-post/{id}")
+    public ModelAndView extendPost(@PathVariable String id){
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("===================");
+        System.out.println("post id:"+id);
+        modelAndView.setViewName("views/user/extend-post");
+        return modelAndView.addObject(service.getPostService().findById(id));
+    }
+    @RequestMapping("/extend_plan")
+    public ModelAndView extend(@RequestParam("plan") String plan,@RequestParam("postID") String id){
+        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("==========================");
+        System.out.println(plan);
+        System.out.println(id);
 
+        Post post = service.getPostService().findById(id);
+
+        post.setPlan(plan);
+        post.setPriority(Plan.getPriority(plan));
+        post.setExpireDate(LocalDate.now().plusDays(Plan.getDuration(plan)));
+        service.getPostService().save(post);
+
+        modelAndView.addObject("message", "Your post plan has been extended");
+        modelAndView.addObject("status", "success");
+
+        modelAndView.setViewName("views/user/extend-post");
+        return modelAndView.addObject(service.getPostService().findById(id));
+    }
+
+    @RequestMapping("/test-exception")
+    public ModelAndView testException(){
+        throw new NullPointerException();
+    }
 }

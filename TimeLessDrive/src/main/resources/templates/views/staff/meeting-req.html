@@ -64,18 +64,19 @@
         <p class="text-success fs-3 text-center" th:if="${successMsg != null}" th:text="${successMsg}"/>
         <div class="container-small cart">
           <h2 class="mb-5">Meeting Request List<span class="text-700 fw-normal ms-2" th:text="'(' + ${totalOffMeetings} + ' requests)'"></span></h2>
-          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":["products","color","size","price","quantity","total"],"page":5,"pagination":true}' th:if="${!offMeetingList.isEmpty()}">
+          <div class="border-y" id="productWishlistTable" data-list='{"valueNames":[T"color"]}' th:if="${!offMeetingList.isEmpty()}">
             <div class="table-responsive scrollbar">
               <table class="table fs--1 mb-0">
                 <thead>
                   <tr>
                     <th class="sort white-space-nowrap align-middle" scope="col" style="width:3%;">No.</th>
                     <th class="sort white-space-nowrap text-center" scope="col" style="width:27%; min-width:200px;">User Name</th>
+                    <th class="sort white-space-nowrap text-center" style="width:10%; min-width:30px;">Phone</th>
                     <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
                         <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-meetingDate-' + ${direction}" th:text="'Meeting Date'"/>
                     </th>
-                      <th class="sort align-middle" scope="col" data-sort="color" style="width:10%;">
-                        <a class="link-dark hover-text-decoration-none" th:with="direction=((${direction} == 'asc') ? 'desc' : 'asc')" th:href="'/staff/meeting-requests/sorted-by-createDate-' + ${direction}" th:text="'Created At'"/>
+                      <th class="sort align-middle" scope="col" style="width:10%;">
+                          <a class="link-dark hover-text-decoration-none">Meeting time</a>
                     </th>
                     <th class="sort align-middle" scope="col" style="width:20%;">Description</th>
                     <th class="sort align-middle text-center" scope="col" style="width:10%;">Status</th>
@@ -88,8 +89,9 @@
                       <div class="text-center" th:with="count=((${offset} - 1) * 10 + ${iStat.count})" th:text="${count}"/>
                     </td>
                     <td class="products align-middle text-left pe-11"><a class="fw-semi-bold mb-0 line-clamp-1" th:href="@{/staff/user-details (id = ${offMeeting.getClient().getId()})}" th:text="${offMeeting.getClient().getName()}"/></td>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="'0987654321'"/>
                     <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getMeetingDate()}"/>
-                    <td class="color align-middle white-space-nowrap fs--1 text-900" th:text="${offMeeting.getCreateDate()}"/>
+                    <td class="color align-middle white-space-nowrap fs--1 text-900 text-center" th:text="${offMeeting.getMeetingTime()}"/>
                     <td class="size align-middle flex-wrap text-700 fs--1 fw-semi-bold" th:text="${offMeeting.getDescription()}"/>
                     <td class="price align-middle text-900 fs--1 fw-semi-bold text-center " >
                         <span class="badge badge-phoenix badge-phoenix-info fs--1" th:text="${offMeeting.getStatus()}"/>

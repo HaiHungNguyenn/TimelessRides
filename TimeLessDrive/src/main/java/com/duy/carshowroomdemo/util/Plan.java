@@ -33,6 +33,9 @@ public class Plan {
        return 30;
    }
    public static int getPriority(String plan){
+
+
+
        switch (plan){
            case PLAN_1 -> {
                return 1;

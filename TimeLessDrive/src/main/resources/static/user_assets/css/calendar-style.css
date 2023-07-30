@@ -193,6 +193,9 @@ html {
 .slots .occupied{
     background: darkred;
     cursor: none;
-    pointer-events: none;
     color: white;
+}
+
+.slots .occupied:active{
+    pointer-events: none;
 }

@@ -2,10 +2,12 @@ package com.duy.carshowroomdemo.controller;
 
 import com.duy.carshowroomdemo.dto.*;
 import com.duy.carshowroomdemo.entity.Client;
+import com.duy.carshowroomdemo.entity.Email;
 import com.duy.carshowroomdemo.entity.Staff;
 import com.duy.carshowroomdemo.service.Service;
 import com.duy.carshowroomdemo.util.Status;
 import com.duy.carshowroomdemo.util.Util;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -18,10 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class LogInController {
@@ -83,30 +82,75 @@ public class LogInController {
 
     }
     @RequestMapping(value = "/register-form", method = RequestMethod.POST)
-    public ModelAndView register(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam("name") String name){
+    public ModelAndView register(@RequestParam("email") String email, @RequestParam("password") String password, @RequestParam("name") String name){
             ModelAndView modelAndView = new ModelAndView();
 
 
             if(service.getClientService().isExist(email) ||service.getStaffService().isExist(email)||service.getAdminService().isExist(email)){
 
-                modelAndView.addObject("loginMess","This email is already registered. Please registered with another account");
+                modelAndView.addObject("loginMess","This email is already registered. Please register with another email");
                 modelAndView.addObject("status","fail");
                 modelAndView.setViewName("views/user/login");
 
             }else {
-                Client client = new Client();
-                client.setName(name);
-                client.setEmail(email);
-                client.setPassword(Util.encodePassword(password));
-                client.setJoinDate(LocalDate.now());
-                service.getClientService().save(client);
-                modelAndView.addObject("loginMess","Successfully registered. Please log in");
+                modelAndView.addObject("loginMess","We've sent you an email. Please check your email to proceed.");
                 modelAndView.addObject("status","success");
                 modelAndView.setViewName("views/user/login");
+
+                Email registrationEmail = new Email();
+                Map<String, Object> emailProperties = new HashMap<>();
+
+                registrationEmail.setTo(email);
+                registrationEmail.setFrom("timelessride3@gmail.com");
+                registrationEmail.setSubject("Register Your Account");
+                registrationEmail.setTemplate("views/email/email-registration.html");
+
+                password = Util.encodePassword(password);
+                String url = String.format("http://localhost:8080/register-confirm?name=%s&email=%s&password=%s", name, email, password);
+
+                emailProperties.put("registrationUrl", url);
+//                alertEmailProperties.put("expireDate", p.getExpireDate());
+//                alertEmailProperties.put("plan", p.getPlan());
+
+                registrationEmail.setProperties(emailProperties);
+
+                new Thread(() -> {
+                    try {
+                        service.getEmailService().sendHTMLMessage(registrationEmail);
+                    } catch (MessagingException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+
+
             }
             return modelAndView;
     }
 
+    @RequestMapping("/register-confirm")
+    public ModelAndView confirmRegistration(@RequestParam("email") String email, @RequestParam("password") String password,@RequestParam("name") String name){
+        ModelAndView modelAndView = new ModelAndView();
 
+        if(service.getClientService().isExist(email) ||service.getStaffService().isExist(email)||service.getAdminService().isExist(email)){
+
+            modelAndView.addObject("loginMess","This email is already registered. Please register with another email");
+            modelAndView.addObject("status","fail");
+            modelAndView.setViewName("views/user/login");
+        }else {
+            Client client = Client.builder()
+                    .name(name)
+                    .email(email)
+                    .password(password)
+                    .joinDate(LocalDate.now())
+                    .build();
+
+            service.getClientService().save(client);
+
+            modelAndView.setViewName("views/user/index");
+            session.setAttribute("client", service.getClientService().findByEmail(client.getEmail()));
+        }
+
+        return modelAndView;
+    }
 
 }

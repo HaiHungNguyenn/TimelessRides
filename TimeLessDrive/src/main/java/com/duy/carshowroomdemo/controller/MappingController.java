@@ -242,11 +242,15 @@ public class MappingController {
         }
         offset = (offset == null) ? 1 : offset;
 
-        List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(PageRequest.of(offset - 1, 9, Sort.by("priority").descending()));
-        modelAndView.addObject("postDto", postDto);
-        modelAndView.addObject("offset", offset);
+        Pageable pageable = PageRequest.of(offset - 1, 9, Sort.by("priority").descending());
+        List<PostDto> postDto = service.getPostService().getApprovedPostsByStatus(pageable);
+        boolean isLastPage = service.getPostService().isLastPageOfApprovedPostsByStatus(pageable);
+
         modelAndView.setViewName("views/admin/car-management");
-        return modelAndView;
+        return modelAndView
+                .addObject("postDto", postDto)
+                .addObject("offset", offset)
+                .addObject("isLastPage", isLastPage);
     }
 
     @RequestMapping("/delete-car/{id}")
@@ -506,15 +510,17 @@ public class MappingController {
         if (!isAuthenticated()) {
             return modelAndView;
         }
-        List<Feedback> feedbackList = null;
+        List<Feedback> feedbackList;
+        boolean isLastPage;
 
         if(star==null) {
             feedbackList = service.getFeedbackService().findFeedbacksPerPage(PageRequest.of(offset - 1, 10));
+            isLastPage = service.getFeedbackService().isLastPageOfFeedbacksPerPage(PageRequest.of(offset - 1, 10));
         }
         else{
             feedbackList = service.getFeedbackService().findFeedbacksByRating(star, PageRequest.of(offset - 1, 10));
+            isLastPage = service.getFeedbackService().isLastPageOfFeedbacksByRating(star, PageRequest.of(offset - 1, 10));
         }
-
 
         List<Feedback> allFeedBacks = service.getFeedbackService().findAllFeedBacks();
         Map<Integer, List<Feedback>> feedbackGrouped =
@@ -526,6 +532,7 @@ public class MappingController {
                 .addObject("offset", offset)
                 .addObject("averageRating", averageRating)
                 .addObject("feedbackGroup", feedbackGrouped)
+                .addObject("isLastPage", isLastPage)
                 .setViewName("views/admin/feedback-managerment");
         return modelAndView;
     }

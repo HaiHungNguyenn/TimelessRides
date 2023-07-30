@@ -148,222 +148,42 @@
         </div>
     </div>
 </header>
-<!-- Header Section End -->
 
-<!-- Breadcrumb End -->
-<div class="breadcrumb-option set-bg" data-setbg="../../user_assets/img/breadcrumb-bg.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb__text">
-                    <h2>Post Car</h2>
-                    <div class="breadcrumb__links">
-                        <a href="/"><i class="fa fa-home"></i> Home</a>
-                        <span>Post Car</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<form th:action="@{/post-history/confirm-edit (id = ${post.getId()})}" id="myForm" enctype="multipart/form-data" method="post">
+<form action="/extend_plan" id="myForm" enctype="multipart/form-data" method="post">
     <ul class="container main-container">
         <li class="row header main-header">
-            <h1>Edit your car's information</h1>
+            <h1>Extend your post</h1>
             <p class="text-danger fs-5" th:if="${errorMsg != null}" th:text="${errorMsg}"/>
             <p class="text-success fs-5" th:if="${successMsg != null}" th:text="${successMsg}"/>
         </li>
         <li class="row">
             <ul class="container">
-                <li class="row header">
-                    <h3>Car information:</h3>
-                    <p>Please fill in the required fields (indicated by *).</p>
-                </li>
-                <li class="row">
-                    <div class="required-field">
-                        <h4>Car name</h4>
-                        <input type="text" name="carName" id="car-name" th:value="${post.getCar().getName()}" required>
-                        <label for="car-name"></label>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6 required-field">
-                        <h4>Make</h4>
-                        <input type="text" list="makes" name="make" th:value="${post.getCar().getCarDescription().getMake()}" required>
-                        <datalist id="makes">
-                            <th:block th:each="make : ${session.postMakes}">
-                                <option th:text="${make}"></option>
-                            </th:block>
-                        </datalist>
-                    </div>
-                    <div class="col-sm-12 col-md-6 required-field">
-                        <h4>Model</h4>
-                        <input type="text" name="model" id="model" list="models" th:value="${post.getCar().getCarDescription().getModel()}" required>
-                        <datalist id="models">
-                            <th:block th:each="model : ${session.postModels}">
-                                <option th:text="${model}"></option>
-                            </th:block>
-                        </datalist>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Body</h4>
-                        <input type="text" name="body" id="body" th:value="${post.getCar().getCarDescription().getBody()}" list="bodies">
-                        <datalist id="bodies">
-                            <th:block th:each="body : ${session.postBodies}">
-                                <option th:text="${body}"></option>
-                            </th:block>
-                        </datalist>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Body color</h4>
-                        <input type="text" name="bodyColor" id="body-color" th:value="${post.getCar().getCarDescription().getBodyColor()}">
-                        <label for="body-color"></label>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Interior Material</h4>
-                        <div class="interior-material">
-                            <input type="text" name="interiorMaterial" id="interior-material" th:value="${post.getCar().getCarDescription().getInteriorMaterial()}">
-                            <label for="interior-material"></label>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Interior color</h4>
-                        <input type="text" name="interiorColor" id="interior-color" th:value="${post.getCar().getCarDescription().getInteriorColor()}">
-                        <label for="interior-color"></label>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>License Plate</h4>
-                        <input type="text" name="licensePlate" id="license-plate" placeholder="ex: 12F-123.456" th:value="${post.getCar().getCarDescription().getLicensePlate()}">
-                        <label for="license-plate"></label>
-                    </div>
 
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Transmission</h4>
-                        <input type="text" name="transmission" id="transmission"
-                               placeholder="ex: Automatic Transmission" th:value="${post.getCar().getCarDescription().getTransmission()}">
-                        <label for="transmission"></label>
-                    </div>
-                </li>
-
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Seats</h4>
-                        <div class="seats">
-                            <input type="number" name="seats" id="seats"
-                                   min="2"
-                                   max="11" th:value="${post.getCar().getCarDescription().getSeats()}">
-                            <label for="seats"></label>
+                <li>
+                    <div class="pricing-table">
+                        <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"
+                             style="width: 30% ">
+                            <h2>STANDARD PLAN</h2>
+                            <p class="price">$299/month</p>
+                            <p class="text-center">Your post will have default priority</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"
+                             style="width: 30% ">
+                            <h2>FEATURED PLAN</h2>
+                            <p class="price">$599/month</p>
+                            <p class="text-center">Your post will have high priority in order to be seen easily</p>
+                        </div>
+                        <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"
+                             style="width: 30% ">
+                            <h2>PREMIUM PLAN</h2>
+                            <p class="price">$799/month</p>
+                            <p class="text-center">Your post will always be on top of our website</p>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Mileage</h4>
-                        <div>
-                            <input type="text" name="mileage" id="mileage"
-                                   min="0" th:value="${post.getCar().getCarDescription().getMileage()}">
-                            <label for="mileage"></label>
-                        </div>
-                    </div>
+                    <input type="text" class="d-none" name="plan" id="plan" required>
+                    <input type="hidden" th:value="${post.getId()}" name="postID" >
                 </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Engine Capacity</h4>
-                        <div class="engine-capacity">
-                            <input type="text" name="engineCapacity" id="engine-capacity" min="0" th:value="${post.getCar().getCarDescription().getEngineCapacity()}">
-                            <label for="engine-capacity">Calculation Unit: cc</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Power</h4>
-                        <div class="power">
-                            <input type="text" name="power" id="power" th:value="${post.getCar().getCarDescription().getPower()}">
-                            <label for="power">Calculation Unit: hp</label>
-                        </div>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>CO2 Emission</h4>
-                        <input type="text" name="co2Emission" id="co2-emission" min="0" th:value="${post.getCar().getCarDescription().getCo2Emission()}">
-                        <label for="co2-emission"></label>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Fuel Type</h4>
-                        <input type="text" name="fuelType" id="fuel-type" placeholder="ex: Gasoline" th:value="${post.getCar().getCarDescription().getFuelType()}">
-                        <label for="fuel-type"></label>
-                    </div>
-                </li>
-                <li class="row">
-                    <div class="col-sm-12 col-md-6">
-                        <h4>First Registration</h4>
-                        <input type="month" id="first-registration" name="firstRegistration"
-                               pattern="[0-9]{2}/[0-9]{4}" th:value="${post.getCar().getCarDescription().getFirstRegistration()}">
-                        <label for="first-registration"></label>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h4>Price</h4>
-                        <input type="number" name="price" id="price" min="0" th:value="${post.getCar().getPrice()}">
-                        <label for="price"></label>
-                    </div>
-                </li>
-                <li class="row duy-container">
-                    <h4>Upload images of the car from all sides :</h4>
-                    <div class="car-images">
-                        <input type="file" id="car-image"
-                               onchange="previewImages();" multiple
-                               accept="image/png, image/gif, image/jpeg" name="files">
-                        <label for="car-image">
-                            <i class="fa fa-cloud-upload"></i><br>
-                            To select multiple files, hold down the CTRL or SHIFT key while
-                            selecting.</label>
-                        <div id="images">
-
-                        </div>
-                    </div>
-                </li>
-                <li class="row">
-                    <h4>Other information about the car</h4>
-                    <div>
-                        <textarea id="questions" name="others"></textarea>
-                        <label for="questions"></label>
-                    </div>
-                </li>
-                <li class="row">
-                    <h4>Write a description for your post</h4>
-                    <div>
-                        <textarea id="description" name="postDescription"></textarea>
-                        <label for="description"></label>
-                    </div>
-                </li>
-<!--                <li>-->
-<!--                    <div class="pricing-table">-->
-<!--                        <div class="pricing-card" id="pricing-card-1" onclick="selectPackage('pricing-card-1')"-->
-<!--                             style="width: 30% ">-->
-<!--                            <h2>STANDARD PLAN</h2>-->
-<!--                            <p class="price">$299/month</p>-->
-<!--                            <p class="text-center">Your post will have default priority</p>-->
-<!--                        </div>-->
-<!--                        <div class="pricing-card" id="pricing-card-2" onclick="selectPackage('pricing-card-2')"-->
-<!--                             style="width: 30% ">-->
-<!--                            <h2>FEATURED PLAN</h2>-->
-<!--                            <p class="price">$599/month</p>-->
-<!--                            <p class="text-center">Your post will have high priority in order to be seen easily</p>-->
-<!--                        </div>-->
-<!--                        <div class="pricing-card" id="pricing-card-3" onclick="selectPackage('pricing-card-3')"-->
-<!--                             style="width: 30% ">-->
-<!--                            <h2>PREMIUM PLAN</h2>-->
-<!--                            <p class="price">$799/month</p>-->
-<!--                            <p class="text-center">Your post will always be on top of our website</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <input type="text" class="d-none" name="plan" id="plan" required>-->
-<!--                </li>-->
                 <li class="row" style="margin:60px">
                     <input type="submit" value="Submit" style="font-size:20px">
                 </li>
@@ -372,6 +192,7 @@
     </ul>
 
 </form>
+
 <div class="wrapper">
 
     <div class="modal_wrapper" th:classappend="${status!=null} ? 'active': ''">
@@ -415,7 +236,6 @@
         </div>
     </div>
 </div>
-
 <!-- Footer Section Begin -->
 <footer class="footer set-bg" data-setbg="../../user_assets/img/footer-bg.jpg">
     <div class="container">
@@ -469,7 +289,7 @@
                     <ul>
                         <li><a href="/transactions_history"><i class="fa fa-angle-right"></i> Transaction History</a></li>
                         <li><a href="/meeting_history"><i class="fa fa-angle-right"></i> Meeting History</a></li>
-                        <li><a href="/post-history"><i class="fa fa-angle-right"></i> My Posst</a></li>
+                        <li><a href="/post-history"><i class="fa fa-angle-right"></i> My Post</a></li>
 
                     </ul>
                 </div>
@@ -478,7 +298,7 @@
                 <div class="footer__brand">
                     <h5>Team Member</h5>
                     <ul>
-                        <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Hưng Hãi</a></li>
+                        <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Hưng Hải</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Thanh Duy</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Nguyễn Quốc Thái</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i> Đỗ Minh Trí</a></li>
@@ -486,16 +306,12 @@
                 </div>
             </div>
         </div>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         <div class="footer__copyright__text">
             <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
         </div>
-        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
     </div>
 </footer>
-<!-- Footer Section End -->
 
-<!-- Search Begin -->
 <div class="search-model">
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch">+</div>
@@ -541,12 +357,44 @@
 
 </script>
 <script>
-    let file = document.getElementsByName("files")[0].value;
-    console.log(file);
-    document.getElementById("myForm").addEventListener("submit", () => {
-        let files = document.getElementsByName("files")[0];
-        if(files.value.length==0) files.remove();
-    })
+    // Get the close icon element
+    const closeIcon = document.querySelectorAll('.close_btn ion-icon');
+
+    //Get the background
+    const background = document.querySelector(".modal_wrapper")
+
+    // Add event listener to the close icon
+    closeIcon.forEach((close) => close.addEventListener('click', () => {
+        // Hide the modal
+        const modal = close.parentElement.parentElement;
+        modal.style.display = 'none';
+        background.classList.remove("active");
+    }));
+    // Get the "Continue" buttons
+    var successButton = document.querySelector('.success_btn');
+    var errorButton = document.querySelector('.error_btn');
+
+    // Get the modals
+    var successModal = document.querySelector('.s_modal');
+    var errorModal = document.querySelector('.e_modal');
+
+    // Add click event listener to the success button
+    successButton.addEventListener('click', function () {
+        // Hide the success modal by setting display to "none"
+        successModal.style.display = 'none';
+        background.classList.remove("active");
+
+    });
+
+    // Add click event listener to the error button
+    errorButton.addEventListener('click', function () {
+        // Hide the error modal by setting display to "none"
+        errorModal.style.display = 'none';
+        background.classList.remove("active");
+
+    });
+
+
 </script>
 <!-- notification js-->
 <script src="../../admin_assets/js/metisMenu.js"></script>

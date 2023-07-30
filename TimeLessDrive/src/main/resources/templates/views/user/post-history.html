@@ -170,8 +170,31 @@
                         </li>
                         <li>Interior Color: <span th:text="${postDetail.getInteriorColor()}"></span></li>
                         <li>Interior Material: <span th:text="${postDetail.getInteriorMaterial()}"></span></li>
-                        <li>Status: <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}" th:text="${post.getStatus()}"></span></li>
+                        <li th:if="${post.getExpireDate() >= checkdate}">
+                            Status:
+                            <span th:class="status-tag" th:classappend="${post.getStatus().toLowerCase()}"
+                                  th:text="${post.getStatus()}"></span>
+                        </li>
+                        <li th:if="${post.getExpireDate() < checkdate}">
+                            Status:
+                            <span th:class="status-tag"
+                                  > Outdated</span>
+                        </li>
+
                         <li>Price: <span th:text="'$'+${post.getCar().getPrice()}"></span></li>
+                        <li>Expired Date: <span th:text="${post.getExpireDate()}"/> </li>
+
+                        <li id="extend_post" th:if="${post.getExpireDate() < checkdate}" onclick="showPopup()">
+                            <span style="color: white;
+                            display: inline-block;
+                            padding: 4px 8px;
+                            border-radius: 4px;
+                            font-size: 24px;
+                            font-weight: bold;
+                            background-color: #9b0303;
+                            text-transform: uppercase;" ><a th:href="@{'/extend-post/' + ${post.getId()} }">Extend your post here</a></span>
+                        </li>
+
                     </ul>
                 </div>
 
@@ -179,7 +202,7 @@
                     <div class="car-history-btn">
                         <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
                     </div>
-                    <div class="car-history-btn">
+                    <div class="car-history-btn" th:classappend="${post.getStatus()=='Completed' ? 'completed' : ''}">
                         <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
                     </div>
                     <div class="car-history-btn">

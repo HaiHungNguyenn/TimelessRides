@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
 <!-- Mirrored from demo.dashboardpack.com/user-management-html/calender.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 May 2023 06:43:06 GMT -->
 <head>
     <meta charset="utf-8"/>
@@ -320,20 +320,26 @@
 
     </div>
     <div class="page-select">
-        <a th:classappend="${offset == 1} ? 'disabled'"
+        <a th:if="${offset == 1}"
+           th:href="'#!'"
+           th:text="Prev"/>
+        <a th:if="${offset != 1}"
            th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
            th:href="${urlBuilder.replaceQueryParam('offset', offset - 1).build().toUriString()}"
            th:text="Prev"/>
 
         <a href="#" class="active" th:text="${offset}"></a>
-        <li th:if="${lastOffset >= offset + 1}"><a th:text="${offset+1}"
-                                                   th:href="@{${url} (offset = ${offset + 1}"/>
-        </li>
-        <li th:if="${lastOffset >= offset + 2}"><a th:text="${offset+2}"
-                                                   th:href="@{${url} (offset = ${offset + 2}"/>
-        </li>
-<!--        <a th:href="${(offset == lastOffset) ? '#!' : '/admin/staff_list?offset=' + (offset + 1)}"><button class="button"><i class="fa fa-arrow-right"></i></button></a>-->
-        <a th:classappend="${lastOffset < offset + 1} ? 'disabled'"
+<!--        <li th:if="${lastOffset >= offset + 1}"><a th:text="${offset+1}"-->
+<!--                                                   th:href="@{${url} (offset = ${offset + 1})}"/>-->
+<!--        </li>-->
+<!--        <li th:if="${lastOffset >= offset + 2}"><a th:text="${offset+2}"-->
+<!--                                                   th:href="@{${url} (offset = ${offset + 2})}"/>-->
+<!--        </li>-->
+        <a th:if="${isLastPage}"
+           th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
+           th:href="'#!'"
+           th:text="Next"/>
+        <a th:if="${!isLastPage}"
            th:with="urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}"
            th:href="${urlBuilder.replaceQueryParam('offset', offset + 1).build().toUriString()}"
            th:text="Next"/>
