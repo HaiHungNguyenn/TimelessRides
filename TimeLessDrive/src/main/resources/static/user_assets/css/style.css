@@ -3894,6 +3894,7 @@ body .meeting-history{
 	margin: 0;
 	padding: 20px;
 	background-color: #f2f2f2;
+	overflow-y: scroll;
 }
 
 .meeting-history h1 {
@@ -4242,4 +4243,5 @@ body .transaction-history {
 	cursor: none;
 	pointer-events: none;
 	background: #8d8d8d;
+	display: none;
 }
