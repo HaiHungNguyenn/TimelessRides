@@ -324,7 +324,7 @@ public class UserController {
         }
 
         ClientDto client = (ClientDto) session.getAttribute("client");
-        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0, 10));
+        List<OffMeetingDto> meetingList = service.getOffMeetingService().getOffMeetingsByClient(client, PageRequest.of(0, 100));
 
         modelAndView.addObject("meetingList", meetingList)
                 .addObject("errorMsg", errorMsg)

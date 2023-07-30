@@ -146,9 +146,8 @@ public class LogInController {
 
             service.getClientService().save(client);
 
-            modelAndView.addObject("loginMess", "We have just sent you a confirm email. PLease do one more step to register your account.")
-                    .addObject("status", "success")
-                    .setViewName("views/user/login");
+            modelAndView.setViewName("views/user/index");
+            session.setAttribute("client", service.getClientService().findByEmail(client.getEmail()));
         }
 
         return modelAndView;
