@@ -4237,3 +4237,9 @@ body .transaction-history {
 .body .profile-modal button:active {
 	background-color: #8f0b1d;
 }
+
+.car-history-btn.completed{
+	cursor: none;
+	pointer-events: none;
+	background: #8d8d8d;
+}

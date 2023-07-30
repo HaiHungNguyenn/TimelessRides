@@ -317,7 +317,7 @@
                     <div class="car-images">
                         <input type="file" id="car-image"
                                onchange="previewImages();" multiple
-                               accept="image/png, image/gif, image/jpeg" name="files" required>
+                               accept="image/png, image/gif, image/jpeg" name="files">
                         <label for="car-image">
                             <i class="fa fa-cloud-upload"></i><br>
                             To select multiple files, hold down the CTRL or SHIFT key while
@@ -539,6 +539,14 @@
         background.classList.remove("active");
     }));
 
+</script>
+<script>
+    let file = document.getElementsByName("files")[0].value;
+    console.log(file);
+    document.getElementById("myForm").addEventListener("submit", () => {
+        let files = document.getElementsByName("files")[0];
+        if(files.value.length==0) files.remove();
+    })
 </script>
 <!-- notification js-->
 <script src="../../admin_assets/js/metisMenu.js"></script>

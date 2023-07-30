@@ -459,9 +459,9 @@ public class UserController {
                 carImage.setCar(car);
                 carImageList.add(carImage);
             }
+            car.getCarImageList().addAll(carImageList);
         }
 
-        car.getCarImageList().addAll(carImageList);
         car.setName(carName);
         car.setPrice((Objects.equals(price, "")) ? 0 : Long.parseLong(price));
         car.setStatus(Status.AVAILABLE);

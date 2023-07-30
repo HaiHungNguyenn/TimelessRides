@@ -364,7 +364,7 @@
 <div class="pop-up">
     <div th:each="meeting : ${meetings}" name="meetingDates" th:value="${meeting.getMeetingDate()}"></div>
     <div th:each="meeting :  ${meetings}" name="meetingTimes" th:value="${meeting.getMeetingTime()}"></div>
-    <form id="booking-form" action="/car/book-meeting" onsubmit="return checkSubmit();">
+    <form id="booking-form" action="/car/book-meeting" onsubmit="return checkSlotSubmit();">
         <div role="main" class="form-all" style="background: white;">
             <h2 id="header_23" class="form-header" data-component="header">BOOK YOUR SESSION</h2>
             <div class="esc-button">&times;</div>

@@ -202,7 +202,7 @@
                     <div class="car-history-btn">
                         <a th:href="@{'/car-detail/' + ${post.getCar().getId()} }"><i class="fa fa-eye"></i> View</a>
                     </div>
-                    <div class="car-history-btn">
+                    <div class="car-history-btn" th:classappend="${post.getStatus()=='Completed' ? 'completed' : ''}">
                         <a th:href="@{/post-history/edit-post (id = ${post.getId()}) }"><i class="fa fa-list"></i> Edit</a>
                     </div>
                     <div class="car-history-btn">
